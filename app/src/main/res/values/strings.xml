@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">طلباتى</string>
+    <string name="title_activity_home">Home</string>
+    <string name="navigation_drawer_open">فتح</string>
+    <string name="navigation_drawer_close">إغلاق</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">الأعدادات</string>
+
+    <string-array name="test">
+        <item>سمك</item>
+        <item>لبن</item>
+        <item>تمر هندى</item>
+        <item>=D</item>
+    </string-array>
+
+    <string-array name="print">
+        <item>الحالى</item>
+        <item>من - إلى</item>
+        <item>تصدير الكل</item>
+    </string-array>
+
+    <string-array name="send_message">
+        <item>الكل</item>
+        <item>رساله نصيه</item>
+        <item>رساله عبر الإيميل</item>
+    </string-array>
+    <string-array name="order">
+        <item>الرقم</item>
+        <item>التاريخ</item>
+    </string-array>
+
+    <string-array name="delevry">
+        <item>ريفل</item>
+        <item>شركه شحن</item>
+        <item>موظف</item>
+    </string-array>
+</resources>

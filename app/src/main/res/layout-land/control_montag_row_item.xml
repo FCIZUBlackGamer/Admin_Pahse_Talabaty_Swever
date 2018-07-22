@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:isScrollContainer="true"
+            android:scrollbars="horizontal|vertical"
+            android:stretchColumns="0,1,2,3,4,5,6,7,8,9,10">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:background="@color/white">
+
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray" />
+
+                <RelativeLayout
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0">
+
+                    <ImageButton
+                        android:id="@+id/delete"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_margin="15dp"
+                        android:background="@drawable/button_delete"
+                        android:gravity="center"
+                        android:src="@drawable/delete"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+
+                    <ImageButton
+                        android:id="@+id/edit"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_margin="15dp"
+                        android:background="@drawable/button_shape"
+                        android:gravity="center"
+                        android:src="@drawable/edit"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray" />
+
+
+                <TextView
+                    android:id="@+id/emergencyammount"
+                    android:layout_width="160dp"
+                    android:maxLines="6"
+                    android:maxWidth="160dp"
+                    android:layout_height="match_parent"
+                    android:layout_column="1"
+                    android:gravity="center"
+                    android:text=" 20"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray" />
+
+                <TextView
+
+                    android:id="@+id/amount"
+                    android:layout_width="160dp"
+                    android:maxLines="6"
+                    android:maxWidth="160dp"
+                    android:layout_height="match_parent"
+                    android:layout_column="2"
+                    android:gravity="center"
+                    android:text=" 180"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray" />
+
+                <TextView
+                    android:id="@+id/price"
+                    android:layout_width="160dp"
+                    android:maxLines="6"
+                    android:maxWidth="160dp"
+                    android:layout_height="match_parent"
+                    android:layout_column="3"
+                    android:layout_span="1"
+                    android:gravity="center"
+                    android:text="15"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray" />
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="160dp"
+                    android:maxLines="6"
+                    android:maxWidth="160dp"
+                    android:layout_height="match_parent"
+                    android:layout_column="4"
+                    android:layout_span="1"
+                    android:gravity="center"
+                    android:text="بلح"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray" />
+
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="160dp"
+                    android:maxLines="6"
+                    android:maxWidth="160dp"
+                    android:layout_height="match_parent"
+                    android:layout_column="5"
+                    android:gravity="center"
+                    android:text="12:30 م"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray" />
+
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="160dp"
+                    android:maxLines="6"
+                    android:maxWidth="160dp"
+                    android:layout_height="match_parent"
+                    android:layout_column="6"
+                    android:gravity="center"
+                    android:text="12-10-2018"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray" />
+
+                <TextView
+                    android:id="@+id/num"
+                    android:layout_width="100dp"
+                    android:maxLines="6"
+                    android:maxWidth="160dp"
+                    android:layout_height="match_parent"
+                    android:layout_column="7"
+                    android:gravity="center"
+                    android:text="5"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray" />
+
+                <TextView
+                    android:id="@+id/id"
+                    android:layout_width="100dp"
+                    android:maxLines="6"
+                    android:maxWidth="160dp"
+                    android:layout_height="match_parent"
+                    android:layout_column="8"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray" />
+
+            </TableRow>
+        </TableLayout>
+    </HorizontalScrollView>
+</LinearLayout>
