@@ -284,7 +284,7 @@ public class NotificationToFriendTalabat extends Fragment {
                                 Talabat talabat = new Talabat
                                         ((x + 1) + "",
                                                 object1.getString("CustomerName"),
-                                                "",
+                                                object1.getString("ReqId"),
                                                 object1.getString("Id"),
                                                 object1.getString("Time"),
                                                 object1.getString("Date"),

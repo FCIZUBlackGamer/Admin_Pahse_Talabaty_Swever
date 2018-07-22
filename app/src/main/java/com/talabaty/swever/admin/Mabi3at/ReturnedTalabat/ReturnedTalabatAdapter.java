@@ -100,8 +100,8 @@ public class ReturnedTalabatAdapter extends RecyclerView.Adapter<ReturnedTalabat
         holder.return_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Todo: Action To Return Talab to New Talabat
 
+                accept(talabats.get(position).getNum());
             }
         });
 
@@ -732,5 +732,58 @@ public class ReturnedTalabatAdapter extends RecyclerView.Adapter<ReturnedTalabat
         RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, 2, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         stringRequest.setRetryPolicy(policy);
         requestQueue.add(stringRequest);
+    }
+
+
+    private void accept(final String id){
+        final ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.setMessage("جارى تنفيذ العمليه ...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/PreparationCancelToNewOrder",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        progressDialog.dismiss();
+
+                        if (response.equals("\"Success\"")) {
+                            Toast toast = Toast.makeText(context, "تمت تنفيذ العملية", Toast.LENGTH_SHORT);
+                            TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+                            v.setTextColor(Color.GREEN);
+                            toast.show();
+                        } else {
+                            Toast toast = Toast.makeText(context, "حدث خطأ اثناء اجراء العمليه", Toast.LENGTH_SHORT);
+                            TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+                            v.setTextColor(Color.RED);
+                            toast.show();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                if (error instanceof ServerError)
+                    Toast.makeText(context, "خطأ إثناء الاتصال بالخادم", Toast.LENGTH_SHORT).show();
+                else if (error instanceof NetworkError)
+                    Toast.makeText(context, "خطأ فى شبكه الانترنت", Toast.LENGTH_SHORT).show();
+                else if (error instanceof TimeoutError)
+                    Toast.makeText(context, "خطأ فى مده الانتظار", Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                HashMap hashMap = new HashMap();
+                hashMap.put("Id", id);
+                return hashMap;
+            }
+        };
+//        Volley.newRequestQueue(getActivity()).add(stringRequest);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                2,  // maxNumRetries = 2 means no retry
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Volley.newRequestQueue(context).add(stringRequest);
     }
 }

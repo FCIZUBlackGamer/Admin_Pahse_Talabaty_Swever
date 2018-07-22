@@ -97,10 +97,7 @@ public class NotificationTalabatAdapter extends RecyclerView.Adapter<Notificatio
             @Override
             public void onClick(View v) {
 
-                //Todo: Action Accept Talab
-
-
-
+                accept(talabats.get(position).getNum(),talabats.get(position).getReqId());
 
             }
         });
@@ -665,7 +662,7 @@ public class NotificationTalabatAdapter extends RecyclerView.Adapter<Notificatio
         return x;
     }
 
-    private void accept(final int id, final int reqId){
+    private void accept(final String id, final String reqId){
         final ProgressDialog progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("جارى تنفيذ العمليه ...");
         progressDialog.setCancelable(false);
@@ -676,26 +673,18 @@ public class NotificationTalabatAdapter extends RecyclerView.Adapter<Notificatio
                     public void onResponse(String response) {
 
                         progressDialog.dismiss();
-                        try {
-                            JSONObject object = new JSONObject(response);
-                            JSONArray array = object.getJSONArray("AccTDet");
-                            for (int x = 0; x < array.length(); x++) {
-                                JSONObject object1 = array.getJSONObject(x);
-                                DetailsModel model = new DetailsModel(
-                                        object1.getString("SampleProductId"),
-                                        object1.getString("SampleProductName"),
-                                        "علبه",
-                                        object1.getString("Amount")
-                                );
 
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                        if (response.equals("\"Success\"")) {
+                            Toast toast = Toast.makeText(context, "تمت تنفيذ العملية", Toast.LENGTH_SHORT);
+                            TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+                            v.setTextColor(Color.GREEN);
+                            toast.show();
+                        } else {
+                            Toast toast = Toast.makeText(context, "حدث خطأ اثناء اجراء العمليه", Toast.LENGTH_SHORT);
+                            TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+                            v.setTextColor(Color.RED);
+                            toast.show();
                         }
-
-                        adapter = new DetailsAdapter(context, detailsModels);
-                        recyclerView.setAdapter(adapter);
 
                     }
                 }, new Response.ErrorListener() {

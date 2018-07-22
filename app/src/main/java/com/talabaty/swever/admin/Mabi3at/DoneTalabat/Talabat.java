@@ -5,6 +5,7 @@ public class Talabat {
     String total, reason;
     String amount, price, emergency_amount;
     String duration, job_title, manage, place_name, time;
+    String reqId;
 
     public Talabat(String id, String name, String phone, String num, String estlam_time, String estlam_date, String address, String tasleem_time, String tasleem_date) {
         this.id = id;
@@ -51,10 +52,11 @@ public class Talabat {
         this.manage = manage;
     }
 
-    public Talabat(String id, String name, String date, String num, String estlam_time, String estlam_date, String address, String phone) {
+    public Talabat(String id, String name, String reqId, String num, String estlam_time, String estlam_date, String address, String phone) {
         this.id = id;
         this.name = name;
         this.phone = phone;
+        this.reqId = reqId;
         this.num = num;
         this.estlam_time = estlam_time;
         this.estlam_date = estlam_date;
@@ -152,5 +154,9 @@ public class Talabat {
 
     public String getTime() {
         return time;
+    }
+
+    public String getReqId() {
+        return reqId;
     }
 }
