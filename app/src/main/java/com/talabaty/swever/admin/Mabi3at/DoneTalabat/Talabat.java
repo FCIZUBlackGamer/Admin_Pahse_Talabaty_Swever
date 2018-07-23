@@ -19,8 +19,9 @@ public class Talabat {
         this.tasleem_date = tasleem_date;
     }
 
-    public Talabat(int x, String id, String name, String phone, String total, String estlam_time, String estlam_date, String address, String tasleem_time, String tasleem_date) {
+    public Talabat(String id, String num, String name, String phone, String total, String estlam_time, String estlam_date, String address, String tasleem_time, String tasleem_date) {
         this.id = id;
+        this.num = num;
         this.name = name;
         this.phone = phone;
         this.total = total;
@@ -63,8 +64,9 @@ public class Talabat {
         this.address = address;
     }
 
-    public Talabat(String id, String name, String total, String reason, String estlam_time, String estlam_date) {
+    public Talabat(String id, String num, String name, String total, String reason, String estlam_time, String estlam_date) {
         this.id = id;
+        this.num = num;
         this.name = name;
         this.total = total;
         this.reason = reason;

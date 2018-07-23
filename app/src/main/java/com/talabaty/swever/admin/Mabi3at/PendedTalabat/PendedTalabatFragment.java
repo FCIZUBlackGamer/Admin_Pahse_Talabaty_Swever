@@ -3,13 +3,17 @@ package com.talabaty.swever.admin.Mabi3at.PendedTalabat;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -81,7 +85,72 @@ public class PendedTalabatFragment extends Fragment {
         ((Mabi3atNavigator) getActivity())
                 .setActionBarTitle("المهام المعلقه");
 
+        temp_first = 0;
+        temp_last = 10;
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadData(item_num, "1");
+            }
+        });
 
+        order_alpha.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    orderDate("alpha");
+                }
+            }
+        });
+
+        order_up.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                order_alpha.setChecked(false);
+                if (order_up.getSelectedItem().toString().equals("الرقم")) {
+                    orderDate("up_num");
+                } else {
+                    orderDate("up_date");
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        order_down.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                order_alpha.setChecked(false);
+                if (order_down.getSelectedItem().toString().equals("الرقم")) {
+                    orderDate("down_num");
+                } else {
+                    orderDate("down_date");
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        last.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (page_num > 1) {
+                    loadData(item_num, "0");
+                } else {
+                    Snackbar.make(v, "بدايه الطلبات", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+            }
+        });
+
+        loadData(0, "1");
 
     }
 
@@ -178,7 +247,7 @@ public class PendedTalabatFragment extends Fragment {
             }
         }
 
-        adapter = new NewTalabatAdapter(getActivity(), talabats, temp_first, temp_last);
+        adapter = new PendedTalabatAdapter(getActivity(), talabats, temp_first, temp_last);
         recyclerView.setAdapter(adapter);
 
     }
@@ -199,6 +268,7 @@ public class PendedTalabatFragment extends Fragment {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        Log.e("Data",response);
                         int temp = 0;
                         progressDialog.dismiss();
                         try {

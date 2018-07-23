@@ -114,15 +114,24 @@ public class PendedTalabatAdapter extends RecyclerView.Adapter<PendedTalabatAdap
                 message_send = transfer.findViewById(R.id.send);
                 close = transfer.findViewById(R.id.close);
 
+                CountryList = new ArrayList<>();
+                indexOfCountryList = new ArrayList<>();
+
+                loadCompanyData();
+
                 TO.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        if (TO.getSelectedItem().toString().equals("الكل")) {
+                        if (TO.getSelectedItem().toString().equals("ريفل")) {
                             to.setVisibility(View.GONE);
-                        } else {
+                        } else if (TO.getSelectedItem().toString().equals("شركه شحن")){
                             to.setVisibility(View.VISIBLE);
-                            loadEmployeeData(indexOfCountryList.get(CountryList.indexOf(TO.getSelectedItem().toString())));
-
+                            loadCompanyTransfer("5");
+//                            Toast.makeText(context, indexOfCountryList.get(CountryList.indexOf(TO.getSelectedItem().toString())), Toast.LENGTH_SHORT).show();
+                        } else if (TO.getSelectedItem().toString().equals("موظف")){
+                            to.setVisibility(View.VISIBLE);
+                            loadEmployeeData("5");
+//                            Toast.makeText(context, indexOfCountryList.get(CountryList.indexOf(TO.getSelectedItem().toString())), Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -153,9 +162,9 @@ public class PendedTalabatAdapter extends RecyclerView.Adapter<PendedTalabatAdap
                     @Override
                     public void onClick(View v) {
                         if (TO.getSelectedItem().toString().equals("الكل")) {
-                            submitTaghez(dialog2,"الكل",Integer.parseInt(talabats.get(position).getNum()),"0",0 );
-                        }else {
-                            submitTaghez(dialog2,TO.getSelectedItem().toString(),Integer.parseInt(talabats.get(position).getNum()),indexOfCountryList.get(CountryList.indexOf(TO.getSelectedItem().toString())),Integer.parseInt(indexOfEmpoyeeList.get(EmpoyeeList.indexOf(to.getSelectedItem().toString()))) );
+                            submitTaghez(dialog2, "الكل", Integer.parseInt(talabats.get(position).getNum()), "0", 0);
+                        } else {
+                            submitTaghez(dialog2, TO.getSelectedItem().toString(), Integer.parseInt(talabats.get(position).getNum()), indexOfCountryList.get(CountryList.indexOf(TO.getSelectedItem().toString())), Integer.parseInt(indexOfEmpoyeeList.get(EmpoyeeList.indexOf(to.getSelectedItem().toString()))));
                         }
                     }
                 });
@@ -365,7 +374,7 @@ public class PendedTalabatAdapter extends RecyclerView.Adapter<PendedTalabatAdap
 //                Toast.makeText(context, "لا يتواجد اى بريد الكترونى هنا!", Toast.LENGTH_SHORT).show();
 //            }
 
-            submitMessage(message_content.getText().toString(),message_title.getText().toString(),message_template.getSelectedItem().toString(),1);
+            submitMessage(message_content.getText().toString(), message_title.getText().toString(), message_template.getSelectedItem().toString(), 1);
 
         } else if (message_type.getSelectedItem().toString().equals("رساله نصيه")) {
 
@@ -388,14 +397,35 @@ public class PendedTalabatAdapter extends RecyclerView.Adapter<PendedTalabatAdap
 //            } catch (android.content.ActivityNotFoundException ex) {
 //                Toast.makeText(context, "لا يتواجد اى بريد الكترونى هنا!", Toast.LENGTH_SHORT).show();
 //            }
-            submitMessage(message_content.getText().toString(),message_title.getText().toString(),message_template.getSelectedItem().toString(),3);
+            submitMessage(message_content.getText().toString(), message_title.getText().toString(), message_template.getSelectedItem().toString(), 3);
 
-        }else if (message_type.getSelectedItem().toString().equals("رساله عبر الإيميل")){
-            submitMessage(message_content.getText().toString(),message_title.getText().toString(),message_template.getSelectedItem().toString(),2);
+        } else if (message_type.getSelectedItem().toString().equals("رساله عبر الإيميل")) {
+            submitMessage(message_content.getText().toString(), message_title.getText().toString(), message_template.getSelectedItem().toString(), 2);
         }
 
         clearMessageView();
         dialog.dismiss();
+
+    }
+
+    private void loadCompanyData() {
+
+        CountryList = new ArrayList<>();
+        indexOfCountryList = new ArrayList<>();
+
+
+        CountryList.add("--اختر--");
+        indexOfCountryList.add("0");
+
+        CountryList.add("ريفل");
+        indexOfCountryList.add("1");
+        CountryList.add("شركه شحن");
+        indexOfCountryList.add("2");
+        CountryList.add("موظف");
+        indexOfCountryList.add("3");
+
+
+        TO.setAdapter(new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, CountryList));
 
     }
 
@@ -447,7 +477,7 @@ public class PendedTalabatAdapter extends RecyclerView.Adapter<PendedTalabatAdap
                                             "علبه",
                                             object1.getString("Amount")
                                     );
-                                    d.setText(Integer.parseInt(d.getText().toString())+ Integer.parseInt(object1.getString("Amount"))+"");
+                                    d.setText(Integer.parseInt(d.getText().toString()) + Integer.parseInt(object1.getString("Amount")) + "");
                                     detailsModels.add(model);
                                     c.setText(object1.getString("OrderId"));
                                 }
@@ -531,7 +561,7 @@ public class PendedTalabatAdapter extends RecyclerView.Adapter<PendedTalabatAdap
 
                                 c.setText(object1.getString("OrderId"));
                             }
-                            d.setText(amount+"");
+                            d.setText(amount + "");
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -573,11 +603,11 @@ public class PendedTalabatAdapter extends RecyclerView.Adapter<PendedTalabatAdap
 
     private void submitTaghez(final Dialog dialog, String x, int orderId, String regionId, int employeeId) {
         clearTaghezView();
-        if (x.equals("الكل")){
+        if (x.equals("الكل")) {
             submitTaghez(orderId);
 //            Toast.makeText(context,"OrderId: "+orderId+"\n",Toast.LENGTH_SHORT).show();
-        }else {
-            submitTaghez(orderId,Integer.parseInt(regionId),employeeId);
+        } else {
+            submitTaghez(orderId, Integer.parseInt(regionId), employeeId);
 //            Toast.makeText(context,"EmployeeId: "+employeeId+"\n"+
 //                    "OrderId: "+orderId+"\n"+
 //                    "RegionId: "+regionId,Toast.LENGTH_SHORT).show();
@@ -586,7 +616,7 @@ public class PendedTalabatAdapter extends RecyclerView.Adapter<PendedTalabatAdap
 
     }
 
-    private void submitTaghez(final int orderId,final int regionId,final int employeeId) {
+    private void submitTaghez(final int orderId, final int regionId, final int employeeId) {
 
         final ProgressDialog progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("انتظر من فضلك ...");
@@ -627,7 +657,7 @@ public class PendedTalabatAdapter extends RecyclerView.Adapter<PendedTalabatAdap
             @Override
             protected Map<String, String> getParams() {
                 HashMap hashMap = new HashMap();
-                hashMap.put("Region", regionId+"");
+                hashMap.put("Region", regionId + "");
                 hashMap.put("Id", orderId + "");
                 hashMap.put("CustomerId", employeeId + "");
                 return hashMap;
@@ -683,8 +713,6 @@ public class PendedTalabatAdapter extends RecyclerView.Adapter<PendedTalabatAdap
             protected Map<String, String> getParams() {
                 HashMap hashMap = new HashMap();
                 hashMap.put("Id", orderId + "");
-                hashMap.put("Region", "0");
-                hashMap.put("CustomerId", "0");
                 return hashMap;
             }
         };
@@ -699,6 +727,8 @@ public class PendedTalabatAdapter extends RecyclerView.Adapter<PendedTalabatAdap
 
     private void loadEmployeeData(final String id) {
 
+        EmpoyeeList = new ArrayList<>();
+        indexOfEmpoyeeList = new ArrayList<>();
 
         if (EmpoyeeList.size()>0){
             for (int x=0; x<EmpoyeeList.size(); x++){
@@ -740,11 +770,62 @@ public class PendedTalabatAdapter extends RecyclerView.Adapter<PendedTalabatAdap
                 else if (error instanceof TimeoutError)
                     Toast.makeText(context, "خطأ فى مده الانتظار", Toast.LENGTH_SHORT).show();
             }
+        });
+        int socketTimeout = 30000;
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, 2, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        stringRequest.setRetryPolicy(policy);
+        requestQueue.add(stringRequest);
+    }
+
+    private void loadCompanyTransfer(final String id) {
+
+        EmpoyeeList = new ArrayList<>();
+        indexOfEmpoyeeList = new ArrayList<>();
+
+        if (EmpoyeeList.size() > 0) {
+            for (int x = 0; x < EmpoyeeList.size(); x++) {
+                EmpoyeeList.remove(x);
+                indexOfEmpoyeeList.remove(x);
+            }
+        }
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/SelectCompanyCharge", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+
+                    JSONArray jsonArray = jsonObject.getJSONArray("CompanyCharge");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                        String fname = jsonObject1.getString("Name");
+                        String id = jsonObject1.getString("Id");
+                        EmpoyeeList.add(fname);
+                        indexOfEmpoyeeList.add(id);
+
+                    }
+
+                    to.setAdapter(new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, EmpoyeeList));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (error instanceof ServerError)
+                    Toast.makeText(context, "خطأ إثناء الاتصال بالخادم", Toast.LENGTH_SHORT).show();
+                else if (error instanceof NetworkError)
+                    Toast.makeText(context, "خطأ فى شبكه الانترنت", Toast.LENGTH_SHORT).show();
+                else if (error instanceof TimeoutError)
+                    Toast.makeText(context, "خطأ فى مده الانتظار", Toast.LENGTH_SHORT).show();
+            }
         }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String, String> hashMap = new HashMap<>();
-                hashMap.put("Id", id);
+                hashMap.put("UserId", id);
                 return hashMap;
             }
         };
@@ -978,7 +1059,7 @@ public class PendedTalabatAdapter extends RecyclerView.Adapter<PendedTalabatAdap
         requestQueue.add(stringRequest);
     }
 
-    private void accept(final String id){
+    private void accept(final String id) {
         final ProgressDialog progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("جارى تنفيذ العمليه ...");
         progressDialog.setCancelable(false);
@@ -1019,6 +1100,7 @@ public class PendedTalabatAdapter extends RecyclerView.Adapter<PendedTalabatAdap
             protected Map<String, String> getParams() {
                 HashMap hashMap = new HashMap();
                 hashMap.put("Id", id);
+                hashMap.put("UserId", "5");
                 return hashMap;
             }
         };

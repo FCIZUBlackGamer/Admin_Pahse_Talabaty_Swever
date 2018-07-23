@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -516,7 +517,7 @@ public class NotificationTalabatAdapter extends RecyclerView.Adapter<Notificatio
             }
         }
 
-        if (x != -1) {
+        if (state.equals("0")) {
             final ProgressDialog progressDialog = new ProgressDialog(context);
             progressDialog.setMessage("جارى تحميل البيانات ...");
             progressDialog.setCancelable(false);
@@ -546,6 +547,7 @@ public class NotificationTalabatAdapter extends RecyclerView.Adapter<Notificatio
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
+                            Log.e("detailsModels",detailsModels.size()+"");
 
                             adapter = new DetailsAdapter(context, detailsModels);
                             recyclerView.setAdapter(adapter);
@@ -703,6 +705,7 @@ public class NotificationTalabatAdapter extends RecyclerView.Adapter<Notificatio
             protected Map<String, String> getParams() {
                 HashMap hashMap = new HashMap();
                 hashMap.put("Id", id);
+                hashMap.put("UserId", "5");
                 hashMap.put("ReqId", reqId);
                 return hashMap;
             }

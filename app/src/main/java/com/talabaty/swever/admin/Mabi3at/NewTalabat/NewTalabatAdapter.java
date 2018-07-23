@@ -293,6 +293,9 @@ public class NewTalabatAdapter extends RecyclerView.Adapter<NewTalabatAdapter.Vh
                         message_send = transfer.findViewById(R.id.send);
                         close = transfer.findViewById(R.id.close);
 
+                        CountryList = new ArrayList<>();
+                        indexOfCountryList = new ArrayList<>();
+                        loadCountryData();
                         TO.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -1193,8 +1196,6 @@ public class NewTalabatAdapter extends RecyclerView.Adapter<NewTalabatAdapter.Vh
             protected Map<String, String> getParams() {
                 HashMap hashMap = new HashMap();
                 hashMap.put("Id", orderId + "");
-                hashMap.put("Region", "0");
-                hashMap.put("CustomerId", "0");
                 return hashMap;
             }
         };

@@ -107,12 +107,19 @@ public class ReadyTalabatAdapter extends RecyclerView.Adapter<ReadyTalabatAdapte
             public void onClick(View v) {
                 final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+                refuseOptions = new ArrayList<>();
+                indexOfrefuseOptions = new ArrayList<>();
                 rejection = inflater.inflate(R.layout.dialog_reject_talabat, null);
+
+                message_type = rejection.findViewById(R.id.messagetype);
+                message_content = rejection.findViewById(R.id.messagecontent);
                 message_send = rejection.findViewById(R.id.send);
                 close = rejection.findViewById(R.id.close);
 
+                loadSpinnerData();
+
                 final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle("إلغاء التجهيز")
+                builder.setTitle("رفض")
                         .setCancelable(false)
                         .setView(rejection)
                         .setNegativeButton("اغلاق", new DialogInterface.OnClickListener() {
@@ -123,12 +130,17 @@ public class ReadyTalabatAdapter extends RecyclerView.Adapter<ReadyTalabatAdapte
                                 dialog.dismiss();
                             }
                         });
-                final AlertDialog dialog = builder.create();
-                dialog.show();
-                dialog.getWindow().setLayout(1200, 800);
+                final AlertDialog dialog2 = builder.create();
+                dialog2.show();
+                dialog2.getWindow().setLayout(1200, 800);
 
-                closeReject(dialog);
-                submitReject(dialog);
+                closeReject(dialog2);
+                message_send.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        submitReject(dialog2, message_type.getSelectedItem().toString(), talabats.get(position).getNum());
+                    }
+                });
 
 
             }
@@ -320,6 +332,73 @@ public class ReadyTalabatAdapter extends RecyclerView.Adapter<ReadyTalabatAdapte
 
     }
 
+    private void submitReject(AlertDialog dialog, String s, String num) {
+        clearRejectView();
+        int rejectId = Integer.parseInt(indexOfrefuseOptions.get(refuseOptions.indexOf(s)));
+        int orderId = Integer.parseInt(num);
+        submitRefuse(orderId, message_content.getText().toString());
+        Toast.makeText(context,"Message: "+message_content.getText().toString()+"\n"+
+                "OrderId: "+orderId+"\n"+
+                "RejectId: "+rejectId,Toast.LENGTH_SHORT).show();
+        dialog.dismiss();
+
+    }
+
+    private void submitRefuse(final int Id, final String RejectId) {
+
+        final ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.setMessage("انتظر من فضلك ...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/PreparationCancel",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        progressDialog.dismiss();
+                        if (response.equals("\"Success\"")) {
+
+                            Toast toast = Toast.makeText(context, "تمت تنفيذ العملية", Toast.LENGTH_SHORT);
+                            TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+                            v.setTextColor(Color.GREEN);
+                            toast.show();
+                        } else {
+                            Toast toast = Toast.makeText(context, "حدث خطأ اثناء اجراء العمليه", Toast.LENGTH_SHORT);
+                            TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+                            v.setTextColor(Color.RED);
+                            toast.show();
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                if (error instanceof ServerError)
+                    Toast.makeText(context, "خطأ إثناء الاتصال بالخادم", Toast.LENGTH_SHORT).show();
+                else if (error instanceof NetworkError)
+                    Toast.makeText(context, "خطأ فى شبكه الانترنت", Toast.LENGTH_SHORT).show();
+                else if (error instanceof TimeoutError)
+                    Toast.makeText(context, "خطأ فى مده الانتظار", Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                HashMap hashMap = new HashMap();
+                hashMap.put("Id", Id + "");
+                hashMap.put("PrepCancel", RejectId + "");
+                return hashMap;
+            }
+        };
+//        Volley.newRequestQueue(getActivity()).add(stringRequest);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                2,  // maxNumRetries = 2 means no retry
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Volley.newRequestQueue(context).add(stringRequest);
+
+    }
+
     private void submitMessage(AlertDialog dialog, String c, int s) {
 
         if (message_type.getSelectedItem().toString().equals("الكل")) {
@@ -370,6 +449,50 @@ public class ReadyTalabatAdapter extends RecyclerView.Adapter<ReadyTalabatAdapte
         clearMessageView();
         dialog.dismiss();
 
+    }
+
+    private void loadSpinnerData() {
+
+        refuseOptions = new ArrayList<>();
+        indexOfrefuseOptions = new ArrayList<>();
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/SelectRefuse", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+
+                    JSONArray jsonArray = jsonObject.getJSONArray("RejectReasons");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                        String name = jsonObject1.getString("Name");
+                        String id = jsonObject1.getString("Id");
+                        indexOfrefuseOptions.add(id);
+                        refuseOptions.add(name);
+
+                    }
+
+                    message_type.setAdapter(new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, refuseOptions));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (error instanceof ServerError)
+                    Toast.makeText(context, "خطأ إثناء الاتصال بالخادم", Toast.LENGTH_SHORT).show();
+                else if (error instanceof NetworkError)
+                    Toast.makeText(context, "خطأ فى شبكه الانترنت", Toast.LENGTH_SHORT).show();
+                else if (error instanceof TimeoutError)
+                    Toast.makeText(context, "خطأ فى مده الانتظار", Toast.LENGTH_SHORT).show();
+            }
+        });
+        int socketTimeout = 30000;
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, 2, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        stringRequest.setRetryPolicy(policy);
+        requestQueue.add(stringRequest);
     }
 
     private int loadData(final int item, final String state, final TextView c, final TextView d) {
@@ -687,17 +810,6 @@ public class ReadyTalabatAdapter extends RecyclerView.Adapter<ReadyTalabatAdapte
         });
     }
 
-    private void submitReject(final Dialog dialog) {
-        message_send.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clearRejectView();
-                dialog.dismiss();
-            }
-        });
-    }
-
-
     private void clearDetailView() {
         if (details != null) {
             ViewGroup parent = (ViewGroup) details.getParent();
@@ -737,7 +849,7 @@ public class ReadyTalabatAdapter extends RecyclerView.Adapter<ReadyTalabatAdapte
 
                         progressDialog.dismiss();
 
-                        if (!response.equals("\"خطاء أثناء الحفظ\"")) {
+                        if (response.equals("\"Success\"")) {
                             Toast toast = Toast.makeText(context, "تمت تنفيذ العملية", Toast.LENGTH_SHORT);
                             TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
                             v.setTextColor(Color.GREEN);
@@ -766,6 +878,7 @@ public class ReadyTalabatAdapter extends RecyclerView.Adapter<ReadyTalabatAdapte
             protected Map<String, String> getParams() {
                 HashMap hashMap = new HashMap();
                 hashMap.put("Id", id);
+                hashMap.put("UserId", "5");
                 return hashMap;
             }
         };

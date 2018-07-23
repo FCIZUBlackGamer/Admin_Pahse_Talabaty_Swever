@@ -372,19 +372,38 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/colorPrimaryLight"
-                        android:text="ترتيب ابجدى" />
+                        android:text="ترتيب ابجدى"
+                        android:id="@+id/order_alpha"/>
 
-                    <CheckBox
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ترتيب تصاعدى"
+                        android:textSize="18sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:padding="2dp"/>
+
+                    <Spinner
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/colorPrimaryLight"
-                        android:text="ترتيب تصاعدى" />
+                        android:entries="@array/order"
+                        android:id="@+id/order_up"/>
 
-                    <CheckBox
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ترتيب تنازلى"
+                        android:textSize="18sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:padding="2dp"/>
+
+                    <Spinner
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/colorPrimaryLight"
-                        android:text="ترتيب تنازلى" />
+                        android:entries="@array/order"
+                        android:id="@+id/order_down"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -406,24 +425,36 @@
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:background="@color/colorPrimaryLight"
-                    android:text="طباعة" />
+                    android:background="@drawable/button_shape"
+                    android:text="تصدير pdf"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:padding="5dp"/>
 
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:background="@color/yellow"
-                    android:text="تصدير ورد" />
+                    android:background="@drawable/button_shape"
+                    android:text="تصدير ورد"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:padding="5dp"/>
 
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:background="@color/redlight"
-                    android:text="تصدير اكسيل" />
+                    android:background="@drawable/button_shape"
+                    android:text="تصدير إكسل"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:padding="5dp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -440,6 +471,7 @@
                     android:layout_margin="5dp"
                     android:layout_marginEnd="3dp"
                     android:text="التالى"
+                    android:id="@+id/next"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -465,6 +497,7 @@
                         android:layout_marginTop="5dp"
                         android:elevation="7dp"
                         android:text="2"
+                        android:id="@+id/item_num"
                         android:textAlignment="center"
                         android:textColor="@color/red"
                         android:textSize="25sp"
@@ -478,6 +511,7 @@
                     android:layout_margin="5dp"
                     android:layout_marginStart="3dp"
                     android:text="السابق"
+                    android:id="@+id/previous"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18sp"
                     android:textStyle="bold" />

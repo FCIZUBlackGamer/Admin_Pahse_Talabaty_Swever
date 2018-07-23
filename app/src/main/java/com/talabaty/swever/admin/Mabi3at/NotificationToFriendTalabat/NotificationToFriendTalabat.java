@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -247,7 +248,7 @@ public class NotificationToFriendTalabat extends Fragment {
             }
         }
 
-        adapter = new NewTalabatAdapter(getActivity(), talabats, temp_first, temp_last);
+        adapter = new NotificationTalabatAdapter(getActivity(), talabats, temp_first, temp_last);
         recyclerView.setAdapter(adapter);
 
     }
@@ -269,16 +270,21 @@ public class NotificationToFriendTalabat extends Fragment {
                     @Override
                     public void onResponse(String response) {
                         int temp = 0;
+                        Log.e("TransportOrder",response);
+
                         progressDialog.dismiss();
                         try {
 
                             JSONObject object = new JSONObject(response);
                             JSONArray array = object.getJSONArray("TransportOrder");
+                            Log.e("array.length()",array.length()+"");
                             for (int x = 0; x < array.length(); x++) {
                                 JSONObject object1 = array.getJSONObject(x);
+                                Log.e("x",x+"");
                                 if (x == 0) {
                                     temp_first = Integer.parseInt(object1.getString("Id"));
-                                } else if (x == array.length() - 1) {
+                                }
+                                if (x == array.length() - 1) {
                                     temp_last = Integer.parseInt(object1.getString("Id"));
                                 }
                                 Talabat talabat = new Talabat
@@ -298,7 +304,8 @@ public class NotificationToFriendTalabat extends Fragment {
                                 holder_alpha.put(object1.getString("CustomerName"), talabat);
                                 holder_date.put(object1.getString("Date") + " " + object1.getString("Time"), talabat);
 
-                                talabats.add(talabat);
+//                                talabats.add(talabat);
+                                Log.e("talabats.length()",talabats.size()+"");
                                 temp = Integer.parseInt(object1.getString("Id"));
                             }
                             if (r.equals("1")) {

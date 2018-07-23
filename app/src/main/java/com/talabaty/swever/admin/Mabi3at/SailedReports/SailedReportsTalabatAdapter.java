@@ -33,8 +33,7 @@ public class SailedReportsTalabatAdapter extends RecyclerView.Adapter<SailedRepo
     @Override
     public void onBindViewHolder(@NonNull Vholder holder, final int position) {
 
-
-        holder.id.setText(talabats.get(position).getId());
+        holder.id.setText(talabats.get(position).getNum());
         holder.name.setText(talabats.get(position).getName());
         holder.total.setText(talabats.get(position).getTotal());
         holder.estilam_date.setText(talabats.get(position).getEstlam_date());

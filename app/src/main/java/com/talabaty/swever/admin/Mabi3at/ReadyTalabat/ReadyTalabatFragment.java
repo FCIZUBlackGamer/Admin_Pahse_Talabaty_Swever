@@ -188,7 +188,7 @@ public class ReadyTalabatFragment extends Fragment {
             Iterator myVeryOwnIterator = holder_num.keySet().iterator();
             while (myVeryOwnIterator.hasNext()) {
                 String key = (String) myVeryOwnIterator.next();
-                num.add(holder_alpha.get(key).getNum());
+                num.add(holder_num.get(key).getNum());
             }
 
             Collections.sort(num);
@@ -221,13 +221,13 @@ public class ReadyTalabatFragment extends Fragment {
             Iterator myVeryOwnIterator = holder_num.keySet().iterator();
             while (myVeryOwnIterator.hasNext()) {
                 String key = (String) myVeryOwnIterator.next();
-                num.add(holder_alpha.get(key).getNum());
+                num.add(holder_num.get(key).getNum());
             }
 
             Collections.sort(num);
 
             // Fill New Data
-            for (int x = num.size()-1 ; x >= 0 ; x--) {
+            for (int x = num.size() - 1; x >= 0; x--) {
                 talabats.add(holder_num.get(num.get(x)));
             }
 
@@ -243,7 +243,7 @@ public class ReadyTalabatFragment extends Fragment {
             Collections.sort(datetime);
 
             // Fill New Data
-            for (int x = datetime.size()-1; x >= 0; x--) {
+            for (int x = datetime.size() - 1; x >= 0; x--) {
                 talabats.add(holder_date.get(datetime.get(x)));
             }
         }
@@ -273,6 +273,12 @@ public class ReadyTalabatFragment extends Fragment {
                         progressDialog.dismiss();
                         try {
 
+                            if (holder_alpha.size() > 1)
+                                for (int i = 0; i < holder_alpha.size(); i++) {
+                                    holder_alpha.remove(i);
+                                    holder_date.remove(i);
+                                    holder_num.remove(i);
+                                }
                             JSONObject object = new JSONObject(response);
                             JSONArray array = object.getJSONArray("PreparationOrder");
                             for (int x = 0; x < array.length(); x++) {
@@ -292,6 +298,7 @@ public class ReadyTalabatFragment extends Fragment {
                                                 object1.getString("Address"),
                                                 object1.getString("Phone")
                                         );
+
 
                                 // Fill Data For Sort in orderDate()
                                 holder_num.put(object1.getString("Id"), talabat);
