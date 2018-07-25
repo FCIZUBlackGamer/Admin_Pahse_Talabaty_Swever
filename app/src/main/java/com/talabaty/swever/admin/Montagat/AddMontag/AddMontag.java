@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import android.widget.CompoundButton;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.google.gson.Gson;
 import com.talabaty.swever.admin.Montagat.FragmentMontag;
 import com.talabaty.swever.admin.R;
 
@@ -35,6 +37,9 @@ public class AddMontag extends Fragment implements CompoundButton.OnCheckedChang
     ToggleButton size[];
     static int color = 0xffffff00;
     FragmentManager fragmentManager;
+    Button save;
+    Sanf sanf;
+    List<String> colorStrings;
 
 
     @Nullable
@@ -55,6 +60,8 @@ public class AddMontag extends Fragment implements CompoundButton.OnCheckedChang
         size[5] = view.findViewById(R.id.xxxl_size);
         back = view.findViewById(R.id.back);
         choose_color = view.findViewById(R.id.choose_color);
+        save = view.findViewById(R.id.save);
+        colorStrings = new ArrayList<>();
         return view;
     }
 
@@ -67,10 +74,21 @@ public class AddMontag extends Fragment implements CompoundButton.OnCheckedChang
         for (int x=0; x<size.length; x++){
             size[x].setOnCheckedChangeListener(this);
         }
+        sanf = new Sanf("fddsg","sf","asdgf","adsg","asdg","dsag","gsda","dsag","dsga");
         choose_color.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openDialog(false);
+            }
+        });
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Gson gson = new Gson();
+                sanf.setColor_rec(colorStrings);
+                final String jsonInString = gson.toJson(sanf);
+                Log.e("Data",jsonInString);
             }
         });
 
@@ -89,6 +107,7 @@ public class AddMontag extends Fragment implements CompoundButton.OnCheckedChang
             public void onOk(AmbilWarnaDialog dialog, int color) {
                 Toast.makeText(getActivity(), "ok", Toast.LENGTH_SHORT).show();
                 AddMontag.color = color;
+                colorStrings.add(String.valueOf(color));
                 displayColor(color);
             }
 

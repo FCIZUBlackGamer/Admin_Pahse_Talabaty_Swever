@@ -37,6 +37,7 @@
                     android:layout_height="wrap_content"
                     android:text="أسم العميل"
                     android:textAlignment="center"
+
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -45,40 +46,41 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
+                    android:id="@+id/client_name"
                     android:entries="@array/test">
 
                 </Spinner>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:orientation="horizontal">
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_margin="5dp"-->
+                    <!--android:orientation="horizontal">-->
 
-                    <EditText
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_weight="4"
-                        android:background="@color/white"
-                        android:hint="باركود الصنف"
-                        android:inputType="number"
-                        android:paddingEnd="10dp"
-                        android:paddingStart="10dp"
-                        android:textColorHint="@color/gray"
-                        android:textSize="20sp" />
+                    <!--<EditText-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginStart="20dp"-->
+                        <!--android:layout_weight="4"-->
+                        <!--android:background="@color/white"-->
+                        <!--android:hint="باركود الصنف"-->
+                        <!--android:inputType="number"-->
+                        <!--android:paddingEnd="10dp"-->
+                        <!--android:paddingStart="10dp"-->
+                        <!--android:textColorHint="@color/gray"-->
+                        <!--android:textSize="20sp" />-->
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="رقم الصنف"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                    <!--<TextView-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:text="رقم الصنف"-->
+                        <!--android:textAlignment="center"-->
+                        <!--android:textColor="@color/colorPrimaryDark"-->
+                        <!--android:textSize="20sp"-->
+                        <!--android:textStyle="bold" />-->
 
-                </LinearLayout>
+                <!--</LinearLayout>-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -231,6 +233,7 @@
                         android:layout_toLeftOf="@id/all"
                         android:background="@color/colorAccent"
                         android:text="بحث"
+                        android:id="@+id/search"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="18sp"

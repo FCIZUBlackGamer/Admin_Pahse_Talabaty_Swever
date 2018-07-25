@@ -8,13 +8,13 @@ public class SearchModel {
     @Expose
     String CustomerId;
 
-    @SerializedName("From")
+    @SerializedName("ShopId")
     @Expose
-    String        From;
+    String        ShopId;
 
-    @SerializedName("To")
+    @SerializedName("UserId")
     @Expose
-    String       To;
+    String       UserId;
 
     @SerializedName("FromReceived")
     @Expose
@@ -31,44 +31,56 @@ public class SearchModel {
     @SerializedName("ProductId")
     @Expose
     String      ProductId;
-    int x;
+
+    @SerializedName("x")
+    @Expose
+    String      x;
+
+    @SerializedName("type")
+    @Expose
+    String      type;
 
 
-    public SearchModel(String customerId){
+    public SearchModel(String customerId, String shopId, String userId, String x, String type){
         CustomerId = customerId;
+        ShopId = shopId;
+        UserId = userId;
+        this.x = x;
+        this.type = type;
     }
-    public SearchModel(String customerId, String from, String to) {
-        CustomerId = customerId;
-        From = from;
-        To = to;
-    }
-
-
-    public SearchModel(String from, String to, String productId, int x) {
-        From = from;
-        To = to;
-        ProductId = productId;
-    }
-
-    public SearchModel(String customerId, String from, String to, String fromReceived, String toReceived) {
-        CustomerId = customerId;
-        From = from;
-        To = to;
-        FromReceived = fromReceived;
-        ToReceived = toReceived;
+    public SearchModel(String shopId, String userId, String x, String type) {
+        ShopId = shopId;
+        UserId = userId;
+        this.x = x;
+        this.type = type;
     }
 
 
-
-    public SearchModel(String customerId, String from, String to, String fromReceived, String toReceived, String barcode, String productId) {
-        CustomerId = customerId;
-        From = from;
-        To = to;
-        FromReceived = fromReceived;
-        ToReceived = toReceived;
-        Barcode = barcode;
-        ProductId = productId;
-    }
+//    public SearchModel(String from, String to, String productId, int x) {
+//        From = from;
+//        To = to;
+//        ProductId = productId;
+//    }
+//
+//    public SearchModel(String customerId, String from, String to, String fromReceived, String toReceived) {
+//        CustomerId = customerId;
+//        From = from;
+//        To = to;
+//        FromReceived = fromReceived;
+//        ToReceived = toReceived;
+//    }
+//
+//
+//
+//    public SearchModel(String customerId, String from, String to, String fromReceived, String toReceived, String barcode, String productId) {
+//        CustomerId = customerId;
+//        From = from;
+//        To = to;
+//        FromReceived = fromReceived;
+//        ToReceived = toReceived;
+//        Barcode = barcode;
+//        ProductId = productId;
+//    }
 
     public String getBarcode() {
         return Barcode;
@@ -78,9 +90,6 @@ public class SearchModel {
         return CustomerId;
     }
 
-    public String getFrom() {
-        return From;
-    }
 
     public String getFromReceived() {
         return FromReceived;
@@ -90,11 +99,23 @@ public class SearchModel {
         return ProductId;
     }
 
-    public String getTo() {
-        return To;
-    }
-
     public String getToReceived() {
         return ToReceived;
+    }
+
+    public String getShopId() {
+        return ShopId;
+    }
+
+    public String getUserId() {
+        return UserId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getX() {
+        return x;
     }
 }

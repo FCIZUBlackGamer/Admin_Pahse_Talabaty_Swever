@@ -10,10 +10,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -26,16 +28,20 @@ import android.widget.Toast;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 import com.talabaty.swever.admin.Mabi3at.DoneTalabat.Talabat;
 import com.talabaty.swever.admin.Mabi3at.Mabi3atNavigator;
 import com.talabaty.swever.admin.Mabi3at.NewTalabat.NewTalabatAdapter;
 import com.talabaty.swever.admin.Mabi3at.RejectedReports.RejectedReportsTalabatAdapter;
+import com.talabaty.swever.admin.Mabi3at.SearchModel;
 import com.talabaty.swever.admin.R;
 
 import org.json.JSONArray;
@@ -67,7 +73,9 @@ public class SailedReports extends Fragment {
     HashMap<String, Talabat> holder_alpha, holder_date, holder_num;
     CheckBox order_alpha;
     Spinner order_up, order_down;
-    Button show_all;
+    Button show_all, search;
+    Spinner client;
+    ArrayList<String> EmpoyeeList, indexOfEmpoyeeList;
 
     @Nullable
     @Override
@@ -91,6 +99,9 @@ public class SailedReports extends Fragment {
         order_up = view.findViewById(R.id.order_up);
         order_down = view.findViewById(R.id.order_down);
         show_all = view.findViewById(R.id.all);
+        search = view.findViewById(R.id.search);
+        client = view.findViewById(R.id.client_name);
+
         return view;
     }
 
@@ -104,17 +115,54 @@ public class SailedReports extends Fragment {
         temp_first = 0;
         temp_last = 10;
 
+        loadEmployeeData();
         show_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadData(0,"1");
+                loadData("3","5",0,1);
+            }
+        });
+
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                mAPIService = ApiUtils.getAPIService();
+                if ((!to_talab.getText().toString().isEmpty() && !from_talab.getText().toString().isEmpty()) ||
+                        (!from_taslem.getText().toString().isEmpty() && !to_tasleem.getText().toString().isEmpty())){
+                    SearchModel Search = new SearchModel("3","5","0","1");
+                    loadData(Search,from_talab.getText().toString(),to_talab.getText().toString(),from_taslem.getText().toString(),to_tasleem.getText().toString());
+                }else {
+                    SearchModel Search = new SearchModel(indexOfEmpoyeeList.get(EmpoyeeList.indexOf(client.getSelectedItem().toString())),"3","5","0","1");
+                    loadData(Search);
+//                    APIService apiService = ApiUtils.getAPIService();
+//                    Call<SearchModel> call = apiService.Search(Search);
+//                    call.enqueue(new Callback<SearchModel>() {
+//                        @Override
+//                        public void onResponse(Call<SearchModel> call, retrofit2.Response<SearchModel> response) {
+//                            if(response.isSuccessful()) {
+////                    response.body().toString());
+//                                Log.e("post submitted " , response.body().toString());
+//                                Toast.makeText(getActivity(),response.body().toString(),Toast.LENGTH_SHORT).show();
+//                            }else {
+//                                Toast.makeText(getActivity(),"Error",Toast.LENGTH_SHORT).show();
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onFailure(Call<SearchModel> call, Throwable t) {
+////                            Toast.makeText(getActivity(),"Error",Toast.LENGTH_SHORT).show();
+//                            call.cancel();
+//                        }
+//                    });
+//                    loadData(indexOfEmpoyeeList.get(EmpoyeeList.indexOf(client.getSelectedItem().toString())),"0");
+                }
             }
         });
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadData(item_num, "1");
+                loadData("3", "5",item_num,1);
             }
         });
 
@@ -161,12 +209,11 @@ public class SailedReports extends Fragment {
             }
         });
 
-
         last.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (page_num > 1) {
-                    loadData(item_num, "0");
+                    loadData("3", "5",item_num,0);
                 } else {
                     Snackbar.make(v, "بدايه الطلبات", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
@@ -174,7 +221,7 @@ public class SailedReports extends Fragment {
             }
         });
 
-        loadData(0, "1");
+        loadData( "3","5",0,1);
 
         from_talab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -198,7 +245,7 @@ public class SailedReports extends Fragment {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month = month + 1;
-                from_talab.setText(dayOfMonth+"-"+month+"-"+year);
+                from_talab.setText(year + "/" + month +"/" + dayOfMonth);
             }
         };
 
@@ -224,7 +271,7 @@ public class SailedReports extends Fragment {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month = month + 1;
-                to_talab.setText(dayOfMonth+"-"+month+"-"+year);
+                to_talab.setText(year + "/" + month +"/" + dayOfMonth);
             }
         };
 
@@ -250,7 +297,7 @@ public class SailedReports extends Fragment {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month = month + 1;
-                from_taslem.setText(dayOfMonth+"-"+month+"-"+year);
+                from_taslem.setText(year + "/" + month +"/" + dayOfMonth);
             }
         };
 
@@ -276,11 +323,63 @@ public class SailedReports extends Fragment {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month = month + 1;
-                to_tasleem.setText(dayOfMonth+"-"+month+"-"+year);
+                to_tasleem.setText(year + "/" + month +"/" + dayOfMonth);
             }
         };
 
 
+    }
+
+    private void loadEmployeeData() {
+
+        EmpoyeeList = new ArrayList<>();
+        indexOfEmpoyeeList = new ArrayList<>();
+
+        if (EmpoyeeList.size()>0){
+            for (int x=0; x<EmpoyeeList.size(); x++){
+                EmpoyeeList.remove(x);
+                indexOfEmpoyeeList.remove(x);
+            }
+        }
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/SelectCustomers", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+
+                    JSONArray jsonArray = jsonObject.getJSONArray("Customers");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                        String fname = jsonObject1.getString("FirstName");
+                        String lname = jsonObject1.getString("LastName");
+                        String id = jsonObject1.getString("Id");
+                        EmpoyeeList.add(fname + " " + lname);
+                        indexOfEmpoyeeList.add(id);
+
+                    }
+
+                    client.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, EmpoyeeList));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (error instanceof ServerError)
+                    Toast.makeText(getActivity(), "خطأ إثناء الاتصال بالخادم", Toast.LENGTH_SHORT).show();
+                else if (error instanceof NetworkError)
+                    Toast.makeText(getActivity(), "خطأ فى شبكه الانترنت", Toast.LENGTH_SHORT).show();
+                else if (error instanceof TimeoutError)
+                    Toast.makeText(getActivity(), "خطأ فى مده الانتظار", Toast.LENGTH_SHORT).show();
+            }
+        });
+        int socketTimeout = 30000;
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, 2, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        stringRequest.setRetryPolicy(policy);
+        requestQueue.add(stringRequest);
     }
 
     private void orderDate(String type) {
@@ -381,7 +480,7 @@ public class SailedReports extends Fragment {
 
     }
 
-    private void loadData(final int item, final String r) {
+    private void loadData(final String ShopId, final String UserId, final int x, final int type) {
         final int size = talabats.size();
         if (size > 0) {
             for (int i = 0; i < size; i++) {
@@ -397,19 +496,16 @@ public class SailedReports extends Fragment {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        int temp = 0;
                         progressDialog.dismiss();
                         try {
 
                             JSONObject object = new JSONObject(response);
                             JSONArray array = object.getJSONArray("ReceivedOrder");
+                            temp_first = Integer.parseInt(array.getJSONObject(0).getString("Id"));
+                            temp_last = Integer.parseInt(array.getJSONObject(array.length()-1).getString("Id"));
                             for (int x = 0; x < array.length(); x++) {
                                 JSONObject object1 = array.getJSONObject(x);
-                                if (x == 0) {
-                                    temp_first = Integer.parseInt(object1.getString("Id"));
-                                } else if (x == array.length() - 1) {
-                                    temp_last = Integer.parseInt(object1.getString("Id"));
-                                }
+
                                 //int x, String id,
                                 // String name, String phone, String total,
                                 // String estlam_time, String estlam_date, String address, String tasleem_time, String tasleem_date
@@ -432,11 +528,10 @@ public class SailedReports extends Fragment {
                                 holder_date.put(object1.getString("Date") + " " + object1.getString("Time"), talabat);
 
                                 talabats.add(talabat);
-                                temp = Integer.parseInt(object1.getString("Id"));
                             }
-                            if (r.equals("1")) {
+                            if (type == 1) {
                                 page_num++;
-                            } else if (r.equals("0")) {
+                            } else if (type == 0) {
                                 page_num--;
                             } else {
 
@@ -447,6 +542,107 @@ public class SailedReports extends Fragment {
                         }
 
                         adapter = new SailedReportsTalabatAdapter(getActivity(), talabats);
+                        recyclerView.setAdapter(adapter);
+                        item_num = temp_last;
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                if (error instanceof ServerError)
+                    Toast.makeText(getActivity(), "خطأ إثناء الاتصال بالخادم", Toast.LENGTH_SHORT).show();
+                else if (error instanceof NetworkError)
+                    Toast.makeText(getActivity(), "خطأ فى شبكه الانترنت", Toast.LENGTH_SHORT).show();
+                else if (error instanceof TimeoutError)
+                    Toast.makeText(getActivity(), "خطأ فى مده الانتظار", Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                HashMap hashMap = new HashMap();
+                hashMap.put("ShopId", ShopId);
+                hashMap.put("UserId", UserId);
+                hashMap.put("x", x+"");
+                hashMap.put("type", type+"");
+                return hashMap;
+            }
+        };
+//        Volley.newRequestQueue(getActivity()).add(stringRequest);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                2,  // maxNumRetries = 2 means no retry
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Volley.newRequestQueue(getActivity()).add(stringRequest);
+    }
+
+    private void loadData(final SearchModel Search, final String from_talab, final String to_talab, final String from_tasleem , final String to_tasleem) {
+
+        Gson gson = new Gson();
+//        SearchModel model = new SearchModel("8","3","5",0);
+
+        final String jsonInString = gson.toJson(Search);
+        Log.e("Data",jsonInString);
+        Log.e("From",from_talab);
+        Log.e("To",to_talab);
+        Log.e("From",from_tasleem);
+        Log.e("To",to_tasleem);
+
+        final int size = talabats.size();
+        if (size > 0) {
+            for (int i = 0; i < size; i++) {
+                talabats.remove(0);
+            }
+            adapter.notifyItemRangeRemoved(0, size);
+        }
+        final ProgressDialog progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("جارى تحميل البيانات ...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/ReceivedOrder",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        int temp = 0;
+                        progressDialog.dismiss();
+                        try {
+
+                            JSONObject object = new JSONObject(response);
+                            JSONArray array = object.getJSONArray("ReceivedOrder");
+                            for (int x = 0; x < array.length(); x++) {
+                                JSONObject object1 = array.getJSONObject(x);
+                                if (x == 0) {
+                                    temp_first = Integer.parseInt(object1.getString("Id"));
+                                } else if (x == array.length() - 1) {
+                                    temp_last = Integer.parseInt(object1.getString("Id"));
+                                }
+                                Talabat talabat = new Talabat
+                                        ((x + 1) + "",
+                                                object1.getString("Id"),
+                                                object1.getString("CustomerName"),
+                                                object1.getString("Phone"),
+                                                object1.getString("Total"),
+                                                object1.getString("Time"),
+                                                object1.getString("Date"),
+                                                object1.getString("Address"),
+                                                object1.getString("TimeReceived"),
+                                                object1.getString("DateReceived")
+                                        );
+
+                                // Fill Data For Sort in orderDate()
+                                holder_num.put(object1.getString("Id"), talabat);
+                                holder_alpha.put(object1.getString("CustomerName"), talabat);
+                                holder_date.put(object1.getString("Date") + " " + object1.getString("Time"), talabat);
+
+                                talabats.add(talabat);
+                                temp = Integer.parseInt(object1.getString("Id"));
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        adapter = new RejectedReportsTalabatAdapter(getActivity(), talabats);
                         recyclerView.setAdapter(adapter);
                         item_num = temp;
                     }
@@ -465,10 +661,105 @@ public class SailedReports extends Fragment {
             @Override
             protected Map<String, String> getParams() {
                 HashMap hashMap = new HashMap();
-                hashMap.put("ShopId", "3");
-                hashMap.put("UserId", "5");
-                hashMap.put("x", item + "");
-                hashMap.put("type", r);
+                hashMap.put("Search", jsonInString);
+                hashMap.put("From", from_talab);
+                hashMap.put("To", to_talab);
+                hashMap.put("FromR", from_tasleem);
+                hashMap.put("ToR", to_tasleem);
+                return hashMap;
+            }
+        };
+//        Volley.newRequestQueue(getActivity()).add(stringRequest);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                2,  // maxNumRetries = 2 means no retry
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Volley.newRequestQueue(getActivity()).add(stringRequest);
+    }
+
+    private void loadData(final SearchModel Search) {
+
+        Gson gson = new Gson();
+//        SearchModel model = new SearchModel("8","3","5",0);
+
+        final String jsonInString = gson.toJson(Search);
+        Log.e("Data",jsonInString);
+
+        final int size = talabats.size();
+        if (size > 0) {
+            for (int i = 0; i < size; i++) {
+                talabats.remove(0);
+            }
+            adapter.notifyItemRangeRemoved(0, size);
+        }
+        final ProgressDialog progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("جارى تحميل البيانات ...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/ReceivedOrder",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        int temp = 0;
+                        progressDialog.dismiss();
+                        try {
+
+                            JSONObject object = new JSONObject(response);
+                            JSONArray array = object.getJSONArray("ReceivedOrder");
+                            for (int x = 0; x < array.length(); x++) {
+                                JSONObject object1 = array.getJSONObject(x);
+                                if (x == 0) {
+                                    temp_first = Integer.parseInt(object1.getString("Id"));
+                                } else if (x == array.length() - 1) {
+                                    temp_last = Integer.parseInt(object1.getString("Id"));
+                                }
+                                Talabat talabat = new Talabat
+                                        ((x + 1) + "",
+                                                object1.getString("Id"),
+                                                object1.getString("CustomerName"),
+                                                object1.getString("Phone"),
+                                                object1.getString("Total"),
+                                                object1.getString("Time"),
+                                                object1.getString("Date"),
+                                                object1.getString("Address"),
+                                                object1.getString("TimeReceived"),
+                                                object1.getString("DateReceived")
+                                        );
+
+                                // Fill Data For Sort in orderDate()
+                                holder_num.put(object1.getString("Id"), talabat);
+                                holder_alpha.put(object1.getString("CustomerName"), talabat);
+                                holder_date.put(object1.getString("Date") + " " + object1.getString("Time"), talabat);
+
+                                talabats.add(talabat);
+                                temp = Integer.parseInt(object1.getString("Id"));
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        adapter = new RejectedReportsTalabatAdapter(getActivity(), talabats);
+                        recyclerView.setAdapter(adapter);
+                        item_num = temp;
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                if (error instanceof ServerError)
+                    Toast.makeText(getActivity(), "خطأ إثناء الاتصال بالخادم", Toast.LENGTH_SHORT).show();
+                else if (error instanceof NetworkError)
+                    Toast.makeText(getActivity(), "خطأ فى شبكه الانترنت", Toast.LENGTH_SHORT).show();
+                else if (error instanceof TimeoutError)
+                    Toast.makeText(getActivity(), "خطأ فى مده الانتظار", Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                HashMap hashMap = new HashMap();
+                hashMap.put("Search", jsonInString);
                 return hashMap;
             }
         };
