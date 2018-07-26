@@ -5,7 +5,7 @@
     android:orientation="horizontal">
 
     <TextView
-        android:id="@+id/color_button"
+        android:id="@+id/size_button"
         android:layout_width="wrap_content"
         android:text="@string/app_name"
         android:textSize="20sp"
@@ -18,6 +18,6 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:gravity="center"
-        android:id="@+id/delete_color"
+        android:id="@+id/delete_size"
         android:background="@drawable/delete" />
 </LinearLayout>

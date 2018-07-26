@@ -4,9 +4,10 @@
     android:layout_height="250dp"
     android:orientation="horizontal">
 
-    <Button
+    <ImageView
         android:id="@+id/image_button"
         android:layout_width="250dp"
+        android:src="@drawable/report"
         android:layout_height="match_parent" />
 
     <ImageView

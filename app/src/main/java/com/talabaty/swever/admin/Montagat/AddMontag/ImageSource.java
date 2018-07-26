@@ -1,13 +1,26 @@
 package com.talabaty.swever.admin.Montagat.AddMontag;
 
-public class ImageSource {
-    String source;
+import android.net.Uri;
 
-    public ImageSource(String source) {
-        this.source = source;
+public class ImageSource {
+    Uri Photo;
+    public int Id ;
+    public int SampleProductId ;
+
+
+    public ImageSource(Uri source) {
+        this.Photo = source;
     }
 
-    public String getSource() {
-        return source;
+    public void setId(int id) {
+        Id = id;
+    }
+
+    public void setSampleProductId(int sampleProductId) {
+        SampleProductId = sampleProductId;
+    }
+
+    public Uri getSource() {
+        return Photo;
     }
 }

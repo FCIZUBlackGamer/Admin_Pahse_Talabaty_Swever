@@ -41,19 +41,19 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/sanf"
+                        android:id="@+id/sanf_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_weight="3"
-                        android:hint="الصنف"
+                        android:hint="اسم الصنف"
                         android:padding="10dp" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="اسم الصنف"
+                        android:text="الأسم"
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -131,6 +131,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
+                        android:background="@color/colormosttrend"
                         android:scrollbars="horizontal|vertical">
 
                     </android.support.v7.widget.RecyclerView>
@@ -172,7 +173,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="سعر الشراء"
+                        android:text="السعر "
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -245,6 +246,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
+                    android:background="@color/colormosttrend"
                     android:scrollbars="horizontal|vertical">
 
                 </android.support.v7.widget.RecyclerView>
@@ -344,7 +346,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="سعر البيع"
+                        android:text=" البيع"
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -407,7 +409,7 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/button_delete"
+                    android:background="@drawable/button_shape"
                     android:gravity="center_horizontal"
                     android:padding="5dp"
                     android:id="@+id/size"
@@ -421,6 +423,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
+                    android:background="@color/colormosttrend"
                     android:scrollbars="horizontal|vertical">
 
                 </android.support.v7.widget.RecyclerView>

@@ -3,76 +3,117 @@ package com.talabaty.swever.admin.Montagat.AddMontag;
 import java.util.List;
 
 public class Sanf {
-    String name;
-    String initialamount;
-    String desc;
-    String buy_price;
-    String critical_amount;
-    String summary;
-    String buyex_price;
-    String department;
-    String notes;
-    String image;
-    List<String> size;
-    List<String> color_rec;
+    public int Id;
+    public String Name ;
+    public String BuyPrice ;
+    public String SellPrice ;
+    public String Summary ;
+    public String Description ;
+    public String Notes ;
+    public String InsertDate ;
+    public String EditDate ;
+    public String Shop_Id ;
+    public String UserId ;
+    public String EditUserId ;
+    public String CriticalQuantity ;
+    public String Amount ;
+    public String SampleCatogoriesId ;
+    List<Size> Size;
+    List<ColorCode> Color;
+    List<ImageSource> Galary;
 
-    public Sanf(String name, String initialamount, String desc, String buy_price, String critical_amount, String summary, String buyex_price, String department, String notes) {
-        this.name = name;
-        this.initialamount = initialamount;
-        this.desc = desc;
-        this.buy_price = buy_price;
-        this.critical_amount = critical_amount;
-        this.summary = summary;
-        this.buyex_price = buyex_price;
-        this.department = department;
-        this.notes = notes;
+
+    public Sanf(int id, String name, String buyPrice, String sellPrice, String summary, String description, String notes, String insertDate, String editDate, String shop_Id, String userId, String editUserId, String criticalQuantity, String amount, String sampleCatogoriesId) {
+        Id = id;
+        Name = name;
+        BuyPrice = buyPrice;
+        SellPrice = sellPrice;
+        Summary = summary;
+        Description = description;
+        Notes = notes;
+        InsertDate = insertDate;
+        EditDate = editDate;
+        Shop_Id = shop_Id;
+        UserId = userId;
+        EditUserId = editUserId;
+        CriticalQuantity = criticalQuantity;
+        Amount = amount;
+        SampleCatogoriesId = sampleCatogoriesId;
     }
 
-    public void setBuy_price(String buy_price) {
-        this.buy_price = buy_price;
+    public Sanf() {
     }
 
-    public void setBuyex_price(String buyex_price) {
-        this.buyex_price = buyex_price;
+    public void setGalary(List<ImageSource> galary) {
+        Galary = galary;
     }
 
-    public void setCritical_amount(String critical_amount) {
-        this.critical_amount = critical_amount;
+    public void setAmount(String amount) {
+        Amount = amount;
     }
 
-    public void setDepartment(String department) {
-        this.department = department;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
-
-    public void setInitialamount(String initialamount) {
-        this.initialamount = initialamount;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
+    public void setId(int id) {
+        Id = id;
     }
 
     public void setSummary(String summary) {
-        this.summary = summary;
+        Summary = summary;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setNotes(String notes) {
+        Notes = notes;
     }
 
-    public void setColor_rec(List<String> color_rec) {
-        this.color_rec = color_rec;
+    public void setName(String name) {
+        Name = name;
     }
 
-    public void setSize(List<String> size) {
-        this.size = size;
+    public void setBuyPrice(String buyPrice) {
+        BuyPrice = buyPrice;
     }
+
+    public void setCriticalQuantity(String criticalQuantity) {
+        CriticalQuantity = criticalQuantity;
+    }
+
+    public void setDescription(String description) {
+        Description = description;
+    }
+
+    public void setEditDate(String editDate) {
+        EditDate = editDate;
+    }
+
+    public void setEditUserId(String editUserId) {
+        EditUserId = editUserId;
+    }
+
+    public void setInsertDate(String insertDate) {
+        InsertDate = insertDate;
+    }
+
+    public void setSampleCatogoriesId(String sampleCatogoriesId) {
+        SampleCatogoriesId = sampleCatogoriesId;
+    }
+
+    public void setSellPrice(String sellPrice) {
+        SellPrice = sellPrice;
+    }
+
+    public void setShop_Id(String shop_Id) {
+        Shop_Id = shop_Id;
+    }
+
+    public void setUserId(String userId) {
+        UserId = userId;
+    }
+
+    public void setSizeList(List<Size> sizeList) {
+        this.Size = sizeList;
+    }
+
+    public void setColorCodes(List<ColorCode> colorCodes) {
+        this.Color = colorCodes;
+    }
+
 }
