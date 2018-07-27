@@ -29,7 +29,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.talabaty.swever.admin.Mabi3at.DoneTalabat.Talabat;
 import com.talabaty.swever.admin.Mabi3at.Mabi3atNavigator;
-import com.talabaty.swever.admin.Mabi3at.NewTalabat.NewTalabatAdapter;
 import com.talabaty.swever.admin.R;
 
 import org.json.JSONArray;

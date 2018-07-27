@@ -15,10 +15,12 @@ import android.view.MenuItem;
 
 import com.talabaty.swever.admin.AgentReports.Fragment_agent_report;
 import com.talabaty.swever.admin.Home;
+import com.talabaty.swever.admin.Mabi3at.Delevry.DelevryHome;
 import com.talabaty.swever.admin.Mabi3at.DoneTalabat.DoneTalabat;
 import com.talabaty.swever.admin.Mabi3at.NewTalabat.NewTalabatFragment;
 import com.talabaty.swever.admin.Mabi3at.NotificationToFriendTalabat.NotificationToFriendTalabat;
 import com.talabaty.swever.admin.Mabi3at.PendedTalabat.PendedTalabatFragment;
+import com.talabaty.swever.admin.Mabi3at.Tasks.MyTasksFragment;
 import com.talabaty.swever.admin.Mabi3at.ReadyTalabat.ReadyTalabatFragment;
 import com.talabaty.swever.admin.Mabi3at.RejectedReports.RejectedReports;
 import com.talabaty.swever.admin.Mabi3at.ReturnedTalabat.ReturnedTalabatFragment;
@@ -54,7 +56,7 @@ public class Mabi3atNavigator extends AppCompatActivity implements NavigationVie
         } else if (intent.getStringExtra("fragment").equals("ready")) {
             fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new ReadyTalabatFragment()).addToBackStack("ReadyTalabatFragment").commit();
         } else if (intent.getStringExtra("fragment").equals("pend")) {
-            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new PendedTalabatFragment()).addToBackStack("PendedTalabatFragment").commit();
+            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new PendedTalabatFragment()).addToBackStack("MyTasksFragment").commit();
         } else if (intent.getStringExtra("fragment").equals("returned")) {
             fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new ReturnedTalabatFragment()).addToBackStack("ReturnedTalabatFragment").commit();
         } else if (intent.getStringExtra("fragment").equals("notification")) {
@@ -79,6 +81,10 @@ public class Mabi3atNavigator extends AppCompatActivity implements NavigationVie
             fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new FragmentAddPrivilege()).commit();
         } else if (intent.getStringExtra("fragment").equals("emp_control")) {
             fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new FragmentControlEmployee()).commit();
+        } else if (intent.getStringExtra("fragment").equals("my_tasks")) {
+            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new MyTasksFragment()).addToBackStack("MyTasksFragment").commit();
+        } else if (intent.getStringExtra("fragment").equals("delivery")) {
+            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new DelevryHome()).addToBackStack("DelevryHome").commit();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

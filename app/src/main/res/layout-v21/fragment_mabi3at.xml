@@ -202,7 +202,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
-                    android:id="@+id/pend_tasks"/>
+                    android:id="@+id/my_tasks"/>
 
                 <ImageView
                     android:id="@+id/image3"
@@ -231,7 +231,7 @@
                     android:layout_below="@id/v3"
                     android:layout_marginTop="10dp"
                     android:gravity="center_horizontal"
-                    android:text="المهام المعلقه"
+                    android:text="مهامى"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
 
@@ -254,7 +254,7 @@
                         tools:ignore="UnusedAttribute" />
 
                     <TextView
-                        android:id="@+id/num_pend_tasks"
+                        android:id="@+id/num_my_tasks"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_centerHorizontal="true"
@@ -655,6 +655,179 @@
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:layout_centerHorizontal="true"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="1dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:background="@color/colorPrimaryDark"
+                android:layout_weight="1">
+
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:id="@+id/pend_tasks"/>
+
+                <ImageView
+                    android:id="@+id/image9"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/done" />
+
+                <View
+                    android:id="@+id/v9"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/image9"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
+                    android:background="@color/white" />
+
+                <TextView
+                    android:id="@+id/name9"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_below="@id/v9"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_horizontal"
+                    android:text="المهام المعلقه"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:layout_alignParentBottom="true"
+                    android:layout_below="@id/name9"
+                    android:layout_centerHorizontal="true">
+
+                    <android.support.design.widget.FloatingActionButton
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginBottom="20dp"
+                        app:backgroundTint="@color/gray"
+                        app:borderWidth="0dp"
+                        android:elevation="0dp"
+                        tools:ignore="UnusedAttribute" />
+
+                    <TextView
+                        android:id="@+id/num_pend_tasks"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_centerHorizontal="true"
+                        android:elevation="7dp"
+                        android:gravity="center"
+                        android:text="2"
+                        android:textColor="@color/red"
+                        android:textSize="25sp"
+                        tools:ignore="UnusedAttribute" />
+
+                </FrameLayout>
+
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="3dp"
+                android:layout_height="match_parent"
+                android:background="@color/white" />
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:background="@color/colormosttrend"
+                android:layout_weight="1">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:id="@+id/delevry"/>
+
+                <ImageView
+                    android:id="@+id/image10"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/bell" />
+
+                <View
+                    android:id="@+id/v10"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/image10"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
+                    android:background="@color/white" />
+
+                <TextView
+                    android:id="@+id/name10"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_below="@id/v10"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_horizontal"
+                    android:text="ديلفرى"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:layout_alignParentBottom="true"
+                    android:layout_below="@id/name10"
+                    android:layout_centerHorizontal="true">
+
+                    <android.support.design.widget.FloatingActionButton
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginBottom="20dp"
+                        app:backgroundTint="@color/gray"
+                        app:borderWidth="0dp"
+                        android:elevation="0dp"
+                        tools:ignore="UnusedAttribute" />
+
+                    <TextView
+                        android:id="@+id/num_delevry"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_centerHorizontal="true"
+                        android:elevation="7dp"
+                        android:gravity="center"
+                        android:text="2"
+                        android:textColor="@color/red"
+                        android:textSize="25sp"
+                        tools:ignore="UnusedAttribute" />
+
+                </FrameLayout>
+
 
             </RelativeLayout>
 

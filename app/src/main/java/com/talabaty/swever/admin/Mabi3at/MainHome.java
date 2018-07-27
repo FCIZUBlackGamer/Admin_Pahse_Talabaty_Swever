@@ -35,6 +35,9 @@ public class MainHome extends Fragment {
     Button new_talabat, ready_talabat, pended_tasks, returned_talabat, notification_firend, done_talabat, rejected_report, saled_report;
     TextView num_new_talabat, num_ready_talabat, num_done_talabat, num_pend_tasks, num_returned_talabat, num_notification;
 
+    Button my_tasks, delvery;
+    TextView num_my_tasks, num_delvery;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -45,6 +48,8 @@ public class MainHome extends Fragment {
         returned_talabat = view.findViewById(R.id.returned_talabat);
         notification_firend = view.findViewById(R.id.notification_friend);
         done_talabat = view.findViewById(R.id.done_talabat);
+        my_tasks = view.findViewById(R.id.my_tasks);
+        delvery = view.findViewById(R.id.delevry);
         rejected_report = view.findViewById(R.id.rejected_talabat_report);
         saled_report = view.findViewById(R.id.saled_talabat_report);
 
@@ -54,6 +59,8 @@ public class MainHome extends Fragment {
         num_pend_tasks = view.findViewById(R.id.num_pend_tasks);
         num_returned_talabat = view.findViewById(R.id.num_returned_talabat);
         num_notification = view.findViewById(R.id.num_notification);
+        num_my_tasks = view.findViewById(R.id.num_my_tasks);
+        num_delvery = view.findViewById(R.id.num_delevry);
 
         return view;
     }
@@ -146,6 +153,24 @@ public class MainHome extends Fragment {
             @Override
             public void onClick(View v) {
                 intent.putExtra("fragment", "rejected");
+//                longRunningTaskFuture.cancel(true);
+                startActivity(intent);
+            }
+        });
+
+        my_tasks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra("fragment", "my_tasks");
+//                longRunningTaskFuture.cancel(true);
+                startActivity(intent);
+            }
+        });
+
+        delvery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra("fragment", "delivery");
 //                longRunningTaskFuture.cancel(true);
                 startActivity(intent);
             }
