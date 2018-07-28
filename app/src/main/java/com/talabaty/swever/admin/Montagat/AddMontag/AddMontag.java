@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -45,6 +46,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 import com.talabaty.swever.admin.Montagat.FragmentMontag;
 import com.talabaty.swever.admin.R;
 
@@ -52,17 +54,27 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import java.util.zip.Deflater;
+import java.util.zip.DeflaterOutputStream;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
+import java.util.zip.Inflater;
+import java.util.zip.InflaterOutputStream;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
 
 import static android.app.Activity.RESULT_OK;
+import static android.support.v7.widget.AppCompatDrawableManager.get;
 
 public class AddMontag extends Fragment {
     // For Color
@@ -88,7 +100,9 @@ public class AddMontag extends Fragment {
     Sanf sanf;
     List<ColorCode> colorStrings;
     List<Size> sizeStrings;
-    List<String> imageStrings;
+    List<ImageContainer> imageStrings;
+    List<Uri> imageUri;
+    List<Uri> tempimageUri;
 
 
     //Views
@@ -113,6 +127,7 @@ public class AddMontag extends Fragment {
 
     private String KEY_IMAGE = "base64imageString";
     private String KEY_NAME = "name";
+    List<byte[]> bytes;
 
     @Nullable
     @Override
@@ -160,6 +175,9 @@ public class AddMontag extends Fragment {
         colorStrings = new ArrayList<>();
         sizeStrings = new ArrayList<>();
         imageStrings = new ArrayList<>();
+        imageUri = new ArrayList<>();
+        tempimageUri = new ArrayList<>();
+        bytes = new ArrayList<>();
         return view;
     }
 
@@ -293,10 +311,11 @@ public class AddMontag extends Fragment {
                 if (sizeImages > 0) {
                     for (int i = 0; i < sizeImages; i++) {
                         imageSources.remove(0);
+                        imageUri.remove(0);
                     }
                     image_adap.notifyItemRangeRemoved(0, sizeImages);
                 }
-                image_adap = new ImageAdapter(getActivity(), imageSources);
+                image_adap = new ImageAdapter(getActivity(), imageSources, imageUri);
                 image_rec.setAdapter(image_adap);
 
                 // Empty Sizes
@@ -323,20 +342,24 @@ public class AddMontag extends Fragment {
     private void uploadImage() {
         Gson gson = new Gson();
         Log.e("Start: ", "1");
-        List<String> strings = new ArrayList<>();
+//        List<String> strings = new ArrayList<>();
 //        String imageList = "[";
-        for (int x=0 ; x<imageSources.size(); x++){
-            Log.e("Image ", getStringImage(imageSources.get(x)));
+//        for (int x=0 ; x<imageStrings.size(); x++){
+//            Log.e("Image ", getStringImage(imageSources.get(x)));
+//            Log.e("Image ", imageStrings.get(0).getSource());
 
-            strings.add(getStringImage(imageSources.get(x)));
+//            imageStrings.add(getStringImage(imageSources.get(x)));
+//            imageStrings.add(getStringImage(imageSources.get(x)));
 //                imageList+=  ",";
-            Log.e("Image ", gson.toJson(strings));
-        }
+//        imageStrings.get(0).getSource().length();
+//            Log.e("Start ", "[ "+bytes.get(0)+" ]");
+//        }
 
 //        imageList+="]";
 
 //        String test = imageList;
-//        Log.e("Start: ", imageList);
+        final String allImages = gson.toJson(imageStrings);
+                Log.e("Start: ", allImages);
         //Showing the progress dialog
         final ProgressDialog loading = ProgressDialog.show(getActivity(), "Uploading...", "Please wait...", false, false);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
@@ -349,10 +372,10 @@ public class AddMontag extends Fragment {
                         Log.e("Path: ", s);
                         Toast.makeText(getActivity(), s, Toast.LENGTH_LONG).show();
 
-                        for (int x=0; x<imageStrings.size(); x++){
-                            imageStrings.remove(0);
-                        }
-                        imageStrings.add(s);
+//                        for (int x=0; x<imageStrings.size(); x++){
+//                            imageStrings.remove(0);
+//                        }
+//                        imageStrings.add(s);
                     }
                 },
                 new Response.ErrorListener() {
@@ -368,15 +391,15 @@ public class AddMontag extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 //Converting Bitmap to String
-                for (int x= 0; x<imageSources.size(); x++) {
-                    String image = getStringImage(bitmap);
-                }
+//                for (int x= 0; x<imageSources.size(); x++) {
+//                    String image = getStringImage(bitmap);
+//                }
 
                 //Creating parameters
                 Map<String, String> params = new Hashtable<String, String>();
 
                 //Adding parameters
-                params.put(KEY_IMAGE, "");
+                params.put(KEY_IMAGE, allImages);
 
                 params.put(KEY_NAME, "Mohamed");
 
@@ -510,7 +533,7 @@ public class AddMontag extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
-    void displayImage(Bitmap path) {
+    void displayImage(Bitmap path, Uri uri) throws IOException {
         final int size = imageSources.size();
 //        ContactItem []x = new ContactItem[size];
         if (size > 0) {
@@ -518,18 +541,27 @@ public class AddMontag extends Fragment {
             for (int i = 0; i < size; i++) {
                 imageTemp.add(imageSources.get(0));
                 imageSources.remove(0);
+                tempimageUri.add(imageUri.get(0));
+                imageUri.remove(0);
             }
 
             imageSources = imageTemp;
+            imageUri = tempimageUri;
             imageSources.add(path);
+            imageUri.add(uri);
+//            bytes.add(compress(getStringImage(path)));
+//            Log.e("Compress",compress(getStringImage(path))+"");
+            imageStrings.add(new ImageContainer(getStringImage(path)));
 
             image_adap.notifyItemRangeRemoved(0, size);
         } else {
             imageSources.add(path);
+            imageStrings.add(new ImageContainer(getStringImage(path)));
+            imageUri.add(uri);
         }
 //        Toast.makeText(getActivity(),String.format("Current color: 0x%08x", color),Toast.LENGTH_SHORT).show();
 
-        image_adap = new ImageAdapter(getActivity(), imageSources);
+        image_adap = new ImageAdapter(getActivity(), imageSources, imageUri);
         image_rec.setAdapter(image_adap);
     }
 
@@ -544,8 +576,30 @@ public class AddMontag extends Fragment {
                 //Getting the Bitmap from Gallery
                 bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
                 //Setting the Bitmap to ImageView
-                displayImage(bitmap);
-            } catch (IOException e) {
+//                BitmapFactory.Options options = new BitmapFactory.Options();
+//                options.inSampleSize = 8;
+//                bitmap = BitmapFactory.decodeFile(filePath.getPath(),options);
+
+
+                displayImage(bitmap, filePath);
+                imageStrings.add(new ImageContainer(getStringImage(bitmap)));
+//                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//                Deflater compresser = new Deflater(Deflater.BEST_COMPRESSION, true);
+//                DeflaterOutputStream deflaterOutputStream = new DeflaterOutputStream(stream, compresser);
+////                deflaterOutputStream.write(getStringImage(bitmap));
+//                deflaterOutputStream.close();
+//                byte[] output = stream.toByteArray();
+//                Log.e("Compress", output.toString());
+//
+//                ByteArrayOutputStream stream2 = new ByteArrayOutputStream();
+//                Inflater decompresser = new Inflater(true);
+//                InflaterOutputStream inflaterOutputStream = new InflaterOutputStream(stream2, decompresser);
+////                inflaterOutputStream.write(output);
+//                inflaterOutputStream.close();
+//                byte[] output2 = stream2.toByteArray();
+//                Log.e("DeCompress", output2.toString());
+
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -559,21 +613,28 @@ public class AddMontag extends Fragment {
         return encodedImage;
     }
 
-    //method to get the file path from uri
-//    public String getPath(Uri uri) {
-//        Cursor cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
-//        cursor.moveToFirst();
-//        String document_id = cursor.getString(0);
-//        document_id = document_id.substring(document_id.lastIndexOf(":") + 1);
-//        cursor.close();
-//
-//        cursor = getActivity().getContentResolver().query(
-//                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-//                null, MediaStore.Images.Media._ID + " = ? ", new String[]{document_id}, null);
-//        cursor.moveToFirst();
-//        String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
-//        cursor.close();
-//
-//        return path;
-//    }
+    public static byte[] compress(String data) throws IOException {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream(data.length());
+        GZIPOutputStream gzip = new GZIPOutputStream(bos);
+        gzip.write(data.getBytes());
+        gzip.close();
+        byte[] compressed = bos.toByteArray();
+        bos.close();
+        return compressed;
+    }
+
+    public static String decompress(byte[] compressed) throws IOException {
+        ByteArrayInputStream bis = new ByteArrayInputStream(compressed);
+        GZIPInputStream gis = new GZIPInputStream(bis);
+        BufferedReader br = new BufferedReader(new InputStreamReader(gis, "UTF-8"));
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while((line = br.readLine()) != null) {
+            sb.append(line);
+        }
+        br.close();
+        gis.close();
+        bis.close();
+        return sb.toString();
+    }
 }

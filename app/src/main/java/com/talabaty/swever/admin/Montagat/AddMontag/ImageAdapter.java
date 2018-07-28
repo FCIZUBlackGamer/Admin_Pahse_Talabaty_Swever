@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
 import com.talabaty.swever.admin.R;
 
 import java.io.IOException;
@@ -24,10 +25,12 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.Vholder> {
 
     Context context;
     List<Bitmap> imageSources;
+    List<Uri> uris;
 
-    public ImageAdapter(Context context, List<Bitmap> imageSources) {
+    public ImageAdapter(Context context, List<Bitmap> imageSources, List<Uri> uris) {
         this.context = context;
         this.imageSources = imageSources;
+        this.uris = uris;
     }
 
     @NonNull
@@ -41,8 +44,8 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.Vholder> {
     public void onBindViewHolder(@NonNull Vholder holder, final int position) {
 
 
-        holder.image_button.setImageBitmap(imageSources.get(position));
-
+//        holder.image_button.setImageBitmap(imageSources.get(position));
+        Picasso.with(context).load(uris.get(position)).into(holder.image_button);
 
         holder.delete_image.setOnClickListener(new View.OnClickListener() {
             @Override
