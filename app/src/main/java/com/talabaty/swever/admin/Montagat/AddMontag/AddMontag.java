@@ -3,10 +3,12 @@ package com.talabaty.swever.admin.Montagat.AddMontag;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -19,6 +21,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +32,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.Request;
@@ -48,10 +52,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
 
@@ -67,8 +74,8 @@ public class AddMontag extends Fragment {
     // For Image
     RecyclerView image_rec;
     RecyclerView.Adapter image_adap;
-    List<ImageSource> imageSources;
-    List<ImageSource> imageTemp;
+    List<Bitmap> imageSources;
+    List<Bitmap> imageTemp;
 
     // For Size
     RecyclerView size_rec;
@@ -82,15 +89,6 @@ public class AddMontag extends Fragment {
     List<ColorCode> colorStrings;
     List<Size> sizeStrings;
     List<String> imageStrings;
-
-    //Image request code
-    private int PICK_IMAGE_REQUEST = 1;
-
-    //storage permission code
-    private static final int STORAGE_PERMISSION_CODE = 123;
-
-    //Uri to store the image uri
-    private Uri filePath;
 
 
     //Views
@@ -106,6 +104,15 @@ public class AddMontag extends Fragment {
     EditText buyex_price, notes;
     Spinner department;
     List<String> DepatmentList, indexOfDepatmentList;
+
+    private Bitmap bitmap;
+
+    private int PICK_IMAGE_REQUEST = 1;
+
+    private String UPLOAD_URL = "http://192.168.0.107/uploads/UploadAndro";
+
+    private String KEY_IMAGE = "base64imageString";
+    private String KEY_NAME = "name";
 
     @Nullable
     @Override
@@ -162,8 +169,6 @@ public class AddMontag extends Fragment {
 //        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         fragmentManager = getFragmentManager();
         temp = colorCodes;
-
-        requestStoragePermission();
 
         DepatmentList = new ArrayList<>();
         indexOfDepatmentList = new ArrayList<>();
@@ -253,7 +258,9 @@ public class AddMontag extends Fragment {
                 sanf.setSellPrice(buyex_price.getText().toString());
                 sanf.setColorCodes(colorStrings);
                 sanf.setSizeList(sizeStrings);
+                uploadImage();
                 final String jsonInString = gson.toJson(sanf);
+
                 Log.e("Data", jsonInString);
             }
         });
@@ -311,6 +318,78 @@ public class AddMontag extends Fragment {
                 fragmentManager.beginTransaction().replace(R.id.frame_mabi3at, new FragmentMontag()).addToBackStack("FragmentMontag").addToBackStack("FragmentMontag").commit();
             }
         });
+    }
+
+    private void uploadImage() {
+        Gson gson = new Gson();
+        Log.e("Start: ", "1");
+        List<String> strings = new ArrayList<>();
+//        String imageList = "[";
+        for (int x=0 ; x<imageSources.size(); x++){
+            Log.e("Image ", getStringImage(imageSources.get(x)));
+
+            strings.add(getStringImage(imageSources.get(x)));
+//                imageList+=  ",";
+            Log.e("Image ", gson.toJson(strings));
+        }
+
+//        imageList+="]";
+
+//        String test = imageList;
+//        Log.e("Start: ", imageList);
+        //Showing the progress dialog
+        final ProgressDialog loading = ProgressDialog.show(getActivity(), "Uploading...", "Please wait...", false, false);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        //Disimissing the progress dialog
+                        loading.dismiss();
+                        //Showing toast message of the response
+                        Log.e("Path: ", s);
+                        Toast.makeText(getActivity(), s, Toast.LENGTH_LONG).show();
+
+                        for (int x=0; x<imageStrings.size(); x++){
+                            imageStrings.remove(0);
+                        }
+                        imageStrings.add(s);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        //Dismissing the progress dialog
+                        loading.dismiss();
+
+                        //Showing toast
+                        Toast.makeText(getActivity(), volleyError.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //Converting Bitmap to String
+                for (int x= 0; x<imageSources.size(); x++) {
+                    String image = getStringImage(bitmap);
+                }
+
+                //Creating parameters
+                Map<String, String> params = new Hashtable<String, String>();
+
+                //Adding parameters
+                params.put(KEY_IMAGE, "");
+
+                params.put(KEY_NAME, "Mohamed");
+
+                //returning parameters
+                return params;
+            }
+        };
+
+        //Creating a Request Queue
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+
+        //Adding request to the queue
+        requestQueue.add(stringRequest);
     }
 
 
@@ -431,7 +510,7 @@ public class AddMontag extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
-    void displayImage(Uri path) {
+    void displayImage(Bitmap path) {
         final int size = imageSources.size();
 //        ContactItem []x = new ContactItem[size];
         if (size > 0) {
@@ -442,50 +521,16 @@ public class AddMontag extends Fragment {
             }
 
             imageSources = imageTemp;
-            imageSources.add(new ImageSource(path));
+            imageSources.add(path);
 
-            imageStrings.add(getPath(path));
             image_adap.notifyItemRangeRemoved(0, size);
         } else {
-            imageSources.add(new ImageSource(path));
+            imageSources.add(path);
         }
 //        Toast.makeText(getActivity(),String.format("Current color: 0x%08x", color),Toast.LENGTH_SHORT).show();
 
         image_adap = new ImageAdapter(getActivity(), imageSources);
         image_rec.setAdapter(image_adap);
-    }
-
-
-    //Requesting permission
-    private void requestStoragePermission() {
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
-            return;
-
-        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            //If the user has denied the permission previously your code will come to this block
-            //Here you can explain why you need this permission
-            //Explain here why you need this permission
-        }
-        //And finally ask for the permission
-        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
-    }
-
-    //This method will be called when the user will tap on allow or deny
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-
-        //Checking the request code of our request
-        if (requestCode == STORAGE_PERMISSION_CODE) {
-
-            //If permission is granted
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //Displaying a toast
-                Toast.makeText(getActivity(), "Permission granted now you can read the storage", Toast.LENGTH_LONG).show();
-            } else {
-                //Displaying another toast if permission is not granted
-                Toast.makeText(getActivity(), "Oops you just denied the permission", Toast.LENGTH_LONG).show();
-            }
-        }
     }
 
     //handling the image chooser activity result
@@ -494,35 +539,41 @@ public class AddMontag extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            filePath = data.getData();
-
-            displayImage(filePath);
-
-//            try {
-//                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
-//                image.setImageBitmap(bitmap);
-//
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
+            Uri filePath = data.getData();
+            try {
+                //Getting the Bitmap from Gallery
+                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
+                //Setting the Bitmap to ImageView
+                displayImage(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    //method to get the file path from uri
-    public String getPath(Uri uri) {
-        Cursor cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
-        cursor.moveToFirst();
-        String document_id = cursor.getString(0);
-        document_id = document_id.substring(document_id.lastIndexOf(":") + 1);
-        cursor.close();
-
-        cursor = getActivity().getContentResolver().query(
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                null, MediaStore.Images.Media._ID + " = ? ", new String[]{document_id}, null);
-        cursor.moveToFirst();
-        String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
-        cursor.close();
-
-        return path;
+    public String getStringImage(Bitmap bmp) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return encodedImage;
     }
+
+    //method to get the file path from uri
+//    public String getPath(Uri uri) {
+//        Cursor cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
+//        cursor.moveToFirst();
+//        String document_id = cursor.getString(0);
+//        document_id = document_id.substring(document_id.lastIndexOf(":") + 1);
+//        cursor.close();
+//
+//        cursor = getActivity().getContentResolver().query(
+//                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+//                null, MediaStore.Images.Media._ID + " = ? ", new String[]{document_id}, null);
+//        cursor.moveToFirst();
+//        String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+//        cursor.close();
+//
+//        return path;
+//    }
 }

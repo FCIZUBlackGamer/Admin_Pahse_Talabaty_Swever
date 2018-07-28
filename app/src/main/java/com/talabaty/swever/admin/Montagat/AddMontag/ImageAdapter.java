@@ -23,10 +23,9 @@ import java.util.List;
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.Vholder> {
 
     Context context;
-    List<ImageSource> imageSources;
-    Bitmap bitmap;
+    List<Bitmap> imageSources;
 
-    public ImageAdapter(Context context, List<ImageSource> imageSources) {
+    public ImageAdapter(Context context, List<Bitmap> imageSources) {
         this.context = context;
         this.imageSources = imageSources;
     }
@@ -34,19 +33,15 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.Vholder> {
     @NonNull
     @Override
     public Vholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.button_image,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.button_image, parent, false);
         return new Vholder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull Vholder holder, final int position) {
 
-        try {
-            bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), imageSources.get(position).getSource());
-            holder.image_button.setImageBitmap(bitmap);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        holder.image_button.setImageBitmap(imageSources.get(position));
 
 
         holder.delete_image.setOnClickListener(new View.OnClickListener() {
@@ -54,16 +49,16 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.Vholder> {
             public void onClick(View v) {
                 // Delete Color From List And Redisplay the List
                 try {
-                    if (imageSources.size()> 0) {
+                    if (imageSources.size() > 0) {
                         imageSources.remove(position);
                         notifyItemRemoved(position);
-                    }else {
-                        Toast.makeText(context,"Can't Remove",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, "Can't Remove", Toast.LENGTH_SHORT).show();
                     }
-                }catch (Exception s){
+                } catch (Exception s) {
 //                    Toast.makeText(context,"Can't Remove",Toast.LENGTH_SHORT).show();
 
-                    for (int x=0; x<imageSources.size(); x++){
+                    for (int x = 0; x < imageSources.size(); x++) {
                         imageSources.remove(x);
                         notifyItemRemoved(x);
                     }
@@ -77,9 +72,10 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.Vholder> {
         return imageSources.size();
     }
 
-    public class Vholder extends RecyclerView.ViewHolder{
+    public class Vholder extends RecyclerView.ViewHolder {
         ImageView image_button;
         ImageView delete_image;
+
         public Vholder(View itemView) {
             super(itemView);
             image_button = itemView.findViewById(R.id.image_button);
