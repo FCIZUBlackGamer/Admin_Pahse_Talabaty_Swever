@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -125,7 +126,7 @@ public class AddMontag extends Fragment {
 
     private String KEY_IMAGE = "base64imageString";
     private String KEY_NAME = "name";
-//    List<byte[]> bytes;
+    //    List<byte[]> bytes;
     // To Get Data
     ControlMontagModel montagModel = null;
 
@@ -216,7 +217,7 @@ public class AddMontag extends Fragment {
             if (montagModel.getColor().size()>0){
                 colorCodes = new ArrayList<>();
                 for (int x=0; x<montagModel.getColor().size(); x++) {
-                    colorCodes.add(new ColorCode(montagModel.getColor().get(x).getColor()));
+                    colorCodes.add(new ColorCode(""+Color.parseColor(montagModel.getColor().get(x).getColor())));
                 }
                 adapter = new ColorAdapter(getActivity(), colorCodes);
                 recyclerView.setAdapter(adapter);
@@ -232,6 +233,7 @@ public class AddMontag extends Fragment {
             }
 
             if (montagModel.getGallary().size()>0){
+                //Todo: Display Images .. try to use Piccaso
 //                List<String> imageName = new ArrayList<>();
 //                for (int x=0; x<montagModel.getGallary().size(); x++) {
 //                    UUID uuid = new UUID(455465456,1);
@@ -307,6 +309,11 @@ public class AddMontag extends Fragment {
                 openGalary();
             }
         });
+
+        if (montagModel!=null){
+            save.setText("تعديل");
+            UPLOAD_URL = baseUrl + "SampleProduct/EditProducts";
+        }
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -471,24 +478,26 @@ public class AddMontag extends Fragment {
                     public void onResponse(String s) {
                         //Disimissing the progress dialog
                         loading.dismiss();
-                        Log.e("Path: ", s);
-                        try {
-
-                            JSONObject object = new JSONObject(s);
-                            JSONArray array = object.getJSONArray("Images");
-                            for (int x = 0; x < array.length(); x++) {
-                                String object1 = array.getString(x);
-                                Gallary.add(new ImageSource(baseUrl + object1));
+                        Log.e("Path", s);
+                        if (!s.equals("خطاء أثناء الحفظ")) {
+                            try {
+                                JSONObject object = new JSONObject(s);
+                                JSONArray array = object.getJSONArray("Images");
+                                for (int x = 0; x < array.length(); x++) {
+                                    String object1 = array.getString(x);
+                                    Gallary.add(new ImageSource(baseUrl + object1));
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                            sanf.setGallary(Gallary);
-
-                            final String jsonInString = gson.toJson(sanf);
-                            Log.e("Data", jsonInString);
-                            Log.e("Gallary", gson.toJson(Gallary));
-                            uploadMontage(jsonInString);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                        }else {
+                            Toast.makeText(getActivity(),"خطأ اثناء حفظ الصور",Toast.LENGTH_SHORT).show();
                         }
+
+                        final String jsonInString = gson.toJson(sanf);
+                        Log.e("Data", jsonInString);
+                        Log.e("Gallary", gson.toJson(Gallary));
+                        uploadMontage(jsonInString);
 
                     }
                 },
