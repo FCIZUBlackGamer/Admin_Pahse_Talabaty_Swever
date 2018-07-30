@@ -10,9 +10,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.gson.Gson;
 import com.talabaty.swever.admin.Communication.CommunicationHome;
 import com.talabaty.swever.admin.Mabi3at.Mabi3atNavigator;
 import com.talabaty.swever.admin.Mabi3at.MainHome;
@@ -21,6 +23,7 @@ import com.talabaty.swever.admin.Managment.ManagmentHome;
 import com.talabaty.swever.admin.Managment.Privilages.AddPrivilege.FragmentAddPrivilege;
 import com.talabaty.swever.admin.Managment.Privilages.PrivilagesHome;
 import com.talabaty.swever.admin.Montagat.AddMontag.AddMontag;
+import com.talabaty.swever.admin.Montagat.ControlMontag.ControlMontagModel;
 import com.talabaty.swever.admin.Montagat.FragmentMontag;
 
 public class Home extends AppCompatActivity
@@ -48,7 +51,11 @@ public class Home extends AppCompatActivity
         } else if (intent.getStringExtra("fragment").equals("mabi3at")) {
             fragmentManager.beginTransaction().replace(R.id.frame_mabi3at, new MainHome()).commit();
         } else if (intent.getStringExtra("fragment").equals("edit_control")){
-            fragmentManager.beginTransaction().replace(R.id.frame_mabi3at, new AddMontag()).commit();
+            ControlMontagModel model = new ControlMontagModel();
+            model = (ControlMontagModel) intent.getSerializableExtra("Class");
+            Gson gson = new Gson();
+            Log.e("Model",gson.toJson(model));
+            fragmentManager.beginTransaction().replace(R.id.frame_mabi3at, new AddMontag().setData(model)).commit();
         } else if (intent.getStringExtra("fragment").equals("contact")){
             fragmentManager.beginTransaction().replace(R.id.frame_mabi3at, new CommunicationHome()).commit();
         } else if (intent.getStringExtra("fragment").equals("management")){

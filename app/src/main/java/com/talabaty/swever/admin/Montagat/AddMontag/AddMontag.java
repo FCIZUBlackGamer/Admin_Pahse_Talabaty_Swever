@@ -1,27 +1,24 @@
 package com.talabaty.swever.admin.Montagat.AddMontag;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.InputType;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -46,7 +43,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
-import com.squareup.picasso.Picasso;
+import com.talabaty.swever.admin.Montagat.ControlMontag.ControlMontagModel;
 import com.talabaty.swever.admin.Montagat.FragmentMontag;
 import com.talabaty.swever.admin.R;
 
@@ -57,24 +54,23 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.text.NumberFormat;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
-import java.util.zip.Deflater;
-import java.util.zip.DeflaterOutputStream;
+import java.util.UUID;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
-import java.util.zip.Inflater;
-import java.util.zip.InflaterOutputStream;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
 
 import static android.app.Activity.RESULT_OK;
-import static android.support.v7.widget.AppCompatDrawableManager.get;
 
 public class AddMontag extends Fragment {
     // For Color
@@ -100,7 +96,7 @@ public class AddMontag extends Fragment {
     Sanf sanf;
     List<ColorCode> colorStrings;
     List<Size> sizeStrings;
-    List<ImageContainer> imageStrings;
+    List<String> imageStrings;
     List<Uri> imageUri;
     List<Uri> tempimageUri;
 
@@ -123,17 +119,29 @@ public class AddMontag extends Fragment {
 
     private int PICK_IMAGE_REQUEST = 1;
 
-    private String UPLOAD_URL = "http://192.168.0.107/uploads/UploadAndro";
+    List<ImageSource> Gallary;
+    String baseUrl = "http://www.selltlbaty.sweverteam.com/";
+    private String UPLOAD_URL = baseUrl + "Uploads/UploadAndro";
 
     private String KEY_IMAGE = "base64imageString";
     private String KEY_NAME = "name";
-    List<byte[]> bytes;
+//    List<byte[]> bytes;
+    // To Get Data
+    ControlMontagModel montagModel = null;
+
+    public static AddMontag setData(ControlMontagModel x){
+        AddMontag c = new AddMontag();
+        c.montagModel = x;
+        return c;
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_montag, container, false);
         // Normal Views (Edittext, Spinner, Buttons)
+        Gson gson = new Gson();
+        Log.e("MontageModel",gson.toJson(montagModel));
         sanf_name = view.findViewById(R.id.sanf_name);
         initialamount = view.findViewById(R.id.initialamount);
         desc = view.findViewById(R.id.desc);
@@ -177,7 +185,8 @@ public class AddMontag extends Fragment {
         imageStrings = new ArrayList<>();
         imageUri = new ArrayList<>();
         tempimageUri = new ArrayList<>();
-        bytes = new ArrayList<>();
+//        bytes = new ArrayList<>();
+        Gallary = new ArrayList<>();
         return view;
     }
 
@@ -190,8 +199,55 @@ public class AddMontag extends Fragment {
 
         DepatmentList = new ArrayList<>();
         indexOfDepatmentList = new ArrayList<>();
-
         loadDepartment();
+        if (montagModel!=null){
+            sanf_name.setText(montagModel.getName());
+            initialamount.setText(montagModel.getAmount()+"");
+            desc.setText(montagModel.getDescription());
+            desc.setEnabled(false);
+            buy_price.setText(montagModel.getSellPrice()+"");
+            critical_amount.setText(montagModel.getCriticalQuantity()+"");
+            summary.setText(montagModel.getSummary()+"");
+            summary.setEnabled(false);
+            buyex_price.setText(montagModel.getBuyPrice()+"");
+            notes.setText(montagModel.getNotes()+"");
+            notes.setEnabled(false);
+
+            if (montagModel.getColor().size()>0){
+                colorCodes = new ArrayList<>();
+                for (int x=0; x<montagModel.getColor().size(); x++) {
+                    colorCodes.add(new ColorCode(montagModel.getColor().get(x).getColor()));
+                }
+                adapter = new ColorAdapter(getActivity(), colorCodes);
+                recyclerView.setAdapter(adapter);
+            }
+
+            if (montagModel.getSize().size()>0){
+                sizeDimention = new ArrayList<>();
+                for (int x=0; x<montagModel.getSize().size(); x++){
+                    sizeDimention.add(new Size(montagModel.getSize().get(x).getSize()));
+                }
+                size_adap = new SizeAdapter(getActivity(), sizeDimention);
+                size_rec.setAdapter(size_adap);
+            }
+
+            if (montagModel.getGallary().size()>0){
+//                List<String> imageName = new ArrayList<>();
+//                for (int x=0; x<montagModel.getGallary().size(); x++) {
+//                    UUID uuid = new UUID(455465456,1);
+//                    new DownloadImage().execute(baseUrl+montagModel.getGallary().get(x).getPhoto());
+//                    Bitmap bitmap ;
+//                    bitmap = loadImageBitmap(getActivity(), uuid+".jpeg");
+//                    Uri uri = getImageUri(getActivity(),bitmap);
+//                    displayImage(bitmap,uri);
+//                    imageName.add(uuid+".jpeg");
+//                }
+            }
+
+            //Todo: Forgot To Get Data For Spinner From WebService As so Create it's Own Value into Model
+            // Here To Set Item To Spinner
+        }
+
         sanf = new Sanf();
         choose_color.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -248,38 +304,31 @@ public class AddMontag extends Fragment {
         add_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+                openGalary();
             }
         });
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Gson gson = new Gson();
-                sanf.setName(sanf_name.getText().toString());
-                sanf.setAmount(initialamount.getText().toString());
-                sanf.setBuyPrice(buy_price.getText().toString());
-                sanf.setCriticalQuantity(critical_amount.getText().toString());
-                sanf.setDescription(desc.getText().toString());
-//                sanf.setEditDate("fbfb");
-                sanf.setEditUserId("3");
+                //Todo: Validate Inputs
                 sanf.setId(0);
-                sanf.setUserId("3");
+                sanf.setName(sanf_name.getText().toString());
+                sanf.setBuyPrice(Integer.parseInt(buy_price.getText().toString()));
+                sanf.setSellPrice(Integer.parseInt(buyex_price.getText().toString()));
                 sanf.setSummary(summary.getText().toString());
-                sanf.setShop_Id("5");
-                sanf.setSampleCatogoriesId("3");
+                sanf.setDescription(desc.getText().toString());
                 sanf.setNotes(notes.getText().toString());
-                sanf.setInsertDate("3");
-                sanf.setSellPrice(buyex_price.getText().toString());
-                sanf.setColorCodes(colorStrings);
-                sanf.setSizeList(sizeStrings);
+                sanf.setShop_Id(5);
+                sanf.setUserId(3);
+                sanf.setEditUserId(3);
+                sanf.setCriticalQuantity(Integer.parseInt(critical_amount.getText().toString()));
+                sanf.setAmount(Integer.parseInt(initialamount.getText().toString()));
+                sanf.setSampleCatogoriesId(3);
+//                sanf.setInsertDate("3");
+                sanf.setSize(sizeStrings);
+                sanf.setColor(colorStrings);
                 uploadImage();
-                final String jsonInString = gson.toJson(sanf);
-
-                Log.e("Data", jsonInString);
             }
         });
 
@@ -339,43 +388,17 @@ public class AddMontag extends Fragment {
         });
     }
 
-    private void uploadImage() {
-        Gson gson = new Gson();
-        Log.e("Start: ", "1");
-//        List<String> strings = new ArrayList<>();
-//        String imageList = "[";
-//        for (int x=0 ; x<imageStrings.size(); x++){
-//            Log.e("Image ", getStringImage(imageSources.get(x)));
-//            Log.e("Image ", imageStrings.get(0).getSource());
-
-//            imageStrings.add(getStringImage(imageSources.get(x)));
-//            imageStrings.add(getStringImage(imageSources.get(x)));
-//                imageList+=  ",";
-//        imageStrings.get(0).getSource().length();
-//            Log.e("Start ", "[ "+bytes.get(0)+" ]");
-//        }
-
-//        imageList+="]";
-
-//        String test = imageList;
-        final String allImages = gson.toJson(imageStrings);
-                Log.e("Start: ", allImages);
-        //Showing the progress dialog
+    private void uploadMontage(final String jsonInString) {
+        Log.e("Connection UploadMontag", "Here");
         final ProgressDialog loading = ProgressDialog.show(getActivity(), "Uploading...", "Please wait...", false, false);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://192.168.1.6:8080/SampleProduct/Add",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
                         //Disimissing the progress dialog
                         loading.dismiss();
-                        //Showing toast message of the response
-                        Log.e("Path: ", s);
-                        Toast.makeText(getActivity(), s, Toast.LENGTH_LONG).show();
+                        Log.e("Data: ", s);
 
-//                        for (int x=0; x<imageStrings.size(); x++){
-//                            imageStrings.remove(0);
-//                        }
-//                        imageStrings.add(s);
                     }
                 },
                 new Response.ErrorListener() {
@@ -385,7 +408,104 @@ public class AddMontag extends Fragment {
                         loading.dismiss();
 
                         //Showing toast
-                        Toast.makeText(getActivity(), volleyError.getMessage(), Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getActivity(), volleyError.getMessage(), Toast.LENGTH_LONG).show();
+                        if (volleyError instanceof ServerError)
+                            Log.e("Error: ", "Server Error");
+                        else if (volleyError instanceof TimeoutError)
+                            Log.e("Error: ", "Timeout Error");
+                        else if (volleyError instanceof NetworkError)
+                            Log.e("Error: ", "Bad Network");
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //Converting Bitmap to String
+//                for (int x= 0; x<imageSources.size(); x++) {
+//                    String image = getStringImage(bitmap);
+//                }
+
+                //Creating parameters
+                Map<String, String> params = new Hashtable<String, String>();
+
+                //Adding parameters
+                params.put("Product", jsonInString);
+
+                params.put(KEY_NAME, "Mohamed");
+
+                //returning parameters
+                return params;
+            }
+        };
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                2,  // maxNumRetries = 2 means no retry
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Volley.newRequestQueue(getActivity()).add(stringRequest);
+    }
+
+    private void openGalary() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+    }
+
+    private void openCamera() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+    }
+
+    private void uploadImage() {
+        final Gson gson = new Gson();
+        Log.e("Connection UploadImage", "Here");
+        final String allImages = gson.toJson(imageStrings);
+//        Log.e("Start: ", allImages);
+        //Showing the progress dialog
+        final ProgressDialog loading = ProgressDialog.show(getActivity(), "Uploading...", "Please wait...", false, false);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        //Disimissing the progress dialog
+                        loading.dismiss();
+                        Log.e("Path: ", s);
+                        try {
+
+                            JSONObject object = new JSONObject(s);
+                            JSONArray array = object.getJSONArray("Images");
+                            for (int x = 0; x < array.length(); x++) {
+                                String object1 = array.getString(x);
+                                Gallary.add(new ImageSource(baseUrl + object1));
+                            }
+                            sanf.setGallary(Gallary);
+
+                            final String jsonInString = gson.toJson(sanf);
+                            Log.e("Data", jsonInString);
+                            Log.e("Gallary", gson.toJson(Gallary));
+                            uploadMontage(jsonInString);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        //Dismissing the progress dialog
+                        loading.dismiss();
+
+                        //Showing toast
+//                        Toast.makeText(getActivity(), volleyError.getMessage(), Toast.LENGTH_LONG).show();
+                        if (volleyError instanceof ServerError)
+                            Log.e("Error: ", "Server Error");
+                        else if (volleyError instanceof TimeoutError)
+                            Log.e("Error: ", "Timeout Error");
+                        else if (volleyError instanceof NetworkError)
+                            Log.e("Error: ", "Bad Network");
                     }
                 }) {
             @Override
@@ -408,11 +528,11 @@ public class AddMontag extends Fragment {
             }
         };
 
-        //Creating a Request Queue
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-
-        //Adding request to the queue
-        requestQueue.add(stringRequest);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                2,  // maxNumRetries = 2 means no retry
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        Volley.newRequestQueue(getActivity()).add(stringRequest);
     }
 
 
@@ -421,8 +541,8 @@ public class AddMontag extends Fragment {
         DepatmentList = new ArrayList<>();
         indexOfDepatmentList = new ArrayList<>();
 
-        if (DepatmentList.size()>0){
-            for (int x=0; x<DepatmentList.size(); x++){
+        if (DepatmentList.size() > 0) {
+            for (int x = 0; x < DepatmentList.size(); x++) {
                 DepatmentList.remove(x);
                 indexOfDepatmentList.remove(x);
             }
@@ -474,7 +594,7 @@ public class AddMontag extends Fragment {
                 Toast.makeText(getActivity(), "ok", Toast.LENGTH_SHORT).show();
                 AddMontag.color = color;
                 //Todo: Check List To Upload
-                colorStrings.add(new ColorCode(0,String.format("0x%08x", color),3,5));
+                colorStrings.add(new ColorCode(0, String.format("0x%08x", color), 3, 5));
                 displayColor(color);
             }
 
@@ -498,7 +618,7 @@ public class AddMontag extends Fragment {
 
             sizeDimention = sizeTemp;
             sizeDimention.add(new Size(sizetype));
-            sizeStrings.add(new Size(sizetype,"1","6"));
+            sizeStrings.add(new Size(1, sizetype, 6));
 
             size_adap.notifyItemRangeRemoved(0, size);
         } else {
@@ -521,11 +641,11 @@ public class AddMontag extends Fragment {
             }
 
             colorCodes = temp;
-            colorCodes.add(new ColorCode(color));
+            colorCodes.add(new ColorCode(String.valueOf(color)));
 
             adapter.notifyItemRangeRemoved(0, size);
         } else {
-            colorCodes.add(new ColorCode(color));
+            colorCodes.add(new ColorCode(String.valueOf(color)));
         }
 //        Toast.makeText(getActivity(),String.format("Current color: 0x%08x", color),Toast.LENGTH_SHORT).show();
 
@@ -533,7 +653,7 @@ public class AddMontag extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
-    void displayImage(Bitmap path, Uri uri) throws IOException {
+    void displayImage(Bitmap path, Uri uri) {
         final int size = imageSources.size();
 //        ContactItem []x = new ContactItem[size];
         if (size > 0) {
@@ -549,14 +669,13 @@ public class AddMontag extends Fragment {
             imageUri = tempimageUri;
             imageSources.add(path);
             imageUri.add(uri);
-//            bytes.add(compress(getStringImage(path)));
-//            Log.e("Compress",compress(getStringImage(path))+"");
-            imageStrings.add(new ImageContainer(getStringImage(path)));
+//            Log.e("Path",path);
+            imageStrings.add(getStringImage(path));
 
             image_adap.notifyItemRangeRemoved(0, size);
         } else {
             imageSources.add(path);
-            imageStrings.add(new ImageContainer(getStringImage(path)));
+            imageStrings.add(getStringImage(path));
             imageUri.add(uri);
         }
 //        Toast.makeText(getActivity(),String.format("Current color: 0x%08x", color),Toast.LENGTH_SHORT).show();
@@ -582,7 +701,7 @@ public class AddMontag extends Fragment {
 
 
                 displayImage(bitmap, filePath);
-                imageStrings.add(new ImageContainer(getStringImage(bitmap)));
+//                imageStrings.add(getStringImage(bitmap));
 //                ByteArrayOutputStream stream = new ByteArrayOutputStream();
 //                Deflater compresser = new Deflater(Deflater.BEST_COMPRESSION, true);
 //                DeflaterOutputStream deflaterOutputStream = new DeflaterOutputStream(stream, compresser);
@@ -613,28 +732,69 @@ public class AddMontag extends Fragment {
         return encodedImage;
     }
 
-    public static byte[] compress(String data) throws IOException {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream(data.length());
-        GZIPOutputStream gzip = new GZIPOutputStream(bos);
-        gzip.write(data.getBytes());
-        gzip.close();
-        byte[] compressed = bos.toByteArray();
-        bos.close();
-        return compressed;
+    public void saveImage(Context context, Bitmap b, String imageName) {
+        FileOutputStream foStream;
+        try {
+            foStream = context.openFileOutput(imageName, Context.MODE_PRIVATE);
+            b.compress(Bitmap.CompressFormat.PNG, 100, foStream);
+            foStream.close();
+        } catch (Exception e) {
+            Log.d("saveImage", "Exception 2, Something went wrong!");
+            e.printStackTrace();
+        }
     }
 
-    public static String decompress(byte[] compressed) throws IOException {
-        ByteArrayInputStream bis = new ByteArrayInputStream(compressed);
-        GZIPInputStream gis = new GZIPInputStream(bis);
-        BufferedReader br = new BufferedReader(new InputStreamReader(gis, "UTF-8"));
-        StringBuilder sb = new StringBuilder();
-        String line;
-        while((line = br.readLine()) != null) {
-            sb.append(line);
+    private class DownloadImage extends AsyncTask<String, Void, Bitmap> {
+        private String TAG = "DownloadImage";
+        private Bitmap downloadImageBitmap(String sUrl) {
+            Bitmap bitmap = null;
+            try {
+                InputStream inputStream = new URL(sUrl).openStream();   // Download Image from URL
+                bitmap = BitmapFactory.decodeStream(inputStream);       // Decode Bitmap
+                inputStream.close();
+            } catch (Exception e) {
+                Log.d(TAG, "Exception 1, Something went wrong!");
+                e.printStackTrace();
+            }
+            return bitmap;
         }
-        br.close();
-        gis.close();
-        bis.close();
-        return sb.toString();
+
+        @Override
+        protected Bitmap doInBackground(String... params) {
+            return downloadImageBitmap(params[0]);
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            saveImage(getActivity(), result, "my_image.png");
+        }
     }
+
+    public Bitmap loadImageBitmap(Context context, String imageName) {
+        Bitmap bitmap = null;
+        FileInputStream fiStream;
+        try {
+            fiStream    = context.openFileInput(imageName);
+            bitmap      = BitmapFactory.decodeStream(fiStream);
+            fiStream.close();
+        } catch (Exception e) {
+            Log.d("saveImage", "Exception 3, Something went wrong!");
+            e.printStackTrace();
+        }
+        return bitmap;
+    }
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
+    public String getRealPathFromURI(Uri uri) {
+        Cursor cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+        return cursor.getString(idx);
+    }
+
 }

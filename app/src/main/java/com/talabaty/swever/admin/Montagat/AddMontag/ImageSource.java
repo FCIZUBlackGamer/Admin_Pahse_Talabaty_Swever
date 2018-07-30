@@ -2,14 +2,43 @@ package com.talabaty.swever.admin.Montagat.AddMontag;
 
 import android.net.Uri;
 
-public class ImageSource {
-    Uri Photo;
-    public int Id ;
-    public int SampleProductId ;
+import java.io.Serializable;
 
+public class ImageSource implements Serializable {
+    Uri Photo2;
+    int Id ;
+    String Photo;
+    int SampleProductId ;
+
+
+    public ImageSource(String photo) {
+        Photo = photo;
+    }
+
+    public ImageSource(int id, String photo, int sampleProductId) {
+        Id = id;
+        Photo = photo;
+        SampleProductId = sampleProductId;
+    }
+
+    public int getId() {
+        return Id;
+    }
+
+    public int getSampleProductId() {
+        return SampleProductId;
+    }
+
+    public Uri getPhoto2() {
+        return Photo2;
+    }
+
+    public String getPhoto() {
+        return Photo;
+    }
 
     public ImageSource(Uri source) {
-        this.Photo = source;
+        this.Photo2 = source;
     }
 
     public void setId(int id) {
@@ -21,6 +50,6 @@ public class ImageSource {
     }
 
     public Uri getSource() {
-        return Photo;
+        return Photo2;
     }
 }

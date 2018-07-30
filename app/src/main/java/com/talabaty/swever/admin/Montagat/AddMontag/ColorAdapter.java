@@ -33,7 +33,7 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.Vholder> {
     @Override
     public void onBindViewHolder(@NonNull Vholder holder, final int position) {
 
-        holder.color.setBackgroundColor(colorCodes.get(position).getColor());
+        holder.color.setBackgroundColor(Integer.parseInt(colorCodes.get(position).getColor()));
         holder.delete_color.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

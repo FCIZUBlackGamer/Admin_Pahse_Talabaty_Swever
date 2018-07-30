@@ -1,16 +1,18 @@
 package com.talabaty.swever.admin.Montagat.AddMontag;
 
-public class ColorCode {
-    int color;
+import java.io.Serializable;
 
-    public int Id ;
-    public String Color ;
-    public int Amount ;
-    public int SampleProductId ;
+public class ColorCode implements Serializable{
+//    int color;
+
+    int Id ;
+    String Color ;
+    int Amount ;
+    int SampleProductId ;
 
 
-    public ColorCode(int color) {
-        this.color = color;
+    public ColorCode(String color) {
+        this.Color = color;
     }
 
     public ColorCode(int id, String color, int amount, int sampleProductId) {
@@ -20,9 +22,9 @@ public class ColorCode {
         SampleProductId = sampleProductId;
     }
 
-    public int getColor() {
-        return color;
-    }
+//    public int getColor() {
+//        return color;
+//    }
 
     public void setSampleProductId(int sampleProductId) {
         SampleProductId = sampleProductId;
@@ -38,5 +40,9 @@ public class ColorCode {
 
     public void setColor(String color) {
         Color = color;
+    }
+
+    public String getColor() {
+        return Color;
     }
 }
