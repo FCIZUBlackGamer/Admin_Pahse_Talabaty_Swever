@@ -25,16 +25,17 @@
                 <Button
                     android:layout_width="160dp"
                     android:layout_gravity="center"
-                    android:layout_height="wrap_content"
+                    android:layout_height="35dp"
                     android:layout_column="0"
                     android:layout_span="1"
                     android:id="@+id/start"
                     android:background="@drawable/button_shape"
                     android:gravity="center"
                     android:text=" أبدأ"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:fontFamily="@font/changalight"
+                    android:textSize="16sp"
                     android:textColor="@color/white"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"/>
 
                 <View
                     android:layout_height="match_parent"
@@ -51,7 +52,8 @@
                     android:id="@+id/num"
                     android:gravity="center"
                     android:text=" 12 "
-                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:fontFamily="@font/changalight"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <View android:layout_height="match_parent"
@@ -64,10 +66,12 @@
                     android:maxWidth="160dp"
                     android:layout_height="match_parent"
                     android:layout_column="2"
+                    android:fontFamily="@font/changalight"
+                    android:textSize="16sp"
                     android:id="@+id/name"
                     android:gravity="center"
                     android:text=" مؤمن شاهين"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    />
 
                 <View android:layout_height="match_parent"
                     android:layout_width="3dp"
@@ -83,7 +87,8 @@
                     android:layout_span="1"
                     android:gravity="center"
                     android:text="1"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    android:fontFamily="@font/changalight"
+                    android:textSize="16sp" />
 
 
             </TableRow>

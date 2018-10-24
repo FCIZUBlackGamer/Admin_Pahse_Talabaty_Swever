@@ -4,14 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <SearchView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/search_contact"
-        android:clickable="true"
-        android:focusable="true">
 
-    </SearchView>
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

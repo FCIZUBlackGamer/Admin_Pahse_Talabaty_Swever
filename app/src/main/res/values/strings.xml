@@ -9,10 +9,15 @@
     <string name="action_settings">الأعدادات</string>
 
     <string-array name="test">
-        <item>سمك</item>
-        <item>لبن</item>
-        <item>تمر هندى</item>
-        <item>=D</item>
+        <item>نسبة</item>
+        <item>قيمه</item>
+    </string-array>
+
+    <string-array name="ids">
+        <item>اخرى</item>
+        <item>مطاعم</item>
+        <item>ماركت</item>
+        <item>اضافات</item>
     </string-array>
 
     <string-array name="print">

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:scrollbars="horizontal|vertical">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:isScrollContainer="true"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:isScrollContainer="true"
+            android:orientation="horizontal"
+            android:scrollbarSize="3dp"
+            android:scrollbars="horizontal|vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <ImageButton
+                    android:id="@+id/close"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@color/white"
+                    android:src="@drawable/ic_close_black_24dp"
+                    android:textAlignment="center"
+                    android:visibility="visible" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="5dp"
+                        android:layout_marginEnd="3dp"
+                        android:gravity="center"
+                        android:text="محتوى العرض"
+                        android:fontFamily="@font/changamedium"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/offer_product_name"
+            style="@style/Base.Widget.AppCompat.DropDownItem.Spinner"
+            android:padding="10dp"
+            android:layout_margin="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:id="@+id/offer_product_unit"
+                android:padding="10dp"
+                android:text="الوحده"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:fontFamily="@font/changaregular"
+                android:layout_margin="10dp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="الوحده:"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:fontFamily="@font/changaregular"
+                android:layout_margin="10dp"/>
+        </LinearLayout>
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:hint="السعر "
+                android:id="@+id/offer_total"
+                android:fontFamily="@font/changasemibold"
+                android:gravity="right"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:visibility="visible"/>
+            <EditText
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:hint="العدد"
+                android:id="@+id/offer_num"
+                android:fontFamily="@font/changaregular"
+                android:gravity="right"
+                android:padding="10dp"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:layout_margin="10dp"
+                android:visibility="visible"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="أضف"
+                android:background="@drawable/button_shape"
+                android:layout_margin="15dp"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:id="@+id/offer_add"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

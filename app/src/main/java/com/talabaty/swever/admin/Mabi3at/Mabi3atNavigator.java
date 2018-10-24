@@ -1,6 +1,7 @@
 package com.talabaty.swever.admin.Mabi3at;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -12,25 +13,36 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.talabaty.swever.admin.AgentReports.Fragment_agent_report;
 import com.talabaty.swever.admin.Home;
+import com.talabaty.swever.admin.LoginDatabae;
 import com.talabaty.swever.admin.Mabi3at.Delevry.DelevryHome;
 import com.talabaty.swever.admin.Mabi3at.DoneTalabat.DoneTalabat;
 import com.talabaty.swever.admin.Mabi3at.NewTalabat.NewTalabatFragment;
 import com.talabaty.swever.admin.Mabi3at.NotificationToFriendTalabat.NotificationToFriendTalabat;
 import com.talabaty.swever.admin.Mabi3at.PendedTalabat.PendedTalabatFragment;
-import com.talabaty.swever.admin.Mabi3at.Tasks.MyTasksFragment;
 import com.talabaty.swever.admin.Mabi3at.ReadyTalabat.ReadyTalabatFragment;
 import com.talabaty.swever.admin.Mabi3at.RejectedReports.RejectedReports;
 import com.talabaty.swever.admin.Mabi3at.ReturnedTalabat.ReturnedTalabatFragment;
 import com.talabaty.swever.admin.Mabi3at.SailedReports.SailedReports;
+import com.talabaty.swever.admin.Mabi3at.Tasks.MyTasksFragment;
 import com.talabaty.swever.admin.Mabi3atTrend.Mabi3atTrendReports;
 import com.talabaty.swever.admin.Managment.Employees.ControlEmployee.FragmentControlEmployee;
 import com.talabaty.swever.admin.Managment.Privilages.AddPrivilege.FragmentAddPrivilege;
 import com.talabaty.swever.admin.Managment.Privilages.ControlPrivilege.FragmentControlPrivilege;
+import com.talabaty.swever.admin.Montagat.ControlBaseFood_Additions.FragmentControlBaseFood_Additions;
 import com.talabaty.swever.admin.Montagat.ControlMontag.ControlMontag;
+import com.talabaty.swever.admin.Offers.Fragment_offers;
+import com.talabaty.swever.admin.Offers.Market.Fragment_offers_Market;
+import com.talabaty.swever.admin.Offers.Restaurant.Fragment_offers_Restaurant;
+import com.talabaty.swever.admin.Offers.TotalOffer;
 import com.talabaty.swever.admin.R;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Mabi3atNavigator extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -39,6 +51,11 @@ public class Mabi3atNavigator extends AppCompatActivity implements NavigationVie
     FragmentManager fragmentManager;
     Intent intent;
 
+    CircleImageView imageView;
+    TextView user_name;
+    LoginDatabae loginDatabae;
+    Cursor cursor;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,29 +63,40 @@ public class Mabi3atNavigator extends AppCompatActivity implements NavigationVie
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        loginDatabae = new LoginDatabae(this);
+        cursor = loginDatabae.ShowData();
+
         //Get Fragment Name
         intent = getIntent();
 
         fragmentManager = getSupportFragmentManager();
-
+        getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         if (intent.getStringExtra("fragment").equals("new")) {
-            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new NewTalabatFragment()).addToBackStack("").commit();
+            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new NewTalabatFragment()).commit();
         } else if (intent.getStringExtra("fragment").equals("ready")) {
-            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new ReadyTalabatFragment()).addToBackStack("ReadyTalabatFragment").commit();
+            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new ReadyTalabatFragment()).commit();
         } else if (intent.getStringExtra("fragment").equals("pend")) {
-            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new PendedTalabatFragment()).addToBackStack("MyTasksFragment").commit();
+            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new PendedTalabatFragment()).commit();
         } else if (intent.getStringExtra("fragment").equals("returned")) {
-            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new ReturnedTalabatFragment()).addToBackStack("ReturnedTalabatFragment").commit();
+            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new ReturnedTalabatFragment()).commit();
         } else if (intent.getStringExtra("fragment").equals("notification")) {
-            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new NotificationToFriendTalabat()).addToBackStack("NotificationToFriendTalabat").commit();
+            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new NotificationToFriendTalabat()).commit();
         } else if (intent.getStringExtra("fragment").equals("done")) {
-            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new DoneTalabat()).addToBackStack("DoneTalabat").commit();
+            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new DoneTalabat()).commit();
         } else if (intent.getStringExtra("fragment").equals("rejected")) {
-            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new RejectedReports()).addToBackStack("RejectedReports").commit();
+            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new RejectedReports()).commit();
         } else if (intent.getStringExtra("fragment").equals("sailed")) {
-            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new SailedReports()).addToBackStack("SailedReports").commit();
+            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new SailedReports()).commit();
         } else if (intent.getStringExtra("fragment").equals("control")) {
-            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new ControlMontag()).commit();
+            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new ControlMontag().setType("0")).commit();
+        } else if (intent.getStringExtra("fragment").equals("control1")) {
+            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new ControlMontag().setType("1")).commit();
+        } else if (intent.getStringExtra("fragment").equals("control2")) {
+            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new ControlMontag().setType("2")).commit();
+        } else if (intent.getStringExtra("fragment").equals("control3")) {
+            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new FragmentControlBaseFood_Additions().setType("3")).commit();
+        } else if (intent.getStringExtra("fragment").equals("control4")) {
+            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new FragmentControlBaseFood_Additions().setType("4")).commit();
         } else if (intent.getStringExtra("fragment").equals("trend")) {
             fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new Mabi3atTrendReports()).commit();
         } else if (intent.getStringExtra("fragment").equals("report")) {
@@ -82,9 +110,31 @@ public class Mabi3atNavigator extends AppCompatActivity implements NavigationVie
         } else if (intent.getStringExtra("fragment").equals("emp_control")) {
             fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new FragmentControlEmployee()).commit();
         } else if (intent.getStringExtra("fragment").equals("my_tasks")) {
-            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new MyTasksFragment()).addToBackStack("MyTasksFragment").commit();
+            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new MyTasksFragment()).commit();
         } else if (intent.getStringExtra("fragment").equals("delivery")) {
-            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new DelevryHome()).addToBackStack("DelevryHome").commit();
+            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new DelevryHome()).commit();
+        } else if (intent.getStringExtra("fragment").equals("control_offer_other")) {
+                                                /** Add For other */
+            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new Fragment_offers()).commit();
+        } else if (intent.getStringExtra("fragment").equals("control_offer_rest")) {
+                                                /** Add For restaurant */
+            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new Fragment_offers_Restaurant()).commit();
+        } else if (intent.getStringExtra("fragment").equals("control_offer_market")) {
+                                                /** Add For market */
+            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new Fragment_offers_Market()).commit();
+        } else if (intent.getStringExtra("fragment").equals("edit_other")) {
+            TotalOffer offer = (TotalOffer) intent.getSerializableExtra("Model");
+            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new Fragment_offers().setData(offer)).commit();
+        } else if (intent.getStringExtra("fragment").equals("edit_restaurant")) {//Todo: Change Class Name
+            TotalOffer offer = (TotalOffer) intent.getSerializableExtra("Model");
+            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new Fragment_offers_Restaurant().setData(offer)).commit();
+        } else if (intent.getStringExtra("fragment").equals("edit_market")) {//Todo: Change Class Name
+            TotalOffer offer = (TotalOffer) intent.getSerializableExtra("Model");
+            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new Fragment_offers_Market().setData(offer)).commit();
+        } else if (intent.getStringExtra("fragment").equals("control_offer_rest")) {//Todo: Change Class Name
+            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new Fragment_offers()).commit();
+        } else if (intent.getStringExtra("fragment").equals("control_offer_market")) {//Todo: Change Class Name
+            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new Fragment_offers()).commit();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -94,6 +144,18 @@ public class Mabi3atNavigator extends AppCompatActivity implements NavigationVie
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View view = navigationView.getHeaderView(0);
+        imageView = view.findViewById(R.id.imageView);
+        user_name = view.findViewById(R.id.user_name);
+        while (cursor.moveToNext()) {
+            user_name.setText(cursor.getString(1));
+            if (!cursor.getString(5).isEmpty()) {
+                Picasso.with(this)
+                        .load(cursor.getString(5))
+                        .into(imageView);
+            }
+        }
     }
 
     @Override
@@ -106,27 +168,27 @@ public class Mabi3atNavigator extends AppCompatActivity implements NavigationVie
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.home, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -215,7 +277,7 @@ public class Mabi3atNavigator extends AppCompatActivity implements NavigationVie
             intent.putExtra("fragment","management");
             startActivity(intent);
         } else if (id == R.id.nav_out) {
-
+            loginDatabae.UpdateData("1","c","c","c","0","","");
         }
 
 

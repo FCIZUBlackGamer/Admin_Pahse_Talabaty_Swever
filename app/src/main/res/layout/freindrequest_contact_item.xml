@@ -28,6 +28,7 @@
             android:id="@+id/contact_name"
             android:layout_below="@id/contact_image"
             android:text="مؤمن شاهين"
+            android:fontFamily="@font/changabold"
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:textColor="@color/white"

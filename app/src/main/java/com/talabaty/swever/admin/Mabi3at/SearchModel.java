@@ -55,8 +55,18 @@ public class SearchModel {
         this.type = type;
     }
 
+    public void setType(String type) {
+        this.type = type;
+    }
 
-//    public SearchModel(String from, String to, String productId, int x) {
+    public void setX(String x) {
+        this.x = x;
+    }
+
+    public void setProductId(String productId) {
+        ProductId = productId;
+    }
+    //    public SearchModel(String from, String to, String productId, int x) {
 //        From = from;
 //        To = to;
 //        ProductId = productId;

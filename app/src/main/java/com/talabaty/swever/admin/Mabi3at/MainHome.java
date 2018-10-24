@@ -2,9 +2,12 @@ package com.talabaty.swever.admin.Mabi3at;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +25,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.talabaty.swever.admin.Home;
+import com.talabaty.swever.admin.LoginDatabae;
 import com.talabaty.swever.admin.R;
 
 import org.json.JSONException;
@@ -36,7 +40,11 @@ public class MainHome extends Fragment {
     TextView num_new_talabat, num_ready_talabat, num_done_talabat, num_pend_tasks, num_returned_talabat, num_notification;
 
     Button my_tasks, delvery;
-    TextView num_my_tasks, num_delvery;
+    TextView num_my_tasks;
+
+    LoginDatabae loginDatabae;
+    Cursor cursor;
+    int userid, shopid;
 
     @Nullable
     @Override
@@ -60,8 +68,9 @@ public class MainHome extends Fragment {
         num_returned_talabat = view.findViewById(R.id.num_returned_talabat);
         num_notification = view.findViewById(R.id.num_notification);
         num_my_tasks = view.findViewById(R.id.num_my_tasks);
-        num_delvery = view.findViewById(R.id.num_delevry);
 
+        loginDatabae = new LoginDatabae(getActivity());
+        cursor = loginDatabae.ShowData();
         return view;
     }
 
@@ -71,7 +80,13 @@ public class MainHome extends Fragment {
         ((Home) getActivity())
                 .setActionBarTitle("المبيعات");
 
+        while (cursor.moveToNext()) {
+            userid = Integer.parseInt(cursor.getString(2));
+            shopid = Integer.parseInt(cursor.getString(3));
 
+        }
+
+        Log.e("S","Main Home");
 //        ExecutorService threadPoolExecutor = Executors.newSingleThreadExecutor();
 //        Runnable longRunningTask = new Runnable() {
 //            double time = System.currentTimeMillis() / 1000;
@@ -284,6 +299,16 @@ public class MainHome extends Fragment {
                                     }
                                 });
 
+                                final String MyOrderCount = object.getString("MyOrderCount");
+                                getActivity().runOnUiThread(new Runnable() {
+
+                                    @Override
+                                    public void run() {
+                                        num_my_tasks.setText(MyOrderCount);
+
+                                    }
+                                });
+
 
                             }
                         } catch (JSONException e) {
@@ -294,19 +319,32 @@ public class MainHome extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressDialog.dismiss();
+                LayoutInflater inflater = getLayoutInflater();
+                View layout = inflater.inflate(R.layout.toast_warning,
+                        (ViewGroup) getActivity().findViewById(R.id.lay));
+
+                TextView text = (TextView) layout.findViewById(R.id.txt);
+
                 if (error instanceof ServerError)
-                    Toast.makeText(getActivity(), "خطأ إثناء الاتصال بالخادم", Toast.LENGTH_SHORT).show();
-                else if (error instanceof NetworkError)
-                    Toast.makeText(getActivity(), "خطأ فى شبكه الانترنت", Toast.LENGTH_SHORT).show();
+                    text.setText("خطأ فى الاتصال بالخادم");
                 else if (error instanceof TimeoutError)
-                    Toast.makeText(getActivity(), "خطأ فى مده الانتظار", Toast.LENGTH_SHORT).show();
+                    text.setText("خطأ فى مدة الاتصال");
+                else if (error instanceof NetworkError)
+                    text.setText("شبكه الانترنت ضعيفه حاليا");
+
+                Toast toast = new Toast(getActivity());
+                toast.setGravity(Gravity.BOTTOM, 0, 0);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout);
+                toast.show();
             }
         }) {
             @Override
             protected Map<String, String> getParams() {
                 HashMap hashMap = new HashMap();
-                hashMap.put("ShopId", "3");
-                hashMap.put("UserId", "5");
+                hashMap.put("ShopId", shopid+"");
+                hashMap.put("UserId", userid+"");
+                hashMap.put("token", "bKPNOJrob8x");
                 return hashMap;
             }
         };

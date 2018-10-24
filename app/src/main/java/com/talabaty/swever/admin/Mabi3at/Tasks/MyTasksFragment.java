@@ -1,6 +1,8 @@
 package com.talabaty.swever.admin.Mabi3at.Tasks;
 
 import android.app.ProgressDialog;
+import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -8,10 +10,12 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
@@ -27,8 +31,10 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.talabaty.swever.admin.LoginDatabae;
 import com.talabaty.swever.admin.Mabi3at.DoneTalabat.Talabat;
 import com.talabaty.swever.admin.Mabi3at.Mabi3atNavigator;
+import com.talabaty.swever.admin.Mabi3at.Methods;
 import com.talabaty.swever.admin.R;
 
 import org.json.JSONArray;
@@ -44,6 +50,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 
 public class MyTasksFragment extends Fragment {
 
@@ -53,9 +60,13 @@ public class MyTasksFragment extends Fragment {
     TextView next, num, last;
     int item_num, page_num;
     int temp_first, temp_last;
-    HashMap<String, Talabat> holder_alpha, holder_date, holder_num;
-    CheckBox order_alpha;
-    Spinner order_up, order_down;
+//    HashMap<String, Talabat> holder_alpha, holder_date, holder_num;
+//    CheckBox order_alpha;
+//    Spinner order_up, order_down;
+    Button pdf;
+    LoginDatabae loginDatabae;
+    Cursor cursor;
+    int userid, shopid;
 
     @Nullable
     @Override
@@ -70,10 +81,13 @@ public class MyTasksFragment extends Fragment {
         num = view.findViewById(R.id.item_num);
         item_num = page_num = 0;
         num.setText(0 + "");
-        holder_alpha = holder_num = holder_date = new HashMap<>();
-        order_alpha = view.findViewById(R.id.order_alpha);
-        order_up = view.findViewById(R.id.order_up);
-        order_down = view.findViewById(R.id.order_down);
+        pdf = view.findViewById(R.id.printpdf);
+//        holder_alpha = holder_num = holder_date = new HashMap<>();
+//        order_alpha = view.findViewById(R.id.order_alpha);
+//        order_up = view.findViewById(R.id.order_up);
+//        order_down = view.findViewById(R.id.order_down);
+        loginDatabae = new LoginDatabae(getActivity());
+        cursor = loginDatabae.ShowData();
         return view;
     }
 
@@ -86,55 +100,101 @@ public class MyTasksFragment extends Fragment {
 
         temp_first = 0;
         temp_last = 10;
+
+        while (cursor.moveToNext()) {
+            userid = Integer.parseInt(cursor.getString(2));
+            shopid = Integer.parseInt(cursor.getString(3));
+
+        }
+
+        pdf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                UUID uuid = new UUID(1000,10000000);
+                String filename = "Talabaty "+uuid;
+                //String filecontent = "Contenido";
+                Methods fop = new Methods(getActivity());
+                if (fop.writeMyTasks(filename, talabats)) {
+                    Toast.makeText(getActivity(),
+                            filename + ".pdf created", Toast.LENGTH_SHORT)
+                            .show();
+//                        String[] mailto = {"momen.shahen2020@gmail.com"};
+//                        Uri uri = Uri.parse("/sdcard/" + filename + ".pdf");
+//
+//                        File filelocation = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), filename + ".pdf");
+//                        Uri path = Uri.fromFile(filelocation);
+//
+//                        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+//                        emailIntent.putExtra(Intent.EXTRA_EMAIL, mailto);
+//                        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Result of Exam Powered by @FCI-Learn");
+//                        emailIntent.putExtra(Intent.EXTRA_TEXT, "Thanks For Your Kinds!");
+//                        emailIntent.setType("application/pdf");
+//                        emailIntent.putExtra(Intent.EXTRA_STREAM, path);
+//
+//                        startActivity(Intent.createChooser(emailIntent, "Send email using:"));
+//                        resultDatabase.DeleteTableAnswer();
+                } else {
+                    Toast.makeText(getActivity(), "I/O error",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadData(item_num, "1");
-            }
-        });
-
-        order_alpha.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    orderDate("alpha");
+                if (talabats.size()==10) {
+                    loadData(item_num, "1");
+                }else {
+                    Snackbar.make(v, "نهايه الطلبات", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
                 }
             }
         });
 
-        order_up.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                order_alpha.setChecked(false);
-                if (order_up.getSelectedItem().toString().equals("الرقم")) {
-                    orderDate("up_num");
-                } else {
-                    orderDate("up_date");
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        order_down.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                order_alpha.setChecked(false);
-                if (order_down.getSelectedItem().toString().equals("الرقم")) {
-                    orderDate("down_num");
-                } else {
-                    orderDate("down_date");
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+//        order_alpha.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked) {
+//                    orderDate("alpha");
+//                }
+//            }
+//        });
+//
+//        order_up.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                order_alpha.setChecked(false);
+//                if (order_up.getSelectedItem().toString().equals("الرقم")) {
+//                    orderDate("up_num");
+//                } else {
+//                    orderDate("up_date");
+//                }
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+//
+//        order_down.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                order_alpha.setChecked(false);
+//                if (order_down.getSelectedItem().toString().equals("الرقم")) {
+//                    orderDate("down_num");
+//                } else {
+//                    orderDate("down_date");
+//                }
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
 
         last.setOnClickListener(new View.OnClickListener() {
@@ -153,161 +213,178 @@ public class MyTasksFragment extends Fragment {
 
     }
 
-    private void orderDate(String type) {
-
-        // Remove All Previous Data
-        final int size = talabats.size();
-        if (size > 0) {
-            for (int i = 0; i < size; i++) {
-                talabats.remove(0);
-            }
-            adapter.notifyItemRangeRemoved(0, size);
-        }
-
-        if (type.equals("alpha")) {
-            List<String> name = new ArrayList<>();
-            Iterator myVeryOwnIterator = holder_alpha.keySet().iterator();
-            while (myVeryOwnIterator.hasNext()) {
-                String key = (String) myVeryOwnIterator.next();
-                name.add(holder_alpha.get(key).getName());
-            }
-
-            Collator collator = Collator.getInstance(new Locale("ar"));
-            Collections.sort(name, collator);
-
-            // Fill New Data
-            for (int x = 0; x < name.size(); x++) {
-                talabats.add(holder_alpha.get(name.get(x)));
-            }
-
-
-        } else if (type.equals("up_num")) {
-            List<String> num = new ArrayList<>();
-            Iterator myVeryOwnIterator = holder_num.keySet().iterator();
-            while (myVeryOwnIterator.hasNext()) {
-                String key = (String) myVeryOwnIterator.next();
-                num.add(holder_alpha.get(key).getNum());
-            }
-
-            Collections.sort(num);
-
-            // Fill New Data
-            for (int x = 0; x < num.size(); x++) {
-                talabats.add(holder_num.get(num.get(x)));
-            }
-
-        } else if (type.equals("up_date")) {
-            List<String> datetime = new ArrayList<>();
-            Iterator myVeryOwnIterator = holder_date.keySet().iterator();
-            while (myVeryOwnIterator.hasNext()) {
-                String key = (String) myVeryOwnIterator.next();
-                datetime.add(holder_date.get(key).getName());
-            }
-
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
-            Collections.sort(datetime);
-
-            // Fill New Data
-            for (int x = 0; x < datetime.size(); x++) {
-                talabats.add(holder_date.get(datetime.get(x)));
-            }
-
-
-        } else if (type.equals("down_num")) {
-
-            List<String> num = new ArrayList<>();
-            Iterator myVeryOwnIterator = holder_num.keySet().iterator();
-            while (myVeryOwnIterator.hasNext()) {
-                String key = (String) myVeryOwnIterator.next();
-                num.add(holder_alpha.get(key).getNum());
-            }
-
-            Collections.sort(num);
-
-            // Fill New Data
-            for (int x = num.size()-1 ; x >= 0 ; x--) {
-                talabats.add(holder_num.get(num.get(x)));
-            }
-
-        } else if (type.equals("down_date")) {
-            List<String> datetime = new ArrayList<>();
-            Iterator myVeryOwnIterator = holder_date.keySet().iterator();
-            while (myVeryOwnIterator.hasNext()) {
-                String key = (String) myVeryOwnIterator.next();
-                datetime.add(holder_date.get(key).getName());
-            }
-
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
-            Collections.sort(datetime);
-
-            // Fill New Data
-            for (int x = datetime.size()-1; x >= 0; x--) {
-                talabats.add(holder_date.get(datetime.get(x)));
-            }
-        }
-
-        adapter = new MyTasksAdapter(getActivity(), talabats, temp_first, temp_last);
-        recyclerView.setAdapter(adapter);
-
-    }
+//    private void orderDate(String type) {
+//
+//        // Remove All Previous Data
+//        final int size = talabats.size();
+//        if (size > 0) {
+//            for (int i = 0; i < size; i++) {
+//                talabats.remove(0);
+//            }
+//            adapter.notifyItemRangeRemoved(0, size);
+//        }
+//
+//        if (type.equals("alpha")) {
+//            List<String> name = new ArrayList<>();
+//            Iterator myVeryOwnIterator = holder_alpha.keySet().iterator();
+//            while (myVeryOwnIterator.hasNext()) {
+//                String key = (String) myVeryOwnIterator.next();
+//                name.add(holder_alpha.get(key).getName());
+//            }
+//
+//            Collator collator = Collator.getInstance(new Locale("ar"));
+//            Collections.sort(name, collator);
+//
+//            // Fill New Data
+//            for (int x = 0; x < name.size(); x++) {
+//                talabats.add(holder_alpha.get(name.get(x)));
+//            }
+//
+//
+//        } else if (type.equals("up_num")) {
+//            List<String> num = new ArrayList<>();
+//            Iterator myVeryOwnIterator = holder_num.keySet().iterator();
+//            while (myVeryOwnIterator.hasNext()) {
+//                String key = (String) myVeryOwnIterator.next();
+//                num.add(holder_alpha.get(key).getNum());
+//            }
+//
+//            Collections.sort(num);
+//
+//            // Fill New Data
+//            for (int x = 0; x < num.size(); x++) {
+//                talabats.add(holder_num.get(num.get(x)));
+//            }
+//
+//        } else if (type.equals("up_date")) {
+//            List<String> datetime = new ArrayList<>();
+//            Iterator myVeryOwnIterator = holder_date.keySet().iterator();
+//            while (myVeryOwnIterator.hasNext()) {
+//                String key = (String) myVeryOwnIterator.next();
+//                datetime.add(holder_date.get(key).getName());
+//            }
+//
+//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
+//            Collections.sort(datetime);
+//
+//            // Fill New Data
+//            for (int x = 0; x < datetime.size(); x++) {
+//                talabats.add(holder_date.get(datetime.get(x)));
+//            }
+//
+//
+//        } else if (type.equals("down_num")) {
+//
+//            List<String> num = new ArrayList<>();
+//            Iterator myVeryOwnIterator = holder_num.keySet().iterator();
+//            while (myVeryOwnIterator.hasNext()) {
+//                String key = (String) myVeryOwnIterator.next();
+//                num.add(holder_alpha.get(key).getNum());
+//            }
+//
+//            Collections.sort(num);
+//
+//            // Fill New Data
+//            for (int x = num.size()-1 ; x >= 0 ; x--) {
+//                talabats.add(holder_num.get(num.get(x)));
+//            }
+//
+//        } else if (type.equals("down_date")) {
+//            List<String> datetime = new ArrayList<>();
+//            Iterator myVeryOwnIterator = holder_date.keySet().iterator();
+//            while (myVeryOwnIterator.hasNext()) {
+//                String key = (String) myVeryOwnIterator.next();
+//                datetime.add(holder_date.get(key).getName());
+//            }
+//
+//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
+//            Collections.sort(datetime);
+//
+//            // Fill New Data
+//            for (int x = datetime.size()-1; x >= 0; x--) {
+//                talabats.add(holder_date.get(datetime.get(x)));
+//            }
+//        }
+//
+//        adapter = new MyTasksAdapter(getActivity(), talabats, temp_first, temp_last);
+//        recyclerView.setAdapter(adapter);
+//
+//    }
 
     private void loadData(final int item, final String r) {
-        final int size = talabats.size();
-        if (size > 0) {
-            for (int i = 0; i < size; i++) {
-                talabats.remove(0);
-            }
-            adapter.notifyItemRangeRemoved(0, size);
-        }
+
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("جارى تحميل البيانات ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/AcceptedOrderList",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/MyOrderList",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.e("Data",response);
+                        Log.e("Data", response);
                         int temp = 0;
                         progressDialog.dismiss();
                         try {
 
                             JSONObject object = new JSONObject(response);
                             JSONArray array = object.getJSONArray("AcceptedOrder");
-                            for (int x = 0; x < array.length(); x++) {
-                                JSONObject object1 = array.getJSONObject(x);
-                                if (x == 0) {
-                                    temp_first = Integer.parseInt(object1.getString("Id"));
-                                } else if (x == array.length() - 1) {
-                                    temp_last = Integer.parseInt(object1.getString("Id"));
+                            if (array.length() > 0) {
+                                final int size = talabats.size();
+                                if (size > 0) {
+                                    for (int i = 0; i < size; i++) {
+                                        talabats.remove(0);
+                                    }
+                                    adapter.notifyItemRangeRemoved(0, size);
                                 }
-                                Talabat talabat = new Talabat
-                                        ((x + 1) + "",
-                                                object1.getString("CustomerName"),
-                                                "",
-                                                object1.getString("Id"),
-                                                object1.getString("Time"),
-                                                object1.getString("Date"),
-                                                object1.getString("Address"),
-                                                object1.getString("Phone")
-                                        );
 
-                                // Fill Data For Sort in orderDate()
-                                holder_num.put(object1.getString("Id"), talabat);
-                                holder_alpha.put(object1.getString("CustomerName"), talabat);
-                                holder_date.put(object1.getString("Date") + " " + object1.getString("Time"), talabat);
+                                for (int x = 0; x < array.length(); x++) {
+                                    JSONObject object1 = array.getJSONObject(x);
+                                    if (x == 0) {
+                                        temp_first = Integer.parseInt(object1.getString("Id"));
+                                    } else if (x == array.length() - 1) {
+                                        temp_last = Integer.parseInt(object1.getString("Id"));
+                                    }
+                                    Talabat talabat = new Talabat
+                                            ((x + 1) + "",
+                                                    object1.getString("CustomerName"),
+                                                    "",
+                                                    object1.getString("Id"),
+                                                    object1.getString("Time"),
+                                                    object1.getString("Date"),
+                                                    object1.getString("Address"),
+                                                    object1.getString("Phone")
+                                            );
 
-                                talabats.add(talabat);
-                                temp = Integer.parseInt(object1.getString("Id"));
+                                    // Fill Data For Sort in orderDate()
+//                                    holder_num.put(object1.getString("Id"), talabat);
+//                                    holder_alpha.put(object1.getString("CustomerName"), talabat);
+//                                    holder_date.put(object1.getString("Date") + " " + object1.getString("Time"), talabat);
+
+                                    talabats.add(talabat);
+                                    temp = Integer.parseInt(object1.getString("Id"));
+                                }
+                                if (r.equals("1")) {
+                                    page_num++;
+                                } else if (r.equals("0")) {
+                                    page_num--;
+                                } else {
+
+                                }
+                                num.setText(page_num + "");
+                            }else {
+                                LayoutInflater inflater = getLayoutInflater();
+                                View layout = inflater.inflate(R.layout.toast_info,
+                                        (ViewGroup) getActivity().findViewById(R.id.lay));
+
+                                TextView text = (TextView) layout.findViewById(R.id.txt);
+                                text.setText("نهايه الطلبات");
+
+                                Toast toast = new Toast(getActivity());
+                                toast.setGravity(Gravity.BOTTOM, 0, 0);
+                                toast.setDuration(Toast.LENGTH_LONG);
+                                toast.setView(layout);
+                                toast.show();
                             }
-                            if (r.equals("1")) {
-                                page_num++;
-                            } else if (r.equals("0")) {
-                                page_num--;
-                            } else {
-
-                            }
-                            num.setText(page_num + "");
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -320,21 +397,34 @@ public class MyTasksFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressDialog.dismiss();
+                LayoutInflater inflater = getLayoutInflater();
+                View layout = inflater.inflate(R.layout.toast_warning,
+                        (ViewGroup) getActivity().findViewById(R.id.lay));
+
+                TextView text = (TextView) layout.findViewById(R.id.txt);
+
                 if (error instanceof ServerError)
-                    Toast.makeText(getActivity(), "خطأ إثناء الاتصال بالخادم", Toast.LENGTH_SHORT).show();
-                else if (error instanceof NetworkError)
-                    Toast.makeText(getActivity(), "خطأ فى شبكه الانترنت", Toast.LENGTH_SHORT).show();
+                    text.setText("خطأ فى الاتصال بالخادم");
                 else if (error instanceof TimeoutError)
-                    Toast.makeText(getActivity(), "خطأ فى مده الانتظار", Toast.LENGTH_SHORT).show();
+                    text.setText("خطأ فى مدة الاتصال");
+                else if (error instanceof NetworkError)
+                    text.setText("شبكه الانترنت ضعيفه حاليا");
+
+                Toast toast = new Toast(getActivity());
+                toast.setGravity(Gravity.BOTTOM, 0, 0);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout);
+                toast.show();
             }
         }) {
             @Override
             protected Map<String, String> getParams() {
                 HashMap hashMap = new HashMap();
-                hashMap.put("ShopId", "3");
-                hashMap.put("UserId", "5");
+                hashMap.put("ShopId", shopid+"");
+                hashMap.put("UserId", userid+"");
                 hashMap.put("x", item + "");
                 hashMap.put("type", r);
+                hashMap.put("token", "bKPNOJrob8x");
                 return hashMap;
             }
         };

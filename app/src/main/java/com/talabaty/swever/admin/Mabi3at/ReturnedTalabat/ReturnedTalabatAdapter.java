@@ -5,12 +5,16 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +27,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.Request;
@@ -35,6 +40,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.talabaty.swever.admin.DetailsModel;
+import com.talabaty.swever.admin.LoginDatabae;
 import com.talabaty.swever.admin.Mabi3at.DoneTalabat.Talabat;
 import com.talabaty.swever.admin.Options.Details.DetailsAdapter;
 import com.talabaty.swever.admin.R;
@@ -55,12 +61,11 @@ public class ReturnedTalabatAdapter extends RecyclerView.Adapter<ReturnedTalabat
 
     Button submit;
     ImageButton close;
-    View details, message, rejection, transfer;
+    View details, message, rejection;
 
     Button message_send;
     EditText message_title, message_content;
     Spinner message_type, message_template;
-    Spinner TO, to;
 
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
@@ -68,27 +73,36 @@ public class ReturnedTalabatAdapter extends RecyclerView.Adapter<ReturnedTalabat
     Button first, last, next, prev;
     int temp_first, temp_last, current;
     ArrayList<String> refuseOptions, indexOfrefuseOptions;
-    ArrayList<String> CountryList, indexOfCountryList;
-    ArrayList<String> EmpoyeeList, indexOfEmpoyeeList;
     ArrayList<String> MessageList, indexOfMessageList;
+
+    LoginDatabae loginDatabae;
+    Cursor cursor;
+    int userid, shopid;
+    View view;
 
     public ReturnedTalabatAdapter(Context context, List<Talabat> talabats, int temp_first, int temp_last) {
         this.context = context;
         this.talabats = talabats;
         this.temp_last = temp_last;
         this.temp_first = temp_first;
+        loginDatabae = new LoginDatabae(context);
+        cursor = loginDatabae.ShowData();
     }
 
     @NonNull
     @Override
     public Vholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.returned_talabat_row_item, parent, false);
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.returned_talabat_row_item, parent, false);
+        while (cursor.moveToNext()) {
+            userid = Integer.parseInt(cursor.getString(2));
+            shopid = Integer.parseInt(cursor.getString(3));
+
+        }
         return new Vholder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull Vholder holder, final int position) {
-
 
         holder.id.setText(talabats.get(position).getId());
         holder.name.setText(talabats.get(position).getName());
@@ -101,10 +115,9 @@ public class ReturnedTalabatAdapter extends RecyclerView.Adapter<ReturnedTalabat
             @Override
             public void onClick(View v) {
 
-                accept(talabats.get(position).getNum());
+                accept(talabats.get(position).getNum(), position);
             }
         });
-
 
 
         holder.show.setOnClickListener(new View.OnClickListener() {
@@ -129,35 +142,6 @@ public class ReturnedTalabatAdapter extends RecyclerView.Adapter<ReturnedTalabat
                 prev = details.findViewById(R.id.prev);
                 last = details.findViewById(R.id.last);
 
-                first.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        loadFLData(-1, num_order, total);
-                        num_order.setText(talabats.get(position).getNum());
-                    }
-                });
-                last.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        loadFLData(-2, num_order, total);
-                        num_order.setText(talabats.get(position).getNum());
-                    }
-                });
-                next.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        loadData(Integer.parseInt(talabats.get(position).getNum()) + 1, "2", num_order, total);
-//                        num_order.setText((Integer.parseInt(talabats.get(position).getNum())+1)+"");
-                    }
-                });
-                prev.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        loadData(Integer.parseInt(talabats.get(position).getNum()) - 1, "1", num_order, total);
-//                        num_order.setText((Integer.parseInt(talabats.get(position).getNum())-1)+"");
-                    }
-                });
-                loadData(Integer.parseInt(talabats.get(position).getNum()), "0", num_order, total);
 
                 final AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("التفاصيل")
@@ -175,11 +159,42 @@ public class ReturnedTalabatAdapter extends RecyclerView.Adapter<ReturnedTalabat
                 dialog.show();
                 dialog.getWindow().setLayout(1200, 800);
 
+                first.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        loadFLData(-1, num_order, total);
+                        num_order.setText(talabats.get(position).getNum());
+                    }
+                });
+                last.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        loadFLData(-2, num_order, total);
+                        num_order.setText(talabats.get(position).getNum());
+                    }
+                });
+                next.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        loadData(Integer.parseInt(talabats.get(position).getNum()) + 1, "2", num_order, total, dialog);
+//                        num_order.setText((Integer.parseInt(talabats.get(position).getNum())+1)+"");
+                    }
+                });
+                prev.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        loadData(Integer.parseInt(talabats.get(position).getNum()) - 1, "1", num_order, total, dialog);
+//                        num_order.setText((Integer.parseInt(talabats.get(position).getNum())-1)+"");
+                    }
+                });
+                loadData(Integer.parseInt(talabats.get(position).getNum()), "0", num_order, total, dialog);
+
+
             }
         });
 
 
-        holder.start.setOnClickListener(new View.OnClickListener(){
+        holder.start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -303,7 +318,7 @@ public class ReturnedTalabatAdapter extends RecyclerView.Adapter<ReturnedTalabat
 //                Toast.makeText(context, "لا يتواجد اى بريد الكترونى هنا!", Toast.LENGTH_SHORT).show();
 //            }
 
-            submitMessage(message_content.getText().toString(),message_title.getText().toString(),message_template.getSelectedItem().toString(),1);
+            submitMessage(message_content.getText().toString(), message_title.getText().toString(), message_template.getSelectedItem().toString(), 1);
 
         } else if (message_type.getSelectedItem().toString().equals("رساله نصيه")) {
 
@@ -326,10 +341,10 @@ public class ReturnedTalabatAdapter extends RecyclerView.Adapter<ReturnedTalabat
 //            } catch (android.content.ActivityNotFoundException ex) {
 //                Toast.makeText(context, "لا يتواجد اى بريد الكترونى هنا!", Toast.LENGTH_SHORT).show();
 //            }
-            submitMessage(message_content.getText().toString(),message_title.getText().toString(),message_template.getSelectedItem().toString(),3);
+            submitMessage(message_content.getText().toString(), message_title.getText().toString(), message_template.getSelectedItem().toString(), 3);
 
-        }else if (message_type.getSelectedItem().toString().equals("رساله عبر الإيميل")){
-            submitMessage(message_content.getText().toString(),message_title.getText().toString(),message_template.getSelectedItem().toString(),2);
+        } else if (message_type.getSelectedItem().toString().equals("رساله عبر الإيميل")) {
+            submitMessage(message_content.getText().toString(), message_title.getText().toString(), message_template.getSelectedItem().toString(), 2);
         }
 
         clearMessageView();
@@ -349,15 +364,35 @@ public class ReturnedTalabatAdapter extends RecyclerView.Adapter<ReturnedTalabat
                     public void onResponse(String response) {
 
                         progressDialog.dismiss();
+                        Log.e("Response",response);
                         if (response.equals("\"Success\"")) {
-                            Toast toast = Toast.makeText(context, "تمت تنفيذ العملية", Toast.LENGTH_SHORT);
-                            TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
-                            v.setTextColor(Color.GREEN);
+
+                            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                            View layout = inflater.inflate(R.layout.toast_info,null);
+
+                            TextView text = (TextView) layout.findViewById(R.id.txt);
+                            text.setText("تمت تنفيذ العملية");
+
+                            Toast toast = new Toast(context);
+                            toast.setGravity(Gravity.BOTTOM, 0, 0);
+                            toast.setDuration(Toast.LENGTH_LONG);
+                            toast.setView(layout);
                             toast.show();
+
                         } else {
-                            Toast toast = Toast.makeText(context, "حدث خطأ اثناء اجراء العمليه", Toast.LENGTH_SHORT);
-                            TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
-                            v.setTextColor(Color.RED);
+
+                            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                            View layout = inflater.inflate(R.layout.toast_error,null);
+
+                            TextView text = (TextView) layout.findViewById(R.id.txt);
+                            text.setText("حدث خطأ اثناء اجراء العمليه");
+
+                            Toast toast = new Toast(context);
+                            toast.setGravity(Gravity.BOTTOM, 0, 0);
+                            toast.setDuration(Toast.LENGTH_LONG);
+                            toast.setView(layout);
                             toast.show();
                         }
 
@@ -366,12 +401,24 @@ public class ReturnedTalabatAdapter extends RecyclerView.Adapter<ReturnedTalabat
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressDialog.dismiss();
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                View layout = inflater.inflate(R.layout.toast_warning,null);
+
+                TextView text = (TextView) layout.findViewById(R.id.txt);
+
                 if (error instanceof ServerError)
-                    Toast.makeText(context, "خطأ إثناء الاتصال بالخادم", Toast.LENGTH_SHORT).show();
-                else if (error instanceof NetworkError)
-                    Toast.makeText(context, "خطأ فى شبكه الانترنت", Toast.LENGTH_SHORT).show();
+                    text.setText("خطأ فى الاتصال بالخادم");
                 else if (error instanceof TimeoutError)
-                    Toast.makeText(context, "خطأ فى مده الانتظار", Toast.LENGTH_SHORT).show();
+                    text.setText("خطأ فى مدة الاتصال");
+                else if (error instanceof NetworkError)
+                    text.setText("شبكه الانترنت ضعيفه حاليا");
+
+                Toast toast = new Toast(context);
+                toast.setGravity(Gravity.BOTTOM, 0, 0);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout);
+                toast.show();
             }
         }) {
             @Override
@@ -381,7 +428,8 @@ public class ReturnedTalabatAdapter extends RecyclerView.Adapter<ReturnedTalabat
                 hashMap.put("Res", Res + "");
                 hashMap.put("options", option + "");
                 hashMap.put("Sub", sub + "");
-                hashMap.put("UserId", "5");
+                hashMap.put("UserId", userid + "");
+                hashMap.put("token", "bKPNOJrob8x");
                 return hashMap;
             }
         };
@@ -472,28 +520,44 @@ public class ReturnedTalabatAdapter extends RecyclerView.Adapter<ReturnedTalabat
         }
     }
 
-    private int loadData(final int item, final String state, final TextView c, final TextView d) {
+    private int loadData(final int item, final String state, final TextView c, final TextView d, final AlertDialog dialog) {
 
         int x = 0;
-        final int size = detailsModels.size();
-        if (size > 0) {
-            for (int i = 0; i < size; i++) {
-                detailsModels.remove(0);
-            }
-            adapter.notifyItemRangeRemoved(0, size);
-        }
-        if (state.equals("1")) {
-            if (current <= temp_first) {
-                Toast.makeText(context, "هذا أول عنصر فى القائمه الحاليه", Toast.LENGTH_LONG).show();
+
+        if (state.equals("1")){
+            if (current <= temp_first){
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                View layout = inflater.inflate(R.layout.toast_info,null);
+
+                TextView text = (TextView) layout.findViewById(R.id.txt);
+                text.setText("هذا أول عنصر فى القائمه الحاليه");
+
+                Toast toast = new Toast(context);
+                toast.setGravity(Gravity.BOTTOM, 0, 0);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout);
+                toast.show();
                 x = -1;
-            } else {
+            }else {
                 x = 0;
             }
-        } else if (state.equals("2")) {
-            if (current >= temp_last) {
-                Toast.makeText(context, "هذا أخر عنصر فى القائمه الحاليه", Toast.LENGTH_LONG).show();
+        } else if (state.equals("2")){
+            if (current >= temp_last){
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                View layout = inflater.inflate(R.layout.toast_info,null);
+
+                TextView text = (TextView) layout.findViewById(R.id.txt);
+                text.setText("هذا أخر عنصر فى القائمه الحاليه");
+
+                Toast toast = new Toast(context);
+                toast.setGravity(Gravity.BOTTOM, 0, 0);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout);
+                toast.show();
                 x = -1;
-            } else {
+            }else {
                 x = 0;
             }
         }
@@ -512,19 +576,43 @@ public class ReturnedTalabatAdapter extends RecyclerView.Adapter<ReturnedTalabat
                             try {
                                 JSONObject object = new JSONObject(response);
                                 JSONArray array = object.getJSONArray("PreCancelDet");
-                                for (int x = 0; x < array.length(); x++) {
-                                    JSONObject object1 = array.getJSONObject(x);
-                                    DetailsModel model = new DetailsModel(
-                                            object1.getString("SampleProductId"),
-                                            object1.getString("SampleProductName"),
-                                            "علبه",
-                                            object1.getString("Amount")
-                                    );
-                                    d.setText(Integer.parseInt(d.getText().toString())+ Integer.parseInt(object1.getString("Amount"))+"");
-                                    detailsModels.add(model);
-                                    c.setText(object1.getString("OrderId"));
-                                }
+                                if (array.length() > 0) {
+                                    final int size = detailsModels.size();
+                                    if (size > 0) {
+                                        for (int i = 0; i < size; i++) {
+                                            detailsModels.remove(0);
+                                        }
+                                        adapter.notifyItemRangeRemoved(0, size);
+                                    }
 
+                                    if (array.length() > 0) {
+                                        for (int x = 0; x < array.length(); x++) {
+                                            JSONObject object1 = array.getJSONObject(x);
+                                            DetailsModel model = new DetailsModel(
+                                                    object1.getString("SampleProductId"),
+                                                    object1.getString("SampleProductName"),
+                                                    "علبه",
+                                                    object1.getString("Amount")
+                                            );
+                                            d.setText(Integer.parseInt(d.getText().toString()) + Integer.parseInt(object1.getString("Amount")) + "");
+                                            detailsModels.add(model);
+                                            c.setText(object1.getString("OrderId"));
+                                        }
+                                    }
+                                } else {
+                                    LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                                    View layout = inflater.inflate(R.layout.toast_info,null);
+
+                                    TextView text = (TextView) layout.findViewById(R.id.txt);
+                                    text.setText("لا توجد بيانات");
+
+                                    Toast toast = new Toast(context);
+                                    toast.setGravity(Gravity.BOTTOM, 0, 0);
+                                    toast.setDuration(Toast.LENGTH_LONG);
+                                    toast.setView(layout);
+                                    toast.show();
+                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -537,20 +625,33 @@ public class ReturnedTalabatAdapter extends RecyclerView.Adapter<ReturnedTalabat
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     progressDialog.dismiss();
+                    LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                    View layout = inflater.inflate(R.layout.toast_warning,null);
+
+                    TextView text = (TextView) layout.findViewById(R.id.txt);
+
                     if (error instanceof ServerError)
-                        Toast.makeText(context, "خطأ إثناء الاتصال بالخادم", Toast.LENGTH_SHORT).show();
-                    else if (error instanceof NetworkError)
-                        Toast.makeText(context, "خطأ فى شبكه الانترنت", Toast.LENGTH_SHORT).show();
+                        text.setText("خطأ فى الاتصال بالخادم");
                     else if (error instanceof TimeoutError)
-                        Toast.makeText(context, "خطأ فى مده الانتظار", Toast.LENGTH_SHORT).show();
+                        text.setText("خطأ فى مدة الاتصال");
+                    else if (error instanceof NetworkError)
+                        text.setText("شبكه الانترنت ضعيفه حاليا");
+
+                    Toast toast = new Toast(context);
+                    toast.setGravity(Gravity.BOTTOM, 0, 0);
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.setView(layout);
+                    toast.show();
                 }
             }) {
                 @Override
                 protected Map<String, String> getParams() {
                     HashMap hashMap = new HashMap();
-                    hashMap.put("ShopId", "3");
-                    hashMap.put("UserId", "5");
+                    hashMap.put("ShopId", shopid + "");
+                    hashMap.put("UserId", userid + "");
                     hashMap.put("Id", item + "");
+                    hashMap.put("token", "bKPNOJrob8x");
                     return hashMap;
                 }
             };
@@ -568,13 +669,6 @@ public class ReturnedTalabatAdapter extends RecyclerView.Adapter<ReturnedTalabat
 
         int x = 0;
 
-        final int size = detailsModels.size();
-        if (size > 0) {
-            for (int i = 0; i < size; i++) {
-                detailsModels.remove(0);
-            }
-            adapter.notifyItemRangeRemoved(0, size);
-        }
 
         final ProgressDialog progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("جارى تحميل البيانات ...");
@@ -591,21 +685,42 @@ public class ReturnedTalabatAdapter extends RecyclerView.Adapter<ReturnedTalabat
                             int amount = 0;
                             JSONObject object = new JSONObject(response);
                             JSONArray array = object.getJSONArray("PreCancelDet");
-                            for (int x = 0; x < array.length(); x++) {
-                                JSONObject object1 = array.getJSONObject(x);
-                                DetailsModel model = new DetailsModel(
-                                        object1.getString("SampleProductId"),
-                                        object1.getString("SampleProductName"),
-                                        "علبه",
-                                        object1.getString("Amount")
-                                );
-                                detailsModels.add(model);
-                                amount += Integer.parseInt(object1.getString("Amount"));
+                            if (array.length() > 0) {
+                                final int size = detailsModels.size();
+                                if (size > 0) {
+                                    for (int i = 0; i < size; i++) {
+                                        detailsModels.remove(0);
+                                    }
+                                    adapter.notifyItemRangeRemoved(0, size);
+                                }
+                                for (int x = 0; x < array.length(); x++) {
+                                    JSONObject object1 = array.getJSONObject(x);
+                                    DetailsModel model = new DetailsModel(
+                                            object1.getString("SampleProductId"),
+                                            object1.getString("SampleProductName"),
+                                            "علبه",
+                                            object1.getString("Amount")
+                                    );
+                                    detailsModels.add(model);
+                                    amount += Integer.parseInt(object1.getString("Amount"));
 
-                                c.setText(object1.getString("OrderId"));
+                                    c.setText(object1.getString("OrderId"));
+                                }
+                                d.setText(amount + "");
+                            }else {
+                                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                                View layout = inflater.inflate(R.layout.toast_info,null);
+
+                                TextView text = (TextView) layout.findViewById(R.id.txt);
+                                text.setText("لا توجد بيانات");
+
+                                Toast toast = new Toast(context);
+                                toast.setGravity(Gravity.BOTTOM, 0, 0);
+                                toast.setDuration(Toast.LENGTH_LONG);
+                                toast.setView(layout);
+                                toast.show();
                             }
-                            d.setText(amount+"");
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -618,20 +733,33 @@ public class ReturnedTalabatAdapter extends RecyclerView.Adapter<ReturnedTalabat
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressDialog.dismiss();
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                View layout = inflater.inflate(R.layout.toast_warning,null);
+
+                TextView text = (TextView) layout.findViewById(R.id.txt);
+
                 if (error instanceof ServerError)
-                    Toast.makeText(context, "خطأ إثناء الاتصال بالخادم", Toast.LENGTH_SHORT).show();
-                else if (error instanceof NetworkError)
-                    Toast.makeText(context, "خطأ فى شبكه الانترنت", Toast.LENGTH_SHORT).show();
+                    text.setText("خطأ فى الاتصال بالخادم");
                 else if (error instanceof TimeoutError)
-                    Toast.makeText(context, "خطأ فى مده الانتظار", Toast.LENGTH_SHORT).show();
+                    text.setText("خطأ فى مدة الاتصال");
+                else if (error instanceof NetworkError)
+                    text.setText("شبكه الانترنت ضعيفه حاليا");
+
+                Toast toast = new Toast(context);
+                toast.setGravity(Gravity.BOTTOM, 0, 0);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout);
+                toast.show();
             }
         }) {
             @Override
             protected Map<String, String> getParams() {
                 HashMap hashMap = new HashMap();
-                hashMap.put("ShopId", "3");
-                hashMap.put("UserId", "5");
+                hashMap.put("ShopId", shopid+"");
+                hashMap.put("UserId", userid+"");
                 hashMap.put("Id", item + "");
+                hashMap.put("token", "bKPNOJrob8x");
                 return hashMap;
             }
         };
@@ -674,14 +802,33 @@ public class ReturnedTalabatAdapter extends RecyclerView.Adapter<ReturnedTalabat
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                View layout = inflater.inflate(R.layout.toast_warning,null);
+
+                TextView text = (TextView) layout.findViewById(R.id.txt);
+
                 if (error instanceof ServerError)
-                    Toast.makeText(context, "خطأ إثناء الاتصال بالخادم", Toast.LENGTH_SHORT).show();
-                else if (error instanceof NetworkError)
-                    Toast.makeText(context, "خطأ فى شبكه الانترنت", Toast.LENGTH_SHORT).show();
+                    text.setText("خطأ فى الاتصال بالخادم");
                 else if (error instanceof TimeoutError)
-                    Toast.makeText(context, "خطأ فى مده الانتظار", Toast.LENGTH_SHORT).show();
+                    text.setText("خطأ فى مدة الاتصال");
+                else if (error instanceof NetworkError)
+                    text.setText("شبكه الانترنت ضعيفه حاليا");
+
+                Toast toast = new Toast(context);
+                toast.setGravity(Gravity.BOTTOM, 0, 0);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout);
+                toast.show();
             }
-        });
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap hashMap = new HashMap();
+                hashMap.put("token", "bKPNOJrob8x");
+                return hashMap;
+            }
+        };
         int socketTimeout = 30000;
         RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, 2, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         stringRequest.setRetryPolicy(policy);
@@ -720,14 +867,33 @@ public class ReturnedTalabatAdapter extends RecyclerView.Adapter<ReturnedTalabat
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                View layout = inflater.inflate(R.layout.toast_warning,null);
+
+                TextView text = (TextView) layout.findViewById(R.id.txt);
+
                 if (error instanceof ServerError)
-                    Toast.makeText(context, "خطأ إثناء الاتصال بالخادم", Toast.LENGTH_SHORT).show();
-                else if (error instanceof NetworkError)
-                    Toast.makeText(context, "خطأ فى شبكه الانترنت", Toast.LENGTH_SHORT).show();
+                    text.setText("خطأ فى الاتصال بالخادم");
                 else if (error instanceof TimeoutError)
-                    Toast.makeText(context, "خطأ فى مده الانتظار", Toast.LENGTH_SHORT).show();
+                    text.setText("خطأ فى مدة الاتصال");
+                else if (error instanceof NetworkError)
+                    text.setText("شبكه الانترنت ضعيفه حاليا");
+
+                Toast toast = new Toast(context);
+                toast.setGravity(Gravity.BOTTOM, 0, 0);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout);
+                toast.show();
             }
-        });
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap hashMap = new HashMap();
+                hashMap.put("token", "bKPNOJrob8x");
+                return hashMap;
+            }
+        };
         int socketTimeout = 30000;
         RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, 2, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         stringRequest.setRetryPolicy(policy);
@@ -735,7 +901,7 @@ public class ReturnedTalabatAdapter extends RecyclerView.Adapter<ReturnedTalabat
     }
 
 
-    private void accept(final String id){
+    private void accept(final String id, final int position) {
         final ProgressDialog progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("جارى تنفيذ العمليه ...");
         progressDialog.setCancelable(false);
@@ -747,15 +913,37 @@ public class ReturnedTalabatAdapter extends RecyclerView.Adapter<ReturnedTalabat
 
                         progressDialog.dismiss();
 
+                        Log.e("Response",response);
                         if (response.equals("\"Success\"")) {
-                            Toast toast = Toast.makeText(context, "تمت تنفيذ العملية", Toast.LENGTH_SHORT);
-                            TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
-                            v.setTextColor(Color.GREEN);
+
+                            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                            View layout = inflater.inflate(R.layout.toast_info,null);
+
+                            TextView text = (TextView) layout.findViewById(R.id.txt);
+                            text.setText("تمت تنفيذ العملية");
+
+                            Toast toast = new Toast(context);
+                            toast.setGravity(Gravity.BOTTOM, 0, 0);
+                            toast.setDuration(Toast.LENGTH_LONG);
+                            toast.setView(layout);
                             toast.show();
+                            talabats.remove(position);
+                            notifyItemRemoved(position);
+
                         } else {
-                            Toast toast = Toast.makeText(context, "حدث خطأ اثناء اجراء العمليه", Toast.LENGTH_SHORT);
-                            TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
-                            v.setTextColor(Color.RED);
+
+                            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                            View layout = inflater.inflate(R.layout.toast_error,null);
+
+                            TextView text = (TextView) layout.findViewById(R.id.txt);
+                            text.setText("حدث خطأ اثناء اجراء العمليه");
+
+                            Toast toast = new Toast(context);
+                            toast.setGravity(Gravity.BOTTOM, 0, 0);
+                            toast.setDuration(Toast.LENGTH_LONG);
+                            toast.setView(layout);
                             toast.show();
                         }
 
@@ -764,18 +952,31 @@ public class ReturnedTalabatAdapter extends RecyclerView.Adapter<ReturnedTalabat
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressDialog.dismiss();
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                View layout = inflater.inflate(R.layout.toast_warning,null);
+
+                TextView text = (TextView) layout.findViewById(R.id.txt);
+
                 if (error instanceof ServerError)
-                    Toast.makeText(context, "خطأ إثناء الاتصال بالخادم", Toast.LENGTH_SHORT).show();
-                else if (error instanceof NetworkError)
-                    Toast.makeText(context, "خطأ فى شبكه الانترنت", Toast.LENGTH_SHORT).show();
+                    text.setText("خطأ فى الاتصال بالخادم");
                 else if (error instanceof TimeoutError)
-                    Toast.makeText(context, "خطأ فى مده الانتظار", Toast.LENGTH_SHORT).show();
+                    text.setText("خطأ فى مدة الاتصال");
+                else if (error instanceof NetworkError)
+                    text.setText("شبكه الانترنت ضعيفه حاليا");
+
+                Toast toast = new Toast(context);
+                toast.setGravity(Gravity.BOTTOM, 0, 0);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout);
+                toast.show();
             }
         }) {
             @Override
             protected Map<String, String> getParams() {
                 HashMap hashMap = new HashMap();
                 hashMap.put("Id", id);
+                hashMap.put("token", "bKPNOJrob8x");
                 return hashMap;
             }
         };

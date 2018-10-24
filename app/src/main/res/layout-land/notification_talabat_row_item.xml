@@ -26,14 +26,15 @@
                     android:layout_width="160dp"
                     android:maxLines="6"
                     android:maxWidth="160dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_column="0"
                     android:background="@drawable/button_shape"
                     android:gravity="center"
                     android:text=" قبول"
                     android:layout_gravity="center"
                     android:id="@+id/accept"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:fontFamily="@font/changalight"
+                    android:textSize="16sp"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
 
@@ -48,7 +49,8 @@
                     android:background="@drawable/button_shape"
                     android:gravity="center"
                     android:text=" أبدأ"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:fontFamily="@font/changalight"
+                    android:textSize="16sp"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
 
@@ -63,7 +65,8 @@
                     android:background="@drawable/button_shape"
                     android:gravity="center"
                     android:text=" عرض"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:fontFamily="@font/changalight"
+                    android:textSize="16sp"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
 
@@ -82,7 +85,9 @@
                     android:id="@+id/client_name"
                     android:gravity="center"
                     android:text=" مؤمن شاهين"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    android:fontFamily="@font/changalight"
+                    android:textSize="16sp"
+                    />
 
                 <View android:layout_height="match_parent"
                     android:layout_width="3dp"
@@ -99,7 +104,9 @@
                     android:id="@+id/client_city"
                     android:gravity="center"
                     android:text="الزقازيق"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    android:fontFamily="@font/changalight"
+                    android:textSize="16sp"
+                    />
 
                 <View android:layout_height="match_parent"
                     android:layout_width="3dp"
@@ -116,7 +123,9 @@
                     android:layout_gravity="center"
                     android:id="@+id/client_phone"
                     android:text="01020118856"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    android:fontFamily="@font/changalight"
+                    android:textSize="16sp"
+                    />
 
                 <View android:layout_height="match_parent"
                     android:layout_width="3dp"
@@ -132,7 +141,9 @@
                     android:layout_gravity="center"
                     android:id="@+id/time"
                     android:text="12:30 م"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    android:fontFamily="@font/changalight"
+                    android:textSize="16sp"
+                    />
 
                 <View android:layout_height="match_parent"
                     android:layout_width="3dp"
@@ -148,7 +159,9 @@
                     android:layout_gravity="center"
                     android:text="12-10-2018"
                     android:id="@+id/date"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    android:fontFamily="@font/changalight"
+                    android:textSize="16sp"
+                    />
 
                 <View android:layout_height="match_parent"
                     android:layout_width="3dp"
@@ -164,7 +177,9 @@
                     android:text="5"
                     android:layout_gravity="center"
                     android:id="@+id/num"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    android:fontFamily="@font/changalight"
+                    android:textSize="16sp"
+                    />
 
                 <View android:layout_height="match_parent"
                     android:layout_width="3dp"
@@ -180,7 +195,9 @@
                     android:text="1"
                     android:id="@+id/id"
                     android:layout_gravity="center"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    android:fontFamily="@font/changalight"
+                    android:textSize="16sp"
+                    />
 
                 <View android:layout_height="match_parent"
                     android:layout_width="3dp"

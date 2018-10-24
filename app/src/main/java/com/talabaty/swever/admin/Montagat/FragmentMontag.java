@@ -1,27 +1,25 @@
 package com.talabaty.swever.admin.Montagat;
 
-import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.talabaty.swever.admin.Home;
-import com.talabaty.swever.admin.Mabi3at.Mabi3atNavigator;
-import com.talabaty.swever.admin.Montagat.AddMontag.AddMontag;
-import com.talabaty.swever.admin.Montagat.ControlMontag.ControlMontag;
 import com.talabaty.swever.admin.R;
 
 public class FragmentMontag extends Fragment {
 
     Button add_montage, control_montage;
     FragmentManager fragmentManager;
+
+    int type;
 
     @Nullable
     @Override
@@ -44,7 +42,134 @@ public class FragmentMontag extends Fragment {
             @Override
             public void onClick(View v) {
 //                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                fragmentManager.beginTransaction().replace(R.id.frame_mabi3at,new AddMontag()).addToBackStack("FragmentViewContacts").commit();
+
+                type = 1;
+
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
+                transaction.replace(R.id.frame_mabi3at, new FragmentChooseAdd().setType(1));
+                transaction.addToBackStack("FragmentChooseAdd");
+                transaction.commit();
+
+
+//                fragmentManager.beginTransaction().replace(R.id.frame_mabi3at, new FragmentChooseAdd().setType(1)).addToBackStack("FragmentChooseAdd").commit();
+
+//                // Prepare the View for the animation
+//                restaurant.setVisibility(View.VISIBLE);
+//                restaurant.setAlpha(0.0f);
+//
+//                // Start the animation
+//                restaurant.animate()
+////                        .translationY(restaurant.getHeight())
+//                        .translationX(restaurant.getWidth())
+//                        .alpha(1.0f)
+//                        .setListener(null);
+//
+//                s = restaurant.getWidth();
+//                Handler handler = new Handler();
+//                handler.postDelayed(new Runnable() {
+//                    public void run() {
+//                        // Start the animation
+//                        restaurant.animate()
+////                        .translationY(restaurant.getHeight())
+////                                .translationX(-s)
+//                                .translationXBy(-s)
+//                                .alpha(1.0f)
+//                                .setListener(null);
+//
+//                    }
+//                }, 1000);
+//
+//
+//                // Prepare the View for the animation
+//                market.setVisibility(View.VISIBLE);
+//                market.setAlpha(0.0f);
+//
+//                // Start the animation
+//                market.animate()
+////                        .translationY(restaurant.getHeight())
+//                        .translationX(-market.getWidth())
+//                        .alpha(1.0f)
+//                        .setListener(null);
+//
+//                s = market.getWidth();
+//                handler.postDelayed(new Runnable() {
+//                    public void run() {
+//                        // Start the animation
+//                        market.animate()
+////                        .translationY(restaurant.getHeight())
+////                                .translationX(-s)
+//                                .translationXBy(s)
+//                                .alpha(1.0f)
+//                                .setListener(null);
+//
+//                    }
+//                }, 1000);
+//
+//
+//                // Prepare the View for the animation
+//                other.setVisibility(View.VISIBLE);
+//                other.setAlpha(0.0f);
+//
+//                // Start the animation
+//                other.animate()
+////                        .translationY(restaurant.getHeight())
+//                        .translationX(other.getWidth())
+//                        .alpha(1.0f)
+//                        .setListener(null);
+//
+//                s = other.getWidth();
+//                handler.postDelayed(new Runnable() {
+//                    public void run() {
+//                        // Start the animation
+//                        other.animate()
+////                        .translationY(restaurant.getHeight())
+////                                .translationX(-s)
+//                                .translationXBy(-s)
+//                                .alpha(1.0f)
+//                                .setListener(null);
+//
+//
+//                        // Prepare the View for the animation
+//                        base_food.setVisibility(View.VISIBLE);
+//                        base_food.setAlpha(0.0f);
+//
+//                        // Start the animation
+//                        base_food.animate()
+//                                .rotationX(360)
+//                                .alpha(1.0f)
+//                                .setListener(null);
+//
+//
+//                    }
+//                }, 1000);
+//
+//
+//                // Prepare the View for the animation
+//                additions.setVisibility(View.VISIBLE);
+//                additions.setAlpha(0.0f);
+//
+//                // Start the animation
+//                additions.animate()
+////                        .translationY(restaurant.getHeight())
+//                        .translationX(-additions.getWidth())
+//                        .alpha(1.0f)
+//                        .setListener(null);
+//
+//                s = additions.getWidth();
+//                handler.postDelayed(new Runnable() {
+//                    public void run() {
+//                        // Start the animation
+//                        additions.animate()
+////                        .translationY(restaurant.getHeight())
+////                                .translationX(-s)
+//                                .translationXBy(s)
+//                                .alpha(1.0f)
+//                                .setListener(null);
+//
+//                    }
+//                }, 1000);
+
 //                Toast.makeText(getActivity(),"Done",Toast.LENGTH_SHORT).show();
             }
         });
@@ -53,11 +178,136 @@ public class FragmentMontag extends Fragment {
             @Override
             public void onClick(View v) {
 //                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                Intent intent = new Intent(getActivity(), Mabi3atNavigator.class);
-                intent.putExtra("fragment","control");
-                startActivity(intent);
+
+                type = 0;
+
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
+                transaction.replace(R.id.frame_mabi3at, new FragmentChooseAdd().setType(0));
+                transaction.addToBackStack("FragmentChooseAdd");
+                transaction.commit();
+
+//                fragmentManager.beginTransaction().replace(R.id.frame_mabi3at, new FragmentChooseAdd().setType(0)).addToBackStack("FragmentChooseAdd").commit();
+//                // Prepare the View for the animation
+//                restaurant.setVisibility(View.VISIBLE);
+//                restaurant.setAlpha(0.0f);
+//
+//                // Start the animation
+//                restaurant.animate()
+////                        .translationY(restaurant.getHeight())
+//                        .translationX(restaurant.getWidth())
+//                        .alpha(1.0f)
+//                        .setListener(null);
+//
+//                s = restaurant.getWidth();
+//                Handler handler = new Handler();
+//                handler.postDelayed(new Runnable() {
+//                    public void run() {
+//                        // Start the animation
+//                        restaurant.animate()
+////                        .translationY(restaurant.getHeight())
+////                                .translationX(-s)
+//                                .translationXBy(-s)
+//                                .alpha(1.0f)
+//                                .setListener(null);
+//
+//                    }
+//                }, 1000);
+//
+//
+//                // Prepare the View for the animation
+//                market.setVisibility(View.VISIBLE);
+//                market.setAlpha(0.0f);
+//
+//                // Start the animation
+//                market.animate()
+////                        .translationY(restaurant.getHeight())
+//                        .translationX(-market.getWidth())
+//                        .alpha(1.0f)
+//                        .setListener(null);
+//
+//                s = market.getWidth();
+//                handler.postDelayed(new Runnable() {
+//                    public void run() {
+//                        // Start the animation
+//                        market.animate()
+////                        .translationY(restaurant.getHeight())
+////                                .translationX(-s)
+//                                .translationXBy(s)
+//                                .alpha(1.0f)
+//                                .setListener(null);
+//
+//                    }
+//                }, 1000);
+//
+//
+//                // Prepare the View for the animation
+//                other.setVisibility(View.VISIBLE);
+//                other.setAlpha(0.0f);
+//
+//                // Start the animation
+//                other.animate()
+////                        .translationY(restaurant.getHeight())
+//                        .translationX(other.getWidth())
+//                        .alpha(1.0f)
+//                        .setListener(null);
+//
+//                s = other.getWidth();
+//                handler.postDelayed(new Runnable() {
+//                    public void run() {
+//                        // Start the animation
+//                        other.animate()
+////                        .translationY(restaurant.getHeight())
+////                                .translationX(-s)
+//                                .translationXBy(-s)
+//                                .alpha(1.0f)
+//                                .setListener(null);
+//
+//
+//                        // Prepare the View for the animation
+//                        base_food.setVisibility(View.VISIBLE);
+//                        base_food.setAlpha(0.0f);
+//
+//                        // Start the animation
+//                        base_food.animate()
+//                                .rotationX(360)
+//                                .alpha(1.0f)
+//                                .setListener(null);
+//
+//
+//                    }
+//                }, 1000);
+//
+//
+//                // Prepare the View for the animation
+//                additions.setVisibility(View.VISIBLE);
+//                additions.setAlpha(0.0f);
+//
+//                // Start the animation
+//                additions.animate()
+////                        .translationY(restaurant.getHeight())
+//                        .translationX(-additions.getWidth())
+//                        .alpha(1.0f)
+//                        .setListener(null);
+//
+//                s = additions.getWidth();
+//                handler.postDelayed(new Runnable() {
+//                    public void run() {
+//                        // Start the animation
+//                        additions.animate()
+////                        .translationY(restaurant.getHeight())
+////                                .translationX(-s)
+//                                .translationXBy(s)
+//                                .alpha(1.0f)
+//                                .setListener(null);
+//
+//                    }
+//                }, 1000);
+
 //                Toast.makeText(getActivity(),"Done",Toast.LENGTH_SHORT).show();
             }
         });
+
+
     }
 }

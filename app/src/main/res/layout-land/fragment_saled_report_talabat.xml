@@ -15,11 +15,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/changasemibold"
             android:text="التقارير الخاصه بكل الطلبات المباعه"
             android:textAlignment="center"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textSize="24sp" />
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
@@ -32,53 +32,78 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="أسم العميل"
-                    android:textAlignment="center"
+                    android:orientation="horizontal">
 
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/changasemibold"
+                        android:gravity="center"
+                        android:text="أسم العميل"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp" />
 
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:id="@+id/client_name"
-                    android:entries="@array/test">
+                    <Spinner
+                        android:id="@+id/client_name"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:layout_weight="3"
+                        android:entries="@array/test"
+                        android:gravity="center"
+                        android:alpha="0">
 
-                </Spinner>
+                    </Spinner>
+
+                    <ImageButton
+                        android:id="@+id/show"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/ic_left"
+                        android:gravity="center" />
+
+
+                </LinearLayout>
+
 
                 <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_margin="5dp"-->
-                    <!--android:orientation="horizontal">-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_margin="5dp"-->
+                <!--android:orientation="horizontal">-->
 
-                    <!--<EditText-->
-                        <!--android:layout_width="0dp"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginStart="20dp"-->
-                        <!--android:layout_weight="4"-->
-                        <!--android:background="@color/white"-->
-                        <!--android:hint="باركود الصنف"-->
-                        <!--android:inputType="number"-->
-                        <!--android:paddingEnd="10dp"-->
-                        <!--android:paddingStart="10dp"-->
-                        <!--android:textColorHint="@color/gray"-->
-                        <!--android:textSize="20sp" />-->
+                <!--<EditText-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginStart="20dp"-->
+                <!--android:layout_weight="4"-->
+                <!--android:background="@color/white"-->
+                <!--android:hint="باركود الصنف"-->
+                <!--android:inputType="number"-->
+                <!--android:paddingEnd="10dp"-->
+                <!--android:paddingStart="10dp"-->
+                <!--android:textColorHint="@color/gray"-->
+                <!--android:textSize="20sp" />-->
 
-                    <!--<TextView-->
-                        <!--android:layout_width="0dp"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_weight="1"-->
-                        <!--android:text="رقم الصنف"-->
-                        <!--android:textAlignment="center"-->
-                        <!--android:textColor="@color/colorPrimaryDark"-->
-                        <!--android:textSize="20sp"-->
-                        <!--android:textStyle="bold" />-->
+                <!--<TextView-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:text="رقم الصنف"-->
+                <!--android:textAlignment="center"-->
+                <!--android:textColor="@color/colorPrimaryDark"-->
+                <!--android:textSize="20sp"-->
+                <!--android:textStyle="bold" />-->
 
                 <!--</LinearLayout>-->
 
@@ -88,129 +113,167 @@
                     android:layout_margin="5dp"
                     android:orientation="horizontal">
 
-                    <Button
-                        android:id="@+id/from_talab"
+                    <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_weight="2"
-                        android:background="@color/white"
-                        android:hint="yyyy/mm/dd"
-                        android:paddingEnd="10dp"
-                        android:paddingStart="10dp"
-                        android:textColorHint="@color/gray"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="تاريخ الطلب من"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/changasemibold"
+                            android:text="تاريخ الطلب من"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="12sp" />
+
+                        <Button
+                            android:id="@+id/from_talab"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_weight="2"
+                            android:background="@color/white"
+                            android:fontFamily="@font/changamedium"
+                            android:hint="yyyy/mm/dd"
+                            android:paddingEnd="10dp"
+                            android:paddingStart="10dp"
+                            android:textColorHint="@color/gray"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:orientation="horizontal">
+
+
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/changasemibold"
+                            android:text="تاريخ الطلب إلى"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="12sp" />
+
+                        <Button
+                            android:id="@+id/to_talab"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_weight="2"
+                            android:background="@color/white"
+                            android:fontFamily="@font/changamedium"
+                            android:hint="yyyy/mm/dd"
+                            android:paddingEnd="10dp"
+                            android:paddingStart="10dp"
+                            android:textColorHint="@color/gray"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
                     android:orientation="horizontal">
 
-                    <Button
-                        android:id="@+id/to_talab"
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_weight="2"
-                        android:background="@color/white"
-                        android:hint="yyyy/mm/dd"
-                        android:paddingEnd="10dp"
-                        android:paddingStart="10dp"
-                        android:textColorHint="@color/gray"
-                        android:textSize="20sp" />
-
-                    <TextView
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="تاريخ الطلب إلى"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:orientation="horizontal">
 
-                </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:orientation="horizontal">
 
-                    <Button
-                        android:id="@+id/from_tasleem"
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_weight="2"
-                        android:background="@color/white"
-                        android:hint="yyyy/mm/dd"
-                        android:paddingEnd="10dp"
-                        android:paddingStart="10dp"
-                        android:textColorHint="@color/gray"
-                        android:textSize="20sp" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/changasemibold"
+                            android:text=" التسليم من"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="12sp" />
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="تاريخ التسليم من"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        <Button
+                            android:id="@+id/from_tasleem"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_weight="2"
+                            android:background="@color/white"
+                            android:fontFamily="@font/changamedium"
+                            android:hint="yyyy/mm/dd"
+                            android:paddingEnd="10dp"
+                            android:paddingStart="10dp"
+                            android:textColorHint="@color/gray"
+                            android:textSize="14sp" />
 
-                </LinearLayout>
+                    </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/to_tasleem"
-                        android:layout_width="0dp"
-                        android:layout_height="30dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_weight="2"
-                        android:background="@color/white"
-                        android:hint="yyyy/mm/dd"
-                        android:paddingEnd="10dp"
-                        android:paddingStart="10dp"
-                        android:textColorHint="@color/gray"
-                        android:textSize="20sp" />
-
-                    <TextView
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
                         android:layout_weight="1"
-                        android:text="تاريخ التسليم إلى"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:orientation="horizontal">
+
+
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/changasemibold"
+                            android:text=" التسليم إلى"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="12sp" />
+
+                        <Button
+                            android:id="@+id/to_tasleem"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_weight="2"
+                            android:background="@color/white"
+                            android:fontFamily="@font/changamedium"
+                            android:hint="yyyy/mm/dd"
+                            android:paddingEnd="10dp"
+                            android:paddingStart="10dp"
+                            android:textColorHint="@color/gray"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
+
+
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:elevation="10dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <Button
@@ -219,21 +282,22 @@
                         android:layout_height="match_parent"
                         android:layout_centerHorizontal="true"
                         android:layout_margin="10dp"
-                        android:background="@color/redlight"
+                        android:background="#544e4f"
+                        android:fontFamily="@font/changaextralight"
                         android:text="عرض الكل"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                    <ImageButton
+                        android:id="@+id/search"
+                        android:layout_width="80dp"
+                        android:layout_height="48dp"
                         android:layout_margin="10dp"
                         android:layout_toLeftOf="@id/all"
-                        android:background="@color/colorAccent"
-                        android:text="بحث"
-                        android:id="@+id/search"
+                        android:background="#5b2f3d"
+                        android:src="@drawable/search"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="18sp"
@@ -264,26 +328,9 @@
                     android:stretchColumns="0,1,2,3,4,5,6">
 
                     <TableRow
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="1dp"
-                        android:background="#FFFFFF">
-
-                        <TableRow
-                            android:layout_width="fill_parent"
-                            android:layout_height="0dp"
-                            android:layout_margin="1dp"
-                            android:layout_weight="1"
-                            android:background="#000000">
-
-
-                        </TableRow>
-                    </TableRow>
-
-                    <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/colorPrimaryLight"
+                        android:background="@color/colorPrimary"
                         android:padding="10dp">
 
 
@@ -291,69 +338,75 @@
                             android:layout_width="160dp"
                             android:layout_height="match_parent"
                             android:layout_column="0"
+                            android:fontFamily="@font/changasemibold"
                             android:gravity="center"
                             android:text=" الإجمالى "
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
 
                         <TextView
                             android:layout_width="160dp"
                             android:layout_height="match_parent"
                             android:layout_column="1"
+                            android:fontFamily="@font/changasemibold"
                             android:gravity="center"
                             android:text="تاريخ التسليم"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
 
 
                         <TextView
                             android:layout_width="160dp"
                             android:layout_height="match_parent"
                             android:layout_column="2"
+                            android:fontFamily="@font/changasemibold"
                             android:gravity="center"
                             android:text="وقت التسليم "
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
 
 
                         <TextView
                             android:layout_width="160dp"
                             android:layout_height="match_parent"
                             android:layout_column="3"
+                            android:fontFamily="@font/changasemibold"
                             android:gravity="center"
                             android:text="العميل "
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:textColor="@color/white" />
-
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
 
 
                         <TextView
                             android:layout_width="160dp"
                             android:layout_height="match_parent"
                             android:layout_column="4"
+                            android:fontFamily="@font/changasemibold"
                             android:gravity="center"
                             android:text="وقت الطلب"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
 
 
                         <TextView
                             android:layout_width="160dp"
                             android:layout_height="match_parent"
                             android:layout_column="5"
+                            android:fontFamily="@font/changasemibold"
                             android:gravity="center"
                             android:text="تاريخ الطلب"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
 
                         <TextView
                             android:layout_width="100dp"
                             android:layout_height="match_parent"
                             android:layout_column="6"
+                            android:fontFamily="@font/changasemibold"
                             android:gravity="center"
                             android:text="الرقم "
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
 
                     </TableRow>
 
@@ -364,76 +417,91 @@
 
                 </TableLayout>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginTop="50dp"
-                    android:orientation="vertical">
+                <!--<LinearLayout-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_marginEnd="10dp"-->
+                <!--android:layout_marginTop="50dp"-->
+                <!--android:orientation="vertical">-->
 
-                    <CheckBox
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/colorPrimaryLight"
-                        android:text="ترتيب ابجدى"
-                        android:id="@+id/order_alpha"/>
+                <!--<CheckBox-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:buttonTint="@color/colorPrimaryLight"-->
+                <!--android:text="ترتيب ابجدى"-->
+                <!--android:id="@+id/order_alpha"/>-->
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="ترتيب تصاعدى"
-                        android:textSize="18sp"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:padding="2dp"/>
+                <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="ترتيب تصاعدى"-->
+                <!--android:textSize="18sp"-->
+                <!--android:textColor="@color/colorPrimaryDark"-->
+                <!--android:padding="2dp"/>-->
 
-                    <Spinner
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/colorPrimaryLight"
-                        android:entries="@array/order"
-                        android:id="@+id/order_up"/>
+                <!--<Spinner-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:buttonTint="@color/colorPrimaryLight"-->
+                <!--android:entries="@array/order"-->
+                <!--android:id="@+id/order_up"/>-->
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="ترتيب تنازلى"
-                        android:textSize="18sp"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:padding="2dp"/>
+                <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="ترتيب تنازلى"-->
+                <!--android:textSize="18sp"-->
+                <!--android:textColor="@color/colorPrimaryDark"-->
+                <!--android:padding="2dp"/>-->
 
-                    <Spinner
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/colorPrimaryLight"
-                        android:entries="@array/order"
-                        android:id="@+id/order_down"/>
-                </LinearLayout>
+                <!--<Spinner-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:buttonTint="@color/colorPrimaryLight"-->
+                <!--android:entries="@array/order"-->
+                <!--android:id="@+id/order_down"/>-->
+                <!--</LinearLayout>-->
             </LinearLayout>
 
         </HorizontalScrollView>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp">
 
             <LinearLayout
                 android:id="@+id/ccc"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_centerHorizontal="true"
+                android:layout_alignParentStart="true"
                 android:orientation="horizontal">
 
                 <Button
+                    android:id="@+id/printpdf"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/button_shape"
+                    android:fontFamily="@font/changamedium"
+                    android:padding="5dp"
                     android:text="تصدير pdf"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:padding="5dp"/>
+                    android:textSize="18sp" />
+
+                <!--<Button-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_margin="5dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@drawable/button_shape"-->
+                <!--android:text="تصدير ورد"-->
+                <!--android:textAllCaps="false"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:textSize="18sp"-->
+                <!--android:padding="5dp"/>-->
 
                 <Button
                     android:layout_width="0dp"
@@ -441,40 +509,32 @@
                     android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/button_shape"
-                    android:text="تصدير ورد"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:padding="5dp"/>
-
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/button_shape"
+                    android:fontFamily="@font/changamedium"
+                    android:padding="5dp"
                     android:text="تصدير إكسل"
                     android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:padding="5dp"/>
+                    android:textColor="@color/white" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="false"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="10dp"
                 android:layout_toEndOf="@id/ccc"
+                android:gravity="end"
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/next"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_marginEnd="3dp"
+                    android:paddingTop="10dp"
                     android:text="التالى"
-                    android:id="@+id/next"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -494,13 +554,13 @@
                         tools:ignore="UnusedAttribute" />
 
                     <TextView
+                        android:id="@+id/item_num"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="5dp"
                         android:elevation="7dp"
                         android:text="2"
-                        android:id="@+id/item_num"
                         android:textAlignment="center"
                         android:textColor="@color/red"
                         android:textSize="25sp"
@@ -509,12 +569,13 @@
                 </FrameLayout>
 
                 <TextView
+                    android:id="@+id/previous"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_marginStart="3dp"
+                    android:paddingTop="10dp"
                     android:text="السابق"
-                    android:id="@+id/previous"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18sp"
                     android:textStyle="bold" />

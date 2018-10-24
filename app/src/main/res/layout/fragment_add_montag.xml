@@ -2,7 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,8 +18,9 @@
             android:drawableLeft="@drawable/arrow"
             android:paddingStart="20dp"
             android:text="المخزن"
-            android:textColor="@color/colorPrimaryLight"
-            android:textSize="24dp"
+            android:textColor="@color/colorPrimary"
+            android:fontFamily="@font/changamedium"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <android.support.v7.widget.CardView
@@ -47,6 +49,9 @@
                         android:layout_marginStart="20dp"
                         android:layout_weight="3"
                         android:hint="اسم الصنف"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/black"
+                        android:fontFamily="@font/changamedium"
                         android:padding="10dp" />
 
                     <TextView
@@ -54,7 +59,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="الأسم"
-                        android:textColor="@android:color/black"
+                        android:fontFamily="@font/changamedium"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="18sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -72,6 +78,9 @@
                         android:layout_weight="3"
                         android:hint="رصيد اول المده"
                         android:inputType="number"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/black"
+                        android:fontFamily="@font/changamedium"
                         android:padding="10dp" />
 
                     <TextView
@@ -79,8 +88,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="الكميه"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="18sp"
+                        android:fontFamily="@font/changamedium"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -99,6 +109,9 @@
                         android:hint="وصف الصنف"
                         android:maxLines="10"
                         android:minLines="3"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/black"
+                        android:fontFamily="@font/changamedium"
                         android:padding="10dp" />
 
                     <TextView
@@ -106,8 +119,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="الوصف"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="18sp"
+                        android:fontFamily="@font/changamedium"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -123,7 +137,8 @@
                         android:text="اضف صوره"
                         android:id="@+id/add_image"
                         android:textColor="@color/white"
-                        android:textSize="24sp"
+                        android:textSize="17sp"
+                        android:fontFamily="@font/changamedium"
                         android:textStyle="bold" />
 
                     <android.support.v7.widget.RecyclerView
@@ -131,7 +146,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:background="@color/colormosttrend"
+                        android:background="@color/colorPrimary"
                         android:scrollbars="horizontal|vertical">
 
                     </android.support.v7.widget.RecyclerView>
@@ -167,6 +182,9 @@
                         android:layout_weight="3"
                         android:hint="سعر الشراء"
                         android:inputType="number"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/black"
+                        android:fontFamily="@font/changamedium"
                         android:padding="10dp" />
 
                     <TextView
@@ -174,7 +192,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="السعر "
-                        android:textColor="@android:color/black"
+                        android:fontFamily="@font/changamedium"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="18sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -192,14 +211,17 @@
                         android:layout_weight="3"
                         android:hint="الكميه الحرجه"
                         android:inputType="number"
-                        android:padding="10dp" />
+                        android:padding="10dp"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/black"
+                        android:fontFamily="@font/changamedium"/>
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="الكميه"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="18sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -219,14 +241,17 @@
                         android:hint="ملخص"
                         android:maxLines="10"
                         android:minLines="3"
-                        android:padding="10dp" />
+                        android:padding="10dp"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/black"
+                        android:fontFamily="@font/changamedium"/>
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="الملخص"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="18sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -238,7 +263,8 @@
                     android:background="@drawable/button_shape"
                     android:text="اختر اللون"
                     android:textColor="@color/white"
-                    android:textSize="24dp"
+                    android:textSize="17sp"
+                    android:fontFamily="@font/changamedium"
                     android:textStyle="bold" />
 
                 <android.support.v7.widget.RecyclerView
@@ -246,7 +272,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:background="@color/colormosttrend"
+                    android:background="@color/colorPrimary"
                     android:scrollbars="horizontal|vertical">
 
                 </android.support.v7.widget.RecyclerView>
@@ -340,14 +366,18 @@
                         android:layout_weight="3"
                         android:hint="سعر البيع"
                         android:inputType="number"
-                        android:padding="10dp" />
+                        android:padding="10dp"
+
+                        android:textSize="16sp"
+                        android:textColor="@android:color/black"
+                        android:fontFamily="@font/changamedium"/>
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text=" البيع"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="18sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -374,8 +404,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="اختر القسم"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -394,14 +424,18 @@
                         android:hint="ملاحظات"
                         android:maxLines="10"
                         android:minLines="3"
-                        android:padding="10dp" />
+                        android:padding="10dp"
+
+                        android:textSize="16sp"
+                        android:textColor="@android:color/black"
+                        android:fontFamily="@font/changamedium"/>
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="ملاحظات"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="18sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -415,7 +449,8 @@
                     android:id="@+id/size"
                     android:text="اضف الحجم"
                     android:textColor="@color/white"
-                    android:textSize="24dp"
+                    android:textSize="17sp"
+                    android:fontFamily="@font/changamedium"
                     android:textStyle="bold" />
 
                 <android.support.v7.widget.RecyclerView
@@ -423,10 +458,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:background="@color/colormosttrend"
+                    android:background="@color/colorPrimary"
                     android:scrollbars="horizontal|vertical">
 
                 </android.support.v7.widget.RecyclerView>
+
+                <android.support.design.widget.FloatingActionButton xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/appear"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_gravity="start|bottom"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:elevation="0dp"
+                    android:src="@drawable/upload"
+                    app:backgroundTint="@color/gray"
+                    app:borderWidth="0dp"
+                    tools:ignore="UnusedAttribute" />
 
             </LinearLayout>
 
@@ -446,7 +496,8 @@
                 android:gravity="center"
                 android:text="تفريغ"
                 android:textColor="@color/white"
-                android:textSize="20dp" />
+                android:textSize="18sp"
+                android:fontFamily="@font/changamedium"/>
 
             <Button
                 android:id="@+id/save"
@@ -457,7 +508,8 @@
                 android:gravity="center"
                 android:text="حفظ"
                 android:textColor="@color/white"
-                android:textSize="20dp" />
+                android:textSize="18sp"
+                android:fontFamily="@font/changamedium" />
         </LinearLayout>
 
     </LinearLayout>

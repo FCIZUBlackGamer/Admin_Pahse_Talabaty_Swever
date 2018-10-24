@@ -23,7 +23,7 @@
                 android:layout_marginBottom="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                app:cardBackgroundColor="@color/colorPrimaryDark"
+                app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="2dp"
                 app:cardPreventCornerOverlap="false"
@@ -50,7 +50,8 @@
                             android:layout_height="wrap_content"
                             android:gravity="right"
                             android:text="الصلاحيه"
-                            android:textColor="@color/colorPrimaryLight"
+                            android:fontFamily="@font/changamedium"
+                            android:textColor="@android:color/black"
                             android:textStyle="bold" />
 
                         <Spinner
@@ -62,8 +63,9 @@
                             android:gravity="right|center_vertical"
                             style="@style/Base.Widget.AppCompat.DropDownItem.Spinner"
                             android:padding="7dp"
-                            android:textColor="@color/colorPrimaryLight"
-                            android:textColorHint="@color/transgray"
+                            android:fontFamily="@font/changamedium"
+                            android:textColor="@color/colorPrimary"
+                            android:textColorHint="@color/colorPrimary"
                             android:textSize="12sp" />
                     </LinearLayout>
 
@@ -78,22 +80,25 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="right"
+                            android:fontFamily="@font/changamedium"
                             android:text="الإداره"
-                            android:textColor="@color/colorPrimaryLight"
+                            android:textColor="@android:color/black"
                             android:textStyle="bold" />
 
-                        <EditText
+                        <Spinner
                             android:id="@+id/add_employee_fragment_mailTxt"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
                             android:drawablePadding="5dp"
-                            style="@style/Base.Widget.AppCompat.DropDownItem.Spinner"
                             android:gravity="right|center_vertical"
+                            style="@style/Base.Widget.AppCompat.DropDownItem.Spinner"
                             android:padding="7dp"
-                            android:textColor="@color/colorPrimaryLight"
-                            android:textColorHint="@color/transgray"
+                            android:fontFamily="@font/changamedium"
+                            android:textColor="@color/colorPrimary"
+                            android:textColorHint="@color/colorPrimary"
                             android:textSize="12sp" />
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -107,8 +112,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="right"
+                            android:fontFamily="@font/changamedium"
                             android:text="وقت بدايه العمل"
-                            android:textColor="@color/colorPrimaryLight"
+                            android:textColor="@android:color/black"
                             android:textStyle="bold" />
 
                         <EditText
@@ -121,8 +127,9 @@
                             android:hint="وقت بدايه العمل"
                             android:padding="7dp"
                             android:inputType="numberDecimal"
-                            android:textColor="@color/colorPrimaryLight"
-                            android:textColorHint="@color/transgray"
+                            android:fontFamily="@font/changamedium"
+                            android:textColor="@color/colorPrimary"
+                            android:textColorHint="@color/colorPrimary"
                             android:textSize="12sp" />
                     </LinearLayout>
 
@@ -138,7 +145,8 @@
                             android:layout_height="wrap_content"
                             android:gravity="right"
                             android:text="وقت نهايه العمل"
-                            android:textColor="@color/colorPrimaryLight"
+                            android:fontFamily="@font/changamedium"
+                            android:textColor="@android:color/black"
                             android:textStyle="bold" />
 
                         <EditText
@@ -151,8 +159,9 @@
                             android:hint="وقت نهايه العمل"
                             android:padding="7dp"
                             android:inputType="numberDecimal"
-                            android:textColor="@color/colorPrimaryLight"
-                            android:textColorHint="@color/transgray"
+                            android:fontFamily="@font/changamedium"
+                            android:textColor="@color/colorPrimary"
+                            android:textColorHint="@color/colorPrimary"
                             android:textSize="12sp" />
                     </LinearLayout>
 
@@ -168,7 +177,8 @@
                             android:layout_height="wrap_content"
                             android:gravity="right"
                             android:text="الحد الأئتمانى"
-                            android:textColor="@color/colorPrimaryLight"
+                            android:fontFamily="@font/changamedium"
+                            android:textColor="@android:color/black"
                             android:textStyle="bold" />
 
                         <EditText
@@ -182,8 +192,9 @@
                             android:hint="الحد الأئتمانى"
                             android:inputType="numberDecimal"
                             android:padding="7dp"
-                            android:textColor="@color/colorPrimaryLight"
-                            android:textColorHint="@color/transgray"
+                            android:fontFamily="@font/changamedium"
+                            android:textColor="@color/colorPrimary"
+                            android:textColorHint="@color/colorPrimary"
                             android:textSize="12sp" />
                     </LinearLayout>
 
@@ -200,7 +211,8 @@
                             android:layout_height="wrap_content"
                             android:gravity="right"
                             android:text="الرصيد"
-                            android:textColor="@color/colorPrimaryLight"
+                            android:fontFamily="@font/changamedium"
+                            android:textColor="@android:color/black"
                             android:textStyle="bold" />
 
                         <EditText
@@ -214,8 +226,9 @@
                             android:padding="7dp"
                             android:inputType="numberDecimal"
                             android:hint="الرصيد"
-                            android:textColor="@color/colorPrimaryLight"
-                            android:textColorHint="@color/transgray"
+                            android:fontFamily="@font/changamedium"
+                            android:textColor="@color/colorPrimary"
+                            android:textColorHint="@color/colorPrimary"
                             android:textSize="12sp" />
                     </LinearLayout>
 
@@ -231,8 +244,101 @@
                             android:layout_height="wrap_content"
                             android:gravity="right|center_vertical"
                             android:text="عمال التوصيل"
-                            android:textColor="@color/colorPrimaryLight"
+                            android:fontFamily="@font/changamedium"
+                            android:foregroundTint="@color/red"
+                            android:textColor="@android:color/black"
                             android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:visibility="gone"
+                            android:id="@+id/layout1">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="right"
+                                android:text="المحافظه"
+                                android:fontFamily="@font/changamedium"
+                                android:textColor="@android:color/black"
+                                android:textStyle="bold" />
+
+                            <Spinner
+                                android:id="@+id/capital"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:drawablePadding="5dp"
+                                android:gravity="right|center_vertical"
+                                style="@style/Base.Widget.AppCompat.DropDownItem.Spinner"
+                                android:padding="7dp"
+                                android:fontFamily="@font/changamedium"
+                                android:textColor="@color/colorPrimary"
+                                android:textColorHint="@color/colorPrimary"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:visibility="gone"
+                            android:id="@+id/layout2">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="right"
+                                android:text="مدينه"
+                                android:fontFamily="@font/changamedium"
+                                android:textColor="@android:color/black"
+                                android:textStyle="bold" />
+
+                            <Spinner
+                                android:id="@+id/city"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:drawablePadding="5dp"
+                                android:gravity="right|center_vertical"
+                                style="@style/Base.Widget.AppCompat.DropDownItem.Spinner"
+                                android:padding="7dp"
+                                android:fontFamily="@font/changamedium"
+                                android:textColor="@color/colorPrimary"
+                                android:textColorHint="@color/colorPrimary"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:visibility="gone"
+                            android:id="@+id/layout3">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="right"
+                                android:text="منطقه"
+                                android:fontFamily="@font/changamedium"
+                                android:textColor="@android:color/black"
+                                android:textStyle="bold" />
+
+                            <Spinner
+                                android:id="@+id/region"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:drawablePadding="5dp"
+                                android:gravity="right|center_vertical"
+                                style="@style/Base.Widget.AppCompat.DropDownItem.Spinner"
+                                android:padding="7dp"
+                                android:fontFamily="@font/changamedium"
+                                android:textColor="@color/colorPrimary"
+                                android:textColorHint="@color/colorPrimary"
+                                android:textSize="12sp" />
+                        </LinearLayout>
 
                     </LinearLayout>
 
@@ -249,6 +355,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="تفريغ"
+                            android:fontFamily="@font/changabold"
                             android:background="@drawable/button_empty"
                             android:textColor="@color/white"
                             android:textSize="20sp"
@@ -261,6 +368,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="حفظ"
+                            android:fontFamily="@font/changabold"
                             android:background="@drawable/button_save"
                             android:textColor="@color/white"
                             android:textSize="20sp"
@@ -276,6 +384,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            android:fontFamily="@font/changabold"
             android:gravity="center"
             android:text="تخصصات"
             android:textColor="@color/white"
@@ -308,6 +417,7 @@
                 android:layout_weight="1"
                 android:id="@+id/third"
                 android:text="السابق"
+                android:fontFamily="@font/changamedium"
                 android:background="@drawable/button_shape"
                 android:textColor="@color/white"
                 android:textSize="18sp"

@@ -16,11 +16,14 @@ import java.util.List;
 public class Mabi3atTrendAdapter extends RecyclerView.Adapter<Mabi3atTrendAdapter.Vholder> {
 
     Context context;
-    List<Talabat> talabats;
+    List<BestSell> sellList;
+    int temp_first, temp_last;
 
-    public Mabi3atTrendAdapter(Context context, List<Talabat> talabats) {
+    public Mabi3atTrendAdapter(Context context, List<BestSell> sellList, int temp_first, int temp_last) {
         this.context = context;
-        this.talabats = talabats;
+        this.sellList = sellList;
+        this.temp_last = temp_last;
+        this.temp_first = temp_first;
     }
 
     @NonNull
@@ -34,29 +37,27 @@ public class Mabi3atTrendAdapter extends RecyclerView.Adapter<Mabi3atTrendAdapte
     public void onBindViewHolder(@NonNull Vholder holder, final int position) {
 
 
-        holder.id.setText(talabats.get(position).getId());
-        holder.name.setText(talabats.get(position).getName());
-        holder.total.setText(talabats.get(position).getTotal());
-        holder.price.setText(talabats.get(position).getPrice());
-        holder.amount.setText(talabats.get(position).getAmount());
+        holder.id.setText(sellList.get(position).getProductId()+"");
+        holder.name.setText(sellList.get(position).getProductName()+"");
+        holder.total.setText(sellList.get(position).getTotal()+"");
+        holder.amount.setText(sellList.get(position).getAmountseller()+"");
 
 
     }
 
     @Override
     public int getItemCount() {
-        return talabats.size();
+        return sellList.size();
     }
 
     public class Vholder extends RecyclerView.ViewHolder {
-        TextView id, name, total, price, amount;
+        TextView id, name, total, amount;
 
         public Vholder(View itemView) {
             super(itemView);
             id = itemView.findViewById(R.id.id);
             name = itemView.findViewById(R.id.name);
             total = itemView.findViewById(R.id.total);
-            price = itemView.findViewById(R.id.price);
             amount = itemView.findViewById(R.id.amount);
         }
 

@@ -50,14 +50,23 @@ public class ControlPrivilegeAdapter extends RecyclerView.Adapter<ControlPrivile
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (privilegeItems.get(position).getFlag()){
+                    intent.putExtra("flag","name");
+                }else {
+                    intent.putExtra("flag","all");
+                }
                 intent.putExtra("fragment","edit_priv");
                 context.startActivity(intent);
             }
         });
+        if (privilegeItems.get(position).getFlag()){
+            holder.delete.setVisibility(View.GONE);
+        }
+
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //Todo: Delete Privilege
             }
         });
 

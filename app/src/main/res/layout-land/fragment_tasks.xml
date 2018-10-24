@@ -32,27 +32,10 @@
                     android:stretchColumns="0,1,2,3,4,5,6,7,8">
 
                     <TableRow
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="1dp"
-                        android:background="#FFFFFF">
-
-                        <TableRow
-                            android:layout_width="fill_parent"
-                            android:layout_height="0dp"
-                            android:layout_margin="1dp"
-                            android:layout_weight="1"
-                            android:background="#000000">
-
-
-                        </TableRow>
-                    </TableRow>
-
-                    <TableRow
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="10dp"
-                        android:background="@color/colorPrimaryLight">
+                        android:background="@color/colorPrimary">
 
                         <TextView
                             android:layout_width="160dp"
@@ -60,7 +43,8 @@
                             android:layout_column="0"
                             android:gravity="center"
                             android:text="مراسله"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textSize="18sp"
+                            android:fontFamily="@font/changasemibold"
                             android:textColor="@color/white" />
 
                         <TextView
@@ -69,7 +53,8 @@
                             android:layout_column="1"
                             android:gravity="center"
                             android:text="التفاصيل"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textSize="18sp"
+                            android:fontFamily="@font/changasemibold"
                             android:textColor="@color/white" />
 
                         <TextView
@@ -78,7 +63,8 @@
                             android:layout_column="2"
                             android:gravity="center"
                             android:text="العميل "
-                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textSize="18sp"
+                            android:fontFamily="@font/changasemibold"
                             android:textColor="@color/white" />
 
                         <TextView
@@ -87,7 +73,8 @@
                             android:layout_column="3"
                             android:gravity="center"
                             android:text="العنوان "
-                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textSize="18sp"
+                            android:fontFamily="@font/changasemibold"
                             android:textColor="@color/white" />
 
                         <TextView
@@ -96,7 +83,8 @@
                             android:layout_column="4"
                             android:gravity="center"
                             android:text="التليفون "
-                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textSize="18sp"
+                            android:fontFamily="@font/changasemibold"
                             android:textColor="@color/white" />
 
                         <TextView
@@ -105,7 +93,8 @@
                             android:layout_column="5"
                             android:gravity="center"
                             android:text="الوقت"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textSize="18sp"
+                            android:fontFamily="@font/changasemibold"
                             android:textColor="@color/white" />
 
                         <TextView
@@ -114,7 +103,8 @@
                             android:layout_column="6"
                             android:gravity="center"
                             android:text="التاريخ"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textSize="18sp"
+                            android:fontFamily="@font/changasemibold"
                             android:textColor="@color/white" />
 
                         <TextView
@@ -123,7 +113,8 @@
                             android:layout_column="7"
                             android:gravity="center"
                             android:text="الرقم "
-                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textSize="18sp"
+                            android:fontFamily="@font/changasemibold"
                             android:textColor="@color/white" />
 
                         <TextView
@@ -132,7 +123,8 @@
                             android:layout_column="8"
                             android:gravity="center"
                             android:text="م"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textSize="18sp"
+                            android:fontFamily="@font/changasemibold"
                             android:textColor="@color/white" />
                     </TableRow>
                     <android.support.v7.widget.RecyclerView
@@ -142,63 +134,64 @@
 
                 </TableLayout>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginTop="50dp"
-                    android:orientation="vertical">
+                <!--<LinearLayout-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_marginEnd="10dp"-->
+                    <!--android:layout_marginTop="50dp"-->
+                    <!--android:orientation="vertical">-->
 
-                    <CheckBox
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/colorPrimaryLight"
-                        android:text="ترتيب ابجدى"
-                        android:id="@+id/order_alpha"/>
+                    <!--<CheckBox-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:buttonTint="@color/colorPrimaryLight"-->
+                        <!--android:text="ترتيب ابجدى"-->
+                        <!--android:id="@+id/order_alpha"/>-->
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="ترتيب تصاعدى"
-                        android:textSize="18sp"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:padding="2dp"/>
+                    <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="ترتيب تصاعدى"-->
+                        <!--android:textSize="18sp"-->
+                        <!--android:textColor="@color/colorPrimaryDark"-->
+                        <!--android:padding="2dp"/>-->
 
-                    <Spinner
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/colorPrimaryLight"
-                        android:entries="@array/order"
-                        android:id="@+id/order_up"/>
+                    <!--<Spinner-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:buttonTint="@color/colorPrimaryLight"-->
+                        <!--android:entries="@array/order"-->
+                        <!--android:id="@+id/order_up"/>-->
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="ترتيب تنازلى"
-                        android:textSize="18sp"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:padding="2dp"/>
+                    <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="ترتيب تنازلى"-->
+                        <!--android:textSize="18sp"-->
+                        <!--android:textColor="@color/colorPrimaryDark"-->
+                        <!--android:padding="2dp"/>-->
 
-                    <Spinner
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/colorPrimaryLight"
-                        android:entries="@array/order"
-                        android:id="@+id/order_down"/>
-                </LinearLayout>
+                    <!--<Spinner-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:buttonTint="@color/colorPrimaryLight"-->
+                        <!--android:entries="@array/order"-->
+                        <!--android:id="@+id/order_down"/>-->
+                <!--</LinearLayout>-->
             </LinearLayout>
 
         </HorizontalScrollView>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp">
 
             <LinearLayout
                 android:id="@+id/ccc"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_centerHorizontal="true"
+                android:layout_alignParentStart="true"
                 android:orientation="horizontal">
 
                 <Button
@@ -206,24 +199,26 @@
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
+                    android:id="@+id/printpdf"
                     android:background="@drawable/button_shape"
                     android:text="تصدير pdf"
+                    android:fontFamily="@font/changamedium"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     android:padding="5dp"/>
 
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/button_shape"
-                    android:text="تصدير ورد"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:padding="5dp"/>
+                <!--<Button-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_margin="5dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@drawable/button_shape"-->
+                <!--android:text="تصدير ورد"-->
+                <!--android:textAllCaps="false"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:textSize="18sp"-->
+                <!--android:padding="5dp"/>-->
 
                 <Button
                     android:layout_width="0dp"
@@ -232,17 +227,20 @@
                     android:layout_weight="1"
                     android:background="@drawable/button_shape"
                     android:text="تصدير إكسل"
+                    android:fontFamily="@font/changamedium"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="18sp"
                     android:padding="5dp"/>
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="10dp"
+                android:layout_alignParentEnd="true"
+                android:gravity="end"
+                android:layout_alignParentStart="false"
                 android:layout_toEndOf="@id/ccc"
                 android:orientation="horizontal">
 
@@ -252,6 +250,7 @@
                     android:layout_margin="5dp"
                     android:layout_marginEnd="3dp"
                     android:text="التالى"
+                    android:paddingTop="10dp"
                     android:id="@+id/next"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18sp"
@@ -292,6 +291,7 @@
                     android:layout_margin="5dp"
                     android:layout_marginStart="3dp"
                     android:text="السابق"
+                    android:paddingTop="10dp"
                     android:id="@+id/previous"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18sp"

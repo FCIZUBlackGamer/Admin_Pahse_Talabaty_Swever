@@ -59,7 +59,10 @@
                     android:layout_marginTop="10dp"
                     android:gravity="center_horizontal"
                     android:text="الطلبات الجديده"
+
                     android:textColor="@color/white"
+                    android:fontFamily="@font/changamedium"
+                    android:layout_marginBottom="5dp"
                     android:textSize="18sp" />
 
                 <FrameLayout
@@ -72,11 +75,13 @@
 
                     <android.support.design.widget.FloatingActionButton
                         xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_marginBottom="20dp"
                         app:backgroundTint="@color/gray"
-                        app:borderWidth="0dp"
+                        app:borderWidth="3dp"
+                        android:tint="@color/red"
+                        app:fabSize="normal"
                         android:elevation="0dp"
                         tools:ignore="UnusedAttribute" />
 
@@ -88,7 +93,8 @@
                         android:text="2"
                         android:id="@+id/num_new_talabat"
                         android:textColor="@color/red"
-                        android:textSize="25sp"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
                         android:elevation="7dp"
                         tools:ignore="UnusedAttribute" />
 
@@ -98,14 +104,14 @@
             </RelativeLayout>
 
             <View
-                android:layout_width="3dp"
+                android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:background="@color/white" />
 
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="200dp"
-                android:background="@color/colormosttrend"
+                android:background="@color/colorPrimary"
                 android:layout_weight="1">
 
                 <Button
@@ -143,6 +149,9 @@
                     android:gravity="center_horizontal"
                     android:text="الطلبات الجاهزه"
                     android:textColor="@color/white"
+
+                    android:fontFamily="@font/changamedium"
+                    android:layout_marginBottom="5dp"
                     android:textSize="18sp" />
 
                 <FrameLayout
@@ -155,11 +164,13 @@
 
                     <android.support.design.widget.FloatingActionButton
                         xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_marginBottom="20dp"
                         app:backgroundTint="@color/gray"
-                        app:borderWidth="0dp"
+                        app:borderWidth="3dp"
+                        android:tint="@color/red"
+                        app:fabSize="normal"
                         android:elevation="0dp"
                         tools:ignore="UnusedAttribute" />
 
@@ -195,7 +206,7 @@
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="200dp"
-                android:background="@color/colormosttrend"
+                android:background="@color/colorPrimary"
                 android:layout_weight="1">
 
                 <Button
@@ -233,6 +244,9 @@
                     android:gravity="center_horizontal"
                     android:text="مهامى"
                     android:textColor="@color/white"
+
+                    android:fontFamily="@font/changamedium"
+                    android:layout_marginBottom="5dp"
                     android:textSize="18sp" />
 
                 <FrameLayout
@@ -245,11 +259,13 @@
 
                     <android.support.design.widget.FloatingActionButton
                         xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_marginBottom="20dp"
                         app:backgroundTint="@color/gray"
-                        app:borderWidth="0dp"
+                        app:borderWidth="3dp"
+                        android:tint="@color/red"
+                        app:fabSize="normal"
                         android:elevation="0dp"
                         tools:ignore="UnusedAttribute" />
 
@@ -271,7 +287,7 @@
             </RelativeLayout>
 
             <View
-                android:layout_width="3dp"
+                android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:background="@color/white" />
 
@@ -316,6 +332,9 @@
                     android:gravity="center_horizontal"
                     android:text="الطلبات المرتجعه"
                     android:textColor="@color/white"
+
+                    android:fontFamily="@font/changamedium"
+                    android:layout_marginBottom="5dp"
                     android:textSize="18sp" />
 
                 <FrameLayout
@@ -328,11 +347,13 @@
 
                     <android.support.design.widget.FloatingActionButton
                         xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_marginBottom="20dp"
                         app:backgroundTint="@color/gray"
-                        app:borderWidth="0dp"
+                        app:borderWidth="3dp"
+                        android:tint="@color/red"
+                        app:fabSize="normal"
                         android:elevation="0dp"
                         tools:ignore="UnusedAttribute" />
 
@@ -404,8 +425,11 @@
                     android:layout_below="@id/v5"
                     android:layout_marginTop="10dp"
                     android:gravity="center_horizontal"
-                    android:text="الطلبات التى تم استلامها"
+                    android:text=" تم استلامها"
                     android:textColor="@color/white"
+
+                    android:fontFamily="@font/changamedium"
+                    android:layout_marginBottom="5dp"
                     android:textSize="18sp" />
 
                 <FrameLayout
@@ -418,11 +442,13 @@
 
                     <android.support.design.widget.FloatingActionButton
                         xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_marginBottom="20dp"
                         app:backgroundTint="@color/gray"
-                        app:borderWidth="0dp"
+                        app:borderWidth="3dp"
+                        android:tint="@color/red"
+                        app:fabSize="normal"
                         android:elevation="0dp"
                         tools:ignore="UnusedAttribute" />
 
@@ -444,14 +470,14 @@
             </RelativeLayout>
 
             <View
-                android:layout_width="3dp"
+                android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:background="@color/white" />
 
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="200dp"
-                android:background="@color/colormosttrend"
+                android:background="@color/colorPrimary"
                 android:layout_weight="1">
 
                 <Button
@@ -489,6 +515,9 @@
                     android:gravity="center_horizontal"
                     android:text="إشعارات الزملاء"
                     android:textColor="@color/white"
+
+                    android:fontFamily="@font/changamedium"
+                    android:layout_marginBottom="5dp"
                     android:textSize="18sp" />
 
                 <FrameLayout
@@ -501,11 +530,13 @@
 
                     <android.support.design.widget.FloatingActionButton
                         xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_marginBottom="20dp"
                         app:backgroundTint="@color/gray"
-                        app:borderWidth="0dp"
+                        app:borderWidth="3dp"
+                        android:tint="@color/red"
+                        app:fabSize="normal"
                         android:elevation="0dp"
                         tools:ignore="UnusedAttribute" />
 
@@ -540,7 +571,7 @@
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="200dp"
-                android:background="@color/colormosttrend"
+                android:background="@color/colorPrimary"
                 android:layout_weight="1">
 
                 <Button
@@ -576,8 +607,11 @@
                     android:layout_below="@id/v7"
                     android:layout_marginTop="10dp"
                     android:gravity="center_horizontal"
-                    android:text="تقارير الطلبات المرفوضه"
+                    android:text="تقارير المرتجعات"
                     android:textColor="@color/white"
+
+                    android:fontFamily="@font/changamedium"
+                    android:layout_marginBottom="5dp"
                     android:textSize="18sp" />
 
                 <Button
@@ -590,6 +624,7 @@
                     android:padding="10dp"
                     android:textColor="@color/white"
                     android:textSize="18sp"
+                    android:fontFamily="@font/changamedium"
                     android:textStyle="bold"
                     android:layout_centerHorizontal="true"/>
 
@@ -597,7 +632,7 @@
             </RelativeLayout>
 
             <View
-                android:layout_width="3dp"
+                android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:background="@color/white" />
 
@@ -639,8 +674,11 @@
                     android:layout_below="@id/v8"
                     android:layout_marginTop="10dp"
                     android:gravity="center_horizontal"
-                    android:text="تقارير الطلبات المباعه"
+                    android:text="تقارير المبيعات"
                     android:textColor="@color/white"
+
+                    android:fontFamily="@font/changamedium"
+                    android:layout_marginBottom="5dp"
                     android:textSize="18sp" />
 
                 <Button
@@ -653,6 +691,7 @@
                     android:padding="10dp"
                     android:textColor="@color/white"
                     android:textSize="18sp"
+                    android:fontFamily="@font/changamedium"
                     android:textStyle="bold"
                     android:layout_centerHorizontal="true"/>
 
@@ -711,6 +750,9 @@
                     android:gravity="center_horizontal"
                     android:text="المهام المعلقه"
                     android:textColor="@color/white"
+
+                    android:fontFamily="@font/changamedium"
+                    android:layout_marginBottom="5dp"
                     android:textSize="18sp" />
 
                 <FrameLayout
@@ -723,11 +765,13 @@
 
                     <android.support.design.widget.FloatingActionButton
                         xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_marginBottom="20dp"
                         app:backgroundTint="@color/gray"
-                        app:borderWidth="0dp"
+                        app:borderWidth="3dp"
+                        android:tint="@color/red"
+                        app:fabSize="normal"
                         android:elevation="0dp"
                         tools:ignore="UnusedAttribute" />
 
@@ -749,14 +793,14 @@
             </RelativeLayout>
 
             <View
-                android:layout_width="3dp"
+                android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:background="@color/white" />
 
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="200dp"
-                android:background="@color/colormosttrend"
+                android:background="@color/colorPrimary"
                 android:layout_weight="1">
 
                 <Button
@@ -794,39 +838,24 @@
                     android:gravity="center_horizontal"
                     android:text="ديلفرى"
                     android:textColor="@color/white"
+
+                    android:fontFamily="@font/changamedium"
+                    android:layout_marginBottom="5dp"
                     android:textSize="18sp" />
 
-                <FrameLayout
+                <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|right"
-                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/button_montag_l"
                     android:layout_below="@id/name10"
-                    android:layout_centerHorizontal="true">
-
-                    <android.support.design.widget.FloatingActionButton
-                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginBottom="20dp"
-                        app:backgroundTint="@color/gray"
-                        app:borderWidth="0dp"
-                        android:elevation="0dp"
-                        tools:ignore="UnusedAttribute" />
-
-                    <TextView
-                        android:id="@+id/num_delevry"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_centerHorizontal="true"
-                        android:elevation="7dp"
-                        android:gravity="center"
-                        android:text="2"
-                        android:textColor="@color/red"
-                        android:textSize="25sp"
-                        tools:ignore="UnusedAttribute" />
-
-                </FrameLayout>
+                    android:text="التفاصيل"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/changamedium"
+                    android:textStyle="bold"
+                    android:layout_centerHorizontal="true"/>
 
 
             </RelativeLayout>

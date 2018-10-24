@@ -1,24 +1,19 @@
 package com.talabaty.swever.admin.Montagat.AddMontag;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.talabaty.swever.admin.R;
 
-import java.io.IOException;
-import java.net.URI;
 import java.util.List;
 
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.Vholder> {
@@ -47,6 +42,10 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.Vholder> {
 //        holder.image_button.setImageBitmap(imageSources.get(position));
         Picasso.with(context).load(uris.get(position)).into(holder.image_button);
 
+        if (holder.image_button.getDrawable() == null){
+            holder.image_button.setImageBitmap(imageSources.get(position));
+        }
+
         holder.delete_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,6 +53,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.Vholder> {
                 try {
                     if (imageSources.size() > 0) {
                         imageSources.remove(position);
+                        uris.remove(position);
                         notifyItemRemoved(position);
                     } else {
                         Toast.makeText(context, "Can't Remove", Toast.LENGTH_SHORT).show();
@@ -63,6 +63,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.Vholder> {
 
                     for (int x = 0; x < imageSources.size(); x++) {
                         imageSources.remove(x);
+                        uris.remove(x);
                         notifyItemRemoved(x);
                     }
                 }

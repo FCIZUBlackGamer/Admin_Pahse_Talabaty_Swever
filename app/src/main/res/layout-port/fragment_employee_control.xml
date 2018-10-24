@@ -32,114 +32,89 @@
                     android:stretchColumns="0,1,2,3,4,5,6">
 
                     <TableRow
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="1dp"
-                        android:background="#FFFFFF">
-
-                        <TableRow
-                            android:layout_width="fill_parent"
-                            android:layout_height="0dp"
-                            android:layout_margin="1dp"
-                            android:layout_weight="1"
-                            android:background="#000000">
-
-
-                        </TableRow>
-                    </TableRow>
-
-                    <TableRow
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="1dp"
-                        android:background="@color/colorPrimaryLight">
+                        android:padding="10dp"
+                        android:background="@color/colorPrimary">
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="160dp"
                             android:layout_height="match_parent"
                             android:layout_column="0"
-                            android:layout_margin="1dp"
                             android:gravity="center"
-                            android:padding="5dp"
                             android:text="العمليات"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textSize="18sp"
+                            android:fontFamily="@font/changasemibold"
                             android:textColor="@color/white" />
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="160dp"
                             android:layout_height="match_parent"
                             android:layout_column="1"
-                            android:layout_margin="1dp"
                             android:gravity="center"
-                            android:padding="5dp"
                             android:text="الإداره"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textSize="18sp"
+                            android:fontFamily="@font/changasemibold"
                             android:textColor="@color/white" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="160dp"
                             android:layout_height="match_parent"
                             android:layout_column="2"
-                            android:layout_margin="1dp"
                             android:gravity="center"
-                            android:padding="5dp"
                             android:text="اسم الفرع"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textSize="18sp"
+                            android:fontFamily="@font/changasemibold"
                             android:textColor="@color/white" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="160dp"
                             android:layout_height="match_parent"
                             android:layout_column="3"
-                            android:layout_margin="1dp"
                             android:gravity="center"
-                            android:padding="5dp"
                             android:text="الصلاحيه"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textSize="18sp"
+                            android:fontFamily="@font/changasemibold"
                             android:textColor="@color/white" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="160dp"
                             android:layout_height="match_parent"
                             android:layout_column="3"
-                            android:layout_margin="1dp"
                             android:gravity="center"
-                            android:padding="5dp"
                             android:text="طبيعه العمل"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textSize="18sp"
+                            android:fontFamily="@font/changasemibold"
                             android:textColor="@color/white" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="160dp"
                             android:layout_height="match_parent"
                             android:layout_column="4"
-                            android:layout_margin="1dp"
                             android:gravity="center"
-                            android:padding="5dp"
                             android:text="نوع العمل"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textSize="18sp"
+                            android:fontFamily="@font/changasemibold"
                             android:textColor="@color/white" />
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="160dp"
                             android:layout_height="match_parent"
                             android:layout_column="5"
-                            android:layout_margin="1dp"
                             android:gravity="center"
-                            android:padding="5dp"
                             android:text="الاسم"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textSize="18sp"
+                            android:fontFamily="@font/changasemibold"
                             android:textColor="@color/white" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
                             android:layout_column="6"
-                            android:layout_margin="1dp"
                             android:gravity="center"
-                            android:padding="5dp"
                             android:text="م"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textSize="18sp"
+                            android:fontFamily="@font/changasemibold"
                             android:textColor="@color/white" />
                     </TableRow>
 
@@ -151,94 +126,148 @@
 
                 </TableLayout>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginTop="50dp"
-                    android:orientation="vertical">
+                <!--<LinearLayout-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_marginEnd="10dp"-->
+                <!--android:layout_marginTop="50dp"-->
+                <!--android:orientation="vertical">-->
 
-                    <CheckBox
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/colorPrimaryLight"
-                        android:text="ترتيب ابجدى" />
+                <!--<CheckBox-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:buttonTint="@color/colorPrimaryLight"-->
+                <!--android:text="ترتيب ابجدى" />-->
 
-                    <CheckBox
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/colorPrimaryLight"
-                        android:text="ترتيب تصاعدى" />
+                <!--<CheckBox-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:buttonTint="@color/colorPrimaryLight"-->
+                <!--android:text="ترتيب تصاعدى" />-->
 
-                    <CheckBox
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/colorPrimaryLight"
-                        android:text="ترتيب تنازلى" />
-                </LinearLayout>
+                <!--<CheckBox-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:buttonTint="@color/colorPrimaryLight"-->
+                <!--android:text="ترتيب تنازلى" />-->
+                <!--</LinearLayout>-->
             </LinearLayout>
         </HorizontalScrollView>
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="10dp"
-                android:layout_toEndOf="@id/ccc"
-                android:orientation="horizontal">
+            <!--<LinearLayout-->
+            <!--android:id="@+id/ccc"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:orientation="horizontal">-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:layout_marginEnd="3dp"
-                    android:text="التالى"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+            <!--<Button-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_margin="5dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:id="@+id/printpdf"-->
+            <!--android:background="@drawable/button_shape"-->
+            <!--android:text="تصدير pdf"-->
+            <!--android:fontFamily="@font/changamedium"-->
+            <!--android:textAllCaps="false"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textSize="18sp"-->
+            <!--android:padding="5dp"/>-->
 
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical">
+            <!--&lt;!&ndash;<Button&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_width="0dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_height="match_parent"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_margin="5dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_weight="1"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:background="@drawable/button_shape"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:text="تصدير ورد"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:textAllCaps="false"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:textColor="@color/white"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:textSize="18sp"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:padding="5dp"/>&ndash;&gt;-->
 
-                    <android.support.design.widget.FloatingActionButton xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginBottom="10dp"
-                        android:elevation="0dp"
-                        app:backgroundTint="@color/gray"
-                        app:borderWidth="0dp"
-                        tools:ignore="UnusedAttribute" />
+            <!--<Button-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_margin="5dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="@drawable/button_shape"-->
+            <!--android:text="تصدير إكسل"-->
+            <!--android:fontFamily="@font/changamedium"-->
+            <!--android:textAllCaps="false"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:padding="5dp"/>-->
+            <!--</LinearLayout>-->
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="5dp"
-                        android:elevation="7dp"
-                        android:text="2"
-                        android:textAlignment="center"
-                        android:textColor="@color/red"
-                        android:textSize="25sp"
-                        tools:ignore="UnusedAttribute" />
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginEnd="10dp"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:gravity="center"-->
+            <!--android:layout_alignParentStart="false"-->
+            <!--android:layout_toEndOf="@id/ccc"-->
+            <!--android:orientation="horizontal">-->
 
-                </FrameLayout>
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_margin="5dp"-->
+            <!--android:layout_marginEnd="3dp"-->
+            <!--android:text="التالى"-->
+            <!--android:paddingTop="10dp"-->
+            <!--android:id="@+id/next"-->
+            <!--android:textColor="@color/colorPrimaryDark"-->
+            <!--android:textSize="18sp"-->
+            <!--android:textStyle="bold" />-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:layout_marginStart="3dp"
-                    android:text="السابق"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+            <!--<FrameLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center_vertical">-->
+
+            <!--<android.support.design.widget.FloatingActionButton xmlns:app="http://schemas.android.com/apk/res-auto"-->
+            <!--android:layout_width="50dp"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:layout_marginBottom="10dp"-->
+            <!--android:elevation="0dp"-->
+            <!--app:backgroundTint="@color/gray"-->
+            <!--app:borderWidth="0dp"-->
+            <!--tools:ignore="UnusedAttribute" />-->
+
+            <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:layout_marginStart="20dp"-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--android:elevation="7dp"-->
+            <!--android:text="2"-->
+            <!--android:id="@+id/item_num"-->
+            <!--android:textAlignment="center"-->
+            <!--android:textColor="@color/red"-->
+            <!--android:textSize="25sp"-->
+            <!--tools:ignore="UnusedAttribute" />-->
+
+            <!--</FrameLayout>-->
+
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_margin="5dp"-->
+            <!--android:layout_marginStart="3dp"-->
+            <!--android:text="السابق"-->
+            <!--android:paddingTop="10dp"-->
+            <!--android:id="@+id/previous"-->
+            <!--android:textColor="@color/colorPrimaryDark"-->
+            <!--android:textSize="18sp"-->
+            <!--android:textStyle="bold" />-->
+            <!--</LinearLayout>-->
 
         </RelativeLayout>
     </LinearLayout>

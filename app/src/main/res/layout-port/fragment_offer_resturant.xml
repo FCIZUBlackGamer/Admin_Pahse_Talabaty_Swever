@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:scrollbars="horizontal|vertical">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:isScrollContainer="true"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="3dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/price"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/changaregular"
+                        android:hint="سعر العرض"
+                        android:inputType="number" />
+
+                    <EditText
+                        android:id="@+id/name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/changaregular"
+                        android:hint="أسم العرض"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:minLines="1" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!--<Button-->
+                    <!--android:id="@+id/start_date"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:fontFamily="@font/changasemibold"-->
+                    <!--android:text="تاريخ البدايه"-->
+                    <!--android:textColor="@color/colorPrimary" />-->
+
+                    <!--<Button-->
+                    <!--android:id="@+id/end_date"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:fontFamily="@font/changasemibold"-->
+                    <!--android:text="تاريخ النهايه"-->
+                    <!--android:textColor="@color/colorPrimary" />-->
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:layout_gravity="end"
+                            android:gravity="end">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/changabold"
+                                android:text="الوصف"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="15dp" />
+
+                            <EditText
+                                android:id="@+id/desc"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="top"
+                                android:fontFamily="@font/changaregular"
+                                android:gravity="top"
+                                android:lines="3"
+                                android:maxLines="3" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:layout_gravity="end"
+                            android:gravity="end">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/changabold"
+                                android:text="ارفق صورة"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="15dp" />
+
+                            <ImageView
+                                android:id="@+id/photo"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/ic_people_off_24dp"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+        <HorizontalScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:isScrollContainer="true"
+            android:orientation="horizontal"
+            android:scrollbarSize="3dp"
+            android:scrollbars="horizontal|vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:isScrollContainer="true"
+                    android:scrollbars="horizontal|vertical"
+                    android:stretchColumns="0,1,2,3,4">
+
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_span="2"
+                        android:background="#038777"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:layout_width="160dp"
+                            android:layout_height="match_parent"
+                            android:layout_column="0"
+                            android:layout_margin="1dp"
+                            android:layout_span="1"
+                            android:fontFamily="@font/changasemibold"
+                            android:gravity="center"
+                            android:text=""
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:layout_width="160dp"
+                            android:layout_height="match_parent"
+                            android:layout_column="0"
+                            android:layout_margin="0dp"
+                            android:layout_span="1"
+                            android:fontFamily="@font/changasemibold"
+                            android:gravity="center"
+                            android:text="السعر"
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:layout_width="160dp"
+                            android:layout_height="match_parent"
+                            android:layout_column="1"
+                            android:layout_span="1"
+                            android:fontFamily="@font/changasemibold"
+                            android:gravity="center"
+                            android:text="الكميه"
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:layout_width="160dp"
+                            android:layout_height="match_parent"
+                            android:layout_column="2"
+                            android:layout_span="1"
+                            android:fontFamily="@font/changasemibold"
+                            android:gravity="center"
+                            android:text="الحجم"
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:layout_width="160dp"
+                            android:layout_height="match_parent"
+                            android:layout_column="3"
+                            android:layout_span="1"
+                            android:fontFamily="@font/changasemibold"
+                            android:gravity="center"
+                            android:text="الأسم"
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
+
+
+                    </TableRow>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rec"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+
+                </TableLayout>
+
+                <!--<LinearLayout-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_marginEnd="10dp"-->
+                <!--android:layout_marginTop="50dp"-->
+                <!--android:orientation="vertical">-->
+
+                <!--<CheckBox-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:buttonTint="@color/colorPrimaryLight"-->
+                <!--android:text="ترتيب ابجدى"-->
+                <!--android:id="@+id/order_alpha"/>-->
+
+                <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="ترتيب تصاعدى"-->
+                <!--android:textSize="18sp"-->
+                <!--android:textColor="@color/colorPrimaryDark"-->
+                <!--android:padding="2dp"/>-->
+
+                <!--<Spinner-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:buttonTint="@color/colorPrimaryLight"-->
+                <!--android:entries="@array/order"-->
+                <!--android:id="@+id/order_up"/>-->
+
+                <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="ترتيب تنازلى"-->
+                <!--android:textSize="18sp"-->
+                <!--android:textColor="@color/colorPrimaryDark"-->
+                <!--android:padding="2dp"/>-->
+
+                <!--<Spinner-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:buttonTint="@color/colorPrimaryLight"-->
+                <!--android:entries="@array/order"-->
+                <!--android:id="@+id/order_down"/>-->
+                <!--</LinearLayout>-->
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.FloatingActionButton xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/add"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="end|bottom"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="20dp"
+                android:elevation="0dp"
+                android:src="@drawable/ic_add_black_24dp"
+                app:backgroundTint="@color/gray"
+                app:borderWidth="0dp"
+                tools:ignore="UnusedAttribute" />
+
+            <android.support.design.widget.FloatingActionButton xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/save"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_gravity="start|bottom"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:elevation="0dp"
+                android:src="@drawable/doneo"
+                app:backgroundTint="@color/gray"
+                app:borderWidth="0dp"
+                tools:ignore="UnusedAttribute" />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+</ScrollView>

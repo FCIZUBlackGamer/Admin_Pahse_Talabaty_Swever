@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <Button
+        android:id="@+id/restaurant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginEnd="5dp"
+        android:drawableLeft="@drawable/arrspinc"
+        android:paddingLeft="10dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/background_button"
+        android:fontFamily="@font/changasemibold"
+        android:gravity="start|center_vertical"
+        android:paddingEnd="20dp"
+        android:text="مطاعم"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/market"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/background_button"
+        android:fontFamily="@font/changasemibold"
+        android:gravity="start|center_vertical"
+        android:paddingEnd="20dp"
+        android:text="ماركت"
+        android:drawableLeft="@drawable/arrspinc"
+        android:paddingLeft="10dp"
+        android:textColor="@color/white" />
+
+
+    <Button
+        android:id="@+id/base_food"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/background_button"
+        android:fontFamily="@font/changasemibold"
+        android:gravity="start|center_vertical"
+        android:paddingEnd="20dp"
+        android:padding="10dp"
+        android:drawableLeft="@drawable/arrspinc"
+        android:paddingLeft="10dp"
+        android:text="وجبه اساسيه"
+        android:textColor="@color/white" />
+
+
+    <Button
+        android:id="@+id/other"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/background_button"
+        android:fontFamily="@font/changasemibold"
+        android:gravity="start|center_vertical"
+        android:paddingEnd="20dp"
+        android:text="أخرى"
+        android:drawableLeft="@drawable/arrspinc"
+        android:paddingLeft="10dp"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/additions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/background_button"
+        android:fontFamily="@font/changasemibold"
+        android:gravity="start|center_vertical"
+        android:paddingEnd="20dp"
+        android:text="اضافات"
+        android:drawableLeft="@drawable/arrspinc"
+        android:paddingLeft="10dp"
+        android:textColor="@color/white" />
+
+</LinearLayout>

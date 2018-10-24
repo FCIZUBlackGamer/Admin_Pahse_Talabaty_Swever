@@ -2,7 +2,6 @@ package com.talabaty.swever.admin.Montagat.ControlMontag;
 
 import com.talabaty.swever.admin.Montagat.AddMontag.ColorCode;
 import com.talabaty.swever.admin.Montagat.AddMontag.ImageSource;
-import com.talabaty.swever.admin.Montagat.AddMontag.Size;
 
 import java.io.Serializable;
 import java.util.List;
@@ -24,7 +23,8 @@ public class ControlMontagModel implements Serializable{
     int CriticalQuantity ;
     int Amount ;
     int SampleCatogoriesId ;
-    List<Size> Size;
+    List<com.talabaty.swever.admin.Montagat.AddMontag.Size> Sizew;
+    List<com.talabaty.swever.admin.Montagat.AddReturanteMontage.Size> Size;
     List<ColorCode> Color;
     List<ImageSource> Gallary;
 
@@ -119,7 +119,7 @@ public class ControlMontagModel implements Serializable{
         SampleCatogoriesId = sampleCatogoriesId;
     }
 
-    public void setSize(List<com.talabaty.swever.admin.Montagat.AddMontag.Size> size) {
+    public void setSize(List<com.talabaty.swever.admin.Montagat.AddReturanteMontage.Size> size) {
         Size = size;
     }
 
@@ -179,7 +179,7 @@ public class ControlMontagModel implements Serializable{
         return Color;
     }
 
-    public List<com.talabaty.swever.admin.Montagat.AddMontag.Size> getSize() {
+    public List<com.talabaty.swever.admin.Montagat.AddReturanteMontage.Size> getSize() {
         return Size;
     }
 
@@ -202,4 +202,14 @@ public class ControlMontagModel implements Serializable{
     public String getSummary() {
         return Summary;
     }
+
+    public void setSizew(List<com.talabaty.swever.admin.Montagat.AddMontag.Size> sizew) {
+        Sizew = sizew;
+    }
+
+    public List<com.talabaty.swever.admin.Montagat.AddMontag.Size> getSizew() {
+        return Sizew;
+    }
+
+
 }

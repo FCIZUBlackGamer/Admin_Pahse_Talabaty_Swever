@@ -25,13 +25,13 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.Vholder>
 
     @NonNull
     @Override
-    public DetailsAdapter.Vholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public Vholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.dialog_details_recycle, parent, false);
-        return new DetailsAdapter.Vholder(view);
+        return new Vholder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DetailsAdapter.Vholder holder, int position) {
+    public void onBindViewHolder(@NonNull Vholder holder, int position) {
 
         holder.id.setText(detailsModels.get(position).getId());
         holder.name.setText(detailsModels.get(position).getName());

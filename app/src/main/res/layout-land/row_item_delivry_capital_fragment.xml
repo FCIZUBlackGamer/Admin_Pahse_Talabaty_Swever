@@ -70,6 +70,7 @@
                 android:id="@+id/value"
                 android:gravity="center"
                 android:text="admin"
+                android:fontFamily="@font/changalight"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <View
@@ -87,6 +88,7 @@
                 android:id="@+id/name"
                 android:gravity="center"
                 android:text="admin"
+                android:fontFamily="@font/changalight"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
         </TableRow>

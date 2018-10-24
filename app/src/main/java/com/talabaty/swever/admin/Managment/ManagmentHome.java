@@ -42,11 +42,11 @@ public class ManagmentHome extends Fragment {
             }
         });
 
-        privilege.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fragmentManager.beginTransaction().replace(R.id.frame_mabi3at,new PrivilagesHome()).addToBackStack("PrivilagesHome").commit();
-            }
-        });
+//        privilege.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                fragmentManager.beginTransaction().replace(R.id.frame_mabi3at,new PrivilagesHome()).addToBackStack("PrivilagesHome").commit();
+//            }
+//        });
     }
 }

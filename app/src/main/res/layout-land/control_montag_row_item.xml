@@ -75,7 +75,8 @@
                     android:layout_column="1"
                     android:gravity="center"
                     android:text=" 20"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    android:fontFamily="@font/changalight"
+                    android:textSize="16sp" />
 
                 <View
                     android:layout_width="3dp"
@@ -92,7 +93,8 @@
                     android:layout_column="2"
                     android:gravity="center"
                     android:text=" 180"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    android:fontFamily="@font/changalight"
+                    android:textSize="16sp" />
 
                 <View
                     android:layout_width="3dp"
@@ -109,7 +111,8 @@
                     android:layout_span="1"
                     android:gravity="center"
                     android:text="15"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    android:fontFamily="@font/changalight"
+                    android:textSize="16sp" />
 
                 <View
                     android:layout_width="3dp"
@@ -126,7 +129,8 @@
                     android:layout_span="1"
                     android:gravity="center"
                     android:text="بلح"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    android:fontFamily="@font/changalight"
+                    android:textSize="16sp" />
 
                 <View
                     android:layout_width="3dp"
@@ -142,7 +146,8 @@
                     android:layout_column="5"
                     android:gravity="center"
                     android:text="12:30 م"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    android:fontFamily="@font/changalight"
+                    android:textSize="16sp" />
 
                 <View
                     android:layout_width="3dp"
@@ -158,7 +163,8 @@
                     android:layout_column="6"
                     android:gravity="center"
                     android:text="12-10-2018"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    android:fontFamily="@font/changalight"
+                    android:textSize="16sp" />
 
                 <View
                     android:layout_width="3dp"
@@ -174,7 +180,8 @@
                     android:layout_column="7"
                     android:gravity="center"
                     android:text="5"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    android:fontFamily="@font/changalight"
+                    android:textSize="16sp" />
 
                 <View
                     android:layout_width="3dp"
@@ -190,7 +197,8 @@
                     android:layout_column="8"
                     android:gravity="center"
                     android:text="1"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    android:fontFamily="@font/changalight"
+                    android:textSize="16sp" />
 
                 <View
                     android:layout_width="3dp"

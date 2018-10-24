@@ -19,17 +19,22 @@
             android:textColor="@color/colorPrimaryDark"
             android:textSize="24sp" />
 
-        <EditText
+        <android.support.v7.widget.SearchView
             android:id="@+id/privilege_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="@drawable/button_save"
             android:hint="اسم الصلاحيه"
-            android:padding="10dp"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:ems="10">
+
+
+        </android.support.v7.widget.SearchView>
 
         <HorizontalScrollView
             android:layout_width="match_parent"
@@ -109,44 +114,5 @@
 
         </HorizontalScrollView>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:id="@+id/ccc"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_centerHorizontal="true"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/ignore"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/button_shape"
-                    android:text="إلغاء"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/save"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/button_shape"
-                    android:text="حفظ"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-
-        </RelativeLayout>
     </LinearLayout>
 </ScrollView>

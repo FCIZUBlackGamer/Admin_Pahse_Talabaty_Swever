@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
 import com.talabaty.swever.admin.R;
 
 import java.util.List;
@@ -19,14 +20,21 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.Vholder>
 
     OnItemClickListener listener;
     List<ContactItem> contactItems;
+    Context context;
     public interface OnItemClickListener {
         void onItemClick(ContactItem item);
     }
 
 
-    public ContactAdapter(List<ContactItem> contactItems, OnItemClickListener onItemClickListener) {
+    public ContactAdapter(List<ContactItem> contactItems, Context context) {
+        this.contactItems = contactItems;
+        this.context = context;
+    }
+
+    public ContactAdapter(Context context, List<ContactItem> contactItems, OnItemClickListener onItemClickListener) {
         this.contactItems = contactItems;
         this.listener = onItemClickListener;
+        this.context = context;
     }
 
     @NonNull
@@ -41,6 +49,11 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.Vholder>
 
         holder.bind(contactItems.get(position), listener);
         holder.contact_name.setText(contactItems.get(position).getName());
+        if (contactItems.get(position).getImage() != null){
+            Picasso.with(context)
+                    .load(contactItems.get(position).getImage())
+                    .into(holder.contact_image);
+        }
 
     }
 

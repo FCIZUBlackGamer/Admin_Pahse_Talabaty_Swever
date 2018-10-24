@@ -1,32 +1,24 @@
 package com.talabaty.swever.admin.Managment.Privilages.ControlPrivilege;
 
 public class PrivilegeItem {
-    String id, name;
-    boolean read, write, edit, delete;
+    int id;
+    String  name;
+    boolean flag;
 
-    public PrivilegeItem(String id, String name, boolean read, boolean write, boolean edit, boolean delete) {
+    public PrivilegeItem(int id, String name, boolean flag) {
         this.id = id;
         this.name = name;
-        this.read = read;
-        this.write = write;
-        this.edit = edit;
-        this.delete = delete;
+        this.flag = flag;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
-    public boolean getRead(){
-        return read;
-    }public boolean getWrite(){
-        return write;
-    }public boolean getEdit(){
-        return edit;
-    }public boolean getDelete(){
-        return delete;
+    public boolean getFlag(){
+        return flag;
     }
 }
