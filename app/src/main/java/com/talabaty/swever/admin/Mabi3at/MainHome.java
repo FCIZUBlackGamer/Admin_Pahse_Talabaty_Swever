@@ -45,7 +45,7 @@ public class MainHome extends Fragment {
     LoginDatabae loginDatabae;
     Cursor cursor;
     int userid, shopid;
-
+    ProgressDialog progressDialog;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -72,6 +72,14 @@ public class MainHome extends Fragment {
         loginDatabae = new LoginDatabae(getActivity());
         cursor = loginDatabae.ShowData();
         return view;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
     }
 
     @Override
@@ -209,11 +217,11 @@ public class MainHome extends Fragment {
 //            }
 //            adapter.notifyItemRangeRemoved(0, size);
 //        }
-        final ProgressDialog progressDialog = new ProgressDialog(getActivity());
+        progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("جارى تحميل البيانات ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/Order/OrdersCount",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/Order/OrdersCount",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -230,84 +238,50 @@ public class MainHome extends Fragment {
                                 JSONObject object = jsonObject.getJSONObject("OrdersCount");
                                 // Get NewOrderCount
                                 final String NewOrderCount = object.getString("NewOrderCount");
-                                getActivity().runOnUiThread(new Runnable() {
 
-                                    @Override
-                                    public void run() {
-                                        num_new_talabat.setText(NewOrderCount);
+                                num_new_talabat.setText(NewOrderCount);
 
-                                    }
-                                });
+
 
 //                                JSONObject object2 = jsonArray.getJSONObject(0);
                                 // Get PreparationOrderCount
                                 final String PreparationOrderCount = object.getString("PreparationOrderCount");
-                                getActivity().runOnUiThread(new Runnable() {
 
-                                    @Override
-                                    public void run() {
-                                        num_ready_talabat.setText(PreparationOrderCount);
+                                num_ready_talabat.setText(PreparationOrderCount);
 
-                                    }
-                                });
 
 //                                JSONObject object3 = jsonArray.getJSONObject(0);
                                 // Get ReturnedOrderCount
                                 final String ReturnedOrderCount = object.getString("ReturnedOrderCount");
-                                getActivity().runOnUiThread(new Runnable() {
 
-                                    @Override
-                                    public void run() {
-                                        num_returned_talabat.setText(ReturnedOrderCount);
+                                num_returned_talabat.setText(ReturnedOrderCount);
 
-                                    }
-                                });
 
 //                                JSONObject object4 = jsonArray.getJSONObject(0);
                                 // Get AcceptedOrderCount
                                 final String AcceptedOrderCount = object.getString("AcceptedOrderCount");
-                                getActivity().runOnUiThread(new Runnable() {
 
-                                    @Override
-                                    public void run() {
-                                        num_pend_tasks.setText(AcceptedOrderCount);
+                                num_pend_tasks.setText(AcceptedOrderCount);
 
-                                    }
-                                });
 
 //                                JSONObject object5 = jsonArray.getJSONObject(0);
                                 // Get TransportOrderCount
                                 final String TransportOrderCount = object.getString("TransportOrderCount");
-                                getActivity().runOnUiThread(new Runnable() {
 
-                                    @Override
-                                    public void run() {
-                                        num_notification.setText(TransportOrderCount);
+                                num_notification.setText(TransportOrderCount);
 
-                                    }
-                                });
 
 //                                JSONObject object6 = jsonArray.getJSONObject(0);
                                 // Get ReceivedOrderCount
                                 final String ReceivedOrderCount = object.getString("ReceivedOrderCount");
-                                getActivity().runOnUiThread(new Runnable() {
 
-                                    @Override
-                                    public void run() {
-                                        num_done_talabat.setText(ReceivedOrderCount);
+                                num_done_talabat.setText(ReceivedOrderCount);
 
-                                    }
-                                });
 
                                 final String MyOrderCount = object.getString("MyOrderCount");
-                                getActivity().runOnUiThread(new Runnable() {
 
-                                    @Override
-                                    public void run() {
-                                        num_my_tasks.setText(MyOrderCount);
+                                num_my_tasks.setText(MyOrderCount);
 
-                                    }
-                                });
 
 
                             }

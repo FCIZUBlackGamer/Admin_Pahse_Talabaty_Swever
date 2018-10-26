@@ -31,7 +31,7 @@
                     android:id="@+id/start"
                     android:background="@drawable/button_shape"
                     android:gravity="center"
-                    android:text=" أبدأ"
+                    android:text=" مراسلة"
                     android:fontFamily="@font/changalight"
                     android:textSize="16sp"
                     android:textColor="@color/white"

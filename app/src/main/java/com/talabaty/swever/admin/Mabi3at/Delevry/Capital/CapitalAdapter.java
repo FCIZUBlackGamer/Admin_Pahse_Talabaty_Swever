@@ -194,7 +194,7 @@ public class CapitalAdapter extends RecyclerView.Adapter<CapitalAdapter.Vholder>
         progressDialog.setMessage("انتظر من فضلك ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://sellsapi.sweverteam.com/order/EditDeliveryValue",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://sellsapi.rivile.com/order/EditDeliveryValue",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -289,7 +289,7 @@ public class CapitalAdapter extends RecyclerView.Adapter<CapitalAdapter.Vholder>
         progressDialog.setMessage("انتظر من فضلك ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.sweverteam.com/order/Delete?Id="+regions.get(pos).getId(),
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.rivile.com/order/Delete?Id="+regions.get(pos).getId(),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -402,7 +402,7 @@ public class CapitalAdapter extends RecyclerView.Adapter<CapitalAdapter.Vholder>
         cityNames = new ArrayList<>();
 
         RequestQueue requestQueue = Volley.newRequestQueue( context);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.sweverteam.com/States/Select", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.rivile.com/States/Select", new Response.Listener<String>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(String response) {

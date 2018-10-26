@@ -327,7 +327,7 @@ public class NotificationToFriendTalabat extends Fragment {
         progressDialog.setMessage("جارى تحميل البيانات ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/TransportOrderList",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/order/TransportOrderList",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

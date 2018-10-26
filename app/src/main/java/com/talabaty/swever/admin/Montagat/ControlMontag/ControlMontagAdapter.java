@@ -67,11 +67,11 @@ public class ControlMontagAdapter extends RecyclerView.Adapter<ControlMontagAdap
     public void onBindViewHolder(@NonNull Vholder holder, final int position) {
 
         if (Type == 0){
-            DeleteLink = "http://sellsapi.sweverteam.com/sampleproduct/delete";
+            DeleteLink = "http://sellsapi.rivile.com/sampleproduct/delete";
         }else if (Type == 1){
-            DeleteLink = "http://sellsapi.sweverteam.com/sampleproduct1/delete";
+            DeleteLink = "http://sellsapi.rivile.com/sampleproduct1/delete";
         }else if (Type == 2){
-            DeleteLink = "http://sellsapi.sweverteam.com/sampleproduct2/delete";
+            DeleteLink = "http://sellsapi.rivile.com/sampleproduct2/delete";
         }
 
         holder.id.setText(models.get(position).getNum()+"");

@@ -84,9 +84,9 @@ public class FragmentAddNewFood extends Fragment {
     final int CAMERA_PIC_REQUEST = 1337;
 
     List<ImageSource> Gallary;
-    String baseUrl = "http://www.selltlbaty.sweverteam.com/";
+    String baseUrl = "http://www.selltlbaty.rivile.com/";
     private String UPLOAD_URL = baseUrl + "Uploads/UploadAndro";
-    private String UPLOAD_LINK = "http://sellsapi.sweverteam.com/BaseFood/Add";
+    private String UPLOAD_LINK = "http://sellsapi.rivile.com/BaseFood/Add";
 
     private String KEY_IMAGE = "base64imageString";
     private String KEY_NAME = "name";
@@ -145,7 +145,7 @@ public class FragmentAddNewFood extends Fragment {
         if (montagModel != null){
             name.setText(montagModel.getName());
             price.setText(montagModel.getSellPrice() + "");
-            UPLOAD_LINK = "http://sellsapi.sweverteam.com/BaseFood/Edit";
+            UPLOAD_LINK = "http://sellsapi.rivile.com/BaseFood/Edit";
             save.setText("تعديل");
 
             if (montagModel.getGallary().size() > 0) {

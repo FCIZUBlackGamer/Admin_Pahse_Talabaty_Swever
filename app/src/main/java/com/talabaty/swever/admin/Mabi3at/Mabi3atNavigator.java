@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -145,6 +146,10 @@ public class Mabi3atNavigator extends AppCompatActivity implements NavigationVie
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        Menu nav_Menu = navigationView.getMenu();
+
+        nav_Menu.findItem(R.id.nav_contact).setVisible(false);
+
         View view = navigationView.getHeaderView(0);
         imageView = view.findViewById(R.id.imageView);
         user_name = view.findViewById(R.id.user_name);
@@ -163,7 +168,9 @@ public class Mabi3atNavigator extends AppCompatActivity implements NavigationVie
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
+            Log.e("Here","Close");
         } else {
+            Log.e("Here","Back");
             super.onBackPressed();
         }
     }
@@ -196,7 +203,6 @@ public class Mabi3atNavigator extends AppCompatActivity implements NavigationVie
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         Menu nav_Menu = navigationView.getMenu();
-
 
         if (id == R.id.nav_mabe3at) {
 //            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -278,6 +284,8 @@ public class Mabi3atNavigator extends AppCompatActivity implements NavigationVie
             startActivity(intent);
         } else if (id == R.id.nav_out) {
             loginDatabae.UpdateData("1","c","c","c","0","","");
+            this.finish();
+            System.exit(0);
         }
 
 

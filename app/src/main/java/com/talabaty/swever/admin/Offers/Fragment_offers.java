@@ -2,9 +2,7 @@ package com.talabaty.swever.admin.Offers;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -14,7 +12,6 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -37,7 +34,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -57,6 +53,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.fourhcode.forhutils.FUtilsValidation;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.talabaty.swever.admin.Home;
@@ -70,9 +67,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
@@ -105,10 +100,10 @@ public class Fragment_offers extends Fragment {
 
     private int PICK_IMAGE_REQUEST = 1;
     final int CAMERA_PIC_REQUEST = 1337;
-    
-    String baseUrl = "http://www.selltlbaty.sweverteam.com/";
+
+    String baseUrl = "http://www.selltlbaty.rivile.com/";
     private String UPLOAD_URL = baseUrl + "Uploads/UploadAndro";
-    private String UPLOAD_LINK = "http://onlineapi.sweverteam.com/Login/AddUser";
+    private String UPLOAD_LINK = "http://onlineapi.rivile.com/Login/AddUser";
 
     private String KEY_IMAGE = "base64imageString";
     private String KEY_NAME = "name";
@@ -174,7 +169,6 @@ public class Fragment_offers extends Fragment {
             shopid = Integer.parseInt(cursor.getString(3));
 
         }
-
         if (totalOffer != null){
             name.setText(totalOffer.getName());
             price.setText(totalOffer.getPrice()+"");
@@ -299,13 +293,36 @@ public class Fragment_offers extends Fragment {
             @Override
             public void onClick(View v) {
                 /** Upload List */
-                totalOffer = new TotalOffer();
-                totalOffer.setName(name.getText().toString());
-                totalOffer.setPrice(Float.parseFloat(price.getText().toString()));
-                totalOffer.setDescription(desc.getText().toString());
-                totalOffer.setOfferList(agents);
-                totalOffer.setShopId(shopid);
-                uploadImage();
+                if (FUtilsValidation.isEmpty(name, "اضف اسم للعرض") ||
+                        FUtilsValidation.isEmpty(price, "اضف سعر للعرض") ||
+                        FUtilsValidation.isEmpty(desc, "اضف وصف للعرض")) {
+
+                } else {
+                    if (agents.size() > 0) {
+                        totalOffer = new TotalOffer();
+                        totalOffer.setName(name.getText().toString());
+                        totalOffer.setPrice(Float.parseFloat(price.getText().toString()));
+                        totalOffer.setDescription(desc.getText().toString());
+                        totalOffer.setOfferList(agents);
+                        totalOffer.setShopId(shopid);
+                        uploadImage();
+                    } else {
+                        LayoutInflater inflater = getLayoutInflater();
+                        View layout = inflater.inflate(R.layout.toast_error,
+                                (ViewGroup) getActivity().findViewById(R.id.lay));
+
+                        TextView text = (TextView) layout.findViewById(R.id.txt);
+
+                        text.setText("اضف منتجات للعرض");
+
+                        Toast toast = new Toast(getActivity());
+                        toast.setGravity(Gravity.BOTTOM, 0, 0);
+                        toast.setDuration(Toast.LENGTH_LONG);
+                        toast.setView(layout);
+                        toast.show();
+                    }
+                }
+
             }
         });
 
@@ -457,7 +474,7 @@ public class Fragment_offers extends Fragment {
         Log.e("Connection UploadMontag", "Here");
         Log.e("Full Model",jsonInString);
         final ProgressDialog loading = ProgressDialog.show(getActivity(), "Uploading...", "Please wait...", false, false);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://sellsapi.sweverteam.com/Offers/Add",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://sellsapi.rivile.com/Offers/Add",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
@@ -649,7 +666,7 @@ public class Fragment_offers extends Fragment {
         temp_list = new ArrayList<>();
 
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.sweverteam.com/Offers/SelectProduct?ShopId="+shopid+"&token=bKPNOJrob8x", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.rivile.com/Offers/SelectProduct?ShopId=" + shopid + "&token=bKPNOJrob8x", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -731,7 +748,7 @@ public class Fragment_offers extends Fragment {
 //        progressDialog.setMessage("جارى تحميل البيانات ...");
 //        progressDialog.setCancelable(false);
 //        progressDialog.show();
-//        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://sellsapi.sweverteam.com/Order/ReportCustomer",
+//        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://sellsapi.rivile.com/Order/ReportCustomer",
 //                new Response.Listener<String>() {
 //                    @Override
 //                    public void onResponse(String response) {

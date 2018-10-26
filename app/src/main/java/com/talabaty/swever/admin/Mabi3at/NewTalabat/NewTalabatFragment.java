@@ -320,11 +320,12 @@ public class NewTalabatFragment extends Fragment {
         progressDialog.setMessage("جارى تحميل البيانات ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/NewOrderList",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/order/NewOrderList",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         int temp = 0;
+
                         progressDialog.dismiss();
                         try {
 

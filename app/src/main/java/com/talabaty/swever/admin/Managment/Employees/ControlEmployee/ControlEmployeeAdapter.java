@@ -104,7 +104,7 @@ public class ControlEmployeeAdapter extends RecyclerView.Adapter<ControlEmployee
         progressDialog.setCancelable(false);
         progressDialog.show();
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://sellsapi.sweverteam.com/Employee/Delete", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://sellsapi.rivile.com/Employee/Delete", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 progressDialog.dismiss();

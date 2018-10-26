@@ -26,6 +26,8 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,7 +43,6 @@ public class Login extends AppCompatActivity {
     Cursor cursor;
     ProgressDialog progressDialog;
     EditText email, password;
-    CheckBox keep_me_login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,6 @@ public class Login extends AppCompatActivity {
 
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
-        keep_me_login = findViewById(R.id.keep_my_login);
 
         loginDatabae = new LoginDatabae(this);
         cursor = loginDatabae.ShowData();
@@ -89,6 +89,11 @@ public class Login extends AppCompatActivity {
                             if (response.equals("\"fail\"")) {
                                 progressDialog.dismiss();
 
+                                YoYo.with(Techniques.Tada)
+                                        .duration(700)
+                                        .repeat(1)
+                                        .playOn(findViewById(R.id.log));
+
                                 LayoutInflater inflater = getLayoutInflater();
                                 View layout = inflater.inflate(R.layout.toast_error,
                                         (ViewGroup) findViewById(R.id.lay));
@@ -122,14 +127,12 @@ public class Login extends AppCompatActivity {
                                     JSONObject object = new JSONObject(response);
                                     //JSONArray array = object.getJSONArray("user");
                                     JSONObject object1 = object.getJSONObject("users");
-                                    JSONObject cat = object.getJSONObject("cat");
+                                    int cat = object.getInt("cat");
 
-                                    if (keep_me_login.isChecked()) {
-                                        loginDatabae.UpdateData("1", object1.getString("Mail"), object1.getString("Id"), object1.getString("Shop_Id"), "1", "http://selltlbaty.rivile.com/" + object1.getString("Photo"), cat.getString("cat"));
-                                    }
+                                    loginDatabae.UpdateData("1", object1.getString("Mail"), object1.getString("Id"), object1.getString("Shop_Id"), "1", "http://selltlbaty.rivile.com/" + object1.getString("Photo"), cat+"");
 
                                     Intent intent = new Intent(Login.this, Home.class);
-                                    intent.putExtra("fragment", "mabi3at");
+                                    intent.putExtra( "fragment", "mabi3at");
                                     startActivity(intent);
                                     finish();
 

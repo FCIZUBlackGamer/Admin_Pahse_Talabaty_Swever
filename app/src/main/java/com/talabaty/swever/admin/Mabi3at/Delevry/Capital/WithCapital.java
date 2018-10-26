@@ -1,9 +1,7 @@
 package com.talabaty.swever.admin.Mabi3at.Delevry.Capital;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -22,7 +20,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,15 +39,9 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.talabaty.swever.admin.LoginDatabae;
 import com.talabaty.swever.admin.Mabi3at.Delevry.Delevry;
-import com.talabaty.swever.admin.Mabi3at.Delevry.Kilo.WithKilo;
-import com.talabaty.swever.admin.Mabi3at.DoneTalabat.Talabat;
-import com.talabaty.swever.admin.Mabi3at.NewTalabat.NewTalabatAdapter;
 import com.talabaty.swever.admin.Managment.Employees.AddEmployee.SpinnerModels.Cities;
-import com.talabaty.swever.admin.Managment.Employees.AddEmployee.SpinnerModels.Mangment;
 import com.talabaty.swever.admin.Managment.Employees.AddEmployee.SpinnerModels.Regions;
-import com.talabaty.swever.admin.Managment.Employees.AddEmployee.SpinnerModels.Rules;
 import com.talabaty.swever.admin.Managment.Employees.AddEmployee.SpinnerModels.State;
-import com.talabaty.swever.admin.Montagat.ControlMontag.ControlMontagAdapter;
 import com.talabaty.swever.admin.R;
 
 import org.json.JSONArray;
@@ -61,7 +52,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class WithCapital extends Fragment {
     RecyclerView recyclerView;
@@ -176,7 +166,7 @@ public class WithCapital extends Fragment {
         cityNames = new ArrayList<>();
 
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.sweverteam.com/States/Select", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.rivile.com/States/Select", new Response.Listener<String>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(String response) {
@@ -290,7 +280,7 @@ public class WithCapital extends Fragment {
         progressDialog.setMessage("جارى تحميل البيانات ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.sweverteam.com/order/DeliveryValueList?ShopId="+shopid+"&token=bKPNOJrob8x",
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.rivile.com/order/DeliveryValueList?ShopId="+shopid+"&token=bKPNOJrob8x",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -383,7 +373,7 @@ public class WithCapital extends Fragment {
         progressDialog.setMessage("انتظر من فضلك ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://sellsapi.sweverteam.com/order/AddDeliveryValue",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://sellsapi.rivile.com/order/AddDeliveryValue",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

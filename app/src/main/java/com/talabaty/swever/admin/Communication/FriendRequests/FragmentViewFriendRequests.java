@@ -90,7 +90,7 @@ public class FragmentViewFriendRequests extends Fragment {
         progressDialog.setMessage("جارى تحميل البيانات ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.sweverteam.com/Shops/FriendRequests?ShopId=" + ShopId+"&token=bKPNOJrob8x",
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.rivile.com/Shops/FriendRequests?ShopId=" + ShopId+"&token=bKPNOJrob8x",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

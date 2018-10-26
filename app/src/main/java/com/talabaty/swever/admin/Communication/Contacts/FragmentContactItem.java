@@ -127,7 +127,7 @@ public class FragmentContactItem extends Fragment {
         progressDialog.setMessage("جارى تنفيذ العمليه ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://sellsapi.sweverteam.com/Shops/AddShop",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://sellsapi.rivile.com/Shops/AddShop",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

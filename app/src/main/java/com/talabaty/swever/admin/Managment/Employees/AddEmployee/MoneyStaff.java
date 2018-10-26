@@ -89,15 +89,15 @@ public class MoneyStaff extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if (!FUtilsValidation.isEmpty(add_employee_fragment_employeenameTxt, "ادخل المرتب")&&
-                        !FUtilsValidation.isEmpty(add_employee_fragment_mailTxt, "ادخل اضافى المرتب")&&
-                        !FUtilsValidation.isEmpty(add_employee_fragment_employmentName, "ادخل بدل التنقل")&&
-                        !FUtilsValidation.isEmpty(add_employee_fragment_employeeManagement, "ادخل قيمه")&&
-                        !FUtilsValidation.isEmpty(add_employee_fragment_employeeResponsibilities, "ادخل قيمه")&&
-                        !FUtilsValidation.isEmpty(add_employee_fragment_employeeWorkplaceName, "ادخل قيمه")&&
-                        !FUtilsValidation.isEmpty(add_employee_fragment_employeeBranchName, "ادخل قيمه")&&
-                        !FUtilsValidation.isEmpty(add_employee_fragment_employeePhone, "ادخل قيمه")&&
-                        !FUtilsValidation.isEmpty(add_employee_fragment_emloyeePhone, "ادخل قيمه")
+                if (FUtilsValidation.isEmpty(add_employee_fragment_employeenameTxt, "ادخل المرتب")&&
+                        FUtilsValidation.isEmpty(add_employee_fragment_mailTxt, "ادخل اضافى المرتب")&&
+                        FUtilsValidation.isEmpty(add_employee_fragment_employmentName, "ادخل بدل التنقل")&&
+                        FUtilsValidation.isEmpty(add_employee_fragment_employeeManagement, "ادخل قيمه")&&
+                        FUtilsValidation.isEmpty(add_employee_fragment_employeeResponsibilities, "ادخل قيمه")&&
+                        FUtilsValidation.isEmpty(add_employee_fragment_employeeWorkplaceName, "ادخل قيمه")&&
+                        FUtilsValidation.isEmpty(add_employee_fragment_employeeBranchName, "ادخل قيمه")&&
+                        FUtilsValidation.isEmpty(add_employee_fragment_employeePhone, "ادخل قيمه")&&
+                        FUtilsValidation.isEmpty(add_employee_fragment_emloyeePhone, "ادخل قيمه")
                         ){
                 }else {
                     employee.setSalary(Integer.parseInt(add_employee_fragment_employeenameTxt.getText().toString()));

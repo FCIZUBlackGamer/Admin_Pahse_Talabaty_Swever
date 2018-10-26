@@ -65,7 +65,7 @@ import java.util.Map;
 
 public class AddtionalInfo extends Fragment {
 
-    String baseUrl = "http://www.selltlbaty.sweverteam.com/";
+    String baseUrl = "http://www.selltlbaty.rivile.com/";
     private String UPLOAD_URL = baseUrl + "Uploads/UploadAndro";
 
     private String KEY_IMAGE = "base64imageString";
@@ -152,7 +152,7 @@ public class AddtionalInfo extends Fragment {
 
         }
 
-        Link = "http://sellsapi.sweverteam.com/Employee/Add";
+        Link = "http://sellsapi.rivile.com/Employee/Add";
         loadPrivilage(shopid);
         loadManagment(shopid);
         loadDelvry();
@@ -163,7 +163,7 @@ public class AddtionalInfo extends Fragment {
             add_employee_fragment_employeeManagement.setText(employee.getWorkingEnd() + "");
             add_employee_fragment_employeeResponsibilities.setText(employee.getCreditLimit() + "");
             add_employee_fragment_employeeWorkplaceName.setText(employee.getBalance() + "");
-            Link = "http://sellsapi.sweverteam.com/Employee/Edit";
+            Link = "http://sellsapi.rivile.com/Employee/Edit";
         }
 
         add_employee_fragment_employeeBranchNameTitle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -219,11 +219,11 @@ public class AddtionalInfo extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if (!FUtilsValidation.isEmpty(add_employee_fragment_employmentName, "ادخل قيمه")&&
-                        !FUtilsValidation.isEmpty(add_employee_fragment_employeeManagement, "ادخل قيمه")&&
-                        !FUtilsValidation.isEmpty(add_employee_fragment_employeeResponsibilities, "ادخل قيمه")&&
-                        !FUtilsValidation.isEmpty(add_employee_fragment_employeeResponsibilities, "ادخل قيمه")&&
-                        !FUtilsValidation.isEmpty(add_employee_fragment_employeeWorkplaceName, "ادخل قيمه")
+                if (FUtilsValidation.isEmpty(add_employee_fragment_employmentName, "ادخل قيمه")&&
+                        FUtilsValidation.isEmpty(add_employee_fragment_employeeManagement, "ادخل قيمه")&&
+                        FUtilsValidation.isEmpty(add_employee_fragment_employeeResponsibilities, "ادخل قيمه")&&
+                        FUtilsValidation.isEmpty(add_employee_fragment_employeeResponsibilities, "ادخل قيمه")&&
+                        FUtilsValidation.isEmpty(add_employee_fragment_employeeWorkplaceName, "ادخل قيمه")
                         ){
                 }else {
                     uploadImage();
@@ -242,7 +242,7 @@ public class AddtionalInfo extends Fragment {
         progressDialog.setCancelable(false);
         progressDialog.show();
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.sweverteam.com/Rules/Select?ShopId="+ShopId+"&token=bKPNOJrob8x", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.rivile.com/Rules/Select?ShopId="+ShopId+"&token=bKPNOJrob8x", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 progressDialog.dismiss();
@@ -308,7 +308,7 @@ public class AddtionalInfo extends Fragment {
         manageNames = new ArrayList<>();
         mangments = new ArrayList<>();
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.sweverteam.com/Employee/SelectManagment?ShopId="+ShopId+"&token=bKPNOJrob8x", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.rivile.com/Employee/SelectManagment?ShopId="+ShopId+"&token=bKPNOJrob8x", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -404,7 +404,7 @@ public class AddtionalInfo extends Fragment {
         cityNames = new ArrayList<>();
 
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.sweverteam.com/States/Select"+"?token=bKPNOJrob8x", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.rivile.com/States/Select"+"?token=bKPNOJrob8x", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -600,7 +600,7 @@ public class AddtionalInfo extends Fragment {
             @Override
             public void onResponse(String response) {
                 progressDialog.dismiss();
-                if (response.equals("Success")) {
+                if (response.equals("\"Success\"")) {
 
                     LayoutInflater inflater = getLayoutInflater();
                     View layout = inflater.inflate(R.layout.toast_info,

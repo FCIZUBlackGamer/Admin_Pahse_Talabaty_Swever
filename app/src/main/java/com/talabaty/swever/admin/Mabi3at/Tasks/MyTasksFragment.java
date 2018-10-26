@@ -96,7 +96,7 @@ public class MyTasksFragment extends Fragment {
         super.onStart();
 
         ((Mabi3atNavigator) getActivity())
-                .setActionBarTitle("مهامى");
+                .setActionBarTitle("المهام المعلقه");
 
         temp_first = 0;
         temp_last = 10;
@@ -317,7 +317,7 @@ public class MyTasksFragment extends Fragment {
         progressDialog.setMessage("جارى تحميل البيانات ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/MyOrderList",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/order/MyOrderList",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

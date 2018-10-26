@@ -80,7 +80,7 @@ public class FragmentViewContacts extends Fragment implements SearchView.OnQuery
 
     }
 
-    // http://sellsapi.sweverteam.com/Shops/Search?Name=""&ShopId=3
+    // http://sellsapi.rivile.com/Shops/Search?Name=""&ShopId=3
 
     private void loadData(final String name , final int ShopId) {
 
@@ -88,7 +88,7 @@ public class FragmentViewContacts extends Fragment implements SearchView.OnQuery
         progressDialog.setMessage("جارى تحميل البيانات ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.sweverteam.com/Shops/Search",
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.rivile.com/Shops/Search",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -197,7 +197,7 @@ public class FragmentViewContacts extends Fragment implements SearchView.OnQuery
         progressDialog.setMessage("جارى تحميل البيانات ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.sweverteam.com/Shops/Search?ShopId="+ShopId+"&token=bKPNOJrob8x",
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.rivile.com/Shops/Search?ShopId="+ShopId+"&token=bKPNOJrob8x",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

@@ -451,7 +451,7 @@ public class SailedReports extends Fragment {
         }
 
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://www.sellsapi.sweverteam.com/order/SelectCustomers?token=bKPNOJrob8x", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://www.sellsapi.rivile.com/order/SelectCustomers?token=bKPNOJrob8x", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -613,7 +613,7 @@ public class SailedReports extends Fragment {
         progressDialog.setMessage("جارى تحميل البيانات ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/ReceivedOrderList",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/order/ReceivedOrderList",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -748,7 +748,7 @@ public class SailedReports extends Fragment {
         progressDialog.setCancelable(false);
         progressDialog.show();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/ReceivedOrder",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/order/ReceivedOrder",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -878,7 +878,7 @@ public class SailedReports extends Fragment {
         progressDialog.setCancelable(false);
         progressDialog.show();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/ReceivedOrder",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/order/ReceivedOrder",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -1004,7 +1004,7 @@ public class SailedReports extends Fragment {
         progressDialog.setCancelable(false);
         progressDialog.show();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/ReceivedOrder",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/order/ReceivedOrder",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -1129,7 +1129,7 @@ public class SailedReports extends Fragment {
         progressDialog.setCancelable(false);
         progressDialog.show();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/ReceivedOrder",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/order/ReceivedOrder",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

@@ -116,7 +116,7 @@ public class FragmentControlBaseFood_Additions extends Fragment {
             adapter.notifyItemRangeRemoved(0, size);
         }
         final ProgressDialog loading = ProgressDialog.show(getActivity(), "Uploading...", "Please wait...", false, false);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.sweverteam.com/BaseFood/List?token=bKPNOJrob8x",
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.rivile.com/BaseFood/List?token=bKPNOJrob8x",
                 new Response.Listener<String>() {
                     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                     @Override
@@ -223,7 +223,7 @@ public class FragmentControlBaseFood_Additions extends Fragment {
         }
 
         final ProgressDialog loading = ProgressDialog.show(getActivity(), "Uploading...", "Please wait...", false, false);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.sweverteam.com/Additions/List?token=bKPNOJrob8x",
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.rivile.com/Additions/List?token=bKPNOJrob8x",
                 new Response.Listener<String>() {
                     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                     @Override

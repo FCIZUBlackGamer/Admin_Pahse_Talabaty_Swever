@@ -5,216 +5,37 @@
       <config />
     </shared>
   </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="a58fb2d7-4151-40f0-a321-77e1ab9f9d31" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle____local_aars____media_fci_D6A024A8A0249153_Talabaty_Phases_Admin_app_libs_jxl_jar_unspecified_jar.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_daimajia_androidanimations_library_2_3.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_daimajia_easing_library_2_0.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_hendiware_utils_futils_1_6_91.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_itextpdf_itextpdf_5_0_6_jar.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__jp_wasabeef_recyclerview_animators_2_3_0.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_bouncycastle_bcmail_jdk14_1_38_jar.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_bouncycastle_bcprov_jdk14_1_38_jar.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_bouncycastle_bctsp_jdk14_1_38_jar.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__pl_droidsonroids_gif_android_gif_drawable_1_2_1.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/Admin.iml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/libs/jxl.jar" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/CustomTypefaceSpan.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/LoginDatabae.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/Delevry/Delevry.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/Excel.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/Methods.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/TestPdf.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3atTrend/BestSell.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Employees/AddEmployee/SpinnerModels/Cities.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Employees/AddEmployee/SpinnerModels/Mangment.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Employees/AddEmployee/SpinnerModels/Regions.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Employees/AddEmployee/SpinnerModels/Rules.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Employees/AddEmployee/SpinnerModels/State.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Employees/Employee.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/AddReturanteMontage/AddReturanteMontage.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/AddReturanteMontage/ImageAdapter.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/AddReturanteMontage/ImageBitmap.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/AddReturanteMontage/ImageContainer.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/AddReturanteMontage/ImageSource.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/AddReturanteMontage/Sanf.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/AddReturanteMontage/Size.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/AddReturanteMontage/SizeAdapter.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/AddReturanteMontage/SizeModel.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/Additions/FragmentAdditions.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/Additions/Item.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/Additions/ItemAdapter.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/ControlBaseFood_Additions/ControlBaseFood_AdditionsAdapter.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/ControlBaseFood_Additions/FragmentControlBaseFood_Additions.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/FragmentChooseAdd.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/Market/AddMarketMontage.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/Market/ImageAdapter.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/Market/ImageBitmap.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/Market/ImageContainer.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/Market/ImageSource.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/Market/Sanf.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/NewFood/Basefood.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/NewFood/FragmentAddNewFood.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/SpinnerModel.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/FragmentChooseOffers.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/Fragment_List_Offers.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/Fragment_Offer_home.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/Fragment_offers.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/ListOfferModel.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/Market/Fragment_offers_Market.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/Market/OfferMarketAdapter.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/OfferAdapter.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/OfferListAdapter.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/OperOfferModel.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/Restaurant/Fragment_offers_Restaurant.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/Restaurant/OfferRestaurantAdapter.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/Restaurant/SizeWithPriceModel.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/TotalOffer.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/anim/enter_from_left.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/anim/enter_from_right.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/anim/exit_to_left.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/anim/exit_to_right.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/anim/slide_in_left.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/arrspinc.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/arrspino.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/camera.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/cap.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/closep.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/doneo.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/gallery.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/km.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/minimize.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/password.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/search.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/upload.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/user_name.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/arrspinc.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/arrspino.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/background_button.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/camera.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/cap.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/closep.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/doneo.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/gallery.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/km.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/minimize.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/password.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/search.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/upload.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/user_name.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/arrspinc.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/arrspino.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/camera.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/cap.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/closep.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/doneo.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/gallery.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/km.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/minimize.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/password.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/search.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/upload.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/user_name.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/back.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/back_toast_error.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/back_toast_info.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/back_toast_warning.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/edittext_bottom.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_add_black_24dp.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_left.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_left_arrow.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_right.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_right_arrow.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/radius_back.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/radius_back_spin.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/font/changabold.ttf" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/font/changaextrabbold.ttf" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/font/changaextralight.ttf" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/font/changalight.ttf" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/font/changamedium.ttf" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/font/changaregular.ttf" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/font/changasemibold.ttf" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/adapter_control_additions_baefood.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/camera_view.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/dialog_delevery_edit.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_basefood_additions.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_offer.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_offer_market.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_offer_resturant.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout-port/camera_view.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout-port/content_main_frame.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout-port/fragment_basefood_additions.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout-port/fragment_control_montag.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout-port/fragment_delevry_home.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout-port/fragment_delevry_kilo.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout-port/fragment_new_talabat.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout-port/fragment_offer.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout-port/fragment_offer_market.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout-port/fragment_offer_resturant.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/adapter_item_additions.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/adapter_offer_list.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/button_size_returante.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/control_view.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_add_offer.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_add_offer_market.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_add_offer_resturant.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_add_additions.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_add_montag_resturante.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_add_new_food.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_choose_add.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_list_offers.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_market_montage.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_offer_home.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/offer_market_row_item.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/offer_resturant_row_item.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/offer_row_item.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/toast_error.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/toast_info.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/toast_warning.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/logo.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/logo.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/logo.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/background_edittext.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/login.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/login.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/login.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/background_edittext.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_login.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/login_backgroud.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land-v24/fragment_offer.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout-port-v24/fragment_offer.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout-port/dialog_details_talabat.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout-sw600dp/fragment_mabi3at.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout-sw600dp/fragment_offer.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout-sw600dp/fragment_returned_talabat.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout-sw720dp/fragment_mabi3at.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout-sw720dp/fragment_offer.xml" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/resourceHashesCache.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/resourceHashesCache.bin" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" />
-      <change beforePath="$PROJECT_DIR$/.idea/kotlinc.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_core_runtime_1_1_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_core_runtime_1_1_0.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_livedata_core_1_1_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_livedata_core_1_1_0.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_runtime_1_1_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_runtime_1_1_0.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_viewmodel_1_1_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_viewmodel_1_1_0.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_databinding_adapters_3_1_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_databinding_adapters_3_1_3.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_databinding_baseLibrary_3_1_2_jar.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_databinding_baseLibrary_3_1_3_jar.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_databinding_library_3_1_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_databinding_library_3_1_3.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_animated_vector_drawable_27_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_animated_vector_drawable_27_1_1.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_appcompat_v7_27_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_appcompat_v7_27_1_1.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_cardview_v7_27_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_cardview_v7_27_1_1.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_design_27_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_design_27_1_1.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_recyclerview_v7_27_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_recyclerview_v7_27_1_1.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_compat_27_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_compat_27_1_1.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_core_ui_27_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_core_ui_27_1_1.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_core_utils_27_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_core_utils_27_1_1.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_fragment_27_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_fragment_27_1_1.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_media_compat_27_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_media_compat_27_1_1.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_v4_27_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_v4_27_1_1.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_vector_drawable_27_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_vector_drawable_27_1_1.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_transition_27_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_transition_27_1_1.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change beforePath="$PROJECT_DIR$/Admin_Pahse_Talabaty.iml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
-      <change beforePath="$PROJECT_DIR$/app/proguard-rules.pro" afterPath="$PROJECT_DIR$/app/proguard-rules.pro" />
-      <change beforePath="$PROJECT_DIR$/app/release/app-release.apk" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/release/output.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/AgentReports/AgentAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/AgentReports/AgentAdapter.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/AgentReports/Fragment_agent_report.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/AgentReports/Fragment_agent_report.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Communication/Contacts/ContactAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Communication/Contacts/ContactAdapter.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Communication/Contacts/ContactItem.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Communication/Contacts/ContactItem.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Communication/Contacts/FragmentContactItem.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Communication/Contacts/FragmentContactItem.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Communication/Contacts/FragmentViewContacts.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Communication/Contacts/FragmentViewContacts.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Communication/FriendRequests/ContactAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Communication/FriendRequests/ContactAdapter.java" />
@@ -241,96 +62,44 @@
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/ReturnedTalabat/ReturnedTalabatAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/ReturnedTalabat/ReturnedTalabatAdapter.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/ReturnedTalabat/ReturnedTalabatFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/ReturnedTalabat/ReturnedTalabatFragment.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/SailedReports/SailedReports.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/SailedReports/SailedReports.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/SearchModel.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/SearchModel.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/Tasks/MyTasksAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/Tasks/MyTasksAdapter.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/Tasks/MyTasksFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/Tasks/MyTasksFragment.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3atTrend/Mabi3atTrendAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3atTrend/Mabi3atTrendAdapter.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3atTrend/Mabi3atTrendReports.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3atTrend/Mabi3atTrendReports.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Employees/AddEmployee/AddtionalInfo.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Employees/AddEmployee/AddtionalInfo.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Employees/AddEmployee/MoneyStaff.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Employees/AddEmployee/MoneyStaff.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Employees/AddEmployee/PersonalInfo.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Employees/AddEmployee/PersonalInfo.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Employees/ControlEmployee/ControlEmployeeAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Employees/ControlEmployee/ControlEmployeeAdapter.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Employees/ControlEmployee/FragmentControlEmployee.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Employees/ControlEmployee/FragmentControlEmployee.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/ManagmentHome.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/ManagmentHome.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Privilages/ControlPrivilege/ControlPrivilegeAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Privilages/ControlPrivilege/ControlPrivilegeAdapter.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Privilages/ControlPrivilege/FragmentControlPrivilege.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Privilages/ControlPrivilege/FragmentControlPrivilege.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Privilages/ControlPrivilege/PrivilegeItem.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Privilages/ControlPrivilege/PrivilegeItem.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/AddMontag/AddMontag.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/AddMontag/AddMontag.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/AddMontag/ImageAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/AddMontag/ImageAdapter.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/AddReturanteMontage/AddReturanteMontage.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/AddReturanteMontage/AddReturanteMontage.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/Additions/FragmentAdditions.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/Additions/FragmentAdditions.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/ControlBaseFood_Additions/ControlBaseFood_AdditionsAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/ControlBaseFood_Additions/ControlBaseFood_AdditionsAdapter.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/ControlBaseFood_Additions/FragmentControlBaseFood_Additions.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/ControlBaseFood_Additions/FragmentControlBaseFood_Additions.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/ControlMontag/ControlMontag.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/ControlMontag/ControlMontag.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/ControlMontag/ControlMontagAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/ControlMontag/ControlMontagAdapter.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/ControlMontag/ControlMontagModel.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/ControlMontag/ControlMontagModel.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/FragmentMontag.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/FragmentMontag.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Options/Details/DetailsAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Options/Details/DetailsAdapter.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/id.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/id.png" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/id.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/id.png" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/id.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/id.png" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/button_montag_l.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/button_montag_l.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/button_save.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/button_save.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/button_shape.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/button_shape.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/side_nav_bar.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/side_nav_bar.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/FragmentChooseAdd.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/FragmentChooseAdd.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/Market/AddMarketMontage.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/Market/AddMarketMontage.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/NewFood/FragmentAddNewFood.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/NewFood/FragmentAddNewFood.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/FragmentChooseOffers.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/FragmentChooseOffers.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/Fragment_List_Offers.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/Fragment_List_Offers.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/Fragment_offers.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/Fragment_offers.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/Market/Fragment_offers_Market.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/Market/Fragment_offers_Market.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/OfferListAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/OfferListAdapter.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/Restaurant/Fragment_offers_Restaurant.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/Restaurant/Fragment_offers_Restaurant.java" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/agent_report_row_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/agent_report_row_item.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/control_employee_row_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/control_employee_row_item.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/control_montag_row_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/control_montag_row_item.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/dialog_message_talabat.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/dialog_message_talabat.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/dialog_reject_talabat.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/dialog_reject_talabat.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/dialog_taghez_tawgeeh_talabat.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/dialog_taghez_tawgeeh_talabat.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/dialog_transfer_pend_talabat.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/dialog_transfer_pend_talabat.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/dialog_transfer_talab_talabat.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/dialog_transfer_talab_talabat.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/done_talabat_row_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/done_talabat_row_item.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_add_privelage.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_add_privelage.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_agent_report.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_agent_report.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_control_montag.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_control_montag.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_delevry_capital.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_delevry_capital.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_delevry_home.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_delevry_home.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_delevry_kilo.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_delevry_kilo.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_done_talabat.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_done_talabat.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_employee_control.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_employee_control.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_new_talabat.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_new_talabat.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_notification_talabat.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_notification_talabat.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_pend_talabat.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_pend_talabat.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_ready_talabat.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_ready_talabat.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_rejected_report_talabat.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_rejected_report_talabat.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_returned_talabat.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_returned_talabat.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_saled_report_talabat.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_saled_report_talabat.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_tasks.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_tasks.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_trend_report_mabi3at.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_trend_report_mabi3at.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_view_control_privilege.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_view_control_privilege.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_offer.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_offer.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/new_talabat_row_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/new_talabat_row_item.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/notification_talabat_row_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/notification_talabat_row_item.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/pend_talabat_row_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/pend_talabat_row_item.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/ready_talabat_row_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/ready_talabat_row_item.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/rejected_report_talabat_row_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/rejected_report_talabat_row_item.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/returned_talabat_row_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/returned_talabat_row_item.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/row_item_delivry_capital_fragment.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/row_item_delivry_capital_fragment.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/sailed_report_talabat_row_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/sailed_report_talabat_row_item.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/tasks_row_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/tasks_row_item.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/trend_report_mabi3at_row_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/trend_report_mabi3at_row_item.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-port/fragment_employee_control.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-port/fragment_employee_control.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-port/fragment_offer.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-port/fragment_offer.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-sw600dp/dialog_details_talabat.xml" afterPath="" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-v21/fragment_mabi3at.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-v21/fragment_mabi3at.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/contact_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/contact_item.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_add_montag.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_add_montag.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_addemployee1.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_addemployee1.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_addemployee2.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_addemployee2.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_addemployee3.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_addemployee3.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_contact_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_contact_item.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_home_employee.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_home_employee.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_home_managment.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_home_managment.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_home_montagat.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_home_montagat.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_home_privilege.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_home_privilege.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_mabi3at.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_mabi3at.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_view_contact.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_view_contact.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/freindrequest_contact_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/freindrequest_contact_item.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/nav_header_home.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/nav_header_home.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/activity_home_drawer.xml" afterPath="$PROJECT_DIR$/app/src/main/res/menu/activity_home_drawer.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/logo.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/logo.png" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/logo.png" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/logo.png" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" />
-      <change beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -347,71 +116,57 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
-        <projects_view />
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Admin" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
       </state>
     </system>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Login.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Login.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="43" column="27" lean-forward="false" selection-start-line="43" selection-start-column="27" selection-end-line="43" selection-end-column="27" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AddtionalInfo.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Employees/AddEmployee/AddtionalInfo.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="221" column="59" lean-forward="false" selection-start-line="221" selection-start-column="59" selection-end-line="221" selection-end-column="59" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="12" column="43" lean-forward="false" selection-start-line="12" selection-start-column="43" selection-end-line="12" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="activity_login.xml" pinned="false" current-in-tab="false">
+      <file leaf-file-name="activity_login.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="288">
+              <caret line="34" column="19" lean-forward="false" selection-start-line="34" selection-start-column="19" selection-end-line="34" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
           <provider editor-type-id="android-designer2">
             <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-              <folding />
-            </state>
           </provider>
         </entry>
       </file>
     </leaf>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="resourceFile" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>sweverteam</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>rivile</replace>
+    </replaceStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="PUSH_TAGS">
+      <GitPushTagMode />
+    </option>
   </component>
   <component name="GradleLocalSettings">
     <option name="myGradleHomes">
@@ -2486,16 +2241,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Communication/FriendRequests/ContactAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/SailedReports/SailedReports.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/Tasks/MyTasksAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Employees/AddEmployee/PersonalInfo.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Employees/ControlEmployee/ControlEmployeeAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Employees/ControlEmployee/FragmentControlEmployee.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Privilages/ControlPrivilege/FragmentControlPrivilege.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/Additions/FragmentAdditions.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/AddMontag/AddMontag.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Options/Details/DetailsAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" />
-        <option value="$PROJECT_DIR$/app/app.iml" />
-        <option value="$PROJECT_DIR$/Admin.iml" />
-        <option value="$PROJECT_DIR$/build.gradle" />
-        <option value="$PROJECT_DIR$/app/proguard-rules.pro" />
-        <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/AddReturanteMontage/AddReturanteMontage.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/ControlBaseFood_Additions/ControlBaseFood_AdditionsAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/ControlBaseFood_Additions/FragmentControlBaseFood_Additions.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/ControlMontag/ControlMontagAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/Market/AddMarketMontage.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/NewFood/FragmentAddNewFood.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/OfferListAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/Fragment_List_Offers.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/Restaurant/Fragment_offers_Restaurant.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/Market/Fragment_offers_Market.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/NewTalabat/NewTalabatFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/agent_report_row_item.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/new_talabat_row_item.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/notification_talabat_row_item.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/ready_talabat_row_item.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/returned_talabat_row_item.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/tasks_row_item.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-v21/fragment_mabi3at.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/Delevry/DelevryHome.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3atTrend/Mabi3atTrendReports.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Employees/AddEmployee/MoneyStaff.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/NewTalabat/NewTalabatAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/Tasks/MyTasksFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/PendedTalabat/PendedTalabatFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/ControlMontag/ControlMontag.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/DoneTalabat/DoneTalabat.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Home.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/FragmentChooseOffers.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/pend_talabat_row_item.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Employees/AddEmployee/AddtionalInfo.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/FragmentChooseAdd.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/MainHome.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/Mabi3atNavigator.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/login_backgroud.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Login.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_mabi3at.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-sw600dp/fragment_mabi3at.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-sw720dp/fragment_mabi3at.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/Fragment_offers.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-port/fragment_offer.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/fragment_offer.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land-sw600dp/fragment_offer.xml" />
       </list>
     </option>
   </component>
@@ -2524,6 +2320,7 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -2562,30 +2359,53 @@
             </path>
             <path>
               <item name="Admin" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+            </path>
+            <path>
+              <item name="Admin" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="admin" type="cbb59c9e:AndroidPsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Admin" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+            </path>
+            <path>
+              <item name="Admin" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
+            </path>
+            <path>
+              <item name="Admin" type="1abcf292:AndroidViewProjectNode" />
               <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="android.sdk.path" value="$USER_HOME$/Android/Sdk" />
     <property name="settings.editor.selected.configurable" value="android.sdk-updates" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$" />
     <property name="sync.plugin.last.upgrade.timestamp" value="1540366226280" />
     <property name="device.picker.selection" value="MFJJUKSW6H79HASS" />
+    <property name="android.profiler.active" value="true" />
+    <property name="ScreenshotViewer.SavePath" value="$USER_HOME$" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/app/build" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/Tasks" />
-      <recent name="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/SailedReports" />
-      <recent name="$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/ReturnedTalabat" />
+      <recent name="$PROJECT_DIR$/app/src/main/res/layout-land-sw720dp" />
+      <recent name="$PROJECT_DIR$/app/src/main/res/layout-port-sw720dp" />
+      <recent name="$PROJECT_DIR$/app/src/main/res/layout-port-sw600dp" />
+      <recent name="$PROJECT_DIR$/app/src/main/res/layout-land-sw600dp" />
+      <recent name="$PROJECT_DIR$/app/src/main/res/layout-port-v24" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -2750,34 +2570,42 @@
       <option name="presentableId" value="Default" />
       <updated>1540366212706</updated>
     </task>
+    <task id="LOCAL-00001" summary="Final Project Edit 24/10/2018">
+      <created>1540376743334</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1540376743334</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="67" y="25" width="1373" height="875" extended-state="6" />
+    <frame x="77" y="47" width="1373" height="875" extended-state="6" />
     <layout>
-      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293011" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32931423" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25537634" sideWeight="0.5026375" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3790505" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293011" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25537634" sideWeight="0.49736246" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293011" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22230595" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3293011" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27882442" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293011" sideWeight="0.49736246" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32931423" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -2792,238 +2620,296 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Final Project Edit 24/10/2018" />
-    <option name="LAST_COMMIT_MESSAGE" value="Final Project Edit 24/10/2018" />
+    <MESSAGE value="Admin" />
+    <option name="LAST_COMMIT_MESSAGE" value="Admin" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Communication/FriendRequests/ContactAdapter.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/Delevry/DelevryHome.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1332">
-          <caret line="48" column="23" lean-forward="true" selection-start-line="48" selection-start-column="23" selection-end-line="48" selection-end-column="23" />
+        <state relative-caret-position="411">
+          <caret line="120" column="0" lean-forward="false" selection-start-line="120" selection-start-column="0" selection-end-line="120" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/LoginDatabae.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/FragmentMontag.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="28" column="47" lean-forward="true" selection-start-line="28" selection-start-column="47" selection-end-line="28" selection-end-column="47" />
+        <state relative-caret-position="18">
+          <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/CustomTypefaceSpan.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_choose_add.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3atTrend/Mabi3atTrendAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="558">
+          <caret line="42" column="75" lean-forward="true" selection-start-line="39" selection-start-column="7" selection-end-line="42" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3atTrend/Mabi3atTrendReports.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4104">
+          <caret line="326" column="158" lean-forward="false" selection-start-line="326" selection-start-column="158" selection-end-line="326" selection-end-column="158" />
+          <folding>
+            <element signature="e#14510#14553#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/activity_home_drawer.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="27" column="8" lean-forward="false" selection-start-line="27" selection-start-column="8" selection-end-line="30" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Employees/AddEmployee/MoneyStaff.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="99" column="24" lean-forward="false" selection-start-line="99" selection-start-column="24" selection-end-line="99" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Android/Sdk/sources/android-27/android/view/ViewGroup.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="3785" column="0" lean-forward="false" selection-start-line="3785" selection-start-column="0" selection-end-line="3785" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support/recyclerview-v7/27.1.1/ad225a74247e675db0b05ea4f8b17202acbb7f9d/recyclerview-v7-27.1.1-sources.jar!/android/support/v7/widget/ChildHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="238" column="0" lean-forward="false" selection-start-line="238" selection-start-column="0" selection-end-line="238" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-port/dialog_details_talabat.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3atTrend/BestSell.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-sw600dp/dialog_details_talabat.xml" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/NewTalabat/NewTalabatAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="13" column="22" lean-forward="true" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
+        <state relative-caret-position="152">
+          <caret line="274" column="17" lean-forward="false" selection-start-line="274" selection-start-column="17" selection-end-line="274" selection-end-column="17" />
+          <folding>
+            <element signature="e#9434#15870#0" expanded="false" />
+            <element signature="e#11650#11932#0" expanded="false" />
+            <element signature="e#11931#11932#0" expanded="false" />
+            <element signature="e#15869#15870#0" expanded="false" />
+            <element signature="e#15915#19908#0" expanded="false" />
+            <element signature="e#19907#19908#0" expanded="false" />
+            <element signature="e#19963#19964#0" expanded="false" />
+            <element signature="e#20001#20002#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/dialog_details_talabat.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="271" column="23" lean-forward="true" selection-start-line="271" selection-start-column="23" selection-end-line="271" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/Tasks/MyTasksFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="98" column="51" lean-forward="false" selection-start-line="98" selection-start-column="51" selection-end-line="98" selection-end-column="51" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Employees/Employee.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/PendedTalabat/PendedTalabatFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/ManagmentHome.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Employees/AddEmployee/SpinnerModels/Cities.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Employees/ControlEmployee/ControlEmployeeAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="62" column="13" lean-forward="true" selection-start-line="62" selection-start-column="13" selection-end-line="62" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Privilages/PrivilagesHome.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Privilages/AddPrivilege/FragmentAddPrivilege.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-78">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Privilages/ControlPrivilege/ControlPrivilegeAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="36" column="12" lean-forward="true" selection-start-line="36" selection-start-column="12" selection-end-line="36" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/Additions/FragmentAdditions.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="56" column="30" lean-forward="true" selection-start-line="56" selection-start-column="30" selection-end-line="56" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/AddMontag/AddMontag.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/FragmentChooseAdd.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="35" column="0" lean-forward="true" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+        <state relative-caret-position="306">
+          <caret line="103" column="0" lean-forward="false" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/ControlMontag/ControlMontag.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="58" column="20" lean-forward="true" selection-start-line="58" selection-start-column="20" selection-end-line="58" selection-end-column="20" />
+        <state relative-caret-position="141">
+          <caret line="117" column="41" lean-forward="true" selection-start-line="117" selection-start-column="41" selection-end-line="117" selection-end-column="41" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/AddReturanteMontage/AddReturanteMontage.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/Fragment_Offer_home.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="91" column="28" lean-forward="false" selection-start-line="91" selection-start-column="28" selection-end-line="91" selection-end-column="28" />
+        <state relative-caret-position="120">
+          <caret line="28" column="20" lean-forward="true" selection-start-line="28" selection-start-column="20" selection-end-line="28" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/ControlBaseFood_Additions/ControlBaseFood_AdditionsAdapter.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/Fragment_List_Offers.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="51" column="20" lean-forward="true" selection-start-line="51" selection-start-column="20" selection-end-line="51" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/Market/AddMarketMontage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/NewFood/Basefood.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/FragmentChooseOffers.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="34" column="5" lean-forward="true" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/Market/Fragment_offers_Market.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/Restaurant/Fragment_offers_Restaurant.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="89" column="23" lean-forward="true" selection-start-line="89" selection-start-column="23" selection-end-line="89" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Options/Details/DetailsAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/Excel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/Delevry/Delevry.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/Delevry/Capital/CapitalAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/Delevry/Kilo/WithKilo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="-2184">
+          <caret line="45" column="13" lean-forward="false" selection-start-line="45" selection-start-column="13" selection-end-line="45" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/DoneTalabat/DoneTalabat.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="62" column="35" lean-forward="true" selection-start-line="62" selection-start-column="35" selection-end-line="62" selection-end-column="35" />
+        <state relative-caret-position="534">
+          <caret line="337" column="61" lean-forward="false" selection-start-line="337" selection-start-column="61" selection-end-line="337" selection-end-column="61" />
+          <folding>
+            <element signature="e#8173#8216#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/FragmentChooseOffers.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="86" column="12" lean-forward="false" selection-start-line="86" selection-start-column="12" selection-end-line="86" selection-end-column="12" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/NewTalabat/NewTalabatAdapter.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/dialog_cancel_taghez_talabat.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/fragment_done_talabat.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/fragment_ready_talabat.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/pend_talabat_row_item.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="48" column="40" lean-forward="false" selection-start-line="48" selection-start-column="40" selection-end-line="48" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/ready_talabat_row_item.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="30" column="13" lean-forward="false" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Employees/AddEmployee/AddtionalInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="659" column="31" lean-forward="false" selection-start-line="659" selection-start-column="31" selection-end-line="659" selection-end-column="31" />
+          <folding>
+            <element signature="method#loadDelvry#0;class#AddtionalInfo#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Montagat/FragmentChooseAdd.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="83" column="0" lean-forward="false" selection-start-line="83" selection-start-column="0" selection-end-line="83" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/Mabi3atNavigator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="165" column="13" lean-forward="false" selection-start-line="165" selection-start-column="13" selection-end-line="165" selection-end-column="13" />
+          <folding>
+            <element signature="e#11060#11075#0" expanded="false" />
+            <element signature="e#12781#12909#0" expanded="false" />
+            <element signature="e#13802#13859#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/background_button.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="6" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/login_backgroud.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-v24/background_edittext.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -3031,176 +2917,169 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/NotificationToFriendTalabat/NotificationTalabatAdapter.java">
+    <entry file="file://$USER_HOME$/device-2018-10-25-153133.png" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/background_edittext.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/PendedTalabat/PendedTalabatAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="62" column="0" lean-forward="true" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/ReadyTalabat/ReadyTalabatAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/RejectedReports/APIService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/ReturnedTalabat/ReturnedTalabatAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/SailedReports/SailedReports.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/Tasks/MyTasksAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="59" column="18" lean-forward="true" selection-start-line="59" selection-start-column="18" selection-end-line="59" selection-end-column="18" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Login.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="43" column="27" lean-forward="false" selection-start-line="43" selection-start-column="27" selection-end-line="43" selection-end-column="27" />
+        <state relative-caret-position="342">
+          <caret line="133" column="77" lean-forward="true" selection-start-line="133" selection-start-column="77" selection-end-line="133" selection-end-column="77" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Mabi3at/MainHome.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="21" column="27" lean-forward="true" selection-start-line="21" selection-start-column="27" selection-end-line="21" selection-end-column="27" />
+        <state relative-caret-position="234">
+          <caret line="51" column="57" lean-forward="false" selection-start-line="51" selection-start-column="57" selection-end-line="51" selection-end-column="57" />
           <folding>
-            <element signature="e#814#832#0" expanded="false" />
+            <element signature="e#7478#7522#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/settings.gradle">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_mabi3at.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="454">
+          <caret line="91" column="48" lean-forward="false" selection-start-line="91" selection-start-column="48" selection-end-line="91" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-sw600dp/fragment_mabi3at.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="866" column="56" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="875" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-sw720dp/fragment_mabi3at.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="409">
+          <caret line="863" column="0" lean-forward="true" selection-start-line="863" selection-start-column="0" selection-end-line="863" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_add_new_food.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding />
-        </state>
+      <provider editor-type-id="android-designer2">
+        <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build/intermediates/lint-cache/maven.google/com/google/android/gms/group-index.xml" />
-    <entry file="file://$PROJECT_DIR$/app/app.iml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Offers/Fragment_offers.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="436">
-          <caret line="190" column="9" lean-forward="false" selection-start-line="190" selection-start-column="9" selection-end-line="190" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build/build/outputs/apk/debug/output.json" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Managment/Employees/AddEmployee/AddtionalInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="221" column="59" lean-forward="false" selection-start-line="221" selection-start-column="59" selection-end-line="221" selection-end-column="59" />
+        <state relative-caret-position="314">
+          <caret line="170" column="9" lean-forward="false" selection-start-line="170" selection-start-column="9" selection-end-line="170" selection-end-column="9" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#8058#8124#0" expanded="false" />
+            <element signature="e#10587#12195#0" expanded="false" />
+            <element signature="e#12194#12195#0" expanded="false" />
+            <element signature="e#12230#14682#0" expanded="false" />
+            <element signature="e#14681#14682#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Admin.iml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/talabaty/swever/admin/Home.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="18" column="9" lean-forward="true" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="9" />
+        <state relative-caret-position="612">
+          <caret line="73" column="41" lean-forward="false" selection-start-line="73" selection-start-column="41" selection-end-line="73" selection-end-column="41" />
+          <folding>
+            <element signature="e#7504#7548#0" expanded="false" />
+            <element signature="method#applyFontToMenuItem#0;class#Home#0" expanded="false" />
+            <element signature="e#9659#9674#0" expanded="false" />
+            <element signature="e#14129#14215#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="10" column="30" lean-forward="false" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="30" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gradle.properties">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-port/fragment_offer.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="13" column="0" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+        <state relative-caret-position="5382">
+          <caret line="299" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="320" selection-end-column="13" />
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/local.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/proguard-rules.pro">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="346">
-          <caret line="23" column="34" lean-forward="false" selection-start-line="23" selection-start-column="34" selection-end-line="23" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
       <provider editor-type-id="android-designer2">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-port-v24/fragment_offer.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land-sw600dp/fragment_offer.xml" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-port-sw600dp/fragment_offer.xml" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-port-sw720dp/fragment_offer.xml" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land-sw720dp/fragment_offer.xml" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land-v24/fragment_offer.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="12" column="43" lean-forward="false" selection-start-line="12" selection-start-column="43" selection-end-line="12" selection-end-column="43" />
+        <state relative-caret-position="360">
+          <caret line="20" column="49" lean-forward="false" selection-start-line="20" selection-start-column="49" selection-end-line="20" selection-end-column="49" />
           <folding />
         </state>
       </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/fragment_offer.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        <state relative-caret-position="539">
+          <caret line="320" column="13" lean-forward="false" selection-start-line="320" selection-start-column="13" selection-end-line="320" selection-end-column="13" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="34" column="19" lean-forward="false" selection-start-line="34" selection-start-column="19" selection-end-line="34" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
       </provider>
     </entry>
   </component>

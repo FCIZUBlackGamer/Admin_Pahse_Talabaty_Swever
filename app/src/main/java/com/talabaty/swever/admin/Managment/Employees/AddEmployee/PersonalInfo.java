@@ -567,7 +567,7 @@ public class PersonalInfo extends Fragment {
 
 
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://www.sellsapi.sweverteam.com/Employee/SelectEmploymentType?ShopId=" + ShopId+"&token=bKPNOJrob8x", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://www.sellsapi.rivile.com/Employee/SelectEmploymentType?ShopId=" + ShopId+"&token=bKPNOJrob8x", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -643,7 +643,7 @@ public class PersonalInfo extends Fragment {
         }
 
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://www.sellsapi.sweverteam.com/Employee/SelectWorkingNatural?ShopId=" + ShopId+"&token=bKPNOJrob8x", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://www.sellsapi.rivile.com/Employee/SelectWorkingNatural?ShopId=" + ShopId+"&token=bKPNOJrob8x", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 

@@ -59,7 +59,6 @@
                     android:layout_marginTop="10dp"
                     android:gravity="center_horizontal"
                     android:text="الطلبات الجديده"
-
                     android:textColor="@color/white"
                     android:fontFamily="@font/changamedium"
                     android:layout_marginBottom="5dp"
@@ -67,11 +66,12 @@
 
                 <FrameLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|right"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
                     android:layout_alignParentBottom="true"
                     android:layout_below="@id/name1"
-                    android:layout_centerHorizontal="true">
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center">
 
                     <android.support.design.widget.FloatingActionButton
                         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -86,15 +86,13 @@
                         tools:ignore="UnusedAttribute" />
 
                     <TextView
+                        android:id="@+id/num_new_talabat"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:layout_centerHorizontal="true"
                         android:gravity="center"
                         android:text="2"
-                        android:id="@+id/num_new_talabat"
                         android:textColor="@color/red"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
+                        android:textSize="25sp"
                         android:elevation="7dp"
                         tools:ignore="UnusedAttribute" />
 
@@ -242,7 +240,7 @@
                     android:layout_below="@id/v3"
                     android:layout_marginTop="10dp"
                     android:gravity="center_horizontal"
-                    android:text="مهامى"
+                    android:text="المهام المعلقه"
                     android:textColor="@color/white"
 
                     android:fontFamily="@font/changamedium"
@@ -574,11 +572,7 @@
                 android:background="@color/colorPrimary"
                 android:layout_weight="1">
 
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/transparent"
-                    android:id="@+id/rejected_talabat_report"/>
+
 
                 <ImageView
                     android:id="@+id/image7"
@@ -628,6 +622,11 @@
                     android:textStyle="bold"
                     android:layout_centerHorizontal="true"/>
 
+                <Button
+                    android:id="@+id/rejected_talabat_report"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent" />
 
             </RelativeLayout>
 
@@ -641,11 +640,7 @@
                 android:layout_height="200dp"
                 android:background="@color/colorPrimaryDark"
                 android:layout_weight="1">
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/transparent"
-                    android:id="@+id/saled_talabat_report"/>
+
 
                 <ImageView
                     android:id="@+id/image8"
@@ -694,6 +689,12 @@
                     android:fontFamily="@font/changamedium"
                     android:textStyle="bold"
                     android:layout_centerHorizontal="true"/>
+
+                <Button
+                    android:id="@+id/saled_talabat_report"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent" />
 
             </RelativeLayout>
 
@@ -748,7 +749,7 @@
                     android:layout_below="@id/v9"
                     android:layout_marginTop="10dp"
                     android:gravity="center_horizontal"
-                    android:text="المهام المعلقه"
+                    android:text="مهامى"
                     android:textColor="@color/white"
 
                     android:fontFamily="@font/changamedium"
@@ -803,11 +804,6 @@
                 android:background="@color/colorPrimary"
                 android:layout_weight="1">
 
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/transparent"
-                    android:id="@+id/delevry"/>
 
                 <ImageView
                     android:id="@+id/image10"
@@ -858,6 +854,11 @@
                     android:layout_centerHorizontal="true"/>
 
 
+                <Button
+                    android:id="@+id/delevry"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent" />
             </RelativeLayout>
 
         </LinearLayout>

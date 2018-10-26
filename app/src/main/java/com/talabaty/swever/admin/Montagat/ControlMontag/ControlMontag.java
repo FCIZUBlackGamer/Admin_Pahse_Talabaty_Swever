@@ -106,8 +106,8 @@ public class ControlMontag extends Fragment {
             adapter.notifyItemRangeRemoved(0, size);
         }
 
-        final ProgressDialog loading = ProgressDialog.show(getActivity(), "Uploading...", "Please wait...", false, false);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.sweverteam.com/sampleproduct/list?ShopId="+shopId+"&token=bKPNOJrob8x",
+        final ProgressDialog loading = ProgressDialog.show(getActivity(), "Downloading...", "Please wait...", false, false);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.rivile.com/sampleproduct/list?ShopId="+shopId+"&token=bKPNOJrob8x",
                 new Response.Listener<String>() {
                     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                     @Override
@@ -255,7 +255,7 @@ public class ControlMontag extends Fragment {
             adapter.notifyItemRangeRemoved(0, size);
         }
         final ProgressDialog loading = ProgressDialog.show(getActivity(), "Uploading...", "Please wait...", false, false);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.sweverteam.com/sampleproduct2/list?ShopId="+shopId+"&token=bKPNOJrob8x",
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.rivile.com/sampleproduct2/list?ShopId="+shopId+"&token=bKPNOJrob8x",
                 new Response.Listener<String>() {
                     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                     @Override
@@ -386,7 +386,7 @@ public class ControlMontag extends Fragment {
             adapter.notifyItemRangeRemoved(0, size);
         }
         final ProgressDialog loading = ProgressDialog.show(getActivity(), "Uploading...", "Please wait...", false, false);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.sweverteam.com/sampleproduct1/list?ShopId="+shopId+"&token=bKPNOJrob8x",
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.rivile.com/sampleproduct1/list?ShopId="+shopId+"&token=bKPNOJrob8x",
                 new Response.Listener<String>() {
                     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                     @Override

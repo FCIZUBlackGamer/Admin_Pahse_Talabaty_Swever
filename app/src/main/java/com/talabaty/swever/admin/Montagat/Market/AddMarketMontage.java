@@ -111,9 +111,9 @@ public class AddMarketMontage extends Fragment {
     private int PICK_IMAGE_REQUEST = 1;
 
     List<ImageSource> Gallary;
-    String baseUrl = "http://www.selltlbaty.sweverteam.com/";
+    String baseUrl = "http://www.selltlbaty.rivile.com/";
     private String UPLOAD_URL = baseUrl + "Uploads/UploadAndro";
-    private String UPLOAD_LINK = "http://sellsapi.sweverteam.com/sampleproduct1/Add";
+    private String UPLOAD_LINK = "http://sellsapi.rivile.com/sampleproduct1/Add";
 
     private String KEY_IMAGE = "base64imageString";
     private String KEY_NAME = "name";
@@ -198,7 +198,7 @@ public class AddMarketMontage extends Fragment {
         if (montagModel != null) {
             sanf_name.setText(montagModel.getName());;
             buyex_price.setText(montagModel.getBuyPrice() + "");
-            UPLOAD_LINK = "http://sellsapi.sweverteam.com/sampleproduct1/EditProducts";
+            UPLOAD_LINK = "http://sellsapi.rivile.com/sampleproduct1/EditProducts";
             save.setText("تعديل");
             if (!TextUtils.isEmpty(montagModel.getDescription())) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -747,7 +747,7 @@ public class AddMarketMontage extends Fragment {
         }
 
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.sweverteam.com/SampleProduct1/SelectSampleCatogories?token=bKPNOJrob8x", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.rivile.com/SampleProduct1/SelectSampleCatogories?token=bKPNOJrob8x", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -817,7 +817,7 @@ public class AddMarketMontage extends Fragment {
         }
 
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, " http://sellsapi.sweverteam.com/SampleProduct1/SelectUnits?token=bKPNOJrob8x", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, " http://sellsapi.rivile.com/SampleProduct1/SelectUnits?token=bKPNOJrob8x", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

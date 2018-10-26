@@ -126,9 +126,9 @@ public class AddMontag extends Fragment {
     final int CAMERA_PIC_REQUEST = 1337;
 
     List<ImageSource> Gallary;
-    String baseUrl = "http://www.selltlbaty.sweverteam.com/";
+    String baseUrl = "http://www.selltlbaty.rivile.com/";
     private String UPLOAD_URL = baseUrl + "Uploads/UploadAndro";
-    private String UPLOAD_LINK = "http://sellsapi.sweverteam.com/sampleproduct/Add";
+    private String UPLOAD_LINK = "http://sellsapi.rivile.com/sampleproduct/Add";
 
     private String KEY_IMAGE = "base64imageString";
     private String KEY_NAME = "name";
@@ -259,7 +259,7 @@ public class AddMontag extends Fragment {
                 }
 //                notes.setText(montagModel.getNotes() + "");
                 notes.setEnabled(false);
-                UPLOAD_LINK = "http://sellsapi.sweverteam.com/sampleproduct/EditProducts";
+                UPLOAD_LINK = "http://sellsapi.rivile.com/sampleproduct/EditProducts";
                 save.setText("تعديل");
 
                 if (montagModel.getColor().size() > 0) {
@@ -871,7 +871,7 @@ public class AddMontag extends Fragment {
         }
 
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://www.sellsapi.sweverteam.com/SampleProduct/SelectSampleCatogories?token=bKPNOJrob8x", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://www.sellsapi.rivile.com/SampleProduct/SelectSampleCatogories?token=bKPNOJrob8x", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

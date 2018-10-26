@@ -72,21 +72,7 @@ public class DelevryHome extends Fragment {
         }
 //        fragmentManager.beginTransaction().replace(R.id.frame_delevry,new WithKilo()).commit();
         loadData(shopid);
-        kilo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e("Chosen", "Kilo");
-                fragmentManager.beginTransaction().replace(R.id.frame_delevry, new WithKilo().setData(Id, Value, Type, shopid)).commit();
-            }
-        });
 
-        capital.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e("Chosen", "Capital");
-                fragmentManager.beginTransaction().replace(R.id.frame_delevry,new WithCapital().setData( Id, Value, Type)).commit();
-            }
-        });
 
 
     }
@@ -96,7 +82,7 @@ public class DelevryHome extends Fragment {
         progressDialog.setMessage("جارى تحميل البيانات ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.sweverteam.com/order/DeliveryValue?shopid=" + shopId + "&token=bKPNOJrob8x",
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.rivile.com/order/DeliveryValue?shopid=" + shopId + "&token=bKPNOJrob8x",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -116,6 +102,23 @@ public class DelevryHome extends Fragment {
                                 }else {
                                     fragmentManager.beginTransaction().replace(R.id.frame_delevry,new WithCapital().setData( array.getInt("Id")+"", array.getInt("Value")+"", array.getBoolean("Type"))).commit();
                                 }
+
+                            kilo.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Log.e("Chosen", "Kilo");
+                                    fragmentManager.beginTransaction().replace(R.id.frame_delevry, new WithKilo().setData(Id, Value, Type, shopid)).commit();
+                                }
+                            });
+
+                            capital.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Log.e("Chosen", "Capital");
+                                    fragmentManager.beginTransaction().replace(R.id.frame_delevry,new WithCapital().setData( Id, Value, Type)).commit();
+                                }
+                            });
+
 
                         } catch (JSONException e) {
                             e.printStackTrace();

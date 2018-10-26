@@ -284,7 +284,7 @@ public class AgentAdapter extends RecyclerView.Adapter<AgentAdapter.Vholder> {
         MessageList.add("--اختر--");
         indexOfMessageList.add("0");
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/SelectSendsMessages", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/order/SelectSendsMessages", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -347,7 +347,7 @@ public class AgentAdapter extends RecyclerView.Adapter<AgentAdapter.Vholder> {
         progressDialog.setMessage("انتظر من فضلك ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/Send/Send",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/Send/Send",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

@@ -365,7 +365,7 @@ public class ReadyTalabatAdapter extends RecyclerView.Adapter<ReadyTalabatAdapte
         progressDialog.setMessage("انتظر من فضلك ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/PreparationCancel",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/order/PreparationCancel",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -506,7 +506,7 @@ public class ReadyTalabatAdapter extends RecyclerView.Adapter<ReadyTalabatAdapte
         indexOfrefuseOptions = new ArrayList<>();
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/SelectRefuse", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/order/SelectRefuse", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -610,7 +610,7 @@ public class ReadyTalabatAdapter extends RecyclerView.Adapter<ReadyTalabatAdapte
             progressDialog.setMessage("جارى تحميل البيانات ...");
             progressDialog.setCancelable(false);
             progressDialog.show();
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/PreDet",
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/order/PreDet",
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -715,7 +715,7 @@ public class ReadyTalabatAdapter extends RecyclerView.Adapter<ReadyTalabatAdapte
         progressDialog.setMessage("جارى تحميل البيانات ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/PreDet",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/order/PreDet",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -823,7 +823,7 @@ public class ReadyTalabatAdapter extends RecyclerView.Adapter<ReadyTalabatAdapte
         MessageList.add("--اختر--");
         indexOfMessageList.add("0");
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/SelectSendsMessages", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/order/SelectSendsMessages", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -897,7 +897,7 @@ public class ReadyTalabatAdapter extends RecyclerView.Adapter<ReadyTalabatAdapte
         progressDialog.setMessage("انتظر من فضلك ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/Send/Send",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/Send/Send",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -1023,7 +1023,7 @@ public class ReadyTalabatAdapter extends RecyclerView.Adapter<ReadyTalabatAdapte
         progressDialog.setMessage("جارى تنفيذ العمليه ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/Accept",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/order/Accept",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

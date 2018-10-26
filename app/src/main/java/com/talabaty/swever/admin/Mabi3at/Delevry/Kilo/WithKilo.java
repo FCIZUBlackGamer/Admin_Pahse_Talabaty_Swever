@@ -108,7 +108,7 @@ public class WithKilo extends Fragment {
         progressDialog.setMessage("انتظر من فضلك ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://sellsapi.sweverteam.com/order/EditDeliveryValue",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://sellsapi.rivile.com/order/EditDeliveryValue",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

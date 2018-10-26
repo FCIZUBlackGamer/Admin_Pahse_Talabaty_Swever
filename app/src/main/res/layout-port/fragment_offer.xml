@@ -29,14 +29,7 @@
                     android:layout_weight="2"
                     android:orientation="horizontal">
 
-                    <EditText
-                        android:id="@+id/price"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/changaregular"
-                        android:hint="سعر العرض"
-                        android:inputType="number" />
+
 
                     <EditText
                         android:id="@+id/name"
@@ -49,6 +42,15 @@
                         android:maxLines="1"
                         android:minLines="1" />
 
+
+                    <EditText
+                        android:id="@+id/price"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/changaregular"
+                        android:hint="سعر العرض"
+                        android:inputType="number" />
 
                 </LinearLayout>
 
@@ -144,17 +146,22 @@
             android:isScrollContainer="true"
             android:orientation="horizontal"
             android:scrollbarSize="3dp"
+            android:layout_gravity="center_horizontal"
             android:scrollbars="horizontal|vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
                 android:orientation="horizontal">
 
                 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:isScrollContainer="true"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
                     android:scrollbars="horizontal|vertical"
                     android:stretchColumns="0,1,2,3">
 
@@ -284,6 +291,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
                 android:elevation="0dp"
                 android:src="@drawable/ic_add_black_24dp"
                 app:backgroundTint="@color/gray"
@@ -299,7 +307,9 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
                 android:elevation="0dp"
+                android:backgroundTint="@color/colormontagat"
                 android:src="@drawable/doneo"
                 app:backgroundTint="@color/gray"
                 app:borderWidth="0dp"

@@ -348,7 +348,7 @@ public class DonTalabatAdapter extends RecyclerView.Adapter<DonTalabatAdapter.Vh
         progressDialog.setMessage("انتظر من فضلك ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/Send/Send",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/Send/Send",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -526,7 +526,7 @@ public class DonTalabatAdapter extends RecyclerView.Adapter<DonTalabatAdapter.Vh
             progressDialog.setMessage("جارى تحميل البيانات ...");
             progressDialog.setCancelable(false);
             progressDialog.show();
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/RecDet",
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/order/RecDet",
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -632,7 +632,7 @@ public class DonTalabatAdapter extends RecyclerView.Adapter<DonTalabatAdapter.Vh
         progressDialog.setMessage("جارى تحميل البيانات ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/RecDet",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/order/RecDet",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -736,7 +736,7 @@ public class DonTalabatAdapter extends RecyclerView.Adapter<DonTalabatAdapter.Vh
         MessageList.add("--اختر--");
         indexOfMessageList.add("0");
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/SelectSendsMessages", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/order/SelectSendsMessages", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

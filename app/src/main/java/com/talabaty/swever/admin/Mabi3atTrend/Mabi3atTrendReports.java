@@ -76,7 +76,7 @@ public class Mabi3atTrendReports extends Fragment {
     TextView next, num, last;
     int item_num, page_num;
     int temp_first, temp_last;
-    HashMap<String, BestSell> holder_alpha, holder_date, holder_num;
+//    HashMap<String, BestSell> holder_alpha, holder_date, holder_num;
 //    CheckBox order_alpha;
     Spinner /*order_up, order_down,*/ montag_name;
     ArrayList<String> MontagList, indexOfMontagList;
@@ -106,7 +106,7 @@ public class Mabi3atTrendReports extends Fragment {
         montag_name = view.findViewById(R.id.client_name);
         item_num = page_num = 0;
         num.setText(0 + "");
-        holder_alpha = holder_num = holder_date = new HashMap<>();
+//        holder_alpha = holder_num = holder_date = new HashMap<>();
 //        order_alpha = view.findViewById(R.id.order_alpha);
 //        order_up = view.findViewById(R.id.order_up);
 //        order_down = view.findViewById(R.id.order_down);
@@ -324,7 +324,7 @@ public class Mabi3atTrendReports extends Fragment {
         indexOfMontagList = new ArrayList<>();
 
         final RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.sweverteam.com/sampleproduct/Select?ShopId=" + id, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.rivile.com/sampleproduct/Select?ShopId=" + id+"&token=bKPNOJrob8x", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 MontagList.add("--اختر--");
@@ -376,103 +376,103 @@ public class Mabi3atTrendReports extends Fragment {
         requestQueue.add(stringRequest);
     }
 
-    private void orderDate(String type) {
-
-        // Remove All Previous Data
-        final int size = bestSells.size();
-        if (size > 0) {
-            for (int i = 0; i < size; i++) {
-                bestSells.remove(0);
-            }
-            adapter.notifyItemRangeRemoved(0, size);
-        }
-
-        if (type.equals("alpha")) {
-            List<String> name = new ArrayList<>();
-            Iterator myVeryOwnIterator = holder_alpha.keySet().iterator();
-            while (myVeryOwnIterator.hasNext()) {
-                String key = (String) myVeryOwnIterator.next();
-                name.add(holder_alpha.get(key).getProductName());
-            }
-
-            Collator collator = Collator.getInstance(new Locale("ar"));
-            Collections.sort(name, collator);
-
-            // Fill New Data
-            for (int x = 0; x < name.size(); x++) {
-                bestSells.add(holder_alpha.get(name.get(x)));
-            }
-
-
-        } else if (type.equals("up_num")) {
-            List<String> num = new ArrayList<>();
-            Iterator myVeryOwnIterator = holder_num.keySet().iterator();
-            while (myVeryOwnIterator.hasNext()) {
-                String key = (String) myVeryOwnIterator.next();
-                num.add(holder_num.get(key).getProductId() + "");
-            }
-
-            Collections.sort(num);
-
-            // Fill New Data
-            for (int x = 0; x < num.size(); x++) {
-                bestSells.add(holder_num.get(num.get(x)));
-            }
-
-        } else if (type.equals("up_date")) {
-//            List<String> datetime = new ArrayList<>();
-//            Iterator myVeryOwnIterator = holder_date.keySet().iterator();
+//    private void orderDate(String type) {
+//
+//        // Remove All Previous Data
+//        final int size = bestSells.size();
+//        if (size > 0) {
+//            for (int i = 0; i < size; i++) {
+//                bestSells.remove(0);
+//            }
+//            adapter.notifyItemRangeRemoved(0, size);
+//        }
+//
+//        if (type.equals("alpha")) {
+//            List<String> name = new ArrayList<>();
+//            Iterator myVeryOwnIterator = holder_alpha.keySet().iterator();
 //            while (myVeryOwnIterator.hasNext()) {
 //                String key = (String) myVeryOwnIterator.next();
-//                datetime.add(holder_date.get(key).getName());
+//                name.add(holder_alpha.get(key).getProductName());
 //            }
 //
-//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
-//            Collections.sort(datetime);
+//            Collator collator = Collator.getInstance(new Locale("ar"));
+//            Collections.sort(name, collator);
 //
 //            // Fill New Data
-//            for (int x = 0; x < datetime.size(); x++) {
-//                bestSells.add(holder_date.get(datetime.get(x)));
+//            for (int x = 0; x < name.size(); x++) {
+//                bestSells.add(holder_alpha.get(name.get(x)));
 //            }
-
-
-        } else if (type.equals("down_num")) {
-
-            List<String> num = new ArrayList<>();
-            Iterator myVeryOwnIterator = holder_num.keySet().iterator();
-            while (myVeryOwnIterator.hasNext()) {
-                String key = (String) myVeryOwnIterator.next();
-                num.add(holder_num.get(key).getProductId() + "");
-            }
-
-            Collections.sort(num);
-
-            // Fill New Data
-            for (int x = num.size() - 1; x >= 0; x--) {
-                bestSells.add(holder_num.get(num.get(x)));
-            }
-
-        } else if (type.equals("down_date")) {
-//            List<String> datetime = new ArrayList<>();
-//            Iterator myVeryOwnIterator = holder_date.keySet().iterator();
+//
+//
+//        } else if (type.equals("up_num")) {
+//            List<String> num = new ArrayList<>();
+//            Iterator myVeryOwnIterator = holder_num.keySet().iterator();
 //            while (myVeryOwnIterator.hasNext()) {
 //                String key = (String) myVeryOwnIterator.next();
-//                datetime.add(holder_date.get(key).getName());
+//                num.add(holder_num.get(key).getProductId() + "");
 //            }
 //
-//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
-//            Collections.sort(datetime);
+//            Collections.sort(num);
 //
 //            // Fill New Data
-//            for (int x = datetime.size()-1; x >= 0; x--) {
-//                bestSells.add(holder_date.get(datetime.get(x)));
+//            for (int x = 0; x < num.size(); x++) {
+//                bestSells.add(holder_num.get(num.get(x)));
 //            }
-        }
-
-        adapter = new Mabi3atTrendAdapter(getActivity(), bestSells, temp_first, temp_last);
-        recyclerView.setAdapter(adapter);
-
-    }
+//
+//        } else if (type.equals("up_date")) {
+////            List<String> datetime = new ArrayList<>();
+////            Iterator myVeryOwnIterator = holder_date.keySet().iterator();
+////            while (myVeryOwnIterator.hasNext()) {
+////                String key = (String) myVeryOwnIterator.next();
+////                datetime.add(holder_date.get(key).getName());
+////            }
+////
+////            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
+////            Collections.sort(datetime);
+////
+////            // Fill New Data
+////            for (int x = 0; x < datetime.size(); x++) {
+////                bestSells.add(holder_date.get(datetime.get(x)));
+////            }
+//
+//
+//        } else if (type.equals("down_num")) {
+//
+//            List<String> num = new ArrayList<>();
+//            Iterator myVeryOwnIterator = holder_num.keySet().iterator();
+//            while (myVeryOwnIterator.hasNext()) {
+//                String key = (String) myVeryOwnIterator.next();
+//                num.add(holder_num.get(key).getProductId() + "");
+//            }
+//
+//            Collections.sort(num);
+//
+//            // Fill New Data
+//            for (int x = num.size() - 1; x >= 0; x--) {
+//                bestSells.add(holder_num.get(num.get(x)));
+//            }
+//
+//        } else if (type.equals("down_date")) {
+////            List<String> datetime = new ArrayList<>();
+////            Iterator myVeryOwnIterator = holder_date.keySet().iterator();
+////            while (myVeryOwnIterator.hasNext()) {
+////                String key = (String) myVeryOwnIterator.next();
+////                datetime.add(holder_date.get(key).getName());
+////            }
+////
+////            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
+////            Collections.sort(datetime);
+////
+////            // Fill New Data
+////            for (int x = datetime.size()-1; x >= 0; x--) {
+////                bestSells.add(holder_date.get(datetime.get(x)));
+////            }
+//        }
+//
+//        adapter = new Mabi3atTrendAdapter(getActivity(), bestSells, temp_first, temp_last);
+//        recyclerView.setAdapter(adapter);
+//
+//    }
 
     private void loadData(final SearchModel model) {
         Gson gson = new Gson();
@@ -483,7 +483,7 @@ public class Mabi3atTrendReports extends Fragment {
         progressDialog.setMessage("جارى تحميل البيانات ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://sellsapi.sweverteam.com/sampleproduct/MostSells",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://sellsapi.rivile.com/sampleproduct/MostSells",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -517,8 +517,8 @@ public class Mabi3atTrendReports extends Fragment {
                                             );
 
                                     // Fill Data For Sort in orderDate()
-                                    holder_num.put(object1.getString("ProductId"), sell);
-                                    holder_alpha.put(object1.getString("ProductName"), sell);
+//                                    holder_num.put(object1.getString("ProductId"), sell);
+//                                    holder_alpha.put(object1.getString("ProductName"), sell);
 
                                     bestSells.add(sell);
                                     temp = Integer.parseInt(object1.getString("ProductId"));
@@ -602,7 +602,7 @@ public class Mabi3atTrendReports extends Fragment {
         progressDialog.setMessage("جارى تحميل البيانات ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://sellsapi.sweverteam.com/sampleproduct/MostSells",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://sellsapi.rivile.com/sampleproduct/MostSells",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -636,8 +636,8 @@ public class Mabi3atTrendReports extends Fragment {
                                             );
 
                                     // Fill Data For Sort in orderDate()
-                                    holder_num.put(object1.getString("ProductId"), sell);
-                                    holder_alpha.put(object1.getString("ProductName"), sell);
+//                                    holder_num.put(object1.getString("ProductId"), sell);
+//                                    holder_alpha.put(object1.getString("ProductName"), sell);
 
                                     bestSells.add(sell);
                                     temp = Integer.parseInt(object1.getString("ProductId"));

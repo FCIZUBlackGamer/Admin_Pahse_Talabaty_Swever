@@ -69,16 +69,16 @@ public class OfferListAdapter extends RecyclerView.Adapter<OfferListAdapter.Vhol
 
         if (type == 2) {
             /** Restaurant */
-            Delete_Link = "http://sellsapi.sweverteam.com/Offers2/Delete";
-            Edit_Link = "http://sellsapi.sweverteam.com/Offers2/EditPage";
+            Delete_Link = "http://sellsapi.rivile.com/Offers2/Delete";
+            Edit_Link = "http://sellsapi.rivile.com/Offers2/EditPage";
         } else if (type == 1) {
             /** Market */
-            Delete_Link = "http://sellsapi.sweverteam.com/Offers1/Delete";
-            Edit_Link = "http://sellsapi.sweverteam.com/Offers1/EditPage";
+            Delete_Link = "http://sellsapi.rivile.com/Offers1/Delete";
+            Edit_Link = "http://sellsapi.rivile.com/Offers1/EditPage";
         } else {
             /** Other */
-            Delete_Link = "http://sellsapi.sweverteam.com/Offers/Delete";
-            Edit_Link = "http://sellsapi.sweverteam.com/Offers/EditPage";
+            Delete_Link = "http://sellsapi.rivile.com/Offers/Delete";
+            Edit_Link = "http://sellsapi.rivile.com/Offers/EditPage";
         }
 
         holder.name.setText(agents.get(position).getName());
@@ -152,7 +152,7 @@ public class OfferListAdapter extends RecyclerView.Adapter<OfferListAdapter.Vhol
                                 totalOffer.setId(offer.getInt("Id"));
                                 totalOffer.setName(offer.getString("Name"));
                                 totalOffer.setPrice(offer.getDouble("Price"));
-                                totalOffer.setPhoto("http://www.selltlbaty.sweverteam.com"+offer.getString("Photo"));
+                                totalOffer.setPhoto("http://www.selltlbaty.rivile.com"+offer.getString("Photo"));
                                 totalOffer.setBlock(offer.getBoolean("Block"));
                                 totalOffer.setDescription(offer.getString("Description"));
 

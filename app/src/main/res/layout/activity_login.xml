@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00211d"
+    android:background="@drawable/login_backgroud"
     android:layout_gravity="center"
     android:gravity="center"
     android:layout_centerInParent="true"
@@ -13,31 +12,31 @@
     tools:context=".Login">
 
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardPreventCornerOverlap="true"
-        app:cardElevation="8dp"
-        app:cardCornerRadius="10dp"
-        android:layout_centerInParent="true"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:background="@color/transgray"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="15dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginEnd="15dp"
+            android:id="@+id/log"
+            android:layout_marginStart="15dp"
             android:orientation="vertical"
             android:paddingTop="40dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="30dp"
+                android:src="@drawable/login" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:background="@drawable/edittext_bottom"
+                android:background="@drawable/background_edittext"
                 android:padding="10dp"
                 android:id="@+id/email"
                 android:inputType="textEmailAddress"
@@ -53,7 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:background="@drawable/edittext_bottom"
+                android:background="@drawable/background_edittext"
                 android:padding="10dp"
                 android:id="@+id/password"
                 android:inputType="textPassword"
@@ -73,42 +72,7 @@
                 android:layout_gravity="end"
                 android:layout_margin="10dp">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/changaextrabbold"
-                    android:gravity="center|bottom"
-                    android:text="إنشاء حساب"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
 
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toLeftOf="@id/keep_my_login"
-                        android:fontFamily="@font/changaregular"
-                        android:text="تذكرنى"
-                        android:textSize="18sp" />
-
-                    <CheckBox
-                        android:id="@+id/keep_my_login"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:buttonTint="#038777"
-                        android:checked="true"
-                        android:gravity="bottom" />
-                </RelativeLayout>
             </LinearLayout>
 
             <Button
@@ -125,16 +89,5 @@
 
         </LinearLayout>
 
-    </android.support.v7.widget.CardView>
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/userImageProfile"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="35dp"
-        android:background="@drawable/radius_back"
-        android:layout_centerHorizontal="true"
-        android:src="@mipmap/logo"
-        android:elevation="8dp" />
 
 </RelativeLayout>

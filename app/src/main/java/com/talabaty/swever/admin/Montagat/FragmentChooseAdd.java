@@ -73,16 +73,32 @@ public class FragmentChooseAdd extends Fragment {
             restaurant.setVisibility(View.GONE);
             additions.setVisibility(View.GONE);
             base_food.setVisibility(View.GONE);
+
+            if (type == 1) {
+                fragmentManager.beginTransaction().replace(R.id.frame_mabi3at, new AddMarketMontage()).addToBackStack("AddMarketMontage").commit();
+            } else {
+                Intent intent = new Intent(getActivity(), Mabi3atNavigator.class);
+                intent.putExtra("fragment", "control1");
+                startActivity(intent);
+            }
+
         } else if (permession.equals("2")) {
             //restaurant
             other.setVisibility(View.GONE);
             market.setVisibility(View.GONE);
-        } else if (permession.equals("3")) {
+        } else {
             //other
             restaurant.setVisibility(View.GONE);
             additions.setVisibility(View.GONE);
             base_food.setVisibility(View.GONE);
             market.setVisibility(View.GONE);
+            if (type == 1) {
+                fragmentManager.beginTransaction().replace(R.id.frame_mabi3at, new AddMontag()).addToBackStack("AddMontag").commit();
+            } else {
+                Intent intent = new Intent(getActivity(), Mabi3atNavigator.class);
+                intent.putExtra("fragment", "control");
+                startActivity(intent);
+            }
         }
 
         other.setOnClickListener(new View.OnClickListener() {

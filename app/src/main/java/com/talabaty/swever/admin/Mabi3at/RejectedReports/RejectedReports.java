@@ -385,7 +385,7 @@ public class RejectedReports extends Fragment {
         }
 
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://www.sellsapi.sweverteam.com/order/SelectCustomers?token=bKPNOJrob8x", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://www.sellsapi.rivile.com/order/SelectCustomers?token=bKPNOJrob8x", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -547,7 +547,7 @@ public class RejectedReports extends Fragment {
         progressDialog.setMessage("جارى تحميل البيانات ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/RefusedReportList",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/order/RefusedReportList",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -680,7 +680,7 @@ public class RejectedReports extends Fragment {
         progressDialog.setCancelable(false);
         progressDialog.show();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/RefusedReport",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/order/RefusedReport",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -801,7 +801,7 @@ public class RejectedReports extends Fragment {
         progressDialog.setCancelable(false);
         progressDialog.show();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/RefusedReport",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/order/RefusedReport",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

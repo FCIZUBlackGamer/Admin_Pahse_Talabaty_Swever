@@ -103,7 +103,7 @@ public class Fragment_offers_Restaurant extends Fragment {
     private int PICK_IMAGE_REQUEST = 1;
     final int CAMERA_PIC_REQUEST = 1337;
     
-    String baseUrl = "http://www.selltlbaty.sweverteam.com/";
+    String baseUrl = "http://www.selltlbaty.rivile.com/";
     private String UPLOAD_URL = baseUrl + "Uploads/UploadAndro";
 
     private String KEY_IMAGE = "base64imageString";
@@ -490,7 +490,7 @@ public class Fragment_offers_Restaurant extends Fragment {
         Log.e("Connection UploadMontag", "Here");
         Log.e("Full Model",jsonInString);
         final ProgressDialog loading = ProgressDialog.show(getActivity(), "Uploading...", "Please wait...", false, false);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://sellsapi.sweverteam.com/Offers2/Add",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://sellsapi.rivile.com/Offers2/Add",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
@@ -684,7 +684,7 @@ public class Fragment_offers_Restaurant extends Fragment {
         temp_list = new ArrayList<>();
 
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.sweverteam.com/Offers2/SelectProduct?ShopId="+shopid+"&token=bKPNOJrob8x", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.rivile.com/Offers2/SelectProduct?ShopId="+shopid+"&token=bKPNOJrob8x", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -767,7 +767,7 @@ public class Fragment_offers_Restaurant extends Fragment {
         offer_product_sizeList = new ArrayList<>();
         temp_WithPriceModels = new ArrayList<>();
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.sweverteam.com/Offers2/GetSize?Id="+Id+"&token=bKPNOJrob8x", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.rivile.com/Offers2/GetSize?Id="+Id+"&token=bKPNOJrob8x", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -868,7 +868,7 @@ public class Fragment_offers_Restaurant extends Fragment {
 //        progressDialog.setMessage("جارى تحميل البيانات ...");
 //        progressDialog.setCancelable(false);
 //        progressDialog.show();
-//        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://sellsapi.sweverteam.com/Order/ReportCustomer",
+//        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://sellsapi.rivile.com/Order/ReportCustomer",
 //                new Response.Listener<String>() {
 //                    @Override
 //                    public void onResponse(String response) {

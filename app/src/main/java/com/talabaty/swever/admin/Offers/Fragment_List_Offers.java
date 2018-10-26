@@ -58,13 +58,13 @@ public class Fragment_List_Offers extends Fragment {
         Fragment_List_Offers offers = new Fragment_List_Offers();
         if (link.equals("1")){
             type = 1;
-            Link = "http://sellsapi.sweverteam.com/Offers1/List?ShopId="+shopid+"&token=bKPNOJrob8x";
+            Link = "http://sellsapi.rivile.com/Offers1/List?ShopId="+shopid+"&token=bKPNOJrob8x";
         }if (link.equals("2")){
             type = 2;
-            Link = "http://sellsapi.sweverteam.com/Offers2/List?ShopId="+shopid+"&token=bKPNOJrob8x";
+            Link = "http://sellsapi.rivile.com/Offers2/List?ShopId="+shopid+"&token=bKPNOJrob8x";
         }else {
             type = 3;
-            Link = "http://sellsapi.sweverteam.com/Offers/List?ShopId="+shopid+"&token=bKPNOJrob8x";
+            Link = "http://sellsapi.rivile.com/Offers/List?ShopId="+shopid+"&token=bKPNOJrob8x";
         }
         return offers;
     }
@@ -120,7 +120,7 @@ public class Fragment_List_Offers extends Fragment {
                             String photo = jsonObject1.getString("Photo");
                             int id = jsonObject1.getInt("Id");
                             double price = jsonObject1.getDouble("Price");
-                            ListOfferModel model = new ListOfferModel(id, name, "http://www.selltlbaty.sweverteam.com" + photo, price);
+                            ListOfferModel model = new ListOfferModel(id, name, "http://www.selltlbaty.rivile.com" + photo, price);
                             listOfferModels.add(model);
 
                         }

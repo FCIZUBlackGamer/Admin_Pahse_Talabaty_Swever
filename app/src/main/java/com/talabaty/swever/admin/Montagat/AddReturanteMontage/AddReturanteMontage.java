@@ -120,9 +120,9 @@ public class AddReturanteMontage extends Fragment {
     private int PICK_IMAGE_REQUEST = 1;
 
     List<ImageSource> Gallary;
-    String baseUrl = "http://www.selltlbaty.sweverteam.com/";
+    String baseUrl = "http://www.selltlbaty.rivile.com/";
     private String UPLOAD_URL = baseUrl + "Uploads/UploadAndro";
-    private String UPLOAD_LINK = "http://sellsapi.sweverteam.com/sampleproduct2/Add";
+    private String UPLOAD_LINK = "http://sellsapi.rivile.com/sampleproduct2/Add";
 
     private String KEY_IMAGE = "base64imageString";
     private String KEY_NAME = "name";
@@ -212,7 +212,7 @@ public class AddReturanteMontage extends Fragment {
             sanf_name.setText(montagModel.getName());
             initialamount.setText(montagModel.getAmount() + "");
             critical_amount.setText(montagModel.getCriticalQuantity() + "");
-            UPLOAD_LINK = "http://sellsapi.sweverteam.com/sampleproduct2/EditProducts";
+            UPLOAD_LINK = "http://sellsapi.rivile.com/sampleproduct2/EditProducts";
             save.setText("تعديل");
             if (!TextUtils.isEmpty(montagModel.getDescription())) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -567,7 +567,7 @@ public class AddReturanteMontage extends Fragment {
 //
 //        sizeModels = new ArrayList<>();
 //        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-//        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://www.sellsapi.sweverteam.com/SampleProduct/SelectSampleCatogories", new Response.Listener<String>() {
+//        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://www.sellsapi.rivile.com/SampleProduct/SelectSampleCatogories", new Response.Listener<String>() {
 //            @Override
 //            public void onResponse(String response) {
 //                try {
@@ -832,7 +832,7 @@ public class AddReturanteMontage extends Fragment {
         DepatmentList = new ArrayList<>();
 
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://www.sellsapi.sweverteam.com/SampleProduct2/SelectSampleCatogories?token=bKPNOJrob8x", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://www.sellsapi.rivile.com/SampleProduct2/SelectSampleCatogories?token=bKPNOJrob8x", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

@@ -323,7 +323,7 @@ public class ReturnedTalabatFragment extends Fragment {
         progressDialog.setMessage("جارى تحميل البيانات ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/ReturnedOrderList",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/order/ReturnedOrderList",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

@@ -96,7 +96,7 @@ public class PendedTalabatFragment extends Fragment {
         super.onStart();
 
         ((Mabi3atNavigator) getActivity())
-                .setActionBarTitle("المهام المعلقه");
+                .setActionBarTitle("مهامى");
 
         temp_first = 0;
         temp_last = 10;
@@ -319,7 +319,7 @@ public class PendedTalabatFragment extends Fragment {
         progressDialog.setMessage("جارى تحميل البيانات ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/AcceptedOrderList",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/order/AcceptedOrderList",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

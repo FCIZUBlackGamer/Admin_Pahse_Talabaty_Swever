@@ -358,7 +358,7 @@ public class ReturnedTalabatAdapter extends RecyclerView.Adapter<ReturnedTalabat
         progressDialog.setMessage("انتظر من فضلك ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/Send/Send",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/Send/Send",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -567,7 +567,7 @@ public class ReturnedTalabatAdapter extends RecyclerView.Adapter<ReturnedTalabat
             progressDialog.setMessage("جارى تحميل البيانات ...");
             progressDialog.setCancelable(false);
             progressDialog.show();
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/PreCancelDet",
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/order/PreCancelDet",
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -674,7 +674,7 @@ public class ReturnedTalabatAdapter extends RecyclerView.Adapter<ReturnedTalabat
         progressDialog.setMessage("جارى تحميل البيانات ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/PreCancelDet",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/order/PreCancelDet",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -778,7 +778,7 @@ public class ReturnedTalabatAdapter extends RecyclerView.Adapter<ReturnedTalabat
         indexOfrefuseOptions = new ArrayList<>();
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/SelectRefuse", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/order/SelectRefuse", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -843,7 +843,7 @@ public class ReturnedTalabatAdapter extends RecyclerView.Adapter<ReturnedTalabat
         MessageList.add("--اختر--");
         indexOfMessageList.add("0");
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/SelectSendsMessages", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/order/SelectSendsMessages", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -906,7 +906,7 @@ public class ReturnedTalabatAdapter extends RecyclerView.Adapter<ReturnedTalabat
         progressDialog.setMessage("جارى تنفيذ العمليه ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/PreparationCancelToNewOrder",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/order/PreparationCancelToNewOrder",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

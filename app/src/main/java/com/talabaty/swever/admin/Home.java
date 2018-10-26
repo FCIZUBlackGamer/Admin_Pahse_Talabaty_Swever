@@ -149,6 +149,9 @@ public class Home extends AppCompatActivity
 //            //the method we have create in activity
 //            applyFontToMenuItem(mi);
 //        }
+        Menu nav_Menu = navigationView.getMenu();
+
+        nav_Menu.findItem(R.id.nav_contact).setVisible(false);
 
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -216,6 +219,7 @@ public class Home extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         Menu nav_Menu = navigationView.getMenu();
+
 
         if (id == R.id.nav_offer) {
             nav_Menu.findItem(R.id.nav_mabe3at).setIcon(R.drawable.ic_shopping_basket_on_24dp);
@@ -302,6 +306,8 @@ public class Home extends AppCompatActivity
             fragmentManager.beginTransaction().replace(R.id.frame_mabi3at, new ManagmentHome()).addToBackStack("ManagmentHome").commit();
         } else if (id == R.id.nav_out) {
             loginDatabae.UpdateData("1","c","c","c","0","","");
+            this.finish();
+            System.exit(0);
         }
 
 

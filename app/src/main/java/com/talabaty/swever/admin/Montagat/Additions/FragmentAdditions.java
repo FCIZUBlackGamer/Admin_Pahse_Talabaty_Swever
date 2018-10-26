@@ -50,7 +50,7 @@ public class FragmentAdditions extends Fragment {
     RecyclerView recyclerView; //rec_list
     RecyclerView.Adapter adapter;
     List<Item> items;
-    private String UPLOAD_LINK = "http://sellsapi.sweverteam.com/Additions/Add";
+    private String UPLOAD_LINK = "http://sellsapi.rivile.com/Additions/Add";
     Button save, done;
     EditText name, price;
 
@@ -95,7 +95,7 @@ public class FragmentAdditions extends Fragment {
         if (montagModel != null){
             name.setText(montagModel.getName());
             price.setText(montagModel.getSellPrice() + "");
-            UPLOAD_LINK = "http://sellsapi.sweverteam.com/Additions/Edit";
+            UPLOAD_LINK = "http://sellsapi.rivile.com/Additions/Edit";
             save.setText("تعديل");
 
         }

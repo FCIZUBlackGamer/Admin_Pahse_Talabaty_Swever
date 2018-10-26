@@ -71,10 +71,10 @@ public class ControlBaseFood_AdditionsAdapter extends RecyclerView.Adapter<Contr
 
         if (Type == 3) {
             intent.putExtra("fragment", "edit_control3");
-            DeleteLink = "http://sellsapi.sweverteam.com/BaseFood/delete";
+            DeleteLink = "http://sellsapi.rivile.com/BaseFood/delete";
         }else {
             intent.putExtra("fragment", "edit_control4");
-            DeleteLink = "http://sellsapi.sweverteam.com/Additions/delete";
+            DeleteLink = "http://sellsapi.rivile.com/Additions/delete";
         }
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override

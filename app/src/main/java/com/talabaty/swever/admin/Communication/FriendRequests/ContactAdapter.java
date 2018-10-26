@@ -133,7 +133,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.Vholder>
         progressDialog.setMessage("جارى تنفيذ العمليه ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://sellsapi.sweverteam.com/Shops/AddShopAccept",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://sellsapi.rivile.com/Shops/AddShopAccept",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -218,7 +218,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.Vholder>
         progressDialog.setMessage("جارى تنفيذ العمليه ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://sellsapi.sweverteam.com/Shops/RemoveShop",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://sellsapi.rivile.com/Shops/RemoveShop",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

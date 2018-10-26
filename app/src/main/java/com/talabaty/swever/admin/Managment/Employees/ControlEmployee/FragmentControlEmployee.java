@@ -103,7 +103,7 @@ public class FragmentControlEmployee extends Fragment {
         progressDialog.setCancelable(false);
         progressDialog.show();
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://sellsapi.sweverteam.com/Employee/list", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://sellsapi.rivile.com/Employee/list", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

@@ -60,7 +60,7 @@ public class DoneTalabat extends Fragment {
     TextView next, num, last;
     int item_num, page_num;
     int temp_first, temp_last;
-    HashMap<String, Talabat> holder_alpha, holder_date, holder_num;
+//    HashMap<String, Talabat> holder_alpha, holder_date, holder_num;
     Button pdf;
     //    CheckBox order_alpha;
 //    Spinner order_up, order_down;
@@ -82,7 +82,7 @@ public class DoneTalabat extends Fragment {
         pdf = view.findViewById(R.id.printpdf);
         item_num = page_num = 0;
         num.setText(1 + "");
-        holder_alpha = holder_num = holder_date = new HashMap<>();
+//        holder_alpha = holder_num = holder_date = new HashMap<>();
 //        order_alpha = view.findViewById(R.id.order_alpha);
 //        order_up = view.findViewById(R.id.order_up);
 //        order_down = view.findViewById(R.id.order_down);
@@ -214,110 +214,110 @@ public class DoneTalabat extends Fragment {
 
     }
 
-    private void orderDate(String type) {
-
-        // Remove All Previous Data
-        final int size = talabats.size();
-        if (size > 0) {
-            for (int i = 0; i < size; i++) {
-                talabats.remove(0);
-            }
-            adapter.notifyItemRangeRemoved(0, size);
-        }
-
-        if (type.equals("alpha")) {
-            List<String> name = new ArrayList<>();
-            Iterator myVeryOwnIterator = holder_alpha.keySet().iterator();
-            while (myVeryOwnIterator.hasNext()) {
-                String key = (String) myVeryOwnIterator.next();
-                name.add(holder_alpha.get(key).getName());
-            }
-
-            Collator collator = Collator.getInstance(new Locale("ar"));
-            Collections.sort(name, collator);
-
-            // Fill New Data
-            for (int x = 0; x < name.size(); x++) {
-                talabats.add(holder_alpha.get(name.get(x)));
-            }
-
-
-        } else if (type.equals("up_num")) {
-            List<String> num = new ArrayList<>();
-            Iterator myVeryOwnIterator = holder_num.keySet().iterator();
-            while (myVeryOwnIterator.hasNext()) {
-                String key = (String) myVeryOwnIterator.next();
-                num.add(holder_alpha.get(key).getNum());
-            }
-
-            Collections.sort(num);
-
-            // Fill New Data
-            for (int x = 0; x < num.size(); x++) {
-                talabats.add(holder_num.get(num.get(x)));
-            }
-
-        } else if (type.equals("up_date")) {
-            List<String> datetime = new ArrayList<>();
-            Iterator myVeryOwnIterator = holder_date.keySet().iterator();
-            while (myVeryOwnIterator.hasNext()) {
-                String key = (String) myVeryOwnIterator.next();
-                datetime.add(holder_date.get(key).getName());
-            }
-
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
-            Collections.sort(datetime);
-
-            // Fill New Data
-            for (int x = 0; x < datetime.size(); x++) {
-                talabats.add(holder_date.get(datetime.get(x)));
-            }
-
-
-        } else if (type.equals("down_num")) {
-
-            List<String> num = new ArrayList<>();
-            Iterator myVeryOwnIterator = holder_num.keySet().iterator();
-            while (myVeryOwnIterator.hasNext()) {
-                String key = (String) myVeryOwnIterator.next();
-                num.add(holder_alpha.get(key).getNum());
-            }
-
-            Collections.sort(num);
-
-            // Fill New Data
-            for (int x = num.size() - 1; x >= 0; x--) {
-                talabats.add(holder_num.get(num.get(x)));
-            }
-
-        } else if (type.equals("down_date")) {
-            List<String> datetime = new ArrayList<>();
-            Iterator myVeryOwnIterator = holder_date.keySet().iterator();
-            while (myVeryOwnIterator.hasNext()) {
-                String key = (String) myVeryOwnIterator.next();
-                datetime.add(holder_date.get(key).getName());
-            }
-
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
-            Collections.sort(datetime);
-
-            // Fill New Data
-            for (int x = datetime.size() - 1; x >= 0; x--) {
-                talabats.add(holder_date.get(datetime.get(x)));
-            }
-        }
-
-        adapter = new NewTalabatAdapter(getActivity(), talabats, temp_first, temp_last);
-        recyclerView.setAdapter(adapter);
-
-    }
+//    private void orderDate(String type) {
+//
+//        // Remove All Previous Data
+//        final int size = talabats.size();
+//        if (size > 0) {
+//            for (int i = 0; i < size; i++) {
+//                talabats.remove(0);
+//            }
+//            adapter.notifyItemRangeRemoved(0, size);
+//        }
+//
+//        if (type.equals("alpha")) {
+//            List<String> name = new ArrayList<>();
+//            Iterator myVeryOwnIterator = holder_alpha.keySet().iterator();
+//            while (myVeryOwnIterator.hasNext()) {
+//                String key = (String) myVeryOwnIterator.next();
+//                name.add(holder_alpha.get(key).getName());
+//            }
+//
+//            Collator collator = Collator.getInstance(new Locale("ar"));
+//            Collections.sort(name, collator);
+//
+//            // Fill New Data
+//            for (int x = 0; x < name.size(); x++) {
+//                talabats.add(holder_alpha.get(name.get(x)));
+//            }
+//
+//
+//        } else if (type.equals("up_num")) {
+//            List<String> num = new ArrayList<>();
+//            Iterator myVeryOwnIterator = holder_num.keySet().iterator();
+//            while (myVeryOwnIterator.hasNext()) {
+//                String key = (String) myVeryOwnIterator.next();
+//                num.add(holder_alpha.get(key).getNum());
+//            }
+//
+//            Collections.sort(num);
+//
+//            // Fill New Data
+//            for (int x = 0; x < num.size(); x++) {
+//                talabats.add(holder_num.get(num.get(x)));
+//            }
+//
+//        } else if (type.equals("up_date")) {
+//            List<String> datetime = new ArrayList<>();
+//            Iterator myVeryOwnIterator = holder_date.keySet().iterator();
+//            while (myVeryOwnIterator.hasNext()) {
+//                String key = (String) myVeryOwnIterator.next();
+//                datetime.add(holder_date.get(key).getName());
+//            }
+//
+//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
+//            Collections.sort(datetime);
+//
+//            // Fill New Data
+//            for (int x = 0; x < datetime.size(); x++) {
+//                talabats.add(holder_date.get(datetime.get(x)));
+//            }
+//
+//
+//        } else if (type.equals("down_num")) {
+//
+//            List<String> num = new ArrayList<>();
+//            Iterator myVeryOwnIterator = holder_num.keySet().iterator();
+//            while (myVeryOwnIterator.hasNext()) {
+//                String key = (String) myVeryOwnIterator.next();
+//                num.add(holder_alpha.get(key).getNum());
+//            }
+//
+//            Collections.sort(num);
+//
+//            // Fill New Data
+//            for (int x = num.size() - 1; x >= 0; x--) {
+//                talabats.add(holder_num.get(num.get(x)));
+//            }
+//
+//        } else if (type.equals("down_date")) {
+//            List<String> datetime = new ArrayList<>();
+//            Iterator myVeryOwnIterator = holder_date.keySet().iterator();
+//            while (myVeryOwnIterator.hasNext()) {
+//                String key = (String) myVeryOwnIterator.next();
+//                datetime.add(holder_date.get(key).getName());
+//            }
+//
+//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
+//            Collections.sort(datetime);
+//
+//            // Fill New Data
+//            for (int x = datetime.size() - 1; x >= 0; x--) {
+//                talabats.add(holder_date.get(datetime.get(x)));
+//            }
+//        }
+//
+//        adapter = new NewTalabatAdapter(getActivity(), talabats, temp_first, temp_last);
+//        recyclerView.setAdapter(adapter);
+//
+//    }
 
     private void loadData(final int item, final String r) {
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("جارى تحميل البيانات ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.sweverteam.com/order/PreparationOrderList",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/order/PreparationOrderList",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -335,7 +335,7 @@ public class DoneTalabat extends Fragment {
                                     }
                                     adapter.notifyItemRangeRemoved(0, size);
                                 }
-
+                                talabats = new ArrayList<>();
                                 for (int x = 0; x < array.length(); x++) {
                                     JSONObject object1 = array.getJSONObject(x);
                                     if (x == 0) {
@@ -372,11 +372,11 @@ public class DoneTalabat extends Fragment {
                                 num.setText(page_num + "");
                             } else {
                                 LayoutInflater inflater = getLayoutInflater();
-                                View layout = inflater.inflate(R.layout.toast_error,
+                                View layout = inflater.inflate(R.layout.toast_warning,
                                         (ViewGroup) getActivity().findViewById(R.id.lay));
 
                                 TextView text = (TextView) layout.findViewById(R.id.txt);
-                                text.setText("حدث خطأ اثناء اجراء العمليه");
+                                text.setText("لا توجد بيانات ");
 
                                 Toast toast = new Toast(getActivity());
                                 toast.setGravity(Gravity.BOTTOM, 0, 0);

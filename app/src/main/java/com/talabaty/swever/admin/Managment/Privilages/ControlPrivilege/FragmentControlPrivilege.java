@@ -133,7 +133,7 @@ public class FragmentControlPrivilege extends Fragment{
         progressDialog.setMessage("جارى تحميل البيانات ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://sellsapi.sweverteam.com/Rules/list",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://sellsapi.rivile.com/Rules/list",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
