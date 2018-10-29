@@ -1,6 +1,7 @@
 package com.talabaty.swever.admin.Managment.Employees.AddEmployee;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -43,6 +44,7 @@ import com.fourhcode.forhutils.FUtilsValidation;
 import com.google.gson.Gson;
 import com.talabaty.swever.admin.Home;
 import com.talabaty.swever.admin.LoginDatabae;
+import com.talabaty.swever.admin.Mabi3at.MainHome;
 import com.talabaty.swever.admin.Managment.Employees.AddEmployee.SpinnerModels.Cities;
 import com.talabaty.swever.admin.Managment.Employees.AddEmployee.SpinnerModels.Mangment;
 import com.talabaty.swever.admin.Managment.Employees.AddEmployee.SpinnerModels.Regions;
@@ -614,6 +616,11 @@ public class AddtionalInfo extends Fragment {
                     toast.setDuration(Toast.LENGTH_LONG);
                     toast.setView(layout);
                     toast.show();
+
+                    Intent intent = new Intent(getActivity(), Home.class);
+                    intent.putExtra("fragment","mabi3at");
+                    startActivity(intent);
+
 
                 } else {
 

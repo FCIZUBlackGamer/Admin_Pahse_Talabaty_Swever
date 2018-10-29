@@ -317,7 +317,7 @@ public class DoneTalabat extends Fragment {
         progressDialog.setMessage("جارى تحميل البيانات ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/order/PreparationOrderList",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://sellsapi.rivile.com/Order/ReceivedOrderList",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -326,7 +326,7 @@ public class DoneTalabat extends Fragment {
                         try {
 
                             JSONObject object = new JSONObject(response);
-                            JSONArray array = object.getJSONArray("PreparationOrder");
+                            JSONArray array = object.getJSONArray("ReceivedOrder");
                             if (array.length() > 0) {
                                 final int size = talabats.size();
                                 if (size > 0) {

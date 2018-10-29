@@ -565,7 +565,6 @@ public class PersonalInfo extends Fragment {
             }
         }
 
-
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://www.sellsapi.rivile.com/Employee/SelectEmploymentType?ShopId=" + ShopId+"&token=bKPNOJrob8x", new Response.Listener<String>() {
             @Override
