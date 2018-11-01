@@ -37,6 +37,7 @@ import com.talabaty.swever.admin.Managment.Privilages.AddPrivilege.FragmentAddPr
 import com.talabaty.swever.admin.Managment.Privilages.ControlPrivilege.FragmentControlPrivilege;
 import com.talabaty.swever.admin.Montagat.ControlBaseFood_Additions.FragmentControlBaseFood_Additions;
 import com.talabaty.swever.admin.Montagat.ControlMontag.ControlMontag;
+import com.talabaty.swever.admin.Offers.Fragment_Offer_home;
 import com.talabaty.swever.admin.Offers.Fragment_offers;
 import com.talabaty.swever.admin.Offers.Market.Fragment_offers_Market;
 import com.talabaty.swever.admin.Offers.Restaurant.Fragment_offers_Restaurant;
@@ -204,7 +205,20 @@ public class Mabi3atNavigator extends AppCompatActivity implements NavigationVie
         int id = item.getItemId();
         Menu nav_Menu = navigationView.getMenu();
 
-        if (id == R.id.nav_mabe3at) {
+        if (id == R.id.nav_offer) {
+            nav_Menu.findItem(R.id.nav_mabe3at).setIcon(R.drawable.ic_shopping_basket_on_24dp);
+            nav_Menu.findItem(R.id.nav_montagat).setIcon(R.drawable.ic_shopping_basket_off_24dp);
+            nav_Menu.findItem(R.id.nav_trendmontag).setIcon(R.drawable.ic_trending_up_off_24dp);
+            nav_Menu.findItem(R.id.nav_customer).setIcon(R.drawable.ic_people_off_24dp);
+            nav_Menu.findItem(R.id.nav_contact).setIcon(R.drawable.ic_message_off_24dp);
+            nav_Menu.findItem(R.id.nav_management).setIcon(R.drawable.ic_assistant_photo_off_24dp);
+
+//            fragment = new MainHome();
+            Intent intent = new Intent(Mabi3atNavigator.this,Home.class);
+            intent.putExtra("fragment","offer");
+            startActivity(intent);
+//            startActivity(new Intent(Home.this, Mabi3atNavigator.class));
+        }else if (id == R.id.nav_mabe3at) {
 //            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             nav_Menu.findItem(R.id.nav_mabe3at).setIcon(R.drawable.ic_shopping_basket_on_24dp);
             nav_Menu.findItem(R.id.nav_montagat).setIcon(R.drawable.ic_shopping_basket_off_24dp);

@@ -46,17 +46,43 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/add_employee_fragment_employeenameTxtTitle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="right"
-                            android:text="أسم الموظف الكامل"
+                            android:text="أسم الموظف الأول"
                             android:fontFamily="@font/changamedium"
                             android:textColor="@android:color/black"
                             android:textStyle="bold" />
 
                         <EditText
                             android:id="@+id/add_employee_fragment_employeenameTxt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:drawablePadding="5dp"
+                            android:gravity="right|center_vertical"
+                            android:padding="7dp"
+                            android:fontFamily="@font/changamedium"
+                            android:textColor="@color/colorPrimary"
+                            android:textColorHint="@color/colorPrimary"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="أسم الموظف الاخير"
+                            android:fontFamily="@font/changamedium"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/last_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
@@ -192,6 +218,37 @@
                             android:textSize="12sp" />
                     </LinearLayout>
 
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/radiogroup"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:padding="10dp">
+                        <RadioButton
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="انثى"
+                            android:id="@+id/female"
+                            android:gravity="start|center"
+                            android:fontFamily="@font/changamedium"
+                            android:textSize="16sp"/>
+                        <RadioButton
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="ذكر"
+                            android:checked="true"
+                            android:id="@+id/male"
+                            android:gravity="start|center"
+                            android:fontFamily="@font/changamedium"
+                            android:textSize="16sp"/>
+
+                    </RadioGroup>
+
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -310,6 +367,34 @@
                             android:drawablePadding="5dp"
                             android:gravity="right|center_vertical"
                             android:inputType="phone"
+                            android:padding="7dp"
+                            android:fontFamily="@font/changamedium"
+                            android:textColor="@color/colorPrimary"
+                            android:textColorHint="@color/colorPrimary"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="عنوان الموظف"
+                            android:fontFamily="@font/changamedium"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/address"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:drawablePadding="5dp"
+                            android:gravity="right|center_vertical"
                             android:padding="7dp"
                             android:fontFamily="@font/changamedium"
                             android:textColor="@color/colorPrimary"

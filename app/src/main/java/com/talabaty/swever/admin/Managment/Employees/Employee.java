@@ -5,6 +5,9 @@ import java.io.Serializable;
 public class Employee implements Serializable{
     public int Id;
     public String FullName;
+    public String FirstName;
+    public String LastName;
+    public String Address;
     public String UserName;
     public String Password;
     public String ConfirmPassword;
@@ -31,6 +34,7 @@ public class Employee implements Serializable{
     public int CreditLimit;
     public int Balance;
     public boolean Flag;
+    public boolean Gender;
     public int UserId;
     public int ShopId;
 
@@ -66,6 +70,22 @@ public class Employee implements Serializable{
         Balance = balance;
         Flag = flag;
         UserId = userId;
+    }
+
+    public void setAddress(String address) {
+        Address = address;
+    }
+
+    public void setLastName(String lastName) {
+        LastName = lastName;
+    }
+
+    public void setFirstName(String firstName) {
+        FirstName = firstName;
+    }
+
+    public void setGender(boolean gender) {
+        Gender = gender;
     }
 
     public void setId(int id) {
@@ -218,6 +238,22 @@ public class Employee implements Serializable{
 
     public String getFullName() {
         return FullName;
+    }
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public String getFirstName() {
+        return FirstName;
+    }
+
+    public String getLastName() {
+        return LastName;
+    }
+
+    public boolean getGender(){
+        return Gender;
     }
 
     public String getPassword() {

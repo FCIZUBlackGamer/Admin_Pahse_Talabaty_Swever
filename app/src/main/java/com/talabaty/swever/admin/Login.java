@@ -129,7 +129,7 @@ public class Login extends AppCompatActivity {
                                     JSONObject object1 = object.getJSONObject("users");
                                     int cat = object.getInt("cat");
 
-                                    loginDatabae.UpdateData("1", object1.getString("Mail"), object1.getString("Id"), object1.getString("Shop_Id"), "1", "http://selltlbaty.rivile.com/" + object1.getString("Photo"), cat+"");
+                                    loginDatabae.UpdateData("1", object1.getString("UserName"), object1.getString("Id"), object1.getString("Shop_Id"), "1", "http://selltlbaty.rivile.com/" + object1.getString("Photo"), cat+"");
 
                                     Intent intent = new Intent(Login.this, Home.class);
                                     intent.putExtra( "fragment", "mabi3at");

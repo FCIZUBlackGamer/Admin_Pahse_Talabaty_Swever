@@ -360,7 +360,7 @@ public class WithCapital extends Fragment {
 
     private void saveSubmit(String s) {
 
-        Delevry model = new Delevry();
+        final Delevry model = new Delevry();
 //        model.setRegionName(s);
         model.setValue(Double.parseDouble(ed_value.getText().toString()));
         model.setShopId(shopid);
@@ -381,9 +381,9 @@ public class WithCapital extends Fragment {
                         Log.e("RESPONSE",response);
                         progressDialog.dismiss();
                         try {
-//                            JSONObject object = new JSONObject(response);
+                            JSONObject object = new JSONObject(response);
 
-                            if (response.equals("\"Success\"")) {
+                            if (object.getString("Success").equals("Success")) {
 
                                 LayoutInflater inflater = getLayoutInflater();
                                 View layout = inflater.inflate(R.layout.toast_info,
@@ -397,6 +397,13 @@ public class WithCapital extends Fragment {
                                 toast.setDuration(Toast.LENGTH_LONG);
                                 toast.setView(layout);
                                 toast.show();
+
+                                Delevry item = new Delevry(object.getInt("Id"),model.getValue(),
+                                        true,model.getRegionId(),
+                                        shopid,model.getRegionName());
+
+                                models.add(item);
+                                adapter.notifyDataSetChanged();
 
                             } else {
 

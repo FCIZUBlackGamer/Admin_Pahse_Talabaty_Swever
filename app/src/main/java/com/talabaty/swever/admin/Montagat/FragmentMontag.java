@@ -12,11 +12,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.talabaty.swever.admin.Home;
+import com.talabaty.swever.admin.Montagat.ControlUnitAndDepartment.FragmentControlUnitAndDepartment;
+import com.talabaty.swever.admin.Montagat.UnitAndDepartment.Department.FragmentDepartment;
+import com.talabaty.swever.admin.Montagat.UnitAndDepartment.Unit.FragmentUnit;
 import com.talabaty.swever.admin.R;
 
 public class FragmentMontag extends Fragment {
 
     Button add_montage, control_montage;
+    Button add_unit, control_unit;
+    Button add_dep, control_dep;
     FragmentManager fragmentManager;
 
     int type;
@@ -26,7 +31,11 @@ public class FragmentMontag extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_montagat,container,false);
         add_montage = view.findViewById(R.id.add_montage);
+        add_unit = view.findViewById(R.id.add_unit);
+        add_dep = view.findViewById(R.id.add_dep);
+        control_dep = view.findViewById(R.id.control_dep);
         control_montage = view.findViewById(R.id.control_montag);
+        control_unit = view.findViewById(R.id.control_unit);
         return view;
     }
 
@@ -305,6 +314,50 @@ public class FragmentMontag extends Fragment {
 //                }, 1000);
 
 //                Toast.makeText(getActivity(),"Done",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        add_unit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
+                transaction.replace(R.id.frame_mabi3at, new FragmentUnit());
+                transaction.addToBackStack("FragmentUnit");
+                transaction.commit();
+            }
+        });
+
+        add_dep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
+                transaction.replace(R.id.frame_mabi3at, new FragmentDepartment());
+                transaction.addToBackStack("FragmentDepartment");
+                transaction.commit();
+            }
+        });
+
+        control_unit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
+                transaction.replace(R.id.frame_mabi3at, new FragmentControlUnitAndDepartment().setType("5"));
+                transaction.addToBackStack("FragmentControlUnit");
+                transaction.commit();
+            }
+        });
+
+        control_dep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
+                transaction.replace(R.id.frame_mabi3at, new FragmentControlUnitAndDepartment().setType("6"));
+                transaction.addToBackStack("FragmentControlDepartment");
+                transaction.commit();
             }
         });
 

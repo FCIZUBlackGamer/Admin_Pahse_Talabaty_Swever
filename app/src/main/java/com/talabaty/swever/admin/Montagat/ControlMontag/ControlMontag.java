@@ -98,14 +98,15 @@ public class ControlMontag extends Fragment {
     }
 
     private void loadMontages(){
-        final int size = models.size();
-        if (size > 0) {
-            for (int i = 0; i < size; i++) {
-                models.remove(0);
-            }
-            adapter.notifyItemRangeRemoved(0, size);
-        }
+//        final int size = models.size();
+//        if (size > 0) {
+//            for (int i = 0; i < size; i++) {
+//                models.remove(0);
+//            }
+//            adapter.notifyItemRangeRemoved(0, size);
+//        }
 
+        models = new ArrayList<>();
         final ProgressDialog loading = ProgressDialog.show(getActivity(), "Downloading...", "Please wait...", false, false);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.rivile.com/sampleproduct/list?ShopId="+shopId+"&token=bKPNOJrob8x",
                 new Response.Listener<String>() {
@@ -145,8 +146,9 @@ public class ControlMontag extends Fragment {
                                     item.setAmount(object1.getInt("Amount"));
                                     item.setSampleCatogoriesId(object1.getInt("SampleCatogoriesId"));
 
-                                    JSONArray color = new JSONArray(object1.getString("Color"));
+                                    JSONArray color = object1.getString("Color")!= null ?new JSONArray():new JSONArray(object1.getString("Color"));
 //                                JSONArray colorarray = color.getJSONArray("Color");
+                                    if (color.isNull(0))
                                     if (color.length() > 0) {
                                         for (int i = 0; i < color.length(); i++) {
                                             JSONObject object2 = color.getJSONObject(i);
@@ -162,7 +164,7 @@ public class ControlMontag extends Fragment {
 
                                     item.setColor(codeList);
 
-                                    JSONArray size = new JSONArray(object1.getString("Size"));
+                                    JSONArray size = object1.getString("Size") != null ?new JSONArray():new JSONArray(object1.getString("Size"));
 //                                JSONArray sizearray = size.getJSONArray("Size");
                                     if (size.length() > 0) {
                                         for (int i = 0; i < size.length(); i++) {
@@ -178,14 +180,14 @@ public class ControlMontag extends Fragment {
 
                                     item.setSizew(sizeList);
 
-                                    JSONArray image = new JSONArray(object1.getString("Gallary"));
+                                    JSONArray image = object1.getString("Gallary")!= null ?new JSONArray():new JSONArray(object1.getString("Gallary"));
 //                                JSONArray imagearray = image.getJSONArray("Gallary");
                                     if (image.length() > 0) {
                                         for (int i = 0; i < image.length(); i++) {
                                             JSONObject object2 = image.getJSONObject(i);
                                             ImageSource code = new ImageSource(
                                                     object2.getInt("Id"),
-                                                    object2.getString("Photo"),
+                                                    "http://selltlbaty.rivile.com"+object2.getString("Photo"),
                                                     object2.getInt("SampleProductId")
                                             );
                                             sourceList.add(code);
@@ -193,6 +195,7 @@ public class ControlMontag extends Fragment {
                                     }
 
                                     item.setGallary(sourceList);
+                                    Log.e("Images",item.getGallary().size()+"");
 
                                     models.add(item);
                                 }
@@ -247,13 +250,14 @@ public class ControlMontag extends Fragment {
     }
 
     private void loadResturante(){
-        final int size = models.size();
-        if (size > 0) {
-            for (int i = 0; i < size; i++) {
-                models.remove(0);
-            }
-            adapter.notifyItemRangeRemoved(0, size);
-        }
+//        final int size = models.size();
+//        if (size > 0) {
+//            for (int i = 0; i < size; i++) {
+//                models.remove(0);
+//            }
+//            adapter.notifyItemRangeRemoved(0, size);
+//        }
+        models = new ArrayList<>();
         final ProgressDialog loading = ProgressDialog.show(getActivity(), "Uploading...", "Please wait...", false, false);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.rivile.com/sampleproduct2/list?ShopId="+shopId+"&token=bKPNOJrob8x",
                 new Response.Listener<String>() {
@@ -292,7 +296,7 @@ public class ControlMontag extends Fragment {
                                     item.setAmount(object1.getInt("Amount"));
                                     item.setSampleCatogoriesId(object1.getInt("SampleCatogoriesId"));
 
-                                    JSONArray size = new JSONArray(object1.getString("Size"));
+                                    JSONArray size = object1.getString("Size") != null ?new JSONArray():new JSONArray(object1.getString("Size"));
 //                                JSONArray sizearray = size.getJSONArray("Size");
                                     if (size.length() > 0) {
                                         for (int i = 0; i < size.length(); i++) {
@@ -309,14 +313,14 @@ public class ControlMontag extends Fragment {
 
                                     item.setSize(sizeList);
 
-                                    JSONArray image = new JSONArray(object1.getString("Gallary"));
+                                    JSONArray image = object1.getString("Gallary")!= null ?new JSONArray():new JSONArray(object1.getString("Gallary"));
 //                                JSONArray imagearray = image.getJSONArray("Gallary");
                                     if (image.length() > 0) {
                                         for (int i = 0; i < image.length(); i++) {
                                             JSONObject object2 = image.getJSONObject(i);
                                             ImageSource code = new ImageSource(
                                                     object2.getInt("Id"),
-                                                    object2.getString("Photo"),
+                                                    "http://selltlbaty.rivile.com"+object2.getString("Photo"),
                                                     object2.getInt("SampleProductId")
                                             );
                                             sourceList.add(code);
@@ -378,13 +382,14 @@ public class ControlMontag extends Fragment {
     }
 
     private void loadMarket() {
-        final int size = models.size();
-        if (size > 0) {
-            for (int i = 0; i < size; i++) {
-                models.remove(0);
-            }
-            adapter.notifyItemRangeRemoved(0, size);
-        }
+//        final int size = models.size();
+//        if (size > 0) {
+//            for (int i = 0; i < size; i++) {
+//                models.remove(0);
+//            }
+//            adapter.notifyItemRangeRemoved(0, size);
+//        }
+        models = new ArrayList<>();
         final ProgressDialog loading = ProgressDialog.show(getActivity(), "Uploading...", "Please wait...", false, false);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.rivile.com/sampleproduct1/list?ShopId="+shopId+"&token=bKPNOJrob8x",
                 new Response.Listener<String>() {
@@ -470,14 +475,14 @@ public class ControlMontag extends Fragment {
 //
 //                                    item.setSizew(sizeList);
 
-                                    JSONArray image = new JSONArray(object1.getString("Gallary"));
+                                    JSONArray image = object1.getString("Gallary")!= null ?new JSONArray():new JSONArray(object1.getString("Gallary"));
 //                                JSONArray imagearray = image.getJSONArray("Gallary");
                                     if (image.length() > 0) {
                                         for (int i = 0; i < image.length(); i++) {
                                             JSONObject object2 = image.getJSONObject(i);
                                             ImageSource code = new ImageSource(
                                                     object2.getInt("Id"),
-                                                    object2.getString("Photo"),
+                                                    "http://selltlbaty.rivile.com"+object2.getString("Photo"),
                                                     object2.getInt("SampleProductId")
                                             );
                                             sourceList.add(code);

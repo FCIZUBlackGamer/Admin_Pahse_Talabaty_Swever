@@ -6,9 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -80,6 +78,7 @@ public class PendedTalabatAdapter extends RecyclerView.Adapter<PendedTalabatAdap
     Cursor cursor;
     int userid, shopid;
     View view;
+    int position;
 
     public PendedTalabatAdapter(Context context, List<Talabat> talabats, int temp_first, int temp_last) {
         this.context = context;
@@ -104,19 +103,20 @@ public class PendedTalabatAdapter extends RecyclerView.Adapter<PendedTalabatAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Vholder holder, final int position) {
+    public void onBindViewHolder(@NonNull Vholder holder, final int positio) {
 
 
-        holder.id.setText(talabats.get(position).getId());
-        holder.name.setText(talabats.get(position).getName());
-        holder.phone.setText(talabats.get(position).getPhone());
-        holder.date.setText(talabats.get(position).getEstlam_date());
-        holder.time.setText(talabats.get(position).getEstlam_time());
+        position = positio;
+        holder.id.setText(talabats.get(positio).getId());
+        holder.name.setText(talabats.get(positio).getName());
+        holder.phone.setText(talabats.get(positio).getPhone());
+        holder.date.setText(talabats.get(positio).getEstlam_date());
+        holder.time.setText(talabats.get(positio).getEstlam_time());
         holder.done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                accept(talabats.get(position).getNum(), position);
+                accept(talabats.get(positio).getNum(), positio);
             }
         });
 
@@ -127,8 +127,8 @@ public class PendedTalabatAdapter extends RecyclerView.Adapter<PendedTalabatAdap
 
                 transfer = inflater.inflate(R.layout.dialog_taghez_tawgeeh_talabat, null);
 
-                TO = transfer.findViewById(R.id.TO);
-                to = transfer.findViewById(R.id.to);
+                TO = transfer.findViewById(R.id.TO);// Hold Region
+                to = transfer.findViewById(R.id.to);// Hold Employee
                 message_send = transfer.findViewById(R.id.send);
                 close = transfer.findViewById(R.id.close);
 
@@ -137,27 +137,27 @@ public class PendedTalabatAdapter extends RecyclerView.Adapter<PendedTalabatAdap
 
                 loadCompanyData();
 
-                TO.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        if (TO.getSelectedItem().toString().equals("ريفل")) {
-                            to.setVisibility(View.GONE);
-                        } else if (TO.getSelectedItem().toString().equals("شركه شحن")) {
-                            to.setVisibility(View.VISIBLE);
-                            loadCompanyTransfer(userid + "");
-//                            Toast.makeText(context, indexOfCountryList.get(CountryList.indexOf(TO.getSelectedItem().toString())), Toast.LENGTH_SHORT).show();
-                        } else if (TO.getSelectedItem().toString().equals("موظف")) {
-                            to.setVisibility(View.VISIBLE);
-                            loadEmployeeData(userid + "");
-//                            Toast.makeText(context, indexOfCountryList.get(CountryList.indexOf(TO.getSelectedItem().toString())), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-
-                    }
-                });
+//                TO.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//                    @Override
+//                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                        if (TO.getSelectedItem().toString().equals("ريفل")) {
+//                            to.setVisibility(View.GONE);
+//                        } else if (TO.getSelectedItem().toString().equals("شركه شحن")) {
+//                            to.setVisibility(View.VISIBLE);
+//                            loadCompanyTransfer(userid + "");
+////                            Toast.makeText(context, indexOfCountryList.get(CountryList.indexOf(TO.getSelectedItem().toString())), Toast.LENGTH_SHORT).show();
+//                        } else if (TO.getSelectedItem().toString().equals("موظف")) {
+//                            to.setVisibility(View.VISIBLE);
+//                            loadEmployeeData(userid + "");
+////                            Toast.makeText(context, indexOfCountryList.get(CountryList.indexOf(TO.getSelectedItem().toString())), Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onNothingSelected(AdapterView<?> parent) {
+//
+//                    }
+//                });
 
                 final AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("تجهيز وتوجيه")
@@ -176,21 +176,26 @@ public class PendedTalabatAdapter extends RecyclerView.Adapter<PendedTalabatAdap
                 dialog2.getWindow().setLayout(1200, 800);
 
                 closeTaghez(dialog2);
+                //Todo: Bug
                 message_send.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (TO.getSelectedItem().toString().equals("الكل")) {
-                            submitTaghez(dialog2, "الكل", Integer.parseInt(talabats.get(position).getNum()), "0", 0, position);
-                        } else {
-                            submitTaghez(dialog2, TO.getSelectedItem().toString(), Integer.parseInt(talabats.get(position).getNum()), indexOfCountryList.get(CountryList.indexOf(TO.getSelectedItem().toString())), Integer.parseInt(indexOfEmpoyeeList.get(EmpoyeeList.indexOf(to.getSelectedItem().toString()))), position);
-                        }
+//                        if (TO.getSelectedItem().toString().equals("الكل")) {
+//                            submitTaghez(dialog2, "الكل", Integer.parseInt(talabats.get(positio).getNum()), "0", 0, positio);
+//                        } else {
+                        submitTaghez(dialog2,
+                                Integer.parseInt(talabats.get(positio).getNum()),
+                                indexOfCountryList.get(CountryList.indexOf(TO.getSelectedItem().toString())),
+                                Integer.parseInt(indexOfEmpoyeeList.get(EmpoyeeList.indexOf(to.getSelectedItem().toString()))),
+                                positio);
+//                        }
                     }
                 });
             }
         });
 
-        holder.num.setText(talabats.get(position).getNum());
-        holder.address.setText(talabats.get(position).getAddress());
+        holder.num.setText(talabats.get(positio).getNum());
+        holder.address.setText(talabats.get(positio).getAddress());
 
 
         holder.show.setOnClickListener(new View.OnClickListener() {
@@ -235,31 +240,62 @@ public class PendedTalabatAdapter extends RecyclerView.Adapter<PendedTalabatAdap
                     @Override
                     public void onClick(View v) {
                         loadFLData(-1, num_order, total);
-                        num_order.setText(talabats.get(position).getNum());
+                        num_order.setText(talabats.get(positio).getNum());
                     }
                 });
                 last.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         loadFLData(-2, num_order, total);
-                        num_order.setText(talabats.get(position).getNum());
+                        num_order.setText(talabats.get(positio).getNum());
                     }
                 });
                 next.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        loadData(Integer.parseInt(talabats.get(position).getNum()) + 1, "2", num_order, total, dialog);
+                        if (position < temp_last) {
+                            loadData(Integer.parseInt(talabats.get(++position).getNum()), "2", num_order, total, dialog);
+                        } else {
+                            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//
+                            View layout = inflater.inflate(R.layout.toast_info, null);
+
+                            TextView text = (TextView) layout.findViewById(R.id.txt);
+                            text.setText("هذا أخر عنصر فى القائمه الحاليه");
+
+                            Toast toast = new Toast(context);
+                            toast.setGravity(Gravity.BOTTOM, 0, 0);
+                            toast.setDuration(Toast.LENGTH_LONG);
+                            toast.setView(layout);
+                            toast.show();
+                        }
+
 //                        num_order.setText((Integer.parseInt(talabats.get(position).getNum())+1)+"");
                     }
                 });
                 prev.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        loadData(Integer.parseInt(talabats.get(position).getNum()) - 1, "1", num_order, total, dialog);
+                        if (temp_first < position) {
+                            loadData(Integer.parseInt(talabats.get(--position).getNum()), "1", num_order, total, dialog);
+                        } else {
+                            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                            View layout = inflater.inflate(R.layout.toast_info, null);
+
+                            TextView text = (TextView) layout.findViewById(R.id.txt);
+                            text.setText("هذا أول عنصر فى القائمه الحاليه");
+
+                            Toast toast = new Toast(context);
+                            toast.setGravity(Gravity.BOTTOM, 0, 0);
+                            toast.setDuration(Toast.LENGTH_LONG);
+                            toast.setView(layout);
+                            toast.show();
+                        }
 //                        num_order.setText((Integer.parseInt(talabats.get(position).getNum())-1)+"");
                     }
                 });
-                loadData(Integer.parseInt(talabats.get(position).getNum()), "0", num_order, total, dialog);
+                loadData(Integer.parseInt(talabats.get(positio).getNum()), "0", num_order, total, dialog);
 
                 closeDetail(dialog);
                 submitDetail(dialog);
@@ -341,7 +377,7 @@ public class PendedTalabatAdapter extends RecyclerView.Adapter<PendedTalabatAdap
                 message_send.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        submitMessage(dialog2, message_type.getSelectedItem().toString(), position);
+                        submitMessage(dialog2, message_type.getSelectedItem().toString(), positio);
                     }
                 });
             }
@@ -432,64 +468,128 @@ public class PendedTalabatAdapter extends RecyclerView.Adapter<PendedTalabatAdap
         indexOfCountryList = new ArrayList<>();
 
 
-        CountryList.add("--اختر--");
-        indexOfCountryList.add("0");
+        CountryList = new ArrayList<>();
+        indexOfCountryList = new ArrayList<>();
 
-        CountryList.add("ريفل");
-        indexOfCountryList.add("1");
-        CountryList.add("شركه شحن");
-        indexOfCountryList.add("2");
-        CountryList.add("موظف");
-        indexOfCountryList.add("3");
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/order/SelectRegion", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
 
+                    JSONArray jsonArray = jsonObject.getJSONArray("Region");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                        String name = jsonObject1.getString("Name");
+                        String id = jsonObject1.getString("Id");
+                        CountryList.add(name);
+                        indexOfCountryList.add(id);
 
-        TO.setAdapter(new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, CountryList));
+                    }
+
+                    TO.setAdapter(new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, CountryList));
+
+                    TO.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                            to.setVisibility(View.VISIBLE);
+                            Log.e("Id", indexOfCountryList.get(CountryList.indexOf(TO.getSelectedItem().toString())));
+                            loadEmployeeData(indexOfCountryList.get(CountryList.indexOf(TO.getSelectedItem().toString())));
+
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                View layout = inflater.inflate(R.layout.toast_warning, null);
+
+                TextView text = (TextView) layout.findViewById(R.id.txt);
+
+                if (error instanceof ServerError)
+                    text.setText("خطأ فى الاتصال بالخادم");
+                else if (error instanceof TimeoutError)
+                    text.setText("خطأ فى مدة الاتصال");
+                else if (error instanceof NetworkError)
+                    text.setText("شبكه الانترنت ضعيفه حاليا");
+
+                Toast toast = new Toast(context);
+                toast.setGravity(Gravity.BOTTOM, 0, 0);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout);
+                toast.show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                HashMap hashMap = new HashMap();
+                hashMap.put("token", "bKPNOJrob8x");
+                return hashMap;
+            }
+        };
+        int socketTimeout = 30000;
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, 2, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        stringRequest.setRetryPolicy(policy);
+        requestQueue.add(stringRequest);
 
     }
 
-    private int loadData(final int item, final String state, final TextView c, final TextView d, final AlertDialog dialog) {
+    private void loadData(final int item, final String state, final TextView c, final TextView d, final AlertDialog dialog) {
 
-        int x = 0;
-
-        if (state.equals("1")){
-            if (current <= temp_first){
-                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-                View layout = inflater.inflate(R.layout.toast_info,null);
-
-                TextView text = (TextView) layout.findViewById(R.id.txt);
-                text.setText("هذا أول عنصر فى القائمه الحاليه");
-
-                Toast toast = new Toast(context);
-                toast.setGravity(Gravity.BOTTOM, 0, 0);
-                toast.setDuration(Toast.LENGTH_LONG);
-                toast.setView(layout);
-                toast.show();
-                x = -1;
-            }else {
-                x = 0;
-            }
-        } else if (state.equals("2")){
-            if (current >= temp_last){
-                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-                View layout = inflater.inflate(R.layout.toast_info,null);
-
-                TextView text = (TextView) layout.findViewById(R.id.txt);
-                text.setText("هذا أخر عنصر فى القائمه الحاليه");
-
-                Toast toast = new Toast(context);
-                toast.setGravity(Gravity.BOTTOM, 0, 0);
-                toast.setDuration(Toast.LENGTH_LONG);
-                toast.setView(layout);
-                toast.show();
-                x = -1;
-            }else {
-                x = 0;
-            }
-        }
-
-        if (x != -1) {
+//        int x = 0;
+//
+//        if (state.equals("1")){
+//            if (current <= temp_first){
+//                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//
+//                View layout = inflater.inflate(R.layout.toast_info,null);
+//
+//                TextView text = (TextView) layout.findViewById(R.id.txt);
+//                text.setText("هذا أول عنصر فى القائمه الحاليه");
+//
+//                Toast toast = new Toast(context);
+//                toast.setGravity(Gravity.BOTTOM, 0, 0);
+//                toast.setDuration(Toast.LENGTH_LONG);
+//                toast.setView(layout);
+//                toast.show();
+//                x = -1;
+//            }else {
+//                x = 0;
+//            }
+//        } else if (state.equals("2")){
+//            if (current >= temp_last){
+//                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//
+//                View layout = inflater.inflate(R.layout.toast_info,null);
+//
+//                TextView text = (TextView) layout.findViewById(R.id.txt);
+//                text.setText("هذا أخر عنصر فى القائمه الحاليه");
+//
+//                Toast toast = new Toast(context);
+//                toast.setGravity(Gravity.BOTTOM, 0, 0);
+//                toast.setDuration(Toast.LENGTH_LONG);
+//                toast.setView(layout);
+//                toast.show();
+//                x = -1;
+//            }else {
+//                x = 0;
+//            }
+//        }
+//
+//        if (x != -1) {
             final ProgressDialog progressDialog = new ProgressDialog(context);
             progressDialog.setMessage("جارى تحميل البيانات ...");
             progressDialog.setCancelable(false);
@@ -588,8 +688,8 @@ public class PendedTalabatAdapter extends RecyclerView.Adapter<PendedTalabatAdap
                     2,  // maxNumRetries = 2 means no retry
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             Volley.newRequestQueue(context).add(stringRequest);
-        }
-        return x;
+//        }
+//        return x;
     }
 
     private int loadFLData(final int item, final TextView c, final TextView d) {
@@ -699,17 +799,17 @@ public class PendedTalabatAdapter extends RecyclerView.Adapter<PendedTalabatAdap
         return x;
     }
 
-    private void submitTaghez(final Dialog dialog, String x, int orderId, String regionId, int employeeId, int position) {
+    private void submitTaghez(final Dialog dialog, int orderId, String regionId, int employeeId, int position) {
         clearTaghezView();
-        if (x.equals("الكل")) {
-            submitTaghez(orderId, position);
-//            Toast.makeText(context,"OrderId: "+orderId+"\n",Toast.LENGTH_SHORT).show();
-        } else {
+//        if (x.equals("الكل")) {
+//            submitTaghez(orderId, position);
+////            Toast.makeText(context,"OrderId: "+orderId+"\n",Toast.LENGTH_SHORT).show();
+//        } else {
             submitTaghez(orderId, Integer.parseInt(regionId), employeeId, position);
 //            Toast.makeText(context,"EmployeeId: "+employeeId+"\n"+
 //                    "OrderId: "+orderId+"\n"+
 //                    "RegionId: "+regionId,Toast.LENGTH_SHORT).show();
-        }
+//        }
         dialog.dismiss();
 
     }
@@ -905,7 +1005,7 @@ public class PendedTalabatAdapter extends RecyclerView.Adapter<PendedTalabatAdap
         }
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/order/SelectCustomers", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://www.sellsapi.rivile.com/order/SelectCustomers?Id="+id+"&token=bKPNOJrob8x", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -954,6 +1054,8 @@ public class PendedTalabatAdapter extends RecyclerView.Adapter<PendedTalabatAdap
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap hashMap = new HashMap();
                 hashMap.put("token", "bKPNOJrob8x");
+                hashMap.put("Id", id+"");
+                Log.e("EmplyeeId",id+"");
                 return hashMap;
             }
         };

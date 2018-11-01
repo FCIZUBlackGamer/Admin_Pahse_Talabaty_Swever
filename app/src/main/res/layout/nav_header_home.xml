@@ -14,10 +14,11 @@
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageView"
         android:layout_gravity="start"
-        android:paddingBottom="40dp"
+        android:paddingBottom="10dp"
         android:layout_marginStart="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_width="100dp"
+        android:layout_height="120dp"
         android:contentDescription="@string/nav_header_desc"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:src="@mipmap/ic_launcher_round" />
@@ -25,7 +26,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="start"
+        android:gravity="end"
         android:id="@+id/user_name"
         android:fontFamily="@font/changaextrabbold"
         android:layout_marginStart="10dp"

@@ -33,7 +33,13 @@ public class LoginDatabae extends SQLiteOpenHelper{
 
     // Database creation sql statement
     private static final String DATABASE_CREATE = "create table " +TABLE_NAME +
-            "( "+UID+" integer primary key , "+NAME+" varchar(255) not null, "+USER_ID+" varchar(255) , "+SHOP_ID+" varchar(20) , "+TYPE+" varchar(255) not null, "+IMAGE+" varchar(255), "+CAT+" varchar(255) );";
+            "( "+UID+" integer primary key , "
+            +NAME+" varchar(255) not null, "
+            +USER_ID+" varchar(255) , "
+            +SHOP_ID+" varchar(20) , "
+            +TYPE+" varchar(255) not null, "
+            +IMAGE+" varchar(255), "
+            +CAT+" varchar(255) );";
 
     // Database Deletion
     private static final String DATABASE_DROP = "drop table if exists "+TABLE_NAME+";";

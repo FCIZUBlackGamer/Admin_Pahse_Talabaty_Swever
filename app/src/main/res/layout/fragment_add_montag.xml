@@ -42,6 +42,16 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="الأسم"
+                        android:fontFamily="@font/changamedium"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
                     <EditText
                         android:id="@+id/sanf_name"
                         android:layout_width="0dp"
@@ -54,34 +64,12 @@
                         android:fontFamily="@font/changamedium"
                         android:padding="10dp" />
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="الأسم"
-                        android:fontFamily="@font/changamedium"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/initialamount"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_weight="3"
-                        android:hint="رصيد اول المده"
-                        android:inputType="number"
-                        android:textSize="16sp"
-                        android:textColor="@android:color/black"
-                        android:fontFamily="@font/changamedium"
-                        android:padding="10dp" />
 
                     <TextView
                         android:layout_width="0dp"
@@ -92,12 +80,37 @@
                         android:textSize="18sp"
                         android:fontFamily="@font/changamedium"
                         android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/initialamount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_weight="3"
+                        android:hint="رصيد اول المده"
+                        android:inputType="number"
+                        android:text="0"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/black"
+                        android:fontFamily="@font/changamedium"
+                        android:padding="10dp" />
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="الوصف"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/changamedium"
+                        android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/desc"
@@ -114,15 +127,6 @@
                         android:fontFamily="@font/changamedium"
                         android:padding="10dp" />
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="الوصف"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="18sp"
-                        android:fontFamily="@font/changamedium"
-                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -174,19 +178,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <EditText
-                        android:id="@+id/buy_price"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_weight="3"
-                        android:hint="سعر الشراء"
-                        android:inputType="number"
-                        android:textSize="16sp"
-                        android:textColor="@android:color/black"
-                        android:fontFamily="@font/changamedium"
-                        android:padding="10dp" />
-
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -196,12 +187,36 @@
                         android:textColor="@color/colorPrimary"
                         android:textSize="18sp"
                         android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/buy_price"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_weight="3"
+                        android:hint="سعر الشراء"
+                        android:text="0"
+                        android:inputType="number"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/black"
+                        android:fontFamily="@font/changamedium"
+                        android:padding="10dp" />
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="الكميه"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/critical_amount"
@@ -212,24 +227,26 @@
                         android:hint="الكميه الحرجه"
                         android:inputType="number"
                         android:padding="10dp"
+                        android:text="0"
                         android:textSize="16sp"
                         android:textColor="@android:color/black"
                         android:fontFamily="@font/changamedium"/>
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="الكميه"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="الملخص"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/summary"
@@ -240,20 +257,13 @@
                         android:gravity="top"
                         android:hint="ملخص"
                         android:maxLines="10"
+                        android:text="0"
                         android:minLines="3"
                         android:padding="10dp"
                         android:textSize="16sp"
                         android:textColor="@android:color/black"
                         android:fontFamily="@font/changamedium"/>
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="الملخص"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <Button
@@ -358,6 +368,15 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=" البيع"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
                     <EditText
                         android:id="@+id/buyex_price"
                         android:layout_width="0dp"
@@ -367,25 +386,26 @@
                         android:hint="سعر البيع"
                         android:inputType="number"
                         android:padding="10dp"
-
+                        android:text="0"
                         android:textSize="16sp"
                         android:textColor="@android:color/black"
                         android:fontFamily="@font/changamedium"/>
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text=" البيع"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="اختر القسم"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                     <Spinner
                         android:id="@+id/department"
@@ -399,20 +419,21 @@
                         android:padding="10dp"
                         android:paddingEnd="30dp" />
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="اختر القسم"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ملاحظات"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/notes"
@@ -425,19 +446,10 @@
                         android:maxLines="10"
                         android:minLines="3"
                         android:padding="10dp"
-
                         android:textSize="16sp"
                         android:textColor="@android:color/black"
                         android:fontFamily="@font/changamedium"/>
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="ملاحظات"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <Button

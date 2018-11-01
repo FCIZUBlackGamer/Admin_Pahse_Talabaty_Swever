@@ -59,6 +59,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
+import com.talabaty.swever.admin.Home;
 import com.talabaty.swever.admin.LoginDatabae;
 import com.talabaty.swever.admin.Montagat.ControlMontag.ControlMontagModel;
 import com.talabaty.swever.admin.Montagat.FragmentMontag;
@@ -197,6 +198,8 @@ public class AddReturanteMontage extends Fragment {
     public void onStart() {
         super.onStart();
 //        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        ((Home) getActivity())
+                .setActionBarTitle("إضافه وجبه");
         fragmentManager = getFragmentManager();
 
         while (cursor.moveToNext()) {
@@ -485,8 +488,6 @@ public class AddReturanteMontage extends Fragment {
                 }
                 if (sanf_name.getText().toString().isEmpty()){
                     sanf_name.setError("ادخل اسم المنتج");
-                }else if (buy_price.getText().toString().isEmpty()){
-                    buy_price.setError("اضف سعر الشراء");
                 }else if (initialamount.getText().toString().isEmpty()){
                     initialamount.setError("اضف عدد افتراضى");
                 }else if (sizeDimention.size() < 1){
@@ -613,7 +614,7 @@ public class AddReturanteMontage extends Fragment {
 //    }
 
     private void uploadMontage(final String jsonInString) {
-        Log.e("Connection UploadMontag", "Here");
+        Log.e("Connection UploadMontag", jsonInString);
 //        Log.e("Id",);
         final ProgressDialog loading = ProgressDialog.show(getActivity(), "Uploading...", "Please wait...", false, false);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_LINK,
@@ -832,7 +833,7 @@ public class AddReturanteMontage extends Fragment {
         DepatmentList = new ArrayList<>();
 
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://www.sellsapi.rivile.com/SampleProduct2/SelectSampleCatogories?token=bKPNOJrob8x", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://www.sellsapi.rivile.com/SampleProduct2/SelectSampleCatogories?ShopId="+shopid+"&token=bKPNOJrob8x", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

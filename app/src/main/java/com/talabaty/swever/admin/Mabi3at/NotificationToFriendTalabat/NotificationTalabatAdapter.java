@@ -75,6 +75,7 @@ public class NotificationTalabatAdapter extends RecyclerView.Adapter<Notificatio
     Cursor cursor;
     int userid, shopid;
     View view;
+    int position;
 
     public NotificationTalabatAdapter(Context context, List<Talabat> talabats, int temp_first, int temp_last) {
         this.context = context;
@@ -98,25 +99,26 @@ public class NotificationTalabatAdapter extends RecyclerView.Adapter<Notificatio
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Vholder holder, final int position) {
+    public void onBindViewHolder(@NonNull Vholder holder, final int positio) {
 
 
-        holder.id.setText(talabats.get(position).getId());
-        holder.name.setText(talabats.get(position).getName());
-        holder.phone.setText(talabats.get(position).getPhone());
-        holder.date.setText(talabats.get(position).getEstlam_date());
-        holder.time.setText(talabats.get(position).getEstlam_time());
+        position = positio;
+        holder.id.setText(talabats.get(positio).getId());
+        holder.name.setText(talabats.get(positio).getName());
+        holder.phone.setText(talabats.get(positio).getPhone());
+        holder.date.setText(talabats.get(positio).getEstlam_date());
+        holder.time.setText(talabats.get(positio).getEstlam_time());
         holder.accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                accept(talabats.get(position).getNum(),talabats.get(position).getReqId(),position);
+                accept(talabats.get(positio).getNum(),talabats.get(positio).getReqId(),positio);
 
             }
         });
 
-        holder.num.setText(talabats.get(position).getNum());
-        holder.address.setText(talabats.get(position).getAddress());
+        holder.num.setText(talabats.get(positio).getNum());
+        holder.address.setText(talabats.get(positio).getAddress());
 
 
         holder.show.setOnClickListener(new View.OnClickListener() {
@@ -162,31 +164,62 @@ public class NotificationTalabatAdapter extends RecyclerView.Adapter<Notificatio
                     @Override
                     public void onClick(View v) {
                         loadFLData(-1, num_order, total);
-                        num_order.setText(talabats.get(position).getNum());
+                        num_order.setText(talabats.get(positio).getNum());
                     }
                 });
                 last.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         loadFLData(-2, num_order, total);
-                        num_order.setText(talabats.get(position).getNum());
+                        num_order.setText(talabats.get(positio).getNum());
                     }
                 });
                 next.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        loadData(Integer.parseInt(talabats.get(position).getNum()) + 1, "2", num_order, total,dialog);
+                        if (position < temp_last) {
+                            loadData(Integer.parseInt(talabats.get(++position).getNum()), "2", num_order, total, dialog);
+                        } else {
+                            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//
+                            View layout = inflater.inflate(R.layout.toast_info, null);
+
+                            TextView text = (TextView) layout.findViewById(R.id.txt);
+                            text.setText("هذا أخر عنصر فى القائمه الحاليه");
+
+                            Toast toast = new Toast(context);
+                            toast.setGravity(Gravity.BOTTOM, 0, 0);
+                            toast.setDuration(Toast.LENGTH_LONG);
+                            toast.setView(layout);
+                            toast.show();
+                        }
+
 //                        num_order.setText((Integer.parseInt(talabats.get(position).getNum())+1)+"");
                     }
                 });
                 prev.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        loadData(Integer.parseInt(talabats.get(position).getNum()) - 1, "1", num_order, total,dialog);
+                        if (temp_first < position) {
+                            loadData(Integer.parseInt(talabats.get(--position).getNum()), "1", num_order, total, dialog);
+                        } else {
+                            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                            View layout = inflater.inflate(R.layout.toast_info, null);
+
+                            TextView text = (TextView) layout.findViewById(R.id.txt);
+                            text.setText("هذا أول عنصر فى القائمه الحاليه");
+
+                            Toast toast = new Toast(context);
+                            toast.setGravity(Gravity.BOTTOM, 0, 0);
+                            toast.setDuration(Toast.LENGTH_LONG);
+                            toast.setView(layout);
+                            toast.show();
+                        }
 //                        num_order.setText((Integer.parseInt(talabats.get(position).getNum())-1)+"");
                     }
                 });
-                loadData(Integer.parseInt(talabats.get(position).getNum()), "0", num_order, total,dialog);
+                loadData(Integer.parseInt(talabats.get(positio).getNum()), "0", num_order, total,dialog);
                 closeDetail(dialog);
                 submitDetail(dialog);
 
@@ -267,7 +300,7 @@ public class NotificationTalabatAdapter extends RecyclerView.Adapter<Notificatio
                 message_send.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        submitMessage(dialog2, message_type.getSelectedItem().toString(), position);
+                        submitMessage(dialog2, message_type.getSelectedItem().toString(), positio);
                     }
                 });
             }
@@ -555,49 +588,49 @@ public class NotificationTalabatAdapter extends RecyclerView.Adapter<Notificatio
         requestQueue.add(stringRequest);
     }
 
-    private int loadData(final int item, final String state, final TextView c, final TextView d, final AlertDialog dialog) {
+    private void loadData(final int item, final String state, final TextView c, final TextView d, final AlertDialog dialog) {
 
-        int x = 0;
-
-        if (state.equals("1")){
-            if (current <= temp_first){
-                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-                View layout = inflater.inflate(R.layout.toast_info,null);
-
-                TextView text = (TextView) layout.findViewById(R.id.txt);
-                text.setText("هذا أول عنصر فى القائمه الحاليه");
-
-                Toast toast = new Toast(context);
-                toast.setGravity(Gravity.BOTTOM, 0, 0);
-                toast.setDuration(Toast.LENGTH_LONG);
-                toast.setView(layout);
-                toast.show();
-                x = -1;
-            }else {
-                x = 0;
-            }
-        } else if (state.equals("2")){
-            if (current >= temp_last){
-                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-                View layout = inflater.inflate(R.layout.toast_info,null);
-
-                TextView text = (TextView) layout.findViewById(R.id.txt);
-                text.setText("هذا أخر عنصر فى القائمه الحاليه");
-
-                Toast toast = new Toast(context);
-                toast.setGravity(Gravity.BOTTOM, 0, 0);
-                toast.setDuration(Toast.LENGTH_LONG);
-                toast.setView(layout);
-                toast.show();
-                x = -1;
-            }else {
-                x = 0;
-            }
-        }
-
-        if (state.equals("0")) {
+//        int x = 0;
+//
+//        if (state.equals("1")){
+//            if (current <= temp_first){
+//                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//
+//                View layout = inflater.inflate(R.layout.toast_info,null);
+//
+//                TextView text = (TextView) layout.findViewById(R.id.txt);
+//                text.setText("هذا أول عنصر فى القائمه الحاليه");
+//
+//                Toast toast = new Toast(context);
+//                toast.setGravity(Gravity.BOTTOM, 0, 0);
+//                toast.setDuration(Toast.LENGTH_LONG);
+//                toast.setView(layout);
+//                toast.show();
+//                x = -1;
+//            }else {
+//                x = 0;
+//            }
+//        } else if (state.equals("2")){
+//            if (current >= temp_last){
+//                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//
+//                View layout = inflater.inflate(R.layout.toast_info,null);
+//
+//                TextView text = (TextView) layout.findViewById(R.id.txt);
+//                text.setText("هذا أخر عنصر فى القائمه الحاليه");
+//
+//                Toast toast = new Toast(context);
+//                toast.setGravity(Gravity.BOTTOM, 0, 0);
+//                toast.setDuration(Toast.LENGTH_LONG);
+//                toast.setView(layout);
+//                toast.show();
+//                x = -1;
+//            }else {
+//                x = 0;
+//            }
+//        }
+//
+//        if (state.equals("0")) {
             final ProgressDialog progressDialog = new ProgressDialog(context);
             progressDialog.setMessage("جارى تحميل البيانات ...");
             progressDialog.setCancelable(false);
@@ -694,8 +727,8 @@ public class NotificationTalabatAdapter extends RecyclerView.Adapter<Notificatio
                     2,  // maxNumRetries = 2 means no retry
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             Volley.newRequestQueue(context).add(stringRequest);
-        }
-        return x;
+//        }
+//        return x;
     }
 
     private int loadFLData(final int item, final TextView c, final TextView d) {

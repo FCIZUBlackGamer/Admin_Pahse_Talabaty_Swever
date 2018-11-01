@@ -61,7 +61,7 @@ public class NotificationToFriendTalabat extends Fragment {
     TextView next, num, last;
     int item_num, page_num;
     int temp_first, temp_last;
-    HashMap<String, Talabat> holder_alpha, holder_date, holder_num;
+//    HashMap<String, Talabat> holder_alpha, holder_date, holder_num;
     Button pdf;
     //    CheckBox order_alpha;
 //    Spinner order_up, order_down;
@@ -83,7 +83,7 @@ public class NotificationToFriendTalabat extends Fragment {
         item_num = page_num = 0;
         num.setText(1 + "");
         pdf = view.findViewById(R.id.printpdf);
-        holder_alpha = holder_num = holder_date = new HashMap<>();
+//        holder_alpha = holder_num = holder_date = new HashMap<>();
 //        order_alpha = view.findViewById(R.id.order_alpha);
 //        order_up = view.findViewById(R.id.order_up);
 //        order_down = view.findViewById(R.id.order_down);
@@ -384,9 +384,9 @@ public class NotificationToFriendTalabat extends Fragment {
                                     talabats.add(talabat);
 
                                     // Fill Data For Sort in orderDate()
-                                    holder_num.put(object1.getString("Id"), talabat);
-                                    holder_alpha.put(object1.getString("CustomerName"), talabat);
-                                    holder_date.put(object1.getString("Date") + " " + object1.getString("Time"), talabat);
+//                                    holder_num.put(object1.getString("Id"), talabat);
+//                                    holder_alpha.put(object1.getString("CustomerName"), talabat);
+//                                    holder_date.put(object1.getString("Date") + " " + object1.getString("Time"), talabat);
 
 //                                talabats.add(talabat);
                                     Log.e("talabats.length()", talabats.size() + "");

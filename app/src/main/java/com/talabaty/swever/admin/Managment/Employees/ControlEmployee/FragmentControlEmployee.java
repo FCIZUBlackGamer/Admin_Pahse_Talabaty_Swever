@@ -89,15 +89,22 @@ public class FragmentControlEmployee extends Fragment {
 
     private void loadJobTitle(final int ShopId) {
 
-        if (employeeList.size() > 0) {
-            for (int x = 0; x < employeeList.size(); x++) {
-                employeeList.remove(x);
-                jobKind.remove(x);
-                jobNatural.remove(x);
-                jobPrivilage.remove(x);
-                jobManage.remove(x);
-            }
-        }
+//        if (employeeList.size() > 0) {
+//            for (int x = 0; x < employeeList.size(); x++) {
+//                employeeList.remove(x);
+//                jobKind.remove(x);
+//                jobNatural.remove(x);
+//                jobPrivilage.remove(x);
+//                jobManage.remove(x);
+//            }
+//        }
+
+        employeeList = new ArrayList<>();
+        jobKind = new ArrayList<>();
+        jobNatural = new ArrayList<>();
+        jobPrivilage = new ArrayList<>();
+        jobManage = new ArrayList<>();
+
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("جارى تحميل البيانات ...");
         progressDialog.setCancelable(false);
@@ -118,6 +125,10 @@ public class FragmentControlEmployee extends Fragment {
                             employee.setId(jsonObject1.getInt("Id"));
                             employee.setFullName(jsonObject1.getString("FullName"));
                             employee.setUserName(jsonObject1.getString("UserName"));
+                            employee.setFirstName(jsonObject1.getString("FirstName"));
+                            employee.setLastName(jsonObject1.getString("LastName"));
+                            employee.setAddress(jsonObject1.getString("Address"));
+                            employee.setGender(jsonObject1.getBoolean("Gender"));
                             employee.setMail(jsonObject1.getString("Mail"));
                             employee.setPassword(jsonObject1.getString("Password"));
                             employee.setEmploymentTypeId(jsonObject1.getInt("EmploymentTypeId"));/***/
@@ -146,8 +157,8 @@ public class FragmentControlEmployee extends Fragment {
                             employee.setInfectionAllowance(jsonObject1.getInt("InfectionAllowance"));
                             employee.setWorkingHours(jsonObject1.getInt("WorkingHours"));
                             employee.setWorkingHoursBonus(jsonObject1.getInt("WorkingHoursBonus"));
-                            employee.setImageCard(jsonObject1.getString("ImageCard"));
-                            employee.setPhoto(jsonObject1.getString("Photo"));
+                            employee.setImageCard("http://selltlbaty.rivile.com"+jsonObject1.getString("ImageCard"));
+                            employee.setPhoto("http://selltlbaty.rivile.com"+jsonObject1.getString("Photo"));
                             employeeList.add(employee);
 
                         }

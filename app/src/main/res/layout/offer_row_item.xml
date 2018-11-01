@@ -4,27 +4,21 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
 
         <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:isScrollContainer="true"
-            android:scrollbars="horizontal|vertical"
             android:stretchColumns="0,1,2">
 
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="10dp"
-                android:background="@color/white">
+                android:background="@drawable/background_edittext_table">
 
                 <ImageButton
-                    android:layout_width="160dp"
-                    android:layout_gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="35dp"
                     android:layout_column="0"
                     android:layout_span="1"
@@ -37,16 +31,12 @@
                     android:textColor="@color/white"
                     android:textStyle="bold"/>
 
-                <View
-                    android:layout_height="match_parent"
-                    android:layout_width="3dp"
-                    android:background="@color/gray" />
-
                 <TextView
-                    android:layout_width="160dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:maxLines="6"
                     android:maxWidth="160dp"
-                    android:layout_gravity="center"
+                    android:background="@drawable/background_edittext_table"
                     android:layout_height="match_parent"
                     android:layout_column="1"
                     android:id="@+id/price"
@@ -56,15 +46,13 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <View android:layout_height="match_parent"
-                    android:layout_width="3dp"
-                    android:background="@color/gray"/>
 
                 <TextView
-                    android:layout_width="160dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:maxLines="6"
                     android:maxWidth="160dp"
-                    android:layout_gravity="center"
+                    android:background="@drawable/background_edittext_table"
                     android:layout_height="match_parent"
                     android:layout_column="1"
                     android:id="@+id/num"
@@ -74,15 +62,13 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <View android:layout_height="match_parent"
-                    android:layout_width="3dp"
-                    android:background="@color/gray"/>
-
                 <TextView
-                    android:layout_width="160dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
                     android:maxLines="6"
                     android:maxWidth="160dp"
                     android:layout_height="match_parent"
+                    android:background="@drawable/background_edittext_table"
                     android:layout_column="2"
                     android:fontFamily="@font/changalight"
                     android:textSize="16sp"
@@ -94,5 +80,4 @@
 
             </TableRow>
         </TableLayout>
-    </HorizontalScrollView>
 </LinearLayout>

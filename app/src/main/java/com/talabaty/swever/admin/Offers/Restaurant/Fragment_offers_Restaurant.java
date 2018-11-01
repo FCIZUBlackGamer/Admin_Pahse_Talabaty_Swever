@@ -497,15 +497,38 @@ public class Fragment_offers_Restaurant extends Fragment {
                         //Disimissing the progress dialog
                         loading.dismiss();
                         Log.e("Data: ", s);
-                        if (s.equals("\"Success\"")){
-                            Toast toast = Toast.makeText(getActivity(), "تمت العملية بنجاح", Toast.LENGTH_SHORT);
-                            TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
-                            v.setTextColor(Color.GREEN);
+                        if (s.equals("\"Success\"")) {
+
+                            LayoutInflater inflater = getLayoutInflater();
+                            View layout = inflater.inflate(R.layout.toast_info,
+                                    (ViewGroup) getActivity().findViewById(R.id.lay));
+
+                            TextView text = (TextView) layout.findViewById(R.id.txt);
+                            text.setText("تمت تنفيذ العملية");
+
+                            Toast toast = new Toast(getActivity());
+                            toast.setGravity(Gravity.BOTTOM, 0, 0);
+                            toast.setDuration(Toast.LENGTH_LONG);
+                            toast.setView(layout);
                             toast.show();
-                        }else {
-                            Toast toast = Toast.makeText(getActivity(), "عذرا حدث خطأ أثناء اجراء العملية  .. يرجي المحاوله لاحقا", Toast.LENGTH_SHORT);
-                            TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
-                            v.setTextColor(Color.RED);
+
+                            Intent intent = new Intent(getActivity(), Home.class);
+                            intent.putExtra("fragment","offer");
+                            startActivity(intent);
+
+                        } else {
+
+                            LayoutInflater inflater = getLayoutInflater();
+                            View layout = inflater.inflate(R.layout.toast_error,
+                                    (ViewGroup) getActivity().findViewById(R.id.lay));
+
+                            TextView text = (TextView) layout.findViewById(R.id.txt);
+                            text.setText("حدث خطأ اثناء اجراء العمليه");
+
+                            Toast toast = new Toast(getActivity());
+                            toast.setGravity(Gravity.BOTTOM, 0, 0);
+                            toast.setDuration(Toast.LENGTH_LONG);
+                            toast.setView(layout);
                             toast.show();
                         }
                     }

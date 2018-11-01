@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -149,5 +149,283 @@
 
        </LinearLayout>
 
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginBottom="1dp"
+           android:layout_marginEnd="2dp"
+           android:layout_marginStart="2dp"
+           android:layout_marginTop="1dp"
+           android:orientation="horizontal">
+
+           <RelativeLayout
+               android:layout_width="0dp"
+               android:layout_height="200dp"
+               android:layout_weight="1"
+               android:background="@color/colormontagat">
+
+               <ImageView
+                   android:id="@+id/image"
+                   android:layout_width="50dp"
+                   android:layout_height="50dp"
+                   android:layout_centerHorizontal="true"
+                   android:layout_marginBottom="10dp"
+                   android:layout_marginRight="10dp"
+                   android:layout_marginStart="25dp"
+                   android:layout_marginTop="20dp"
+                   android:src="@drawable/excel" />
+
+               <View
+                   android:id="@+id/v"
+                   android:layout_width="match_parent"
+                   android:layout_height="1dp"
+                   android:layout_below="@id/image"
+                   android:layout_marginEnd="5dp"
+                   android:layout_marginStart="5dp"
+                   android:background="@color/white" />
+
+               <TextView
+                   android:id="@+id/name"
+                   android:layout_width="match_parent"
+                   android:layout_height="30dp"
+                   android:layout_below="@id/v"
+                   android:layout_marginBottom="5dp"
+                   android:layout_marginTop="10dp"
+                   android:fontFamily="@font/changamedium"
+                   android:gravity="center_horizontal"
+                   android:text="عمليات الوحدات"
+                   android:textColor="@color/white"
+                   android:textSize="18sp" />
+
+               <Button
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_below="@id/name"
+                   android:layout_centerHorizontal="true"
+                   android:background="@drawable/button_montag_light"
+                   android:fontFamily="@font/changamedium"
+                   android:text="التفاصيل"
+                   android:textColor="@color/white"
+                   android:textSize="18sp"
+                   android:textStyle="bold" />
+
+               <Button
+                   android:id="@+id/control_unit"
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+
+                   android:background="@android:color/transparent" />
+
+           </RelativeLayout>
+
+           <View
+               android:layout_width="3dp"
+               android:layout_height="match_parent"
+               android:background="@color/white" />
+
+           <RelativeLayout
+               android:layout_width="0dp"
+               android:layout_height="200dp"
+               android:layout_weight="1"
+               android:background="@color/colorPrimaryDark">
+
+
+               <ImageView
+                   android:id="@+id/image4"
+                   android:layout_width="50dp"
+                   android:layout_height="50dp"
+                   android:layout_centerHorizontal="true"
+                   android:layout_marginBottom="10dp"
+                   android:layout_marginRight="10dp"
+                   android:layout_marginStart="25dp"
+                   android:layout_marginTop="20dp"
+                   android:src="@drawable/done" />
+
+               <View
+                   android:id="@+id/v4"
+                   android:layout_width="match_parent"
+                   android:layout_height="1dp"
+                   android:layout_below="@id/image4"
+                   android:layout_marginEnd="5dp"
+                   android:layout_marginStart="5dp"
+                   android:background="@color/white" />
+
+               <TextView
+                   android:id="@+id/name4"
+                   android:layout_width="match_parent"
+                   android:layout_height="30dp"
+                   android:layout_below="@id/v4"
+                   android:layout_marginBottom="5dp"
+                   android:layout_marginTop="10dp"
+                   android:fontFamily="@font/changamedium"
+                   android:gravity="center_horizontal"
+
+                   android:text="إضافه وحدات"
+                   android:textColor="@color/white"
+                   android:textSize="18sp" />
+
+               <Button
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_below="@id/name4"
+                   android:layout_centerHorizontal="true"
+                   android:background="@drawable/button_montag_dark"
+                   android:fontFamily="@font/changamedium"
+                   android:text="التفاصيل"
+                   android:textColor="@color/white"
+
+                   android:textSize="18sp"
+                   android:textStyle="bold" />
+
+
+               <Button
+                   android:id="@+id/add_unit"
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:background="@android:color/transparent" />
+
+           </RelativeLayout>
+
+       </LinearLayout>
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginBottom="1dp"
+           android:layout_marginEnd="2dp"
+           android:layout_marginStart="2dp"
+           android:layout_marginTop="1dp"
+           android:orientation="horizontal">
+
+           <RelativeLayout
+               android:layout_width="0dp"
+               android:layout_height="200dp"
+               android:layout_weight="1"
+               android:background="@color/colorPrimaryDark">
+
+               <ImageView
+                   android:id="@+id/image3"
+                   android:layout_width="50dp"
+                   android:layout_height="50dp"
+                   android:layout_centerHorizontal="true"
+                   android:layout_marginBottom="10dp"
+                   android:layout_marginRight="10dp"
+                   android:layout_marginStart="25dp"
+                   android:layout_marginTop="20dp"
+                   android:src="@drawable/excel" />
+
+               <View
+                   android:id="@+id/v3"
+                   android:layout_width="match_parent"
+                   android:layout_height="1dp"
+                   android:layout_below="@id/image3"
+                   android:layout_marginEnd="5dp"
+                   android:layout_marginStart="5dp"
+                   android:background="@color/white" />
+
+               <TextView
+                   android:id="@+id/name3"
+                   android:layout_width="match_parent"
+                   android:layout_height="30dp"
+                   android:layout_below="@id/v3"
+                   android:layout_marginBottom="5dp"
+                   android:layout_marginTop="10dp"
+                   android:fontFamily="@font/changamedium"
+                   android:gravity="center_horizontal"
+                   android:text="عمليات الوحدات"
+                   android:textColor="@color/white"
+                   android:textSize="18sp" />
+
+               <Button
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_below="@id/name3"
+                   android:layout_centerHorizontal="true"
+                   android:background="@drawable/button_montag_dark"
+                   android:fontFamily="@font/changamedium"
+                   android:text="التفاصيل"
+                   android:textColor="@color/white"
+                   android:textSize="18sp"
+                   android:textStyle="bold" />
+
+               <Button
+                   android:id="@+id/control_dep"
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+
+                   android:background="@android:color/transparent" />
+
+           </RelativeLayout>
+
+           <View
+               android:layout_width="3dp"
+               android:layout_height="match_parent"
+               android:background="@color/white" />
+
+           <RelativeLayout
+               android:layout_width="0dp"
+               android:layout_height="200dp"
+               android:layout_weight="1"
+               android:background="@color/colormontagat">
+
+
+               <ImageView
+                   android:id="@+id/image5"
+                   android:layout_width="50dp"
+                   android:layout_height="50dp"
+                   android:layout_centerHorizontal="true"
+                   android:layout_marginBottom="10dp"
+                   android:layout_marginRight="10dp"
+                   android:layout_marginStart="25dp"
+                   android:layout_marginTop="20dp"
+                   android:src="@drawable/done" />
+
+               <View
+                   android:id="@+id/v5"
+                   android:layout_width="match_parent"
+                   android:layout_height="1dp"
+                   android:layout_below="@id/image5"
+                   android:layout_marginEnd="5dp"
+                   android:layout_marginStart="5dp"
+                   android:background="@color/white" />
+
+               <TextView
+                   android:id="@+id/name5"
+                   android:layout_width="match_parent"
+                   android:layout_height="30dp"
+                   android:layout_below="@id/v5"
+                   android:layout_marginBottom="5dp"
+                   android:layout_marginTop="10dp"
+                   android:fontFamily="@font/changamedium"
+                   android:gravity="center_horizontal"
+
+                   android:text="إضافه اقسام"
+                   android:textColor="@color/white"
+                   android:textSize="18sp" />
+
+               <Button
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_below="@id/name5"
+                   android:layout_centerHorizontal="true"
+                   android:background="@drawable/button_montag_light"
+                   android:fontFamily="@font/changamedium"
+                   android:text="التفاصيل"
+                   android:textColor="@color/white"
+
+                   android:textSize="18sp"
+                   android:textStyle="bold" />
+
+
+               <Button
+                   android:id="@+id/add_dep"
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:background="@android:color/transparent" />
+
+           </RelativeLayout>
+
+       </LinearLayout>
+
    </LinearLayout>
-</FrameLayout>
+</ScrollView>

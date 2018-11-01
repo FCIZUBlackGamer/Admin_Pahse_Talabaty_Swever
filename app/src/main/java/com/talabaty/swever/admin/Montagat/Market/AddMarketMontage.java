@@ -58,6 +58,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
+import com.talabaty.swever.admin.Home;
 import com.talabaty.swever.admin.LoginDatabae;
 import com.talabaty.swever.admin.Montagat.ControlMontag.ControlMontagModel;
 import com.talabaty.swever.admin.Montagat.FragmentMontag;
@@ -183,6 +184,8 @@ public class AddMarketMontage extends Fragment {
 //        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         fragmentManager = getFragmentManager();
         depmodel = unit_model = new ArrayList<>();
+        ((Home) getActivity())
+                .setActionBarTitle("إضافه منتج");
 
         while (cursor.moveToNext()) {
             userid = Integer.parseInt(cursor.getString(2));
@@ -197,7 +200,7 @@ public class AddMarketMontage extends Fragment {
         loadUint();
         if (montagModel != null) {
             sanf_name.setText(montagModel.getName());;
-            buyex_price.setText(montagModel.getBuyPrice() + "");
+            buyex_price.setText(montagModel.getSellPrice() + "");
             UPLOAD_LINK = "http://sellsapi.rivile.com/sampleproduct1/EditProducts";
             save.setText("تعديل");
             if (!TextUtils.isEmpty(montagModel.getDescription())) {
@@ -458,10 +461,8 @@ public class AddMarketMontage extends Fragment {
                 }
                 if (sanf_name.getText().toString().isEmpty()){
                     sanf_name.setError("ادخل اسم المنتج");
-                }else if (buy_price.getText().toString().isEmpty()){
-                    buy_price.setError("اضف سعر الشراء");
                 }else if (buyex_price.getText().toString().isEmpty()){
-                    buyex_price.setError("اضف عر للبيع");
+                    buyex_price.setError("اضف سعر للبيع");
                 }else if (finalunit < 1){
                     LayoutInflater inflater = getLayoutInflater();
                     View layout = inflater.inflate(R.layout.toast_error,
@@ -478,7 +479,7 @@ public class AddMarketMontage extends Fragment {
                 }else {
                     sanf.setName(sanf_name.getText().toString());
                     sanf.setDescription(additions.getText().toString());
-                    sanf.setBuyPrice(Float.parseFloat(buy_price.getText().toString()));
+//                    sanf.setBuyPrice(Float.parseFloat(buy_price.getText().toString()));
                     sanf.setSellPrice(Float.parseFloat(buyex_price.getText().toString()));
                     sanf.setSale(Float.parseFloat(sale_price.getText().toString()));
                     sanf.setUnitsId(finalunit);
@@ -520,7 +521,7 @@ public class AddMarketMontage extends Fragment {
     }
 
     private void uploadMontage(final String jsonInString) {
-        Log.e("Connection UploadMontag", "Here");
+        Log.e("Connection UploadMontag", jsonInString);
 //        Log.e("Id",);
         final ProgressDialog loading = ProgressDialog.show(getActivity(), "Uploading...", "Please wait...", false, false);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_LINK,
@@ -747,7 +748,7 @@ public class AddMarketMontage extends Fragment {
         }
 
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.rivile.com/SampleProduct1/SelectSampleCatogories?token=bKPNOJrob8x", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.rivile.com/SampleProduct1/SelectSampleCatogories?ShopId="+shopid+"&token=bKPNOJrob8x", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -805,19 +806,16 @@ public class AddMarketMontage extends Fragment {
     }
 
     private void loadUint() {
-
         unit_idList = new ArrayList<>();
         unit_model = new ArrayList<>();
-
-        if (unit_idList.size() > 0) {
-            for (int x = 0; x < unit_idList.size(); x++) {
-                unit_idList.remove(x);
-                unit_model.remove(x);
-            }
-        }
-
+//        if (unit_idList.size() > 0) {
+//            for (int x = 0; x < unit_idList.size(); x++) {
+//                unit_idList.remove(x);
+//                unit_model.remove(x);
+//            }
+//        }
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, " http://sellsapi.rivile.com/SampleProduct1/SelectUnits?token=bKPNOJrob8x", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.rivile.com/SampleProduct1/SelectUnits?ShopId="+shopid+"&token=bKPNOJrob8x", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

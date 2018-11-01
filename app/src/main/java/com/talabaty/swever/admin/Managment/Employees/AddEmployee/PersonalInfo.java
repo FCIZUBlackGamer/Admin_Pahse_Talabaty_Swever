@@ -3,7 +3,6 @@ package com.talabaty.swever.admin.Managment.Employees.AddEmployee;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,7 +10,6 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -32,7 +30,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,7 +49,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.fourhcode.forhutils.FUtilsValidation;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 import com.talabaty.swever.admin.Home;
 import com.talabaty.swever.admin.LoginDatabae;
 import com.talabaty.swever.admin.Managment.Employees.Employee;
@@ -83,7 +80,7 @@ public class PersonalInfo extends Fragment {
     ImageView add_employee_fragment_employeeIdCopy;
     EditText add_employee_fragment_employeenameTxt, add_employee_fragment_mailTxt, add_employee_fragment_employmentName,
             add_employee_fragment_employeeManagement, add_employee_fragment_employeeBranchName, add_employee_fragment_employeePhone,
-            mail;
+            mail, last_name, address;
 
     Spinner add_employee_fragment_employeeResponsibilities, add_employee_fragment_employeeWorkplaceName;
 
@@ -98,6 +95,8 @@ public class PersonalInfo extends Fragment {
     ImageView close, minimize, cam, gal;
     FloatingActionButton appear;
     int close_type;
+    RadioGroup radiogroup;
+    boolean var_gender = true;
 
     static Employee employee = null;
     public static PersonalInfo setData(Employee data){
@@ -116,6 +115,9 @@ public class PersonalInfo extends Fragment {
         add_employee_fragment_employeenameTxt = view.findViewById(R.id.add_employee_fragment_employeenameTxt);
         mail = view.findViewById(R.id.add_employee_fragment_mailTxt);
         add_employee_fragment_mailTxt = view.findViewById(R.id.user_name);
+        last_name = view.findViewById(R.id.last_name);
+        address = view.findViewById(R.id.address);
+        radiogroup = view.findViewById(R.id.radiogroup);
         add_employee_fragment_employmentName = view.findViewById(R.id.add_employee_fragment_employmentName);
         add_employee_fragment_employeeManagement = view.findViewById(R.id.add_employee_fragment_employeeManagement);
         add_employee_fragment_employeeBranchName = view.findViewById(R.id.add_employee_fragment_employeeBranchName);
@@ -150,16 +152,22 @@ public class PersonalInfo extends Fragment {
         loadJobTitle(shopid);
 
         if (employee != null){
-            add_employee_fragment_employeenameTxt.setText(employee.getFullName());
+            add_employee_fragment_employeenameTxt.setText(employee.getFirstName());
+            last_name.setText(employee.getLastName());
+            address.setText(employee.getAddress());
+            if (employee.getGender()){
+                radiogroup.check(R.id.male);
+            }else {
+                radiogroup.check(R.id.female);
+            }
             add_employee_fragment_mailTxt.setText(employee.getUserName());
             mail.setText(employee.getMail());
             add_employee_fragment_employmentName.setText(employee.getPassword());
 
-
             add_employee_fragment_employeeBranchName.setText(employee.getBranchName());
             add_employee_fragment_employeePhone.setText(employee.getPhone());
             Log.e("Data1", employee.getPhoto());
-            if (!(employee.getPhoto() != null || !employee.getPhoto().isEmpty())) {
+            if (employee.getPhoto() != null && !employee.getPhoto().isEmpty()) {
                 try {
                     Picasso.with(getActivity())
                             .load(employee.getPhoto())
@@ -170,7 +178,7 @@ public class PersonalInfo extends Fragment {
                 }
             }
             Log.e("Data2", employee.getImageCard());
-            if (!(employee.getImageCard() != null || !employee.getImageCard().isEmpty())) {
+            if (employee.getImageCard() != null && !employee.getImageCard().isEmpty()) {
                 try {
                     Picasso.with(getActivity())
                             .load(employee.getImageCard())
@@ -380,30 +388,45 @@ public class PersonalInfo extends Fragment {
             }
         });
 
+        radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.male){
+
+                    var_gender = true;
+                }else if (checkedId == R.id.female){
+                    var_gender = false;
+                }
+            }
+        });
+
         fragmentManager = getFragmentManager();
         second.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (employee ==null) {
+                if (employee == null) {
                     Employee employee = new Employee();
-                    FUtilsValidation.isValidEmail(mail, "صيغه بريد الكترونى خاطئه");
-                    if (add_employee_fragment_employeenameTxt.getText().toString().isEmpty()){
-                        add_employee_fragment_employeenameTxt.setError("ادخل اسم الموظف");
-                    }else if (add_employee_fragment_mailTxt.getText().toString().isEmpty()){
-                        add_employee_fragment_mailTxt.setError("ادخل اسم مستخدم");
-                    }else if (add_employee_fragment_employmentName.getText().toString().isEmpty()){
-                        add_employee_fragment_employmentName.setError("ادخل كلمه سر");
-                    }else if (add_employee_fragment_employeePhone.getText().toString().isEmpty()){
-                        add_employee_fragment_employeePhone.setError("ادخل رقم هاتف");
-                    }else if (add_employee_fragment_employeeBranchName.getText().toString().isEmpty()){
-                        add_employee_fragment_employeeBranchName.setError("ادخل اسم الفرع");
-                    }else if (add_employee_fragment_employeeManagement.getText().toString().isEmpty()){
-                        add_employee_fragment_employeeManagement.setError("تاكيد كلمه السر");
+
+                    if (FUtilsValidation.isValidEmail(mail, "صيغه بريد الكترونى خاطئه") &&
+                            FUtilsValidation.isEmpty(add_employee_fragment_employeenameTxt, "ادخل اسم الموظف") ||
+                            FUtilsValidation.isEmpty(add_employee_fragment_mailTxt, "ادخل اسم مستخدم") ||
+                            FUtilsValidation.isEmpty(add_employee_fragment_employmentName, "ادخل كلمه سر") ||
+                            FUtilsValidation.isEmpty(add_employee_fragment_employeePhone, "ادخل رقم هاتف") ||
+                            FUtilsValidation.isEmpty(add_employee_fragment_employeeBranchName, "ادخل اسم الفرع") ||
+                            FUtilsValidation.isEmpty(last_name, "ادخل اسم الاخير للموظف") ||
+                            FUtilsValidation.isEmpty(address, "ادخل عنوان للموظف") ||
+                            FUtilsValidation.isEmpty(add_employee_fragment_employeeManagement, "تاكيد كلمه السر")) {
+
+
                     }else {
-                        employee.setFullName(add_employee_fragment_employeenameTxt.getText().toString());
+                        employee.setFullName(add_employee_fragment_employeenameTxt.getText().toString()+last_name.getText().toString());
+                        employee.setFirstName(add_employee_fragment_employeenameTxt.getText().toString());
                         employee.setUserName(add_employee_fragment_mailTxt.getText().toString());
                         employee.setMail(mail.getText().toString());
+                        employee.setLastName(last_name.getText().toString());
+                        employee.setAddress(address.getText().toString());
+                        employee.setGender(var_gender);
                         employee.setPassword(add_employee_fragment_employmentName.getText().toString());
                         employee.setEmploymentTypeId(Integer.parseInt(indexOfjobKind.get(jobKind.indexOf(add_employee_fragment_employeeResponsibilities.getSelectedItem().toString()))));
                         employee.setWorkingNaturalId(Integer.parseInt(indexOfjobTitle.get(jobTitle.indexOf(add_employee_fragment_employeeWorkplaceName.getSelectedItem().toString()))));
@@ -411,7 +434,7 @@ public class PersonalInfo extends Fragment {
                         employee.setPhone(add_employee_fragment_employeePhone.getText().toString());
 
                         if (add_employee_fragment_employmentName.getText().toString().equals(add_employee_fragment_employeeManagement.getText().toString())) {
-                            fragmentManager.beginTransaction().replace(R.id.frame_mabi3at, new MoneyStaff().setData(employee, ((BitmapDrawable) imageView.getDrawable()).getBitmap(), ((BitmapDrawable) add_employee_fragment_employeeIdCopy.getDrawable()).getBitmap(),0)).addToBackStack("MoneyStaff").commit();
+                            fragmentManager.beginTransaction().replace(R.id.frame_mabi3at, new MoneyStaff().setData(employee, ((BitmapDrawable) imageView.getDrawable()).getBitmap(), ((BitmapDrawable) add_employee_fragment_employeeIdCopy.getDrawable()).getBitmap(), 0)).addToBackStack("MoneyStaff").commit();
                         } else {
                             add_employee_fragment_employeeManagement.setError("كلمه مرور غير متطابقه");
                             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

@@ -77,6 +77,8 @@ public class MyTasksAdapter extends RecyclerView.Adapter<MyTasksAdapter.Vholder>
     int userid, shopid;
     View view;
 
+    int position;
+
     public MyTasksAdapter(Context context, List<Talabat> talabats, int temp_first, int temp_last) {
         this.context = context;
         this.talabats = talabats;
@@ -99,22 +101,24 @@ public class MyTasksAdapter extends RecyclerView.Adapter<MyTasksAdapter.Vholder>
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Vholder holder, final int position) {
+    public void onBindViewHolder(@NonNull Vholder holder, final int positio) {
 
 
-        holder.id.setText(talabats.get(position).getId());
-        holder.name.setText(talabats.get(position).getName());
-        holder.phone.setText(talabats.get(position).getPhone());
-        holder.date.setText(talabats.get(position).getEstlam_date());
-        holder.time.setText(talabats.get(position).getEstlam_time());
 
-        holder.num.setText(talabats.get(position).getNum());
-        holder.address.setText(talabats.get(position).getAddress());
+        holder.id.setText(talabats.get(positio).getId());
+        holder.name.setText(talabats.get(positio).getName());
+        holder.phone.setText(talabats.get(positio).getPhone());
+        holder.date.setText(talabats.get(positio).getEstlam_date());
+        holder.time.setText(talabats.get(positio).getEstlam_time());
+
+        holder.num.setText(talabats.get(positio).getNum());
+        holder.address.setText(talabats.get(positio).getAddress());
 
 
         holder.show.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                position = positio;
                 final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 details = inflater.inflate(R.layout.dialog_details_talabat, null);
                 submit = details.findViewById(R.id.done);
@@ -133,7 +137,6 @@ public class MyTasksAdapter extends RecyclerView.Adapter<MyTasksAdapter.Vholder>
                 next = details.findViewById(R.id.next);
                 prev = details.findViewById(R.id.prev);
                 last = details.findViewById(R.id.last);
-
 
 
                 final AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -155,31 +158,66 @@ public class MyTasksAdapter extends RecyclerView.Adapter<MyTasksAdapter.Vholder>
                     @Override
                     public void onClick(View v) {
                         loadFLData(-1, num_order, total);
-                        num_order.setText(talabats.get(position).getNum());
+                        num_order.setText(talabats.get(positio).getNum());
                     }
                 });
                 last.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         loadFLData(-2, num_order, total);
-                        num_order.setText(talabats.get(position).getNum());
+                        num_order.setText(talabats.get(positio).getNum());
                     }
                 });
                 next.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        loadData(Integer.parseInt(talabats.get(position).getNum()) + 1, "2", num_order, total, dialog);
+                        Log.e("L",temp_last+"");
+                        Log.e("F",temp_first+"");
+                        Log.e("P",position+"");
+                        Log.e("I",talabats.get(position).getNum()+"");
+                        if (position < temp_last) {
+                            loadData(Integer.parseInt(talabats.get(++position).getNum()), "2", num_order, total, dialog);
+                        } else {
+                            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//
+                            View layout = inflater.inflate(R.layout.toast_info, null);
+
+                            TextView text = (TextView) layout.findViewById(R.id.txt);
+                            text.setText("هذا أخر عنصر فى القائمه الحاليه");
+
+                            Toast toast = new Toast(context);
+                            toast.setGravity(Gravity.BOTTOM, 0, 0);
+                            toast.setDuration(Toast.LENGTH_LONG);
+                            toast.setView(layout);
+                            toast.show();
+                        }
+
 //                        num_order.setText((Integer.parseInt(talabats.get(position).getNum())+1)+"");
                     }
                 });
                 prev.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        loadData(Integer.parseInt(talabats.get(position).getNum()) - 1, "1", num_order, total, dialog);
+                        if (temp_first < position) {
+                            loadData(Integer.parseInt(talabats.get(--position).getNum()), "1", num_order, total, dialog);
+                        } else {
+                            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                            View layout = inflater.inflate(R.layout.toast_info, null);
+
+                            TextView text = (TextView) layout.findViewById(R.id.txt);
+                            text.setText("هذا أول عنصر فى القائمه الحاليه");
+
+                            Toast toast = new Toast(context);
+                            toast.setGravity(Gravity.BOTTOM, 0, 0);
+                            toast.setDuration(Toast.LENGTH_LONG);
+                            toast.setView(layout);
+                            toast.show();
+                        }
 //                        num_order.setText((Integer.parseInt(talabats.get(position).getNum())-1)+"");
                     }
                 });
-                loadData(Integer.parseInt(talabats.get(position).getNum()), "0", num_order, total, dialog);
+                loadData(Integer.parseInt(talabats.get(positio).getNum()), "0", num_order, total, dialog);
                 closeDetail(dialog);
                 submitDetail(dialog);
 
@@ -260,7 +298,7 @@ public class MyTasksAdapter extends RecyclerView.Adapter<MyTasksAdapter.Vholder>
                 message_send.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        submitMessage(dialog2, message_type.getSelectedItem().toString(), position);
+                        submitMessage(dialog2, message_type.getSelectedItem().toString(), positio);
                     }
                 });
             }
@@ -308,7 +346,7 @@ public class MyTasksAdapter extends RecyclerView.Adapter<MyTasksAdapter.Vholder>
 //            } catch (android.content.ActivityNotFoundException ex) {
 //                Toast.makeText(context, "لا يتواجد اى بريد الكترونى هنا!", Toast.LENGTH_SHORT).show();
 //            }
-
+//Todo: Bug
             submitMessage(message_content.getText().toString(), message_title.getText().toString(), message_template.getSelectedItem().toString(), 1);
 
         } else if (message_type.getSelectedItem().toString().equals("رساله نصيه")) {
@@ -343,49 +381,49 @@ public class MyTasksAdapter extends RecyclerView.Adapter<MyTasksAdapter.Vholder>
 
     }
 
-    private int loadData(final int item, final String state, final TextView c, final TextView d, final AlertDialog dialog) {
+    private void loadData(final int item, final String state, final TextView c, final TextView d, final AlertDialog dialog) {
 
-        int x = 0;
-
-        if (state.equals("1")){
-            if (current <= temp_first){
-                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-                View layout = inflater.inflate(R.layout.toast_info,null);
-
-                TextView text = (TextView) layout.findViewById(R.id.txt);
-                text.setText("هذا أول عنصر فى القائمه الحاليه");
-
-                Toast toast = new Toast(context);
-                toast.setGravity(Gravity.BOTTOM, 0, 0);
-                toast.setDuration(Toast.LENGTH_LONG);
-                toast.setView(layout);
-                toast.show();
-                x = -1;
-            }else {
-                x = 0;
-            }
-        } else if (state.equals("2")){
-            if (current >= temp_last){
-                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-                View layout = inflater.inflate(R.layout.toast_info,null);
-
-                TextView text = (TextView) layout.findViewById(R.id.txt);
-                text.setText("هذا أخر عنصر فى القائمه الحاليه");
-
-                Toast toast = new Toast(context);
-                toast.setGravity(Gravity.BOTTOM, 0, 0);
-                toast.setDuration(Toast.LENGTH_LONG);
-                toast.setView(layout);
-                toast.show();
-                x = -1;
-            }else {
-                x = 0;
-            }
-        }
-
-        if (x != -1) {
+//        int x = 0;
+//
+//        if (state.equals("1")){
+//            if (current <= temp_first){
+//                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//
+//                View layout = inflater.inflate(R.layout.toast_info,null);
+//
+//                TextView text = (TextView) layout.findViewById(R.id.txt);
+//                text.setText("هذا أول عنصر فى القائمه الحاليه");
+//
+//                Toast toast = new Toast(context);
+//                toast.setGravity(Gravity.BOTTOM, 0, 0);
+//                toast.setDuration(Toast.LENGTH_LONG);
+//                toast.setView(layout);
+//                toast.show();
+//                x = -1;
+//            }else {
+//                x = 0;
+//            }
+//        } else if (state.equals("2")){
+//            if (current >= temp_last){
+//                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//
+//                View layout = inflater.inflate(R.layout.toast_info,null);
+//
+//                TextView text = (TextView) layout.findViewById(R.id.txt);
+//                text.setText("هذا أخر عنصر فى القائمه الحاليه");
+//
+//                Toast toast = new Toast(context);
+//                toast.setGravity(Gravity.BOTTOM, 0, 0);
+//                toast.setDuration(Toast.LENGTH_LONG);
+//                toast.setView(layout);
+//                toast.show();
+//                x = -1;
+//            }else {
+//                x = 0;
+//            }
+//        }
+//
+//        if (x != -1) {
             final ProgressDialog progressDialog = new ProgressDialog(context);
             progressDialog.setMessage("جارى تحميل البيانات ...");
             progressDialog.setCancelable(false);
@@ -396,51 +434,65 @@ public class MyTasksAdapter extends RecyclerView.Adapter<MyTasksAdapter.Vholder>
                         public void onResponse(String response) {
 
                             progressDialog.dismiss();
-                            try {
-                                JSONObject object = new JSONObject(response);
-                                JSONArray array = object.getJSONArray("AccDet");
-                                if (array.length() > 0) {
-                                    final int size = detailsModels.size();
-                                    if (size > 0) {
-                                        for (int i = 0; i < size; i++) {
-                                            detailsModels.remove(0);
+                            if (response.equals("\"fail\"")){
+                                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                                View layout = inflater.inflate(R.layout.toast_info, null);
+
+                                TextView text = (TextView) layout.findViewById(R.id.txt);
+                                text.setText("بيانات غير مكتمله");
+
+                                Toast toast = new Toast(context);
+                                toast.setGravity(Gravity.BOTTOM, 0, 0);
+                                toast.setDuration(Toast.LENGTH_LONG);
+                                toast.setView(layout);
+                                toast.show();
+                            }else {
+                                try {
+                                    JSONObject object = new JSONObject(response);
+                                    JSONArray array = object.getJSONArray("AccDet");
+                                    if (array.length() > 0) {
+                                        final int size = detailsModels.size();
+                                        if (size > 0) {
+                                            for (int i = 0; i < size; i++) {
+                                                detailsModels.remove(0);
+                                            }
+                                            adapter.notifyItemRangeRemoved(0, size);
                                         }
-                                        adapter.notifyItemRangeRemoved(0, size);
+                                        for (int x = 0; x < array.length(); x++) {
+                                            JSONObject object1 = array.getJSONObject(x);
+                                            DetailsModel model = new DetailsModel(
+                                                    object1.getString("SampleProductId"),
+                                                    object1.getString("SampleProductName"),
+                                                    "علبه",
+                                                    object1.getString("Amount")
+                                            );
+                                            d.setText(Integer.parseInt(d.getText().toString()) + Integer.parseInt(object1.getString("Amount")) + "");
+                                            detailsModels.add(model);
+                                            c.setText(object1.getString("OrderId"));
+                                        }
+                                    } else {
+
+                                        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                                        View layout = inflater.inflate(R.layout.toast_info, null);
+
+                                        TextView text = (TextView) layout.findViewById(R.id.txt);
+                                        text.setText("لا توجد بيانات");
+
+                                        Toast toast = new Toast(context);
+                                        toast.setGravity(Gravity.BOTTOM, 0, 0);
+                                        toast.setDuration(Toast.LENGTH_LONG);
+                                        toast.setView(layout);
+                                        toast.show();
                                     }
-                                    for (int x = 0; x < array.length(); x++) {
-                                        JSONObject object1 = array.getJSONObject(x);
-                                        DetailsModel model = new DetailsModel(
-                                                object1.getString("SampleProductId"),
-                                                object1.getString("SampleProductName"),
-                                                "علبه",
-                                                object1.getString("Amount")
-                                        );
-                                        d.setText(Integer.parseInt(d.getText().toString()) + Integer.parseInt(object1.getString("Amount")) + "");
-                                        detailsModels.add(model);
-                                        c.setText(object1.getString("OrderId"));
-                                    }
-                                }else {
-
-                                    LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-                                    View layout = inflater.inflate(R.layout.toast_info,null);
-
-                                    TextView text = (TextView) layout.findViewById(R.id.txt);
-                                    text.setText("لا توجد بيانات");
-
-                                    Toast toast = new Toast(context);
-                                    toast.setGravity(Gravity.BOTTOM, 0, 0);
-                                    toast.setDuration(Toast.LENGTH_LONG);
-                                    toast.setView(layout);
-                                    toast.show();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
                                 }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+
+                                adapter = new DetailsAdapter(context, detailsModels);
+                                recyclerView.setAdapter(adapter);
                             }
-
-                            adapter = new DetailsAdapter(context, detailsModels);
-                            recyclerView.setAdapter(adapter);
-
                         }
                     }, new Response.ErrorListener() {
                 @Override
@@ -470,8 +522,11 @@ public class MyTasksAdapter extends RecyclerView.Adapter<MyTasksAdapter.Vholder>
                 protected Map<String, String> getParams() {
                     HashMap hashMap = new HashMap();
                     hashMap.put("ShopId", shopid+"");
+                    Log.e("ShopId",shopid+"");
                     hashMap.put("UserId", userid+"");
+                    Log.e("UserId",userid+"");
                     hashMap.put("Id", item + "");
+                    Log.e("Id",item+"");
                     return hashMap;
                 }
             };
@@ -481,8 +536,8 @@ public class MyTasksAdapter extends RecyclerView.Adapter<MyTasksAdapter.Vholder>
                     2,  // maxNumRetries = 2 means no retry
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             Volley.newRequestQueue(context).add(stringRequest);
-        }
-        return x;
+//        }
+//        return x;
     }
 
     private int loadFLData(final int item, final TextView c, final TextView d) {
@@ -499,54 +554,68 @@ public class MyTasksAdapter extends RecyclerView.Adapter<MyTasksAdapter.Vholder>
                     public void onResponse(String response) {
 
                         progressDialog.dismiss();
-                        try {
+                        if (response.equals("\"fail\"")){
+                            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-                            int amount = 0;
-                            JSONObject object = new JSONObject(response);
-                            JSONArray array = object.getJSONArray("AccDet");
-                            if (array.length() > 0) {
-                                final int size = detailsModels.size();
-                                if (size > 0) {
-                                    for (int i = 0; i < size; i++) {
-                                        detailsModels.remove(0);
+                            View layout = inflater.inflate(R.layout.toast_info, null);
+
+                            TextView text = (TextView) layout.findViewById(R.id.txt);
+                            text.setText("بيانات غير مكتمله");
+
+                            Toast toast = new Toast(context);
+                            toast.setGravity(Gravity.BOTTOM, 0, 0);
+                            toast.setDuration(Toast.LENGTH_LONG);
+                            toast.setView(layout);
+                            toast.show();
+                        }else {
+                            try {
+
+                                int amount = 0;
+                                JSONObject object = new JSONObject(response);
+                                JSONArray array = object.getJSONArray("AccDet");
+                                if (array.length() > 0) {
+                                    final int size = detailsModels.size();
+                                    if (size > 0) {
+                                        for (int i = 0; i < size; i++) {
+                                            detailsModels.remove(0);
+                                        }
+                                        adapter.notifyItemRangeRemoved(0, size);
                                     }
-                                    adapter.notifyItemRangeRemoved(0, size);
+                                    for (int x = 0; x < array.length(); x++) {
+                                        JSONObject object1 = array.getJSONObject(x);
+                                        DetailsModel model = new DetailsModel(
+                                                object1.getString("SampleProductId"),
+                                                object1.getString("SampleProductName"),
+                                                "علبه",
+                                                object1.getString("Amount")
+                                        );
+                                        detailsModels.add(model);
+                                        amount += Integer.parseInt(object1.getString("Amount"));
+
+                                        c.setText(object1.getString("OrderId"));
+                                    }
+                                    d.setText(amount + "");
+                                } else {
+                                    LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                                    View layout = inflater.inflate(R.layout.toast_info, null);
+
+                                    TextView text = (TextView) layout.findViewById(R.id.txt);
+                                    text.setText("لا توجد بيانات");
+
+                                    Toast toast = new Toast(context);
+                                    toast.setGravity(Gravity.BOTTOM, 0, 0);
+                                    toast.setDuration(Toast.LENGTH_LONG);
+                                    toast.setView(layout);
+                                    toast.show();
                                 }
-                                for (int x = 0; x < array.length(); x++) {
-                                    JSONObject object1 = array.getJSONObject(x);
-                                    DetailsModel model = new DetailsModel(
-                                            object1.getString("SampleProductId"),
-                                            object1.getString("SampleProductName"),
-                                            "علبه",
-                                            object1.getString("Amount")
-                                    );
-                                    detailsModels.add(model);
-                                    amount += Integer.parseInt(object1.getString("Amount"));
-
-                                    c.setText(object1.getString("OrderId"));
-                                }
-                                d.setText(amount + "");
-                            }else {
-                                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-                                View layout = inflater.inflate(R.layout.toast_info,null);
-
-                                TextView text = (TextView) layout.findViewById(R.id.txt);
-                                text.setText("لا توجد بيانات");
-
-                                Toast toast = new Toast(context);
-                                toast.setGravity(Gravity.BOTTOM, 0, 0);
-                                toast.setDuration(Toast.LENGTH_LONG);
-                                toast.setView(layout);
-                                toast.show();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+
+                            adapter = new DetailsAdapter(context, detailsModels);
+                            recyclerView.setAdapter(adapter);
                         }
-
-                        adapter = new DetailsAdapter(context, detailsModels);
-                        recyclerView.setAdapter(adapter);
-
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -689,7 +758,14 @@ public class MyTasksAdapter extends RecyclerView.Adapter<MyTasksAdapter.Vholder>
                 toast.setView(layout);
                 toast.show();
             }
-        });
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> hashMap = new HashMap<>();
+                hashMap.put("token","bKPNOJrob8x");
+                return hashMap;
+            }
+        };
         int socketTimeout = 30000;
         RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, 2, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         stringRequest.setRetryPolicy(policy);
@@ -773,6 +849,7 @@ public class MyTasksAdapter extends RecyclerView.Adapter<MyTasksAdapter.Vholder>
                 hashMap.put("options", option + "");
                 hashMap.put("Sub", sub + "");
                 hashMap.put("UserId", userid+"");
+                hashMap.put("token","bKPNOJrob8x");
                 return hashMap;
             }
         };

@@ -78,7 +78,7 @@ public class SailedReports extends Fragment {
     TextView next, num, last;
     int item_num, page_num;
     int temp_first, temp_last;
-    HashMap<String, Talabat> holder_alpha, holder_date, holder_num;
+//    HashMap<String, Talabat> holder_alpha, holder_date, holder_num;
 //    CheckBox order_alpha;
 //    Spinner order_up, order_down;
     Button show_all;
@@ -110,7 +110,7 @@ public class SailedReports extends Fragment {
         num = view.findViewById(R.id.item_num);
         item_num = page_num = 0;
         num.setText(0 + "");
-        holder_alpha = holder_num = holder_date = new HashMap<>();
+//        holder_alpha = holder_num = holder_date = new HashMap<>();
 //        order_alpha = view.findViewById(R.id.order_alpha);
 //        order_up = view.findViewById(R.id.order_up);
 //        order_down = view.findViewById(R.id.order_down);
@@ -509,103 +509,103 @@ public class SailedReports extends Fragment {
         requestQueue.add(stringRequest);
     }
 
-    private void orderDate(String type) {
-
-        // Remove All Previous Data
-        final int size = talabats.size();
-        if (size > 0) {
-            for (int i = 0; i < size; i++) {
-                talabats.remove(0);
-            }
-            adapter.notifyItemRangeRemoved(0, size);
-        }
-
-        if (type.equals("alpha")) {
-            List<String> name = new ArrayList<>();
-            Iterator myVeryOwnIterator = holder_alpha.keySet().iterator();
-            while (myVeryOwnIterator.hasNext()) {
-                String key = (String) myVeryOwnIterator.next();
-                name.add(holder_alpha.get(key).getName());
-            }
-
-            Collator collator = Collator.getInstance(new Locale("ar"));
-            Collections.sort(name, collator);
-
-            // Fill New Data
-            for (int x = 0; x < name.size(); x++) {
-                talabats.add(holder_alpha.get(name.get(x)));
-            }
-
-
-        } else if (type.equals("up_num")) {
-            List<String> num = new ArrayList<>();
-            Iterator myVeryOwnIterator = holder_num.keySet().iterator();
-            while (myVeryOwnIterator.hasNext()) {
-                String key = (String) myVeryOwnIterator.next();
-                num.add(holder_alpha.get(key).getNum());
-            }
-
-            Collections.sort(num);
-
-            // Fill New Data
-            for (int x = 0; x < num.size(); x++) {
-                talabats.add(holder_num.get(num.get(x)));
-            }
-
-        } else if (type.equals("up_date")) {
-            List<String> datetime = new ArrayList<>();
-            Iterator myVeryOwnIterator = holder_date.keySet().iterator();
-            while (myVeryOwnIterator.hasNext()) {
-                String key = (String) myVeryOwnIterator.next();
-                datetime.add(holder_date.get(key).getName());
-            }
-
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
-            Collections.sort(datetime);
-
-            // Fill New Data
-            for (int x = 0; x < datetime.size(); x++) {
-                talabats.add(holder_date.get(datetime.get(x)));
-            }
-
-
-        } else if (type.equals("down_num")) {
-
-            List<String> num = new ArrayList<>();
-            Iterator myVeryOwnIterator = holder_num.keySet().iterator();
-            while (myVeryOwnIterator.hasNext()) {
-                String key = (String) myVeryOwnIterator.next();
-                num.add(holder_alpha.get(key).getNum());
-            }
-
-            Collections.sort(num);
-
-            // Fill New Data
-            for (int x = num.size()-1 ; x >= 0 ; x--) {
-                talabats.add(holder_num.get(num.get(x)));
-            }
-
-        } else if (type.equals("down_date")) {
-            List<String> datetime = new ArrayList<>();
-            Iterator myVeryOwnIterator = holder_date.keySet().iterator();
-            while (myVeryOwnIterator.hasNext()) {
-                String key = (String) myVeryOwnIterator.next();
-                datetime.add(holder_date.get(key).getName());
-            }
-
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
-            Collections.sort(datetime);
-
-            // Fill New Data
-            for (int x = datetime.size()-1; x >= 0; x--) {
-                talabats.add(holder_date.get(datetime.get(x)));
-            }
-        }
-
-        adapter = new NewTalabatAdapter(getActivity(), talabats, temp_first, temp_last);
-        recyclerView.setAdapter(adapter);
-
-    }
+//    private void orderDate(String type) {
+//
+//        // Remove All Previous Data
+//        final int size = talabats.size();
+//        if (size > 0) {
+//            for (int i = 0; i < size; i++) {
+//                talabats.remove(0);
+//            }
+//            adapter.notifyItemRangeRemoved(0, size);
+//        }
+//
+//        if (type.equals("alpha")) {
+//            List<String> name = new ArrayList<>();
+//            Iterator myVeryOwnIterator = holder_alpha.keySet().iterator();
+//            while (myVeryOwnIterator.hasNext()) {
+//                String key = (String) myVeryOwnIterator.next();
+//                name.add(holder_alpha.get(key).getName());
+//            }
+//
+//            Collator collator = Collator.getInstance(new Locale("ar"));
+//            Collections.sort(name, collator);
+//
+//            // Fill New Data
+//            for (int x = 0; x < name.size(); x++) {
+//                talabats.add(holder_alpha.get(name.get(x)));
+//            }
+//
+//
+//        } else if (type.equals("up_num")) {
+//            List<String> num = new ArrayList<>();
+//            Iterator myVeryOwnIterator = holder_num.keySet().iterator();
+//            while (myVeryOwnIterator.hasNext()) {
+//                String key = (String) myVeryOwnIterator.next();
+//                num.add(holder_alpha.get(key).getNum());
+//            }
+//
+//            Collections.sort(num);
+//
+//            // Fill New Data
+//            for (int x = 0; x < num.size(); x++) {
+//                talabats.add(holder_num.get(num.get(x)));
+//            }
+//
+//        } else if (type.equals("up_date")) {
+//            List<String> datetime = new ArrayList<>();
+//            Iterator myVeryOwnIterator = holder_date.keySet().iterator();
+//            while (myVeryOwnIterator.hasNext()) {
+//                String key = (String) myVeryOwnIterator.next();
+//                datetime.add(holder_date.get(key).getName());
+//            }
+//
+//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
+//            Collections.sort(datetime);
+//
+//            // Fill New Data
+//            for (int x = 0; x < datetime.size(); x++) {
+//                talabats.add(holder_date.get(datetime.get(x)));
+//            }
+//
+//
+//        } else if (type.equals("down_num")) {
+//
+//            List<String> num = new ArrayList<>();
+//            Iterator myVeryOwnIterator = holder_num.keySet().iterator();
+//            while (myVeryOwnIterator.hasNext()) {
+//                String key = (String) myVeryOwnIterator.next();
+//                num.add(holder_alpha.get(key).getNum());
+//            }
+//
+//            Collections.sort(num);
+//
+//            // Fill New Data
+//            for (int x = num.size()-1 ; x >= 0 ; x--) {
+//                talabats.add(holder_num.get(num.get(x)));
+//            }
+//
+//        } else if (type.equals("down_date")) {
+//            List<String> datetime = new ArrayList<>();
+//            Iterator myVeryOwnIterator = holder_date.keySet().iterator();
+//            while (myVeryOwnIterator.hasNext()) {
+//                String key = (String) myVeryOwnIterator.next();
+//                datetime.add(holder_date.get(key).getName());
+//            }
+//
+//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
+//            Collections.sort(datetime);
+//
+//            // Fill New Data
+//            for (int x = datetime.size()-1; x >= 0; x--) {
+//                talabats.add(holder_date.get(datetime.get(x)));
+//            }
+//        }
+//
+//        adapter = new NewTalabatAdapter(getActivity(), talabats, temp_first, temp_last);
+//        recyclerView.setAdapter(adapter);
+//
+//    }
 
     private void loadData(final String ShopId, final String UserId, final int x, final int type) {
 
@@ -652,9 +652,9 @@ public class SailedReports extends Fragment {
                                             );
 
                                     // Fill Data For Sort in orderDate()
-                                    holder_num.put(object1.getString("Id"), talabat);
-                                    holder_alpha.put(object1.getString("CustomerName"), talabat);
-                                    holder_date.put(object1.getString("Date") + " " + object1.getString("Time"), talabat);
+//                                    holder_num.put(object1.getString("Id"), talabat);
+//                                    holder_alpha.put(object1.getString("CustomerName"), talabat);
+//                                    holder_date.put(object1.getString("Date") + " " + object1.getString("Time"), talabat);
 
                                     talabats.add(talabat);
                                 }
@@ -789,9 +789,9 @@ public class SailedReports extends Fragment {
                                             );
 
                                     // Fill Data For Sort in orderDate()
-                                    holder_num.put(object1.getString("Id"), talabat);
-                                    holder_alpha.put(object1.getString("CustomerName"), talabat);
-                                    holder_date.put(object1.getString("Date") + " " + object1.getString("Time"), talabat);
+//                                    holder_num.put(object1.getString("Id"), talabat);
+//                                    holder_alpha.put(object1.getString("CustomerName"), talabat);
+//                                    holder_date.put(object1.getString("Date") + " " + object1.getString("Time"), talabat);
 
                                     talabats.add(talabat);
                                     temp = Integer.parseInt(object1.getString("Id"));
@@ -917,9 +917,9 @@ public class SailedReports extends Fragment {
                                             );
 
                                     // Fill Data For Sort in orderDate()
-                                    holder_num.put(object1.getString("Id"), talabat);
-                                    holder_alpha.put(object1.getString("CustomerName"), talabat);
-                                    holder_date.put(object1.getString("Date") + " " + object1.getString("Time"), talabat);
+//                                    holder_num.put(object1.getString("Id"), talabat);
+//                                    holder_alpha.put(object1.getString("CustomerName"), talabat);
+//                                    holder_date.put(object1.getString("Date") + " " + object1.getString("Time"), talabat);
 
                                     talabats.add(talabat);
                                     temp = Integer.parseInt(object1.getString("Id"));
@@ -1044,9 +1044,9 @@ public class SailedReports extends Fragment {
                                             );
 
                                     // Fill Data For Sort in orderDate()
-                                    holder_num.put(object1.getString("Id"), talabat);
-                                    holder_alpha.put(object1.getString("CustomerName"), talabat);
-                                    holder_date.put(object1.getString("Date") + " " + object1.getString("Time"), talabat);
+//                                    holder_num.put(object1.getString("Id"), talabat);
+//                                    holder_alpha.put(object1.getString("CustomerName"), talabat);
+//                                    holder_date.put(object1.getString("Date") + " " + object1.getString("Time"), talabat);
 
                                     talabats.add(talabat);
                                     temp = Integer.parseInt(object1.getString("Id"));
@@ -1168,9 +1168,9 @@ public class SailedReports extends Fragment {
                                             );
 
                                     // Fill Data For Sort in orderDate()
-                                    holder_num.put(object1.getString("Id"), talabat);
-                                    holder_alpha.put(object1.getString("CustomerName"), talabat);
-                                    holder_date.put(object1.getString("Date") + " " + object1.getString("Time"), talabat);
+//                                    holder_num.put(object1.getString("Id"), talabat);
+//                                    holder_alpha.put(object1.getString("CustomerName"), talabat);
+//                                    holder_date.put(object1.getString("Date") + " " + object1.getString("Time"), talabat);
 
                                     talabats.add(talabat);
                                     temp = Integer.parseInt(object1.getString("Id"));

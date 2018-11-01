@@ -497,7 +497,7 @@ public class Fragment_offers extends Fragment {
                             toast.show();
 
                             Intent intent = new Intent(getActivity(), Home.class);
-                            intent.putExtra("fragment","mabi3at");
+                            intent.putExtra("fragment","offer");
                             startActivity(intent);
 
                         } else {

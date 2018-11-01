@@ -142,7 +142,7 @@ public class Fragment_agent_report extends Fragment {
             @Override
             public void onClick(View v) {
                 if (agents.size() == 10) {
-                    loadData(userid, shopid, item_num, 1);
+                    loadData(userid, shopid, item_num, "1");
                 }else {
                     Snackbar.make(v,"نهايه التقارير",Snackbar.LENGTH_SHORT).show();
                 }
@@ -197,7 +197,7 @@ public class Fragment_agent_report extends Fragment {
             @Override
             public void onClick(View v) {
                 if (page_num > 1) {
-                    loadData(userid, shopid,item_num,0);
+                    loadData(userid, shopid,item_num,"0");
                 } else {
                     Snackbar.make(v, "بدايه الطلبات", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
@@ -205,7 +205,7 @@ public class Fragment_agent_report extends Fragment {
             }
         });
 
-        loadData(userid, shopid,0,1);
+        loadData(userid, shopid,0,"1");
 
     }
 
@@ -307,7 +307,7 @@ public class Fragment_agent_report extends Fragment {
 //
 //    }
 
-    private void loadData(final int UserId , final int ShopId, final int x, final int type) {
+    private void loadData(final int UserId , final int ShopId, final int x, final String type) {
 
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("جارى تحميل البيانات ...");
@@ -323,13 +323,14 @@ public class Fragment_agent_report extends Fragment {
                             JSONObject object = new JSONObject(response);
                             JSONArray array = object.getJSONArray("ReportCustomer");
                             if (array.length()>0) {
-                                final int size = agents.size();
-                                if (size > 0) {
-                                    for (int i = 0; i < size; i++) {
-                                        agents.remove(0);
-                                    }
-                                    adapter.notifyItemRangeRemoved(0, size);
-                                }
+//                                final int size = agents.size();
+//                                if (size > 0) {
+//                                    for (int i = 0; i < size; i++) {
+//                                        agents.remove(0);
+//                                    }
+//                                    adapter.notifyItemRangeRemoved(0, size);
+//                                }
+                                agents = new ArrayList<>();
                                 for (int x = 0; x < array.length(); x++) {
                                     JSONObject object1 = array.getJSONObject(x);
                                     Agent item = new Agent(
@@ -339,6 +340,14 @@ public class Fragment_agent_report extends Fragment {
                                     );
                                     agents.add(item);
                                 }
+                                if (type.equals("1")) {
+                                    page_num++;
+                                } else if (type.equals("0")) {
+                                    page_num--;
+                                } else {
+
+                                }
+                                num.setText(page_num + "");
                             }else {
                                 LayoutInflater inflater = getLayoutInflater();
                                 View layout = inflater.inflate(R.layout.toast_info,
