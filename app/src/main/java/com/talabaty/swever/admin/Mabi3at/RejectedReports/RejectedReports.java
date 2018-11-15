@@ -385,7 +385,7 @@ public class RejectedReports extends Fragment {
         }
 
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://www.sellsapi.rivile.com/order/SelectCustomers?token=bKPNOJrob8x", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://www.sellsapi.rivile.com/order/SelectCustomers?ShopId="+shopid+"&token=bKPNOJrob8x", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -394,10 +394,9 @@ public class RejectedReports extends Fragment {
                     JSONArray jsonArray = jsonObject.getJSONArray("Customers");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                        String fname = jsonObject1.getString("FirstName");
-                        String lname = jsonObject1.getString("LastName");
-                        String id = jsonObject1.getString("Id");
-                        EmpoyeeList.add(fname + " " + lname);
+                        String fname = jsonObject1.getString("CustomerName");
+                        String id = jsonObject1.getString("CustomerId");
+                        EmpoyeeList.add(fname);
                         indexOfEmpoyeeList.add(id);
 
                     }
@@ -558,13 +557,14 @@ public class RejectedReports extends Fragment {
                             JSONObject object = new JSONObject(response);
                             JSONArray array = object.getJSONArray("RefusedReport");
                             if (array.length() > 0) {
-                                final int size = talabats.size();
-                                if (size > 0) {
-                                    for (int i = 0; i < size; i++) {
-                                        talabats.remove(0);
-                                    }
-                                    adapter.notifyItemRangeRemoved(0, size);
-                                }
+//                                final int size = talabats.size();
+//                                if (size > 0) {
+//                                    for (int i = 0; i < size; i++) {
+//                                        talabats.remove(0);
+//                                    }
+//                                    adapter.notifyItemRangeRemoved(0, size);
+//                                }
+                                talabats = new ArrayList<>();
                                 temp_first = Integer.parseInt(array.getJSONObject(0).getString("Id"));
                                 temp_last = Integer.parseInt(array.getJSONObject(array.length() - 1).getString("Id"));
                                 for (int x = 0; x < array.length(); x++) {

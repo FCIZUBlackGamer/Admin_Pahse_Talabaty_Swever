@@ -30,7 +30,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.talabaty.swever.admin.Home;
 import com.talabaty.swever.admin.LoginDatabae;
+import com.talabaty.swever.admin.Mabi3at.Mabi3atNavigator;
 import com.talabaty.swever.admin.Montagat.Additions.Item;
 import com.talabaty.swever.admin.Montagat.Additions.ItemAdapter;
 import com.talabaty.swever.admin.Montagat.ControlMontag.ControlMontagModel;
@@ -88,8 +90,22 @@ public class FragmentUnit extends Fragment {
         while (cursor.moveToNext()) {
             shopId = Integer.parseInt(cursor.getString(3));
         }
+        try {
+            ((Home) getActivity())
+                    .setActionBarTitle("اضف وحدة");
+        }catch (Exception e){
+            ((Mabi3atNavigator) getActivity())
+                    .setActionBarTitle("اضف وحدة");
+        }
 
         if (montagModel != null) {
+            try {
+                ((Home) getActivity())
+                        .setActionBarTitle("تعديل وحدة");
+            }catch (Exception e){
+                ((Mabi3atNavigator) getActivity())
+                        .setActionBarTitle("تعديل وحدة");
+            }
             name.setText(montagModel.getName());
             UPLOAD_LINK = "http://sellsapi.rivile.com/Units/EditUnits";
             save.setText("تعديل");
@@ -200,6 +216,11 @@ public class FragmentUnit extends Fragment {
                             params.put("Names", jsonInString);
 
                             params.put("token", "bKPNOJrob8x");
+
+                            if (montagModel != null){
+                                params.put("Id", montagModel.getId()+"");
+                                Log.e("Id", montagModel.getId()+"");
+                            }
 
                             //returning parameters
                             return params;

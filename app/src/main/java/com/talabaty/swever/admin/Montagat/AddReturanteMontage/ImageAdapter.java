@@ -40,9 +40,14 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.Vholder> {
 
 
 //        holder.image_button.setImageBitmap(imageSources.get(position));
-        Picasso.with(context).load(uris.get(position)).into(holder.image_button);
+        try {
+            if (uris.get(position) != null)
+                Picasso.with(context).load(uris.get(position)).into(holder.image_button);
+        } catch (Exception e) {
 
-        if (holder.image_button.getDrawable() == null){
+        }
+
+        if (imageSources.get(position) != null){
             holder.image_button.setImageBitmap(imageSources.get(position));
         }
 

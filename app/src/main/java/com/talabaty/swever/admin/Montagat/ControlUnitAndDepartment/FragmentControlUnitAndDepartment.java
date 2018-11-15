@@ -87,14 +87,20 @@ public class FragmentControlUnitAndDepartment extends Fragment {
             shopId = cursor.getString(3);
         }
 
-        ((Home) getActivity())
-                .setActionBarTitle("عمليات المنتجات");
+
 
         Log.e("Start","Hello "+Type);
         if (Type.equals("5")) // load unit
+        {
+            ((Home) getActivity())
+                    .setActionBarTitle("عمليات الوحدات");
             loadUnit();
-        else if (Type.equals("6")) // load dep
+        } else if (Type.equals("6")) // load dep
+        {
+            ((Home) getActivity())
+                    .setActionBarTitle("عمليات الاقسام");
             loadDepartment();
+        }
 
 //        Toast.makeText(getActivity(),"additions",Toast.LENGTH_SHORT).show();
 //        for (int x = 0; x < 10; x++) {
@@ -132,7 +138,7 @@ public class FragmentControlUnitAndDepartment extends Fragment {
 //        }
         models = new ArrayList<>();
         final ProgressDialog loading = ProgressDialog.show(getActivity(), "Uploading...", "Please wait...", false, false);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://sellsapi.rivile.com/SampleCatogories/List",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://sellsapi.rivile.com/Units/List",
                 new Response.Listener<String>() {
                     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                     @Override
@@ -164,7 +170,7 @@ public class FragmentControlUnitAndDepartment extends Fragment {
                                     Item item = new Item(x + 1);
                                     item.setId(object1.getString("Id"));
                                     item.setName(object1.getString("Name"));
-                                    item.setShopId(object1.getInt("ShopId"));
+                                    item.setShop_Id(object1.getInt("Shop_Id"));
 
 
                                     models.add(item);
@@ -231,7 +237,7 @@ public class FragmentControlUnitAndDepartment extends Fragment {
 
         models = new ArrayList<>();
         final ProgressDialog loading = ProgressDialog.show(getActivity(), "Uploading...", "Please wait...", false, false);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.rivile.com/Additions/List?ShopId="+shopId+"&token=bKPNOJrob8x",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://sellsapi.rivile.com/SampleCatogories/List",
                 new Response.Listener<String>() {
                     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                     @Override
@@ -251,7 +257,7 @@ public class FragmentControlUnitAndDepartment extends Fragment {
                                     Item item = new Item(x + 1);
                                     item.setId(object1.getString("Id"));
                                     item.setName(object1.getString("Name"));
-                                    item.setShopId(object1.getInt("ShopId"));
+                                    item.setShop_Id(object1.getInt("ShopId"));
 
                                     models.add(item);
                                 }
@@ -294,6 +300,7 @@ public class FragmentControlUnitAndDepartment extends Fragment {
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap hashMap = new HashMap();
                 hashMap.put("token", "bKPNOJrob8x");
+                hashMap.put("ShopId", shopId);
                 return hashMap;
             }
         };

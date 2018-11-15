@@ -6,9 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -38,8 +36,10 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.talabaty.swever.admin.DetailsModel;
 import com.talabaty.swever.admin.LoginDatabae;
+import com.talabaty.swever.admin.Mabi3atPermission;
 import com.talabaty.swever.admin.Options.Details.DetailsAdapter;
 import com.talabaty.swever.admin.R;
+import com.talabaty.swever.admin.Mabi3atDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -75,7 +75,11 @@ public class DonTalabatAdapter extends RecyclerView.Adapter<DonTalabatAdapter.Vh
     int userid, shopid;
 
     View view;
-    int position;
+    int cur;
+
+    Mabi3atDatabase systemDatabase;
+    Cursor sysCursor;
+    Mabi3atPermission permission;
 
     public DonTalabatAdapter(Context context, List<Talabat> talabats, int temp_first, int temp_last) {
         this.context = context;
@@ -95,14 +99,24 @@ public class DonTalabatAdapter extends RecyclerView.Adapter<DonTalabatAdapter.Vh
             shopid = Integer.parseInt(cursor.getString(3));
 
         }
+        systemDatabase = new Mabi3atDatabase(context);
+        sysCursor = systemDatabase.ShowData();
+
+        permission = new Mabi3atPermission();
+        while (sysCursor.moveToNext()) {
+            if (sysCursor.getString(12).equals("7")) {
+                permission.setDetalis(Boolean.valueOf(sysCursor.getString(2)));
+                permission.setSends(Boolean.valueOf(sysCursor.getString(3)));
+            }
+        }
         return new Vholder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Vholder holder, final int positio) {
+    public void onBindViewHolder(@NonNull Vholder holder,final int positio) {
 
 
-        position = positio;
+
         holder.id.setText(talabats.get(positio).getId());
         holder.name.setText(talabats.get(positio).getName());
         holder.phone.setText(talabats.get(positio).getPhone());
@@ -117,10 +131,17 @@ public class DonTalabatAdapter extends RecyclerView.Adapter<DonTalabatAdapter.Vh
         EmpoyeeList = new ArrayList<>();
         indexOfEmpoyeeList = new ArrayList<>();
 
+        if (!permission.isDetalis()) {
+            holder.show.setVisibility(View.GONE);
+        }
+        if (!permission.isSends()) {
+            holder.start.setVisibility(View.GONE);
+        }
 
         holder.show.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                cur = positio;
                 final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 details = inflater.inflate(R.layout.dialog_details_talabat, null);
                 submit = details.findViewById(R.id.done);
@@ -129,7 +150,7 @@ public class DonTalabatAdapter extends RecyclerView.Adapter<DonTalabatAdapter.Vh
                 submit.setVisibility(View.GONE);
                 final TextView num_order = details.findViewById(R.id.order_num);
                 final EditText total = details.findViewById(R.id.total);
-                num_order.setText(talabats.get(position).getNum());
+                num_order.setText(talabats.get(cur).getNum());
 
                 LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
                 recyclerView = (RecyclerView) details.findViewById(R.id.details_rec);
@@ -176,8 +197,10 @@ public class DonTalabatAdapter extends RecyclerView.Adapter<DonTalabatAdapter.Vh
                 next.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (position < temp_last) {
-                            loadData(Integer.parseInt(talabats.get(++position).getNum()), "2", num_order, total, dialog);
+                        if (cur < temp_last && cur < talabats.size()-1) {
+                            //cur = positio;
+                            loadData(Integer.parseInt(talabats.get(++cur).getNum()), "2", num_order, total, dialog);
+                            num_order.setText(talabats.get(cur).getNum());
                         } else {
                             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 //
@@ -199,8 +222,11 @@ public class DonTalabatAdapter extends RecyclerView.Adapter<DonTalabatAdapter.Vh
                 prev.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (temp_first < position) {
-                            loadData(Integer.parseInt(talabats.get(--position).getNum()), "1", num_order, total, dialog);
+
+                        if (0 < cur) {
+                            //cur = positio;
+                            loadData(Integer.parseInt(talabats.get(--cur).getNum()), "1", num_order, total, dialog);
+                            num_order.setText(talabats.get(cur).getNum());
                         } else {
                             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -353,7 +379,7 @@ public class DonTalabatAdapter extends RecyclerView.Adapter<DonTalabatAdapter.Vh
 //                Toast.makeText(context, "لا يتواجد اى بريد الكترونى هنا!", Toast.LENGTH_SHORT).show();
 //            }
 
-            submitMessage(message_content.getText().toString(),message_title.getText().toString(),message_template.getSelectedItem().toString(),1);
+            submitMessage(message_content.getText().toString(),message_title.getText().toString(),message_template.getSelectedItem().toString(),1, s);
 
         } else if (message_type.getSelectedItem().toString().equals("رساله نصيه")) {
 
@@ -364,10 +390,10 @@ public class DonTalabatAdapter extends RecyclerView.Adapter<DonTalabatAdapter.Vh
 //            } catch (android.content.ActivityNotFoundException ex) {
 //                Toast.makeText(context, "لا يتواجد اى بريد الكترونى هنا!", Toast.LENGTH_SHORT).show();
 //            }
-            submitMessage(message_content.getText().toString(),message_title.getText().toString(),message_template.getSelectedItem().toString(),3);
+            submitMessage(message_content.getText().toString(),message_title.getText().toString(),message_template.getSelectedItem().toString(),3,s);
 
         }else if (message_type.getSelectedItem().toString().equals("رساله عبر الإيميل")){
-            submitMessage(message_content.getText().toString(),message_title.getText().toString(),message_template.getSelectedItem().toString(),2);
+            submitMessage(message_content.getText().toString(),message_title.getText().toString(),message_template.getSelectedItem().toString(),2,s);
         }
 
         clearMessageView();
@@ -375,7 +401,7 @@ public class DonTalabatAdapter extends RecyclerView.Adapter<DonTalabatAdapter.Vh
 
     }
 
-    private void submitMessage(final String Mes, final String sub, final String Res, final int option) {
+    private void submitMessage(final String Mes, final String sub, final String Res, final int option, final int position) {
 
         final ProgressDialog progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("انتظر من فضلك ...");
@@ -451,7 +477,10 @@ public class DonTalabatAdapter extends RecyclerView.Adapter<DonTalabatAdapter.Vh
                 hashMap.put("Res", Res + "");
                 hashMap.put("options", option + "");
                 hashMap.put("Sub", sub + "");
-                hashMap.put("UserId", userid+"");
+                hashMap.put("UserId", userid + "");
+                hashMap.put("ShopId", shopid + "");
+                hashMap.put("OrderId", talabats.get(position).getNum() + "");
+                hashMap.put("token", "bKPNOJrob8x");
                 return hashMap;
             }
         };

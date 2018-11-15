@@ -15,10 +15,14 @@ import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
@@ -39,6 +43,9 @@ import com.talabaty.swever.admin.Montagat.NewFood.FragmentAddNewFood;
 import com.talabaty.swever.admin.Offers.Fragment_Offer_home;
 import com.talabaty.swever.admin.Offers.Fragment_offers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Home extends AppCompatActivity
@@ -52,7 +59,13 @@ public class Home extends AppCompatActivity
     CircleImageView imageView;
     TextView user_name;
     LoginDatabae loginDatabae;
-    Cursor cursor;
+    SystemDatabase systemDatabase;
+    Cursor cursor, sysCursor;
+    List<SystemPermission> permissions;
+
+    Mabi3atDatabase systemDatabaseddd;
+    Cursor cursordd;
+    boolean trend_view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,17 +74,71 @@ public class Home extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         intent = getIntent();
-//        Bundle bundle = intent.getExtras();
-//        if (bundle != null) {
-//            for (String key : bundle.keySet()) {
-//                Object value = bundle.get(key);
-//                Log.e("OOOK", String.format("%s %s (%s)", key,
-//                        value.toString(), value.getClass().getName()));
-//            }
-//        }
-//        Log.e("Intent",intent.getDataString());
+
         loginDatabae = new LoginDatabae(this);
         cursor = loginDatabae.ShowData();
+
+
+        systemDatabaseddd = new Mabi3atDatabase(this);
+        cursordd = systemDatabaseddd.ShowData();
+        while (cursordd.moveToNext()) {
+            if (cursordd.getString(12).equals("9")) {
+                trend_view = Boolean.valueOf(cursordd.getString(1));
+            }
+        }
+
+        systemDatabase = new SystemDatabase(this);
+        sysCursor = systemDatabase.ShowData();
+        permissions = new ArrayList<>();
+        while (sysCursor.moveToNext()) {
+            SystemPermission systemPermission = new SystemPermission();
+            systemPermission.setCreate(Boolean.valueOf(sysCursor.getString(1)));
+            systemPermission.setDelete(Boolean.valueOf(sysCursor.getString(2)));
+            systemPermission.setView(Boolean.valueOf(sysCursor.getString(3)));
+            systemPermission.setUpdate(Boolean.valueOf(sysCursor.getString(4)));
+            systemPermission.setScreensId(Integer.parseInt(sysCursor.getString(5)));
+            permissions.add(systemPermission);
+        }
+
+        while (sysCursor.moveToNext()) {
+            Log.e("0", sysCursor.getString(0));
+            Log.e("1", sysCursor.getString(1));
+            Log.e("2", sysCursor.getString(2));
+            Log.e("3", sysCursor.getString(3));
+            Log.e("4", sysCursor.getString(4));
+        }
+
+        if (permissions.size()==0){
+            LayoutInflater inflater = getLayoutInflater();
+            View layout = inflater.inflate(R.layout.toast_warning,
+                    (ViewGroup) findViewById(R.id.lay));
+
+            TextView text = (TextView) layout.findViewById(R.id.txt);
+
+            text.setText(" لا يتم تحديث الصلاحيات");
+
+            Toast toast = new Toast(getApplicationContext());
+            toast.setGravity(Gravity.BOTTOM, 0, 0);
+            toast.setDuration(Toast.LENGTH_LONG);
+            toast.setView(layout);
+            toast.show();
+            Intent intent = new Intent(Home.this, Temp.class);
+            startActivity(intent);
+        }
+
+//        LayoutInflater inflater = getLayoutInflater();
+//        View layout = inflater.inflate(R.layout.toast_info,
+//                (ViewGroup) findViewById(R.id.lay));
+//
+//        TextView text = (TextView) layout.findViewById(R.id.txt);
+//
+//        text.setText(" تم تحديث الصلاحيات");
+//
+//        Toast toast = new Toast(getApplicationContext());
+//        toast.setGravity(Gravity.BOTTOM, 0, 0);
+//        toast.setDuration(Toast.LENGTH_LONG);
+//        toast.setView(layout);
+//        toast.show();
         fragmentManager = getSupportFragmentManager();
 //        fragment = new MainHome();
 //        fragmentManager.beginTransaction().replace(R.id.frame_mabi3at, new MainHome()).commit();
@@ -230,8 +297,25 @@ public class Home extends AppCompatActivity
             nav_Menu.findItem(R.id.nav_management).setIcon(R.drawable.ic_assistant_photo_off_24dp);
 
 //            fragment = new MainHome();
-            fragmentManager.beginTransaction().replace(R.id.frame_mabi3at, new Fragment_Offer_home()).addToBackStack("Fragment_Offer_home").commit();
-            getSupportActionBar().setTitle("العروض");
+            if (permissions.get(1).isView()) {
+                fragmentManager.beginTransaction().replace(R.id.frame_mabi3at, new Fragment_Offer_home()).addToBackStack("Fragment_Offer_home").commit();
+                getSupportActionBar().setTitle("العروض");
+            } else {
+                LayoutInflater inflater = getLayoutInflater();
+                View layout = inflater.inflate(R.layout.toast_warning,
+                        (ViewGroup) findViewById(R.id.lay));
+
+                TextView text = (TextView) layout.findViewById(R.id.txt);
+
+                text.setText(" لا توجد صلاحيه للدخول");
+
+                Toast toast = new Toast(getApplicationContext());
+                toast.setGravity(Gravity.BOTTOM, 0, 0);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout);
+                toast.show();
+            }
+
 //            startActivity(new Intent(Home.this, Mabi3atNavigator.class));
         }else if (id == R.id.nav_mabe3at) {
             this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -243,8 +327,24 @@ public class Home extends AppCompatActivity
             nav_Menu.findItem(R.id.nav_management).setIcon(R.drawable.ic_assistant_photo_off_24dp);
 
 //            fragment = new MainHome();
-            fragmentManager.beginTransaction().replace(R.id.frame_mabi3at, new MainHome()).addToBackStack("MainHome").commit();
-            getSupportActionBar().setTitle("المبيعات");
+            if (permissions.get(0).isView()) {
+                fragmentManager.beginTransaction().replace(R.id.frame_mabi3at, new MainHome()).addToBackStack("MainHome").commit();
+                getSupportActionBar().setTitle("المبيعات");
+            } else {
+                LayoutInflater inflater = getLayoutInflater();
+                View layout = inflater.inflate(R.layout.toast_warning,
+                        (ViewGroup) findViewById(R.id.lay));
+
+                TextView text = (TextView) layout.findViewById(R.id.txt);
+
+                text.setText(" لا توجد صلاحيه للدخول");
+
+                Toast toast = new Toast(getApplicationContext());
+                toast.setGravity(Gravity.BOTTOM, 0, 0);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout);
+                toast.show();
+            }
 //            startActivity(new Intent(Home.this, Mabi3atNavigator.class));
         } else if (id == R.id.nav_montagat) {
             nav_Menu.findItem(R.id.nav_mabe3at).setIcon(R.drawable.ic_shopping_basket_off_24dp);
@@ -254,8 +354,24 @@ public class Home extends AppCompatActivity
             nav_Menu.findItem(R.id.nav_contact).setIcon(R.drawable.ic_message_off_24dp);
             nav_Menu.findItem(R.id.nav_management).setIcon(R.drawable.ic_assistant_photo_off_24dp);
 //            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            fragmentManager.beginTransaction().replace(R.id.frame_mabi3at, new FragmentMontag()).addToBackStack("FragmentMontag").commit();
-            getSupportActionBar().setTitle("المنتجات");
+            if (permissions.get(1).isView()) {
+                fragmentManager.beginTransaction().replace(R.id.frame_mabi3at, new FragmentMontag()).addToBackStack("FragmentMontag").commit();
+                getSupportActionBar().setTitle("المنتجات");
+            } else {
+                LayoutInflater inflater = getLayoutInflater();
+                View layout = inflater.inflate(R.layout.toast_warning,
+                        (ViewGroup) findViewById(R.id.lay));
+
+                TextView text = (TextView) layout.findViewById(R.id.txt);
+
+                text.setText(" لا توجد صلاحيه للدخول");
+
+                Toast toast = new Toast(getApplicationContext());
+                toast.setGravity(Gravity.BOTTOM, 0, 0);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout);
+                toast.show();
+            }
         } else if (id == R.id.nav_trendmontag) {
 
             nav_Menu.findItem(R.id.nav_mabe3at).setIcon(R.drawable.ic_shopping_basket_off_24dp);
@@ -267,9 +383,25 @@ public class Home extends AppCompatActivity
 //            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 //            fragmentManager.beginTransaction().replace(R.id.frame_mabi3at, new Fragment_offers_Restaurant()).addToBackStack("Fragment_offers_Restaurant").commit();
 //            getSupportActionBar().setTitle("المنتجات الأكثر بيعا");
-            Intent intent = new Intent(this, Mabi3atNavigator.class);
-            intent.putExtra("fragment","trend");
-            startActivity(intent);
+            if (trend_view) {
+                Intent intent = new Intent(this, Mabi3atNavigator.class);
+                intent.putExtra("fragment", "trend");
+                startActivity(intent);
+            } else {
+                LayoutInflater inflater = getLayoutInflater();
+                View layout = inflater.inflate(R.layout.toast_warning,
+                        (ViewGroup) findViewById(R.id.lay));
+
+                TextView text = (TextView) layout.findViewById(R.id.txt);
+
+                text.setText(" لا توجد صلاحيه للدخول");
+
+                Toast toast = new Toast(getApplicationContext());
+                toast.setGravity(Gravity.BOTTOM, 0, 0);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout);
+                toast.show();
+            }
         } else if (id == R.id.nav_customer) {
 
             nav_Menu.findItem(R.id.nav_mabe3at).setIcon(R.drawable.ic_shopping_basket_off_24dp);
@@ -281,9 +413,25 @@ public class Home extends AppCompatActivity
 //            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 //            fragmentManager.beginTransaction().replace(R.id.frame_mabi3at, new Fragment_offers_Restaurant()).addToBackStack("Fragment_offers_Restaurant").commit();
 //            getSupportActionBar().setTitle("العملاء");
-            Intent intent = new Intent(this, Mabi3atNavigator.class);
-            intent.putExtra("fragment","report");
-            startActivity(intent);
+            if (permissions.get(2).isView()) {
+                Intent intent = new Intent(this, Mabi3atNavigator.class);
+                intent.putExtra("fragment", "report");
+                startActivity(intent);
+            } else {
+                LayoutInflater inflater = getLayoutInflater();
+                View layout = inflater.inflate(R.layout.toast_warning,
+                        (ViewGroup) findViewById(R.id.lay));
+
+                TextView text = (TextView) layout.findViewById(R.id.txt);
+
+                text.setText(" لا توجد صلاحيه للدخول");
+
+                Toast toast = new Toast(getApplicationContext());
+                toast.setGravity(Gravity.BOTTOM, 0, 0);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout);
+                toast.show();
+            }
         } else if (id == R.id.nav_contact) {
 
             nav_Menu.findItem(R.id.nav_mabe3at).setIcon(R.drawable.ic_shopping_basket_off_24dp);
@@ -292,8 +440,24 @@ public class Home extends AppCompatActivity
             nav_Menu.findItem(R.id.nav_customer).setIcon(R.drawable.ic_people_off_24dp);
             nav_Menu.findItem(R.id.nav_contact).setIcon(R.drawable.ic_message_on_24dp);
             nav_Menu.findItem(R.id.nav_management).setIcon(R.drawable.ic_assistant_photo_off_24dp);
-            fragmentManager.beginTransaction().replace(R.id.frame_mabi3at, new CommunicationHome()).addToBackStack("CommunicationHome").commit();
-            getSupportActionBar().setTitle("التواصل");
+            if (permissions.get(3).isView()) {
+                fragmentManager.beginTransaction().replace(R.id.frame_mabi3at, new CommunicationHome()).addToBackStack("CommunicationHome").commit();
+                getSupportActionBar().setTitle("التواصل");
+            } else {
+                LayoutInflater inflater = getLayoutInflater();
+                View layout = inflater.inflate(R.layout.toast_warning,
+                        (ViewGroup) findViewById(R.id.lay));
+
+                TextView text = (TextView) layout.findViewById(R.id.txt);
+
+                text.setText(" لا توجد صلاحيه للدخول");
+
+                Toast toast = new Toast(getApplicationContext());
+                toast.setGravity(Gravity.BOTTOM, 0, 0);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout);
+                toast.show();
+            }
         } else if (id == R.id.nav_management) {
 
             nav_Menu.findItem(R.id.nav_mabe3at).setIcon(R.drawable.ic_shopping_basket_off_24dp);
@@ -302,14 +466,29 @@ public class Home extends AppCompatActivity
             nav_Menu.findItem(R.id.nav_customer).setIcon(R.drawable.ic_people_off_24dp);
             nav_Menu.findItem(R.id.nav_contact).setIcon(R.drawable.ic_message_off_24dp);
             nav_Menu.findItem(R.id.nav_management).setIcon(R.drawable.ic_assistant_photo_on_24dp);
-            getSupportActionBar().setTitle("إداره الموظفين");
-            fragmentManager.beginTransaction().replace(R.id.frame_mabi3at, new ManagmentHome()).addToBackStack("ManagmentHome").commit();
-        } else if (id == R.id.nav_out) {
-            loginDatabae.UpdateData("1","c","c","c","0","","");
-            this.finish();
-            System.exit(0);
-        }
+            if (permissions.get(4).isView()) {
+                getSupportActionBar().setTitle("إداره الموظفين");
+                fragmentManager.beginTransaction().replace(R.id.frame_mabi3at, new ManagmentHome()).addToBackStack("ManagmentHome").commit();
+            } else {
+                LayoutInflater inflater = getLayoutInflater();
+                View layout = inflater.inflate(R.layout.toast_warning,
+                        (ViewGroup) findViewById(R.id.lay));
 
+                TextView text = (TextView) layout.findViewById(R.id.txt);
+
+                text.setText(" لا توجد صلاحيه للدخول");
+
+                Toast toast = new Toast(getApplicationContext());
+                toast.setGravity(Gravity.BOTTOM, 0, 0);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout);
+                toast.show();
+            }
+        } else if (id == R.id.nav_out) {
+            loginDatabae.UpdateData("1", "c", "c", "c", "0", "", "", "");
+            this.finish();
+            startActivity(new Intent(Home.this,Login.class));
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

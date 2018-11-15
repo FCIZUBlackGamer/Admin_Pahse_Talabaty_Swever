@@ -69,7 +69,7 @@ public class ControlUnitAndDepartmentAdapter extends RecyclerView.Adapter<Contro
         holder.id.setText(models.get(position).getNum() + "");
         holder.name.setText(models.get(position).getName() + "");
 
-        if (Type == 5) {
+        if (Type == 6) {
 
             DeleteLink = "http://sellsapi.rivile.com/SampleCatogories/DelSampleCatogery";
         } else {
@@ -80,7 +80,7 @@ public class ControlUnitAndDepartmentAdapter extends RecyclerView.Adapter<Contro
             @Override
             public void onClick(View v) {
 
-                if (Type == 5) {
+                if (Type == 6) {
                     FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
                     transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
                     transaction.replace(R.id.frame_mabi3at, new FragmentDepartment().setData(models.get(position)));
@@ -145,7 +145,22 @@ public class ControlUnitAndDepartmentAdapter extends RecyclerView.Adapter<Contro
                             View layout = inflater.inflate(R.layout.toast_info, null);
 
                             TextView text = (TextView) layout.findViewById(R.id.txt);
-                            text.setText("لا يمكن مسح المنتج لوجود طلبات معلقه به");
+                            text.setText("حدث خطأ");
+
+                            Toast toast = new Toast(context);
+                            toast.setGravity(Gravity.BOTTOM, 0, 0);
+                            toast.setDuration(Toast.LENGTH_LONG);
+                            toast.setView(layout);
+                            toast.show();
+
+                        }else if (s.equals("\"Wrong\"")) {
+
+                            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+                            View layout = inflater.inflate(R.layout.toast_info, null);
+
+                            TextView text = (TextView) layout.findViewById(R.id.txt);
+                            text.setText("لا يمكن المسح لوجود طلبات معلقه به");
 
                             Toast toast = new Toast(context);
                             toast.setGravity(Gravity.BOTTOM, 0, 0);

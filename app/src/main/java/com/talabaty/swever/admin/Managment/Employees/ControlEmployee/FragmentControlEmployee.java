@@ -89,16 +89,6 @@ public class FragmentControlEmployee extends Fragment {
 
     private void loadJobTitle(final int ShopId) {
 
-//        if (employeeList.size() > 0) {
-//            for (int x = 0; x < employeeList.size(); x++) {
-//                employeeList.remove(x);
-//                jobKind.remove(x);
-//                jobNatural.remove(x);
-//                jobPrivilage.remove(x);
-//                jobManage.remove(x);
-//            }
-//        }
-
         employeeList = new ArrayList<>();
         jobKind = new ArrayList<>();
         jobNatural = new ArrayList<>();

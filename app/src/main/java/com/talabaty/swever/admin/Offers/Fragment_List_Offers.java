@@ -120,7 +120,7 @@ public class Fragment_List_Offers extends Fragment {
                             String photo = jsonObject1.getString("Photo");
                             int id = jsonObject1.getInt("Id");
                             double price = jsonObject1.getDouble("Price");
-                            ListOfferModel model = new ListOfferModel(id, name, "http://www.selltlbaty.rivile.com" + photo, price);
+                            ListOfferModel model = new ListOfferModel(id, name, photo, price);
                             listOfferModels.add(model);
 
                         }

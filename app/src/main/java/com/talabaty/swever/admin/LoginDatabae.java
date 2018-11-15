@@ -28,6 +28,8 @@ public class LoginDatabae extends SQLiteOpenHelper{
 
     private static final String CAT = "cat"; //http://www.selltlbaty.sweverteam.com/
 
+    private static final String Rule = "rule"; //http://www.selltlbaty.sweverteam.com/
+
     private static final int DATABASE_VERSION = 3;
     Context cont;
 
@@ -39,7 +41,8 @@ public class LoginDatabae extends SQLiteOpenHelper{
             +SHOP_ID+" varchar(20) , "
             +TYPE+" varchar(255) not null, "
             +IMAGE+" varchar(255), "
-            +CAT+" varchar(255) );";
+            +CAT+" varchar(255), "
+            +Rule+" varchar(255) );";
 
     // Database Deletion
     private static final String DATABASE_DROP = "drop table if exists "+TABLE_NAME+";";
@@ -53,7 +56,7 @@ public class LoginDatabae extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
         try {
             db.execSQL(DATABASE_CREATE);
-            db.execSQL("insert into "+TABLE_NAME+" ( "+UID+", "+NAME+", "+USER_ID+", "+SHOP_ID+", "+TYPE+"," +IMAGE+"," +CAT+") values ( '1', 'e', '0', '0', '0', '0', '0');");
+            db.execSQL("insert into "+TABLE_NAME+" ( "+UID+", "+NAME+", "+USER_ID+", "+SHOP_ID+", "+TYPE+"," +IMAGE+"," +CAT+"," +Rule+") values ( '1', 'e', '0', '0', '0', '0', '0', '0');");
             // Toast.makeText(cont,"تم إنشاء سله تسوق", Toast.LENGTH_SHORT).show();
         }catch (SQLException e)
         {
@@ -95,7 +98,7 @@ public class LoginDatabae extends SQLiteOpenHelper{
         return cursor;
     }
 
-    public boolean UpdateData (String id, String name, String userid ,String shopid, String type, String image, String cat)
+    public boolean UpdateData (String id, String name, String userid ,String shopid, String type, String image, String cat, String rule)
     {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -106,6 +109,7 @@ public class LoginDatabae extends SQLiteOpenHelper{
         contentValues.put(TYPE,type);
         contentValues.put(IMAGE,image);
         contentValues.put(CAT,cat);
+        contentValues.put(Rule,rule);
         sqLiteDatabase.update(TABLE_NAME,contentValues,"id = ?",new String[]{id});
 
         return true;

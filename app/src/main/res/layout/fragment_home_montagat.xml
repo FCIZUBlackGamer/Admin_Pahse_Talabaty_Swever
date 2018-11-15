@@ -156,6 +156,7 @@
            android:layout_marginEnd="2dp"
            android:layout_marginStart="2dp"
            android:layout_marginTop="1dp"
+           android:id="@+id/unit"
            android:orientation="horizontal">
 
            <RelativeLayout
@@ -295,6 +296,7 @@
            android:layout_marginEnd="2dp"
            android:layout_marginStart="2dp"
            android:layout_marginTop="1dp"
+           android:id="@+id/dep"
            android:orientation="horizontal">
 
            <RelativeLayout
@@ -332,7 +334,7 @@
                    android:layout_marginTop="10dp"
                    android:fontFamily="@font/changamedium"
                    android:gravity="center_horizontal"
-                   android:text="عمليات الوحدات"
+                   android:text="عمليات الاقسام"
                    android:textColor="@color/white"
                    android:textSize="18sp" />
 

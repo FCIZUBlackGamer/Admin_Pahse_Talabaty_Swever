@@ -494,13 +494,14 @@ public class Mabi3atTrendReports extends Fragment {
                             JSONObject object = new JSONObject(response);
                             JSONArray array = object.getJSONArray("BestSell");
                             if (array.length() > 0) {
-                                final int size = bestSells.size();
-                                if (size > 0) {
-                                    for (int i = 0; i < size; i++) {
-                                        bestSells.remove(0);
-                                    }
-                                    adapter.notifyItemRangeRemoved(0, size);
-                                }
+//                                final int size = bestSells.size();
+//                                if (size > 0) {
+//                                    for (int i = 0; i < size; i++) {
+//                                        bestSells.remove(0);
+//                                    }
+//                                    adapter.notifyItemRangeRemoved(0, size);
+//                                }
+                                bestSells = new ArrayList<>();
                                 for (int x = 0; x < array.length(); x++) {
                                     JSONObject object1 = array.getJSONObject(x);
                                     if (x == 0) {

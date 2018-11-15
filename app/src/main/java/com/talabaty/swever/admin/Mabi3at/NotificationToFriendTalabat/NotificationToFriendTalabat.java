@@ -340,13 +340,13 @@ public class NotificationToFriendTalabat extends Fragment {
                             JSONObject object = new JSONObject(response);
                             JSONArray array = object.getJSONArray("TransportOrder");
                             Log.e("array.length()", array.length() + "");
-                            final int size = talabats.size();
-                            if (size > 0) {
-                                for (int i = 0; i < size; i++) {
-                                    talabats.remove(0);
-                                }
-                                adapter.notifyItemRangeRemoved(0, size);
-                            }
+//                            final int size = talabats.size();
+//                            if (size > 0) {
+//                                for (int i = 0; i < size; i++) {
+//                                    talabats.remove(0);
+//                                }
+//                                adapter.notifyItemRangeRemoved(0, size);
+//                            }
                             if (array.length() == 0) {
                                 LayoutInflater inflater = getLayoutInflater();
                                 View layout = inflater.inflate(R.layout.toast_info,
@@ -362,6 +362,7 @@ public class NotificationToFriendTalabat extends Fragment {
                                 toast.show();
 
                             }else {
+                                talabats = new ArrayList<>();
                                 for (int x = 0; x < array.length(); x++) {
                                     JSONObject object1 = array.getJSONObject(x);
                                     Log.e("x", x + "");

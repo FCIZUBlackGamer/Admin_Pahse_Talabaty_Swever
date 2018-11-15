@@ -40,7 +40,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.Vholder> {
     public void onBindViewHolder(@NonNull Vholder holder, final int position) {
 
         holder.name.setText(agents.get(position).getName());
-        holder.price.setText(agents.get(position).getNum()+"");
+        holder.price.setText(agents.get(position).getPrice()+"");
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

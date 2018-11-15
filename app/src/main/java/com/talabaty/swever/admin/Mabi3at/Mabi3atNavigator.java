@@ -12,14 +12,19 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.talabaty.swever.admin.AgentReports.Fragment_agent_report;
 import com.talabaty.swever.admin.Home;
+import com.talabaty.swever.admin.Login;
 import com.talabaty.swever.admin.LoginDatabae;
 import com.talabaty.swever.admin.Mabi3at.Delevry.DelevryHome;
 import com.talabaty.swever.admin.Mabi3at.DoneTalabat.DoneTalabat;
@@ -31,18 +36,23 @@ import com.talabaty.swever.admin.Mabi3at.RejectedReports.RejectedReports;
 import com.talabaty.swever.admin.Mabi3at.ReturnedTalabat.ReturnedTalabatFragment;
 import com.talabaty.swever.admin.Mabi3at.SailedReports.SailedReports;
 import com.talabaty.swever.admin.Mabi3at.Tasks.MyTasksFragment;
+import com.talabaty.swever.admin.Mabi3atDatabase;
 import com.talabaty.swever.admin.Mabi3atTrend.Mabi3atTrendReports;
 import com.talabaty.swever.admin.Managment.Employees.ControlEmployee.FragmentControlEmployee;
 import com.talabaty.swever.admin.Managment.Privilages.AddPrivilege.FragmentAddPrivilege;
 import com.talabaty.swever.admin.Managment.Privilages.ControlPrivilege.FragmentControlPrivilege;
 import com.talabaty.swever.admin.Montagat.ControlBaseFood_Additions.FragmentControlBaseFood_Additions;
 import com.talabaty.swever.admin.Montagat.ControlMontag.ControlMontag;
-import com.talabaty.swever.admin.Offers.Fragment_Offer_home;
 import com.talabaty.swever.admin.Offers.Fragment_offers;
 import com.talabaty.swever.admin.Offers.Market.Fragment_offers_Market;
 import com.talabaty.swever.admin.Offers.Restaurant.Fragment_offers_Restaurant;
 import com.talabaty.swever.admin.Offers.TotalOffer;
 import com.talabaty.swever.admin.R;
+import com.talabaty.swever.admin.SystemDatabase;
+import com.talabaty.swever.admin.SystemPermission;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -57,6 +67,13 @@ public class Mabi3atNavigator extends AppCompatActivity implements NavigationVie
     TextView user_name;
     LoginDatabae loginDatabae;
     Cursor cursor;
+    SystemDatabase systemDatabase;
+    Cursor sysCursor;
+    List<SystemPermission> permissions;
+
+    Mabi3atDatabase systemDatabaseddd;
+    Cursor cursordd;
+    boolean trend_view;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,6 +84,27 @@ public class Mabi3atNavigator extends AppCompatActivity implements NavigationVie
 
         loginDatabae = new LoginDatabae(this);
         cursor = loginDatabae.ShowData();
+
+        systemDatabase = new SystemDatabase(this);
+        sysCursor = systemDatabase.ShowData();
+        permissions = new ArrayList<>();
+        while (sysCursor.moveToNext()) {
+            SystemPermission systemPermission = new SystemPermission();
+            systemPermission.setCreate(Boolean.valueOf(sysCursor.getString(1)));
+            systemPermission.setDelete(Boolean.valueOf(sysCursor.getString(2)));
+            systemPermission.setView(Boolean.valueOf(sysCursor.getString(3)));
+            systemPermission.setUpdate(Boolean.valueOf(sysCursor.getString(4)));
+            systemPermission.setScreensId(Integer.parseInt(sysCursor.getString(5)));
+            permissions.add(systemPermission);
+        }
+
+        systemDatabaseddd = new Mabi3atDatabase(this);
+        cursordd = systemDatabaseddd.ShowData();
+        while (cursordd.moveToNext()){
+            if (cursordd.getString(12).equals("9")){
+                trend_view = Boolean.valueOf(cursordd.getString(1));
+            }
+        }
 
         //Get Fragment Name
         intent = getIntent();
@@ -214,9 +252,25 @@ public class Mabi3atNavigator extends AppCompatActivity implements NavigationVie
             nav_Menu.findItem(R.id.nav_management).setIcon(R.drawable.ic_assistant_photo_off_24dp);
 
 //            fragment = new MainHome();
-            Intent intent = new Intent(Mabi3atNavigator.this,Home.class);
-            intent.putExtra("fragment","offer");
-            startActivity(intent);
+            if (permissions.get(1).isView()) {
+                Intent intent = new Intent(Mabi3atNavigator.this, Home.class);
+                intent.putExtra("fragment", "offer");
+                startActivity(intent);
+            } else {
+                LayoutInflater inflater = getLayoutInflater();
+                View layout = inflater.inflate(R.layout.toast_warning,
+                        (ViewGroup) findViewById(R.id.lay));
+
+                TextView text = (TextView) layout.findViewById(R.id.txt);
+
+                text.setText(" لا توجد صلاحيه للدخول");
+
+                Toast toast = new Toast(getApplicationContext());
+                toast.setGravity(Gravity.BOTTOM, 0, 0);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout);
+                toast.show();
+            }
 //            startActivity(new Intent(Home.this, Mabi3atNavigator.class));
         }else if (id == R.id.nav_mabe3at) {
 //            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -230,9 +284,25 @@ public class Mabi3atNavigator extends AppCompatActivity implements NavigationVie
 //            fragmentManager.beginTransaction().replace(R.id.frame_mabi3at,new MainHome()).addToBackStack("MainHome").commit();
 //            getSupportActionBar().setTitle("المبيعات");
 //            getSupportActionBar().setTitle("المبيعات");
-            Intent intent = new Intent(Mabi3atNavigator.this,Home.class);
-            intent.putExtra("fragment","mabi3at");
-            startActivity(intent);
+            if (permissions.get(0).isView()) {
+                Intent intent = new Intent(Mabi3atNavigator.this, Home.class);
+                intent.putExtra("fragment", "mabi3at");
+                startActivity(intent);
+            } else {
+                LayoutInflater inflater = getLayoutInflater();
+                View layout = inflater.inflate(R.layout.toast_warning,
+                        (ViewGroup) findViewById(R.id.lay));
+
+                TextView text = (TextView) layout.findViewById(R.id.txt);
+
+                text.setText(" لا توجد صلاحيه للدخول");
+
+                Toast toast = new Toast(getApplicationContext());
+                toast.setGravity(Gravity.BOTTOM, 0, 0);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout);
+                toast.show();
+            }
         } else if (id == R.id.nav_montagat) {
 
             nav_Menu.findItem(R.id.nav_mabe3at).setIcon(R.drawable.ic_shopping_basket_off_24dp);
@@ -245,11 +315,27 @@ public class Mabi3atNavigator extends AppCompatActivity implements NavigationVie
 //            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 //            fragmentManager.beginTransaction().replace(R.id.frame_mabi3at,new FragmentMontag()).addToBackStack("FragmentMontag").commit();
 //            getSupportActionBar().setTitle("المنتجات");
-            Intent intent = new Intent(Mabi3atNavigator.this,Home.class);
-            intent.putExtra("fragment","montag");
-            startActivity(intent);
-        } else if (id == R.id.nav_trendmontag) {
+            if (permissions.get(1).isView()) {
+                Intent intent = new Intent(Mabi3atNavigator.this, Home.class);
+                intent.putExtra("fragment", "montag");
+                startActivity(intent);
+            } else {
+                LayoutInflater inflater = getLayoutInflater();
+                View layout = inflater.inflate(R.layout.toast_warning,
+                        (ViewGroup) findViewById(R.id.lay));
 
+                TextView text = (TextView) layout.findViewById(R.id.txt);
+
+                text.setText(" لا توجد صلاحيه للدخول");
+
+                Toast toast = new Toast(getApplicationContext());
+                toast.setGravity(Gravity.BOTTOM, 0, 0);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout);
+                toast.show();
+            }
+        } else if (id == R.id.nav_trendmontag) {
+// read mabi3at permission
             nav_Menu.findItem(R.id.nav_mabe3at).setIcon(R.drawable.ic_shopping_basket_off_24dp);
             nav_Menu.findItem(R.id.nav_montagat).setIcon(R.drawable.ic_shopping_basket_off_24dp);
             nav_Menu.findItem(R.id.nav_trendmontag).setIcon(R.drawable.ic_trending_up_on_24dp);
@@ -258,8 +344,24 @@ public class Mabi3atNavigator extends AppCompatActivity implements NavigationVie
             nav_Menu.findItem(R.id.nav_management).setIcon(R.drawable.ic_assistant_photo_off_24dp);
 //            getSupportActionBar().setTitle("المنتجات الأكثر بيعا");
 //            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame,new Mabi3atTrendReports()).addToBackStack("Mabi3atTrendReports").commit();
-            getSupportActionBar().setTitle("المنتجات الأكثر بيعا");
+            if (trend_view) {
+                fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new Mabi3atTrendReports()).addToBackStack("Mabi3atTrendReports").commit();
+                getSupportActionBar().setTitle("المنتجات الأكثر بيعا");
+            }else {
+                LayoutInflater inflater = getLayoutInflater();
+                View layout = inflater.inflate(R.layout.toast_warning,
+                        (ViewGroup) findViewById(R.id.lay));
+
+                TextView text = (TextView) layout.findViewById(R.id.txt);
+
+                text.setText(" لا توجد صلاحيه للدخول");
+
+                Toast toast = new Toast(getApplicationContext());
+                toast.setGravity(Gravity.BOTTOM, 0, 0);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout);
+                toast.show();
+            }
         } else if (id == R.id.nav_customer) {
 
             nav_Menu.findItem(R.id.nav_mabe3at).setIcon(R.drawable.ic_shopping_basket_off_24dp);
@@ -270,8 +372,24 @@ public class Mabi3atNavigator extends AppCompatActivity implements NavigationVie
             nav_Menu.findItem(R.id.nav_management).setIcon(R.drawable.ic_assistant_photo_off_24dp);
 //            getSupportActionBar().setTitle("العملاء");
 //            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-            fragmentManager.beginTransaction().replace(R.id.new_talabat_frame,new Fragment_agent_report()).commit();
-            getSupportActionBar().setTitle("العملاء");
+            if (permissions.get(2).isView()) {
+                fragmentManager.beginTransaction().replace(R.id.new_talabat_frame, new Fragment_agent_report()).commit();
+                getSupportActionBar().setTitle("العملاء");
+            } else {
+                LayoutInflater inflater = getLayoutInflater();
+                View layout = inflater.inflate(R.layout.toast_warning,
+                        (ViewGroup) findViewById(R.id.lay));
+
+                TextView text = (TextView) layout.findViewById(R.id.txt);
+
+                text.setText(" لا توجد صلاحيه للدخول");
+
+                Toast toast = new Toast(getApplicationContext());
+                toast.setGravity(Gravity.BOTTOM, 0, 0);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout);
+                toast.show();
+            }
         } else if (id == R.id.nav_contact) {
 
             nav_Menu.findItem(R.id.nav_mabe3at).setIcon(R.drawable.ic_shopping_basket_off_24dp);
@@ -281,9 +399,25 @@ public class Mabi3atNavigator extends AppCompatActivity implements NavigationVie
             nav_Menu.findItem(R.id.nav_contact).setIcon(R.drawable.ic_message_on_24dp);
             nav_Menu.findItem(R.id.nav_management).setIcon(R.drawable.ic_assistant_photo_off_24dp);
 //            getSupportActionBar().setTitle("التواصل");
-            Intent intent = new Intent(Mabi3atNavigator.this,Home.class);
-            intent.putExtra("fragment","contact");
-            startActivity(intent);
+            if (permissions.get(3).isView()) {
+                Intent intent = new Intent(Mabi3atNavigator.this, Home.class);
+                intent.putExtra("fragment", "contact");
+                startActivity(intent);
+            } else {
+                LayoutInflater inflater = getLayoutInflater();
+                View layout = inflater.inflate(R.layout.toast_warning,
+                        (ViewGroup) findViewById(R.id.lay));
+
+                TextView text = (TextView) layout.findViewById(R.id.txt);
+
+                text.setText(" لا توجد صلاحيه للدخول");
+
+                Toast toast = new Toast(getApplicationContext());
+                toast.setGravity(Gravity.BOTTOM, 0, 0);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout);
+                toast.show();
+            }
         } else if (id == R.id.nav_management) {
 
             nav_Menu.findItem(R.id.nav_mabe3at).setIcon(R.drawable.ic_shopping_basket_off_24dp);
@@ -293,13 +427,29 @@ public class Mabi3atNavigator extends AppCompatActivity implements NavigationVie
             nav_Menu.findItem(R.id.nav_contact).setIcon(R.drawable.ic_message_off_24dp);
             nav_Menu.findItem(R.id.nav_management).setIcon(R.drawable.ic_assistant_photo_on_24dp);
 //            getSupportActionBar().setTitle("إداره الموظفين");
-            Intent intent = new Intent(Mabi3atNavigator.this,Home.class);
-            intent.putExtra("fragment","management");
-            startActivity(intent);
+            if (permissions.get(4).isView()) {
+                Intent intent = new Intent(Mabi3atNavigator.this, Home.class);
+                intent.putExtra("fragment", "management");
+                startActivity(intent);
+            } else {
+                LayoutInflater inflater = getLayoutInflater();
+                View layout = inflater.inflate(R.layout.toast_warning,
+                        (ViewGroup) findViewById(R.id.lay));
+
+                TextView text = (TextView) layout.findViewById(R.id.txt);
+
+                text.setText(" لا توجد صلاحيه للدخول");
+
+                Toast toast = new Toast(getApplicationContext());
+                toast.setGravity(Gravity.BOTTOM, 0, 0);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout);
+                toast.show();
+            }
         } else if (id == R.id.nav_out) {
-            loginDatabae.UpdateData("1","c","c","c","0","","");
+            loginDatabae.UpdateData("1", "c", "c", "c", "0", "", "", "");
             this.finish();
-            System.exit(0);
+            startActivity(new Intent(Mabi3atNavigator.this,Login.class));
         }
 
 

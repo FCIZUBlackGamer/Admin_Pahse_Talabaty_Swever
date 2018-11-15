@@ -1,6 +1,7 @@
 package com.talabaty.swever.admin.Montagat.ControlBaseFood_Additions;
 
 import android.app.ProgressDialog;
+import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -27,6 +28,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.talabaty.swever.admin.LoginDatabae;
 import com.talabaty.swever.admin.Mabi3at.Mabi3atNavigator;
 import com.talabaty.swever.admin.Montagat.AddMontag.ImageSource;
 import com.talabaty.swever.admin.Montagat.ControlMontag.ControlMontag;
@@ -47,6 +49,9 @@ public class FragmentControlBaseFood_Additions extends Fragment {
     RecyclerView.Adapter adapter;
     List<ControlMontagModel> models;
     View view;
+    LoginDatabae loginDatabae;
+    Cursor cursor;
+    String ShopId;
 
     static String Type;
     public static FragmentControlBaseFood_Additions setType(String type){
@@ -64,6 +69,8 @@ public class FragmentControlBaseFood_Additions extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.rec);
         recyclerView.setLayoutManager(layoutManager);
         models = new ArrayList<>();
+        loginDatabae = new LoginDatabae(getActivity());
+        cursor = loginDatabae.ShowData();
         return view;
     }
 
@@ -72,6 +79,9 @@ public class FragmentControlBaseFood_Additions extends Fragment {
         super.onStart();
 //        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        while (cursor.moveToNext()){
+            ShopId = cursor.getString(3);
+        }
         ((Mabi3atNavigator) getActivity())
                 .setActionBarTitle("عمليات المنتجات");
 
@@ -108,15 +118,16 @@ public class FragmentControlBaseFood_Additions extends Fragment {
     }
 
     private void loadBaseFood(){
-        final int size = models.size();
-        if (size > 0) {
-            for (int i = 0; i < size; i++) {
-                models.remove(0);
-            }
-            adapter.notifyItemRangeRemoved(0, size);
-        }
+//        final int size = models.size();
+//        if (size > 0) {
+//            for (int i = 0; i < size; i++) {
+//                models.remove(0);
+//            }
+//            adapter.notifyItemRangeRemoved(0, size);
+//        }
+        models = new ArrayList<>();
         final ProgressDialog loading = ProgressDialog.show(getActivity(), "Uploading...", "Please wait...", false, false);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.rivile.com/BaseFood/List?token=bKPNOJrob8x",
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.rivile.com/BaseFood/List?ShopId="+ShopId+"&token=bKPNOJrob8x",
                 new Response.Listener<String>() {
                     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                     @Override
@@ -214,16 +225,17 @@ public class FragmentControlBaseFood_Additions extends Fragment {
     }
 
     private void loadAditions(){
-        final int size = models.size();
-        if (size > 0) {
-            for (int i = 0; i < size; i++) {
-                models.remove(0);
-            }
-            adapter.notifyItemRangeRemoved(0, size);
-        }
+//        final int size = models.size();
+//        if (size > 0) {
+//            for (int i = 0; i < size; i++) {
+//                models.remove(0);
+//            }
+//            adapter.notifyItemRangeRemoved(0, size);
+//        }
+        models = new ArrayList<>();
 
         final ProgressDialog loading = ProgressDialog.show(getActivity(), "Uploading...", "Please wait...", false, false);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.rivile.com/Additions/List?token=bKPNOJrob8x",
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.rivile.com/Additions/List?ShopId="+ShopId+"&token=bKPNOJrob8x",
                 new Response.Listener<String>() {
                     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                     @Override

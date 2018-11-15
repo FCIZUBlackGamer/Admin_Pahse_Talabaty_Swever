@@ -62,8 +62,9 @@ public class Login extends AppCompatActivity {
             Log.e("type",cursor.getString(4));
             Log.e("image",cursor.getString(5));
             Log.e("cat",cursor.getString(6));
+            Log.e("Rule",cursor.getString(7));
             if (cursor.getString(4).equals("1")) {
-                Intent intent = new Intent(Login.this, Home.class);
+                Intent intent = new Intent(Login.this, Temp.class);
                 intent.putExtra("fragment", "mabi3at");
                 startActivity(intent);
                 finish();
@@ -128,11 +129,11 @@ public class Login extends AppCompatActivity {
                                     //JSONArray array = object.getJSONArray("user");
                                     JSONObject object1 = object.getJSONObject("users");
                                     int cat = object.getInt("cat");
+                                    int rule = object1.getInt("Rule_Id");
 
-                                    loginDatabae.UpdateData("1", object1.getString("UserName"), object1.getString("Id"), object1.getString("Shop_Id"), "1", "http://selltlbaty.rivile.com/" + object1.getString("Photo"), cat+"");
+                                    loginDatabae.UpdateData("1", object1.getString("UserName"), object1.getString("Id"), object1.getString("Shop_Id"), "1", "http://selltlbaty.rivile.com/" + object1.getString("Photo"), cat+"", rule+"");
 
-                                    Intent intent = new Intent(Login.this, Home.class);
-                                    intent.putExtra( "fragment", "mabi3at");
+                                    Intent intent = new Intent(Login.this, Temp.class);
                                     startActivity(intent);
                                     finish();
 

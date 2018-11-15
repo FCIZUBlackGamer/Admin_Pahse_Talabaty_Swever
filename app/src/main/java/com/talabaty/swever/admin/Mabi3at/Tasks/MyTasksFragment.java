@@ -96,7 +96,7 @@ public class MyTasksFragment extends Fragment {
         super.onStart();
 
         ((Mabi3atNavigator) getActivity())
-                .setActionBarTitle("المهام المعلقه");
+                .setActionBarTitle("مهامى");
 
         temp_first = 0;
         temp_last = 10;
@@ -317,7 +317,7 @@ public class MyTasksFragment extends Fragment {
         progressDialog.setMessage("جارى تحميل البيانات ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/order/MyOrderList",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/order/AcceptedOrderList",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -329,13 +329,14 @@ public class MyTasksFragment extends Fragment {
                             JSONObject object = new JSONObject(response);
                             JSONArray array = object.getJSONArray("AcceptedOrder");
                             if (array.length() > 0) {
-                                final int size = talabats.size();
-                                if (size > 0) {
-                                    for (int i = 0; i < size; i++) {
-                                        talabats.remove(0);
-                                    }
-                                    adapter.notifyItemRangeRemoved(0, size);
-                                }
+//                                final int size = talabats.size();
+//                                if (size > 0) {
+//                                    for (int i = 0; i < size; i++) {
+//                                        talabats.remove(0);
+//                                    }
+//                                    adapter.notifyItemRangeRemoved(0, size);
+//                                }
+                                talabats = new ArrayList<>();
 
                                 for (int x = 0; x < array.length(); x++) {
                                     JSONObject object1 = array.getJSONObject(x);

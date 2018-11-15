@@ -11,8 +11,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -23,6 +23,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.text.InputType;
 import android.util.Base64;
 import android.util.Log;
@@ -59,7 +60,6 @@ import com.squareup.picasso.Picasso;
 import com.talabaty.swever.admin.Home;
 import com.talabaty.swever.admin.LoginDatabae;
 import com.talabaty.swever.admin.Mabi3at.Mabi3atNavigator;
-import com.talabaty.swever.admin.Montagat.SpinnerModel;
 import com.talabaty.swever.admin.Offers.OperOfferModel;
 import com.talabaty.swever.admin.Offers.TotalOffer;
 import com.talabaty.swever.admin.R;
@@ -123,6 +123,9 @@ public class Fragment_offers_Restaurant extends Fragment {
 
     double final_price = 0;
     int final_size = 0;
+    int id_edit = 0;
+    String offer_edit_image = "";
+    String Link = "http://sellsapi.rivile.com/Offers2/Add";
     
     
 //    Button start_date, end_date;
@@ -165,10 +168,10 @@ public class Fragment_offers_Restaurant extends Fragment {
         requestStoragePermission();
         try {
             ((Home) getActivity())
-                    .setActionBarTitle("العروض");
+                    .setActionBarTitle("اضف عرض");
         }catch (Exception e){
             ((Mabi3atNavigator) getActivity())
-                    .setActionBarTitle("العروض");
+                    .setActionBarTitle("اضف عرض");
         }
         while (cursor.moveToNext()) {
             userid = Integer.parseInt(cursor.getString(2));
@@ -177,13 +180,31 @@ public class Fragment_offers_Restaurant extends Fragment {
         }
 
         if (totalOffer != null){
+            try {
+                ((Home) getActivity())
+                        .setActionBarTitle("تعديل عرض");
+            }catch (Exception e){
+                ((Mabi3atNavigator) getActivity())
+                        .setActionBarTitle("تعديل عرض");
+            }
+            Link = "http://sellsapi.rivile.com/Offers2/Edit";
             name.setText(totalOffer.getName());
             price.setText(totalOffer.getPrice()+"");
-            desc.setText(totalOffer.getDescription());
-            if (totalOffer.getPhoto() != null || !totalOffer.getPhoto().isEmpty()) {
-                Picasso.with(getActivity()).load(totalOffer.getPhoto()).into(display_image);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                desc.setText(Html.fromHtml(totalOffer.getDescription(), Html.FROM_HTML_MODE_COMPACT));
+            } else {
+                desc.setText(Html.fromHtml(totalOffer.getDescription()));
             }
+            try {
+                Log.e("Photo", totalOffer.getPhoto());
+                if (totalOffer.getPhoto() != null && !totalOffer.getPhoto().isEmpty()) {
+                    Picasso.with(getActivity()).load("http://www.selltlbaty.rivile.com"+totalOffer.getPhoto()).into(display_image);
+                    offer_edit_image = totalOffer.getPhoto();
+                }
+            } catch (Exception fi) {
 
+            }
+            id_edit = totalOffer.getId();
             agents = totalOffer.getOfferList();
             adapter = new OfferRestaurantAdapter(getActivity(), agents);
             recyclerView.setAdapter(adapter);
@@ -301,6 +322,7 @@ public class Fragment_offers_Restaurant extends Fragment {
             public void onClick(View v) {
                 /** Upload List */
                 totalOffer = new TotalOffer();
+                totalOffer.setId(id_edit);
                 if (name.getText().toString().isEmpty()){
                     name.setError("ادخل اسم الوجبه");
                 }else if (price.getText().toString().isEmpty()){
@@ -319,6 +341,7 @@ public class Fragment_offers_Restaurant extends Fragment {
                     toast.setView(layout);
                     toast.show();
                 }else {
+
                     totalOffer.setName(name.getText().toString());
                     totalOffer.setPrice(Float.parseFloat(price.getText().toString()));
                     totalOffer.setDescription(desc.getText().toString());
@@ -399,72 +422,78 @@ public class Fragment_offers_Restaurant extends Fragment {
     private void uploadImage() {
         final Gson gson = new Gson();
         Log.e("Connection UploadImage", "Here");
+        if (!imageStrings.isEmpty()) {
+            final String allImages = gson.toJson(imageStrings);
+            Log.e("Start: ", allImages);
+            //Showing the progress dialog
+            final ProgressDialog loading = ProgressDialog.show(getActivity(), "Uploading...", "Please wait...", false, false);
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String s) {
+                            //Disimissing the progress dialog
+                            loading.dismiss();
+                            Log.e("Path: ", s);
+                            try {
 
-        final String allImages = gson.toJson(imageStrings);
-        Log.e("Start: ", allImages);
-        //Showing the progress dialog
-        final ProgressDialog loading = ProgressDialog.show(getActivity(), "Uploading...", "Please wait...", false, false);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String s) {
-                        //Disimissing the progress dialog
-                        loading.dismiss();
-                        Log.e("Path: ", s);
-                        try {
-
-                            JSONObject object = new JSONObject(s);
-                            JSONArray array = object.getJSONArray("Images");
-                            for (int x = 0; x < array.length(); x++) {
-                                String object1 = array.getString(x);
-                                totalOffer.setPhoto(object1);
+                                JSONObject object = new JSONObject(s);
+                                JSONArray array = object.getJSONArray("Images");
+                                for (int x = 0; x < array.length(); x++) {
+                                    String object1 = array.getString(x);
+                                    totalOffer.setPhoto(object1);
+                                }
+                                final String jsonInString = gson.toJson(totalOffer);
+                                Log.e("Data", jsonInString);
+                                uploadMontage(jsonInString);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                            final String jsonInString = gson.toJson(totalOffer);
-                            Log.e("Data", jsonInString);
-                            uploadMontage(jsonInString);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+
                         }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError volleyError) {
+                            //Dismissing the progress dialog
+                            loading.dismiss();
 
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        //Dismissing the progress dialog
-                        loading.dismiss();
-
-                        //Showing toast
+                            //Showing toast
 //                        Toast.makeText(getActivity(), volleyError.getMessage(), Toast.LENGTH_LONG).show();
-                        if (volleyError instanceof ServerError)
-                            Log.e("Error: ", "Server Error");
-                        else if (volleyError instanceof TimeoutError)
-                            Log.e("Error: ", "Timeout Error");
-                        else if (volleyError instanceof NetworkError)
-                            Log.e("Error: ", "Bad Network");
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+                            if (volleyError instanceof ServerError)
+                                Log.e("Error: ", "Server Error");
+                            else if (volleyError instanceof TimeoutError)
+                                Log.e("Error: ", "Timeout Error");
+                            else if (volleyError instanceof NetworkError)
+                                Log.e("Error: ", "Bad Network");
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
 
-                //Creating parameters
-                Map<String, String> params = new Hashtable<String, String>();
+                    //Creating parameters
+                    Map<String, String> params = new Hashtable<String, String>();
 
-                //Adding parameters
-                params.put(KEY_IMAGE, allImages);
+                    //Adding parameters
+                    params.put(KEY_IMAGE, allImages);
 
-                params.put(KEY_NAME, "Mohamed");
+                    params.put(KEY_NAME, "Mohamed");
 
-                //returning parameters
-                return params;
-            }
-        };
+                    //returning parameters
+                    return params;
+                }
+            };
 
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
-                2,  // maxNumRetries = 2 means no retry
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getActivity()).add(stringRequest);
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                    DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                    2,  // maxNumRetries = 2 means no retry
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            Volley.newRequestQueue(getActivity()).add(stringRequest);
+        } else {
+            totalOffer.setPhoto(offer_edit_image);
+            final String jsonInString = gson.toJson(totalOffer);
+            Log.e("Data", jsonInString);
+            uploadMontage(jsonInString);
+        }
     }
     
     private void closeMessage(final Dialog dialog) {
@@ -490,7 +519,7 @@ public class Fragment_offers_Restaurant extends Fragment {
         Log.e("Connection UploadMontag", "Here");
         Log.e("Full Model",jsonInString);
         final ProgressDialog loading = ProgressDialog.show(getActivity(), "Uploading...", "Please wait...", false, false);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://sellsapi.rivile.com/Offers2/Add",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Link,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
@@ -671,10 +700,10 @@ public class Fragment_offers_Restaurant extends Fragment {
 
         final int sizew = agents.size();
         if (sizew > 0) {
-            for (int i = 0; i < sizew; i++) {
-                agents.remove(0);
-            }
-            adapter.notifyItemRangeRemoved(0, sizew);
+//            for (int i = 0; i < sizew; i++) {
+//                agents.remove(0);
+//            }
+//            adapter.notifyItemRangeRemoved(0, sizew);
 
             OperOfferModel item = new OperOfferModel(
                     Integer.parseInt(id), price, num, SizeId, name
@@ -718,7 +747,7 @@ public class Fragment_offers_Restaurant extends Fragment {
                         JSONObject jsonObject1 = jsonArray.getJSONObject(i);
                         String name = jsonObject1.getString("Name");
                         int id = jsonObject1.getInt("Id");
-                        double price = jsonObject1.getDouble("SellPrice");
+                        double price = 0;
                         offer_product_nameList.add(name);
                         temp_list.add(new OperOfferModel(id, price, name));
 

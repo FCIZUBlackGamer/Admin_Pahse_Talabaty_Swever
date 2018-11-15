@@ -328,13 +328,14 @@ public class DoneTalabat extends Fragment {
                             JSONObject object = new JSONObject(response);
                             JSONArray array = object.getJSONArray("ReceivedOrder");
                             if (array.length() > 0) {
-                                final int size = talabats.size();
-                                if (size > 0) {
-                                    for (int i = 0; i < size; i++) {
-                                        talabats.remove(0);
-                                    }
-                                    adapter.notifyItemRangeRemoved(0, size);
-                                }
+//                                final int size = talabats.size();
+//                                if (size > 0) {
+//                                    for (int i = 0; i < size; i++) {
+//                                        talabats.remove(0);
+//                                    }
+//                                    adapter.notifyItemRangeRemoved(0, size);
+//                                }
+
                                 talabats = new ArrayList<>();
                                 for (int x = 0; x < array.length(); x++) {
                                     JSONObject object1 = array.getJSONObject(x);

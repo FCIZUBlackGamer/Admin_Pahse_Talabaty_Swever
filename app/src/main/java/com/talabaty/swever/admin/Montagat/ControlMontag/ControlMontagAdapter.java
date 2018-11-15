@@ -29,6 +29,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 import com.talabaty.swever.admin.Home;
 import com.talabaty.swever.admin.Mabi3at.Mabi3atNavigator;
 import com.talabaty.swever.admin.R;
@@ -41,7 +42,7 @@ import java.util.Map;
 public class ControlMontagAdapter extends RecyclerView.Adapter<ControlMontagAdapter.Vholder> {
 
     List<ControlMontagModel> models;
-    Intent intent;
+//    Intent intent;
 
     Context context;
     FragmentManager fragmentManager;
@@ -52,7 +53,7 @@ public class ControlMontagAdapter extends RecyclerView.Adapter<ControlMontagAdap
         this.models = models;
         this.context = context;
         Type = type;
-        intent = new Intent(context, Mabi3atNavigator.class);
+//        intent = new Intent(context, Mabi3atNavigator.class);
     }
 
     @NonNull
@@ -74,10 +75,10 @@ public class ControlMontagAdapter extends RecyclerView.Adapter<ControlMontagAdap
             DeleteLink = "http://sellsapi.rivile.com/sampleproduct2/delete";
         }
 
-        holder.id.setText(models.get(position).getNum()+"");
+        holder.id.setText(models.get(position).getId()+"");
         holder.name.setText(models.get(position).getName()+"");
         holder.date.setText(models.get(position).getInsertDate()+"");
-        holder.num.setText(models.get(position).getId()+"");
+        holder.num.setText(models.get(position).getNum()+"");
         holder.time.setText(models.get(position).getInsertTime()+"");
         holder.amount.setText(models.get(position).getAmount()+"");
         holder.price.setText(models.get(position).getSellPrice()+"");
@@ -89,7 +90,7 @@ public class ControlMontagAdapter extends RecyclerView.Adapter<ControlMontagAdap
                 Intent intent = new Intent(context, Home.class);
                 //Todo: Send Data To Home.java
                 intent.putExtra("fragment", "edit_control"+Type);
-                ControlMontagModel model = new ControlMontagModel();
+                ControlMontagModel model = models.get(position);
 //                model.setId(models.get(position).getId());
 //                model.setName(models.get(position).getName());
 //                model.setBuyPrice(models.get(position).getBuyPrice());
@@ -106,7 +107,9 @@ public class ControlMontagAdapter extends RecyclerView.Adapter<ControlMontagAdap
 //                model.setSize(models.get(position).getSize());
 //                model.setColor(models.get(position).getColor());
 //                model.setGallary(models.get(position).getGallary());
-                model = models.get(position);
+
+//                Gson gson = new Gson();
+//                Log.e("JSON", gson.toJson(model));
                 intent.putExtra("Class", model);
                 context.startActivity(intent);
             }

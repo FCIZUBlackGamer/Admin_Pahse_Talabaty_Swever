@@ -48,6 +48,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.fourhcode.forhutils.FUtilsValidation;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.talabaty.swever.admin.Home;
 import com.talabaty.swever.admin.LoginDatabae;
@@ -97,11 +98,14 @@ public class PersonalInfo extends Fragment {
     int close_type;
     RadioGroup radiogroup;
     boolean var_gender = true;
+    int emp_edit_id = 0;
 
     static Employee employee = null;
     public static PersonalInfo setData(Employee data){
         PersonalInfo personalInfo = new PersonalInfo();
         employee = data;
+        Gson gson = new Gson();
+        Log.e("Employee data",gson.toJson(employee));
         return personalInfo;
     }
     @Nullable
@@ -152,6 +156,9 @@ public class PersonalInfo extends Fragment {
         loadJobTitle(shopid);
 
         if (employee != null){
+            ((Home) getActivity())
+                    .setActionBarTitle("تعديل موظف");
+            emp_edit_id = employee.getId();
             add_employee_fragment_employeenameTxt.setText(employee.getFirstName());
             last_name.setText(employee.getLastName());
             address.setText(employee.getAddress());
@@ -188,10 +195,6 @@ public class PersonalInfo extends Fragment {
                 }
             }
         }
-
-//        Picasso.with(getActivity())
-//                .load("https://cdn.pixabay.com/photo/2016/06/18/17/42/image-1465348_960_720.jpg")
-//                .into(imageView);
 
         appear.setVisibility(View.GONE);
 
@@ -404,9 +407,7 @@ public class PersonalInfo extends Fragment {
         second.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (employee == null) {
-                    Employee employee = new Employee();
+                Employee employe = new Employee();
 
                     if (FUtilsValidation.isValidEmail(mail, "صيغه بريد الكترونى خاطئه") &&
                             FUtilsValidation.isEmpty(add_employee_fragment_employeenameTxt, "ادخل اسم الموظف") ||
@@ -420,58 +421,76 @@ public class PersonalInfo extends Fragment {
 
 
                     }else {
-                        employee.setFullName(add_employee_fragment_employeenameTxt.getText().toString()+last_name.getText().toString());
-                        employee.setFirstName(add_employee_fragment_employeenameTxt.getText().toString());
-                        employee.setUserName(add_employee_fragment_mailTxt.getText().toString());
-                        employee.setMail(mail.getText().toString());
-                        employee.setLastName(last_name.getText().toString());
-                        employee.setAddress(address.getText().toString());
-                        employee.setGender(var_gender);
-                        employee.setPassword(add_employee_fragment_employmentName.getText().toString());
-                        employee.setEmploymentTypeId(Integer.parseInt(indexOfjobKind.get(jobKind.indexOf(add_employee_fragment_employeeResponsibilities.getSelectedItem().toString()))));
-                        employee.setWorkingNaturalId(Integer.parseInt(indexOfjobTitle.get(jobTitle.indexOf(add_employee_fragment_employeeWorkplaceName.getSelectedItem().toString()))));
-                        employee.setBranchName(add_employee_fragment_employeeBranchName.getText().toString());
-                        employee.setPhone(add_employee_fragment_employeePhone.getText().toString());
+                        if (employee == null) {
+                            employe = new Employee();
 
-                        if (add_employee_fragment_employmentName.getText().toString().equals(add_employee_fragment_employeeManagement.getText().toString())) {
-                            fragmentManager.beginTransaction().replace(R.id.frame_mabi3at, new MoneyStaff().setData(employee, ((BitmapDrawable) imageView.getDrawable()).getBitmap(), ((BitmapDrawable) add_employee_fragment_employeeIdCopy.getDrawable()).getBitmap(), 0)).addToBackStack("MoneyStaff").commit();
-                        } else {
-                            add_employee_fragment_employeeManagement.setError("كلمه مرور غير متطابقه");
-                            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                            builder.setMessage("كلمه مرور غير متطابق")
-                                    .setNegativeButton(" إخفاء ", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            dialog.dismiss();
-                                        }
-                                    }).setCancelable(false)
-                                    .show();
+                            employe.setFullName(add_employee_fragment_employeenameTxt.getText().toString() + " " + last_name.getText().toString());
+                            employe.setFirstName(add_employee_fragment_employeenameTxt.getText().toString());
+                            employe.setUserName(add_employee_fragment_mailTxt.getText().toString());
+                            employe.setMail(mail.getText().toString());
+                            employe.setLastName(last_name.getText().toString());
+                            employe.setAddress(address.getText().toString());
+                            employe.setGender(var_gender);
+                            employe.setPassword(add_employee_fragment_employmentName.getText().toString());
+                            employe.setEmploymentTypeId(Integer.parseInt(indexOfjobKind.get(jobKind.indexOf(add_employee_fragment_employeeResponsibilities.getSelectedItem().toString()))));
+                            employe.setWorkingNaturalId(Integer.parseInt(indexOfjobTitle.get(jobTitle.indexOf(add_employee_fragment_employeeWorkplaceName.getSelectedItem().toString()))));
+                            employe.setBranchName(add_employee_fragment_employeeBranchName.getText().toString());
+                            employe.setPhone(add_employee_fragment_employeePhone.getText().toString());
+
+                            if (add_employee_fragment_employmentName.getText().toString().equals(add_employee_fragment_employeeManagement.getText().toString())) {
+                                fragmentManager.beginTransaction().replace(R.id.frame_mabi3at, new MoneyStaff().setData(employe, ((BitmapDrawable) imageView.getDrawable()).getBitmap(), ((BitmapDrawable) add_employee_fragment_employeeIdCopy.getDrawable()).getBitmap(), 0)).addToBackStack("MoneyStaff").commit();
+                            } else {
+                                add_employee_fragment_employeeManagement.setError("كلمه مرور غير متطابقه");
+                                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                builder.setMessage("كلمه مرور غير متطابق")
+                                        .setNegativeButton(" إخفاء ", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                            }
+                                        }).setCancelable(false)
+                                        .show();
+                            }
+                        }else {
+                            Log.e("Id", employee.getId() + " fff");
+                            employe.setId(employee.getId());
+                            employe.setFullName(add_employee_fragment_employeenameTxt.getText().toString() + " " + last_name.getText().toString());
+                            employe.setFirstName(add_employee_fragment_employeenameTxt.getText().toString());
+                            employe.setUserName(add_employee_fragment_mailTxt.getText().toString());
+                            employe.setMail(mail.getText().toString());
+                            employe.setLastName(last_name.getText().toString());
+                            employe.setAddress(address.getText().toString());
+                            employe.setGender(var_gender);
+                            employe.setPassword(add_employee_fragment_employmentName.getText().toString());
+                            employe.setEmploymentTypeId(Integer.parseInt(indexOfjobKind.get(jobKind.indexOf(add_employee_fragment_employeeResponsibilities.getSelectedItem().toString()))));
+                            employe.setWorkingNaturalId(Integer.parseInt(indexOfjobTitle.get(jobTitle.indexOf(add_employee_fragment_employeeWorkplaceName.getSelectedItem().toString()))));
+                            employe.setBranchName(add_employee_fragment_employeeBranchName.getText().toString());
+                            employe.setPhone(add_employee_fragment_employeePhone.getText().toString());
+                            /** start*/
+                            Log.e("Id",employee.getId()+" fff");
+                            if (add_employee_fragment_employmentName.getText().toString().equals(add_employee_fragment_employeeManagement.getText().toString())) {
+                                fragmentManager.beginTransaction().replace(
+                                        R.id.frame_mabi3at,
+                                        new MoneyStaff().setData(
+                                                employee,
+                                                ((BitmapDrawable) imageView.getDrawable()).getBitmap(),
+                                                ((BitmapDrawable) add_employee_fragment_employeeIdCopy.getDrawable()).getBitmap(),1))
+                                        .addToBackStack("MoneyStaff").commit();
+                            } else {
+                                add_employee_fragment_employeeManagement.setError("كلمه مرور غير متطابقه");
+                                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                builder.setMessage("كلمه مرور غير متطابق")
+                                        .setNegativeButton(" إخفاء ", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                            }
+                                        }).setCancelable(false)
+                                        .show();
+                            }
+                            /** end*/
                         }
-                    }
 
-                }else {
-                    /** start*/
-                    if (add_employee_fragment_employmentName.getText().toString().equals(add_employee_fragment_employeeManagement.getText().toString())) {
-                        fragmentManager.beginTransaction().replace(
-                                R.id.frame_mabi3at,
-                                new MoneyStaff().setData(
-                                        employee,
-                                        ((BitmapDrawable) imageView.getDrawable()).getBitmap(),
-                                        ((BitmapDrawable) add_employee_fragment_employeeIdCopy.getDrawable()).getBitmap(),1))
-                                .addToBackStack("MoneyStaff").commit();
-                    } else {
-                        add_employee_fragment_employeeManagement.setError("كلمه مرور غير متطابقه");
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                        builder.setMessage("كلمه مرور غير متطابق")
-                                .setNegativeButton(" إخفاء ", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                    }
-                                }).setCancelable(false)
-                                .show();
-                    }
-                    /** end*/
                 }
             }
         });
@@ -507,15 +526,16 @@ public class PersonalInfo extends Fragment {
                 //Getting the Bitmap from Gallery
                 bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
                 Log.e("1","c");
+                bitmap = getResizedBitmap(bitmap, 100);
                 loadImage(bitmap);
 //                imageView.setImageBitmap(bitmap);
-
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             bitmap = (Bitmap) data.getExtras().get("data");
+            bitmap = getResizedBitmap(bitmap, 100);
             Log.e("1","h");
 //            imageView.setImageBitmap(bitmap);
             loadImage(bitmap);
@@ -577,16 +597,9 @@ public class PersonalInfo extends Fragment {
     }
 
     private void loadJobKind(int ShopId) {
-
+//
         jobKind = new ArrayList<>();
         indexOfjobKind = new ArrayList<>();
-
-        if (jobKind.size() > 0) {
-            for (int x = 0; x < jobKind.size(); x++) {
-                jobKind.remove(x);
-                indexOfjobKind.remove(x);
-            }
-        }
 
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://www.sellsapi.rivile.com/Employee/SelectEmploymentType?ShopId=" + ShopId+"&token=bKPNOJrob8x", new Response.Listener<String>() {
@@ -596,6 +609,7 @@ public class PersonalInfo extends Fragment {
                     JSONObject jsonObject = new JSONObject(response);
 
                     JSONArray jsonArray = jsonObject.getJSONArray("EmploymentType");
+                    Log.e("Length", jsonArray.length()+"");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject1 = jsonArray.getJSONObject(i);
                         String fname = jsonObject1.getString("Name");
@@ -605,12 +619,16 @@ public class PersonalInfo extends Fragment {
 
                     }
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, jobKind);
-
                     add_employee_fragment_employeeResponsibilities.setAdapter(adapter);
                     Log.e("EmployeeTypeId",indexOfjobKind.size()+"");
-//                    Log.e("EmployeeTypeId",employee.getEmploymentTypeId()+"");
+
                     if (employee != null){
-                        add_employee_fragment_employeeResponsibilities.setSelection(employee.getEmploymentTypeId()-1);
+                        for (int x=0; x<indexOfjobKind.size(); x++){
+                            if (indexOfjobKind.get(x).equals(String.valueOf(employee.getEmploymentTypeId()-1))){
+                                add_employee_fragment_employeeResponsibilities.setSelection(Integer.parseInt(indexOfjobKind.get(x)));
+                            }
+                        }
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -638,14 +656,7 @@ public class PersonalInfo extends Fragment {
                 toast.setView(layout);
                 toast.show();
             }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap hashMap = new HashMap();
-                hashMap.put("token", "bKPNOJrob8x");
-                return hashMap;
-            }
-        };
+        });
         int socketTimeout = 30000;
         RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, 2, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         stringRequest.setRetryPolicy(policy);
@@ -657,13 +668,6 @@ public class PersonalInfo extends Fragment {
         jobTitle = new ArrayList<>();
         indexOfjobTitle = new ArrayList<>();
 
-        if (jobTitle.size() > 0) {
-            for (int x = 0; x < jobTitle.size(); x++) {
-                jobTitle.remove(x);
-                indexOfjobTitle.remove(x);
-            }
-        }
-
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://www.sellsapi.rivile.com/Employee/SelectWorkingNatural?ShopId=" + ShopId+"&token=bKPNOJrob8x", new Response.Listener<String>() {
             @Override
@@ -672,6 +676,7 @@ public class PersonalInfo extends Fragment {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("WorkingNatural");
+                    Log.e("Length2", jsonArray.length()+"");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject1 = jsonArray.getJSONObject(i);
                         String fname = jsonObject1.getString("Name");
@@ -685,9 +690,19 @@ public class PersonalInfo extends Fragment {
 
                     Log.e("WorkingNatural",indexOfjobTitle.size()+"");
 //                    Log.e("WorkingNatural",employee.getWorkingNaturalId()+"");
+//                    if (employee != null){
+//                        add_employee_fragment_employeeWorkplaceName.setSelection(employee.getWorkingNaturalId()-1);
+//                    }
+
                     if (employee != null){
-                        add_employee_fragment_employeeWorkplaceName.setSelection(employee.getWorkingNaturalId()-1);
+                        for (int x=0; x<indexOfjobTitle.size(); x++){
+                            if (indexOfjobTitle.get(x).equals(String.valueOf(employee.getWorkingNaturalId()-1))){
+                                add_employee_fragment_employeeResponsibilities.setSelection(Integer.parseInt(indexOfjobTitle.get(x)));
+                            }
+                        }
+
                     }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -715,17 +730,26 @@ public class PersonalInfo extends Fragment {
                 toast.setView(layout);
                 toast.show();
             }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap hashMap = new HashMap();
-                hashMap.put("token", "bKPNOJrob8x");
-                return hashMap;
-            }
-        };
+        });
         int socketTimeout = 30000;
         RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, 2, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         stringRequest.setRetryPolicy(policy);
         requestQueue.add(stringRequest);
+    }
+
+    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        float bitmapRatio = (float) width / (float) height;
+        if (bitmapRatio > 1) {
+            width = maxSize;
+            height = (int) (width / bitmapRatio);
+        } else {
+            height = maxSize;
+            width = (int) (height * bitmapRatio);
+        }
+
+        return Bitmap.createScaledBitmap(image, width, height, true);
     }
 }

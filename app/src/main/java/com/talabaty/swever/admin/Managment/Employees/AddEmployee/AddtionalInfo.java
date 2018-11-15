@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,7 +21,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -44,7 +42,6 @@ import com.fourhcode.forhutils.FUtilsValidation;
 import com.google.gson.Gson;
 import com.talabaty.swever.admin.Home;
 import com.talabaty.swever.admin.LoginDatabae;
-import com.talabaty.swever.admin.Mabi3at.MainHome;
 import com.talabaty.swever.admin.Managment.Employees.AddEmployee.SpinnerModels.Cities;
 import com.talabaty.swever.admin.Managment.Employees.AddEmployee.SpinnerModels.Mangment;
 import com.talabaty.swever.admin.Managment.Employees.AddEmployee.SpinnerModels.Regions;
@@ -160,12 +157,12 @@ public class AddtionalInfo extends Fragment {
         loadDelvry();
         if (employee != null && Type == 1) {
 
-
             add_employee_fragment_employmentName.setText(employee.getWorkingStart() + "");
             add_employee_fragment_employeeManagement.setText(employee.getWorkingEnd() + "");
             add_employee_fragment_employeeResponsibilities.setText(employee.getCreditLimit() + "");
             add_employee_fragment_employeeWorkplaceName.setText(employee.getBalance() + "");
             Link = "http://sellsapi.rivile.com/Employee/Edit";
+
         }
 
         add_employee_fragment_employeeBranchNameTitle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -229,7 +226,7 @@ public class AddtionalInfo extends Fragment {
                         ){
                 }else {
                     uploadImage();
-                    fragmentManager.beginTransaction().replace(R.id.frame_mabi3at, new EmployeesHome()).addToBackStack("EmployeesHome").commit();
+                    fragmentManager.beginTransaction().replace(R.id.frame_mabi3at, new PersonalInfo()).addToBackStack("EmployeesHome").commit();
                 }
 
             }
@@ -239,6 +236,8 @@ public class AddtionalInfo extends Fragment {
     private void loadPrivilage(int ShopId) {
         rulNames = new ArrayList<>();
         rules = new ArrayList<>();
+
+        Log.e("loadPrivilage", employee.getRulesId() + "");
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("جارى تحميل البيانات ...");
         progressDialog.setCancelable(false);
@@ -262,9 +261,19 @@ public class AddtionalInfo extends Fragment {
                     }
 
                     add_employee_fragment_employeenameTxt.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, rulNames));
-                    if (employee != null && Type == 1) {
-                        add_employee_fragment_employeenameTxt.setSelection(employee.getRulesId() - 1);
-                    }
+//                    if (employee != null && Type == 1) {
+//                        add_employee_fragment_employeenameTxt.setSelection(employee.getRulesId() - 1);
+//                    }
+
+//                    if (employee != null && Type == 1){
+//                        for (int x=0; x<rules.size(); x++){
+//                            if (rules.get(x).getId() == employee.getRulesId()-1){
+//                                add_employee_fragment_employeenameTxt.setSelection(rules.get(x).getId());
+//                            }
+//                        }
+//
+//                    }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -309,6 +318,7 @@ public class AddtionalInfo extends Fragment {
     private void loadManagment(int ShopId) {
         manageNames = new ArrayList<>();
         mangments = new ArrayList<>();
+        Log.e("loadManagment", employee.getManagmentId() + "");
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.rivile.com/Employee/SelectManagment?ShopId="+ShopId+"&token=bKPNOJrob8x", new Response.Listener<String>() {
             @Override
@@ -326,9 +336,18 @@ public class AddtionalInfo extends Fragment {
                     }
 
                     add_employee_fragment_mailTxt.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, manageNames));
-                    if (employee != null && Type == 1) {
-                        add_employee_fragment_mailTxt.setSelection(employee.getManagmentId() - 1);
-                    }
+//                    if (employee != null && Type == 1) {
+//                        add_employee_fragment_mailTxt.setSelection(employee.getManagmentId() - 1);
+//                    }
+
+//                    if (employee != null && Type == 1){
+//                        for (int x=0; x<mangments.size(); x++){
+//                            if (mangments.get(x).getId() == employee.getManagmentId()-1){
+//                                add_employee_fragment_mailTxt.setSelection(mangments.get(x).getId());
+//                            }
+//                        }
+//
+//                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -404,6 +423,7 @@ public class AddtionalInfo extends Fragment {
         stateNames = new ArrayList<>();
         regionNames = new ArrayList<>();
         cityNames = new ArrayList<>();
+        Log.e("loadDelvry", employee.getManagmentId() + "");
 
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://sellsapi.rivile.com/States/Select"+"?token=bKPNOJrob8x", new Response.Listener<String>() {
@@ -494,7 +514,7 @@ public class AddtionalInfo extends Fragment {
         Gallary.add(getStringImage(Card));
         Gallary.add(getStringImage(photo));
         final String allImages = gson.toJson(Gallary);
-        Log.e("Start: ", allImages);
+//        Log.e("Start: ", allImages);
         //Showing the progress dialog
         final ProgressDialog loading = ProgressDialog.show(getActivity(), "Uploading...", "Please wait...", false, false);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
@@ -597,7 +617,7 @@ public class AddtionalInfo extends Fragment {
         progressDialog.setMessage("جارى تسجيل البيانات ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Link, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -684,5 +704,7 @@ public class AddtionalInfo extends Fragment {
         String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
         return encodedImage;
     }
+
+
 
 }

@@ -35,7 +35,9 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
+import com.talabaty.swever.admin.Home;
 import com.talabaty.swever.admin.LoginDatabae;
+import com.talabaty.swever.admin.Mabi3at.Mabi3atNavigator;
 import com.talabaty.swever.admin.Montagat.AddMontag.AddMontag;
 import com.talabaty.swever.admin.Montagat.ControlMontag.ControlMontagModel;
 import com.talabaty.swever.admin.Montagat.FragmentMontag;
@@ -88,11 +90,27 @@ public class FragmentAdditions extends Fragment {
     public void onStart() {
         super.onStart();
 
+        try {
+            ((Home) getActivity())
+                    .setActionBarTitle("اضف اضافات");
+        }catch (Exception e){
+            ((Mabi3atNavigator) getActivity())
+                    .setActionBarTitle("اضف اضافات");
+        }
+
         while (cursor.moveToNext()){
             shopId = Integer.parseInt(cursor.getString(3));
         }
 
         if (montagModel != null){
+            try {
+                ((Home) getActivity())
+                        .setActionBarTitle("تعديل اضافات");
+            }catch (Exception e){
+                ((Mabi3atNavigator) getActivity())
+                        .setActionBarTitle("تعديل اضافات");
+            }
+
             name.setText(montagModel.getName());
             price.setText(montagModel.getSellPrice() + "");
             UPLOAD_LINK = "http://sellsapi.rivile.com/Additions/Edit";
@@ -133,7 +151,6 @@ public class FragmentAdditions extends Fragment {
                                 public void onResponse(String s) {
                                     //Disimissing the progress dialog
                                     loading.dismiss();
-                                    Log.e("Data: ", s);
                                     Log.e("Data: ", s);
                                     if (s.equals("\"Success\"")) {
 
@@ -208,6 +225,10 @@ public class FragmentAdditions extends Fragment {
                             params.put("Addition", jsonInString);
 
                             params.put("token", "bKPNOJrob8x");
+
+                            if (montagModel != null){
+                                params.put("Id", montagModel.getId()+"");
+                            }
 
                             //returning parameters
                             return params;

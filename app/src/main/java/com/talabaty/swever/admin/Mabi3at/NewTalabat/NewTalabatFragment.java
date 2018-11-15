@@ -13,11 +13,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,14 +36,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.Collator;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
@@ -66,6 +57,8 @@ public class NewTalabatFragment extends Fragment {
     LoginDatabae loginDatabae;
     Cursor cursor;
     int userid, shopid;
+
+
 
 
     @Nullable
@@ -88,6 +81,8 @@ public class NewTalabatFragment extends Fragment {
 //        order_down = view.findViewById(R.id.order_down);
         loginDatabae = new LoginDatabae(getActivity());
         cursor = loginDatabae.ShowData();
+
+
         return view;
     }
 
@@ -105,6 +100,7 @@ public class NewTalabatFragment extends Fragment {
             shopid = Integer.parseInt(cursor.getString(3));
 
         }
+
 
 
         pdf.setOnClickListener(new View.OnClickListener() {
@@ -332,39 +328,49 @@ public class NewTalabatFragment extends Fragment {
                             JSONObject object = new JSONObject(response);
                             JSONArray array = object.getJSONArray("NewOrder");
 
-                            final int size = talabats.size();
-                            if (size > 0) {
-                                for (int i = 0; i < size; i++) {
-                                    talabats.remove(0);
-                                }
-                                adapter.notifyItemRangeRemoved(0, size);
-                            }
+                            if (array.length() > 0) {
+                                talabats = new ArrayList<>();
 
-                            for (int x = 0; x < array.length(); x++) {
-                                JSONObject object1 = array.getJSONObject(x);
-                                if (x == 0) {
-                                    temp_first = Integer.parseInt(object1.getString("Id"));
-                                } else if (x == array.length() - 1) {
-                                    temp_last = Integer.parseInt(object1.getString("Id"));
-                                }
-                                Talabat talabat = new Talabat
-                                        ((x + 1) + "",
-                                                object1.getString("CustomerName"),
-                                                "",
-                                                object1.getString("Id"),
-                                                object1.getString("Time"),
-                                                object1.getString("Date"),
-                                                object1.getString("Address"),
-                                                object1.getString("Phone")
-                                        );
+                                for (int x = 0; x < array.length(); x++) {
+                                    JSONObject object1 = array.getJSONObject(x);
+                                    if (x == 0) {
+                                        temp_first = Integer.parseInt(object1.getString("Id"));
+                                    } else if (x == array.length() - 1) {
+                                        temp_last = Integer.parseInt(object1.getString("Id"));
+                                    }
+                                    Talabat talabat = new Talabat
+                                            ((x + 1) + "",
+                                                    object1.getString("CustomerName"),
+                                                    "",
+                                                    object1.getString("Id"),
+                                                    object1.getString("Time"),
+                                                    object1.getString("Date"),
+                                                    object1.getString("Address"),
+                                                    object1.getString("Phone")
+                                            );
 
-                                // Fill Data For Sort in orderDate()
+                                    // Fill Data For Sort in orderDate()
 //                                holder_num.put(object1.getString("Id"), talabat);
 //                                holder_alpha.put(object1.getString("CustomerName"), talabat);
 //                                holder_date.put(object1.getString("Date") + " " + object1.getString("Time"), talabat);
 
-                                talabats.add(talabat);
-                                temp = Integer.parseInt(object1.getString("Id"));
+                                    talabats.add(talabat);
+                                    temp = Integer.parseInt(object1.getString("Id"));
+                                }
+                            }else {
+                                LayoutInflater inflater = getLayoutInflater();
+                                View layout = inflater.inflate(R.layout.toast_info,
+                                        (ViewGroup) getActivity().findViewById(R.id.lay));
+
+                                TextView text = (TextView) layout.findViewById(R.id.txt);
+
+                                text.setText("لا توجد بيانات");
+
+                                Toast toast = new Toast(getActivity());
+                                toast.setGravity(Gravity.BOTTOM, 0, 0);
+                                toast.setDuration(Toast.LENGTH_LONG);
+                                toast.setView(layout);
+                                toast.show();
                             }
                             if (r.equals("1")) {
                                 page_num++;
@@ -381,6 +387,7 @@ public class NewTalabatFragment extends Fragment {
                         adapter = new NewTalabatAdapter(getActivity(), talabats, temp_first, temp_last);
                         recyclerView.setAdapter(adapter);
                         item_num = temp;
+
                     }
                 }, new Response.ErrorListener() {
             @Override

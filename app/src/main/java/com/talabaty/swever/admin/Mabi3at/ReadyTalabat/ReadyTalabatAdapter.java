@@ -6,9 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -40,8 +38,10 @@ import com.android.volley.toolbox.Volley;
 import com.talabaty.swever.admin.DetailsModel;
 import com.talabaty.swever.admin.LoginDatabae;
 import com.talabaty.swever.admin.Mabi3at.DoneTalabat.Talabat;
+import com.talabaty.swever.admin.Mabi3atPermission;
 import com.talabaty.swever.admin.Options.Details.DetailsAdapter;
 import com.talabaty.swever.admin.R;
+import com.talabaty.swever.admin.Mabi3atDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -79,6 +79,10 @@ public class ReadyTalabatAdapter extends RecyclerView.Adapter<ReadyTalabatAdapte
     View view;
     int position;
 
+    Mabi3atDatabase systemDatabase;
+    Cursor sysCursor;
+    Mabi3atPermission permission;
+
     public ReadyTalabatAdapter(Context context, List<Talabat> talabats, int temp_first, int temp_last) {
         this.context = context;
         this.talabats = talabats;
@@ -91,20 +95,47 @@ public class ReadyTalabatAdapter extends RecyclerView.Adapter<ReadyTalabatAdapte
     @NonNull
     @Override
     public Vholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ready_talabat_row_item, parent, false);
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ready_talabat_row_item, parent, false);
         while (cursor.moveToNext()) {
             userid = Integer.parseInt(cursor.getString(2));
             shopid = Integer.parseInt(cursor.getString(3));
 
         }
+        systemDatabase = new Mabi3atDatabase(context);
+        sysCursor = systemDatabase.ShowData();
+
+        permission = new Mabi3atPermission();
+//        while (sysCursor.moveToNext()) {
+//            if (sysCursor.getString(12).equals("2")) {
+//                permission.setView(Boolean.valueOf(sysCursor.getString(1)));
+//                permission.setDetalis(Boolean.valueOf(sysCursor.getString(2)));
+//                permission.setSends(Boolean.valueOf(sysCursor.getString(3)));
+//                permission.setRefuse(Boolean.valueOf(sysCursor.getString(4)));
+//                permission.setPreAndDirect(Boolean.valueOf(sysCursor.getString(5)));
+//                permission.setPreCancel(Boolean.valueOf(sysCursor.getString(6)));
+//                permission.setAccept(Boolean.valueOf(sysCursor.getString(7)));
+//                permission.setPreCancelToNewOrder(Boolean.valueOf(sysCursor.getString(8)));
+//                permission.setReceived(Boolean.valueOf(sysCursor.getString(9)));
+//                permission.setTransport(Boolean.valueOf(sysCursor.getString(10)));
+//                permission.setTransportAccept(Boolean.valueOf(sysCursor.getString(11)));
+//                permission.setScreans2Id(Integer.parseInt(sysCursor.getString(12)));
+//            }
+//        }
+        while (sysCursor.moveToNext()) {
+            if (sysCursor.getString(12).equals("2")) {
+                permission.setDetalis(Boolean.valueOf(sysCursor.getString(2)));
+                permission.setSends(Boolean.valueOf(sysCursor.getString(3)));
+                permission.setPreCancel(Boolean.valueOf(sysCursor.getString(6)));
+                permission.setAccept(Boolean.valueOf(sysCursor.getString(7)));
+            }
+        }
+
         return new Vholder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull Vholder holder, final int positio) {
 
-
-        position = positio;
         holder.id.setText(talabats.get(positio).getId());
         holder.name.setText(talabats.get(positio).getName());
         holder.phone.setText(talabats.get(positio).getPhone());
@@ -118,6 +149,20 @@ public class ReadyTalabatAdapter extends RecyclerView.Adapter<ReadyTalabatAdapte
 
             }
         });
+
+        if (!permission.isDetalis()) {
+            holder.show.setVisibility(View.GONE);
+        }
+        if (!permission.isSends()) {
+            holder.start.setVisibility(View.GONE);
+        }
+        if (!permission.isPreCancel()) {
+            holder.reject.setVisibility(View.GONE);
+        }
+        if (!permission.isAccept()) {
+            holder.accept.setVisibility(View.GONE);
+        }
+
 
         holder.reject.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -170,6 +215,7 @@ public class ReadyTalabatAdapter extends RecyclerView.Adapter<ReadyTalabatAdapte
         holder.show.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                position = positio;
                 final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 details = inflater.inflate(R.layout.dialog_details_talabat, null);
                 submit = details.findViewById(R.id.done);
@@ -222,8 +268,10 @@ public class ReadyTalabatAdapter extends RecyclerView.Adapter<ReadyTalabatAdapte
                 next.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (position < temp_last) {
+                        if (position < temp_last && position < talabats.size() - 1) {
+                            //position = positio;
                             loadData(Integer.parseInt(talabats.get(++position).getNum()), "2", num_order, total, dialog);
+                            num_order.setText(talabats.get(position).getNum() + "");
                         } else {
                             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 //
@@ -247,6 +295,7 @@ public class ReadyTalabatAdapter extends RecyclerView.Adapter<ReadyTalabatAdapte
                     public void onClick(View v) {
                         if (temp_first < position) {
                             loadData(Integer.parseInt(talabats.get(--position).getNum()), "1", num_order, total, dialog);
+                            num_order.setText(talabats.get(position).getNum());
                         } else {
                             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -346,7 +395,7 @@ public class ReadyTalabatAdapter extends RecyclerView.Adapter<ReadyTalabatAdapte
                 message_send.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        submitMessage(dialog2, message_type.getSelectedItem().toString(), position);
+                        submitMessage(dialog2, message_type.getSelectedItem().toString(), positio);
                     }
                 });
             }
@@ -499,7 +548,7 @@ public class ReadyTalabatAdapter extends RecyclerView.Adapter<ReadyTalabatAdapte
 //                Toast.makeText(context, "لا يتواجد اى بريد الكترونى هنا!", Toast.LENGTH_SHORT).show();
 //            }
 //Todo: Bug
-            submitMessage(message_content.getText().toString(),message_title.getText().toString(),message_template.getSelectedItem().toString(),1);
+            submitMessage(message_content.getText().toString(),message_title.getText().toString(),message_template.getSelectedItem().toString(),1,s);
 
         } else if (message_type.getSelectedItem().toString().equals("رساله نصيه")) {
 
@@ -522,10 +571,10 @@ public class ReadyTalabatAdapter extends RecyclerView.Adapter<ReadyTalabatAdapte
 //            } catch (android.content.ActivityNotFoundException ex) {
 //                Toast.makeText(context, "لا يتواجد اى بريد الكترونى هنا!", Toast.LENGTH_SHORT).show();
 //            }
-            submitMessage(message_content.getText().toString(),message_title.getText().toString(),message_template.getSelectedItem().toString(),3);
+            submitMessage(message_content.getText().toString(),message_title.getText().toString(),message_template.getSelectedItem().toString(),3,s);
 
         }else if (message_type.getSelectedItem().toString().equals("رساله عبر الإيميل")){
-            submitMessage(message_content.getText().toString(),message_title.getText().toString(),message_template.getSelectedItem().toString(),2);
+            submitMessage(message_content.getText().toString(),message_title.getText().toString(),message_template.getSelectedItem().toString(),2,s);
         }
 
         clearMessageView();
@@ -925,7 +974,7 @@ public class ReadyTalabatAdapter extends RecyclerView.Adapter<ReadyTalabatAdapte
         });
     }
 
-    private void submitMessage(final String Mes, final String sub, final String Res, final int option) {
+    private void submitMessage(final String Mes, final String sub, final String Res, final int option, final int position) {
 
         final ProgressDialog progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("انتظر من فضلك ...");
@@ -1001,7 +1050,9 @@ public class ReadyTalabatAdapter extends RecyclerView.Adapter<ReadyTalabatAdapte
                 hashMap.put("Res", Res + "");
                 hashMap.put("options", option + "");
                 hashMap.put("Sub", sub + "");
-                hashMap.put("UserId", userid+"");
+                hashMap.put("UserId", userid + "");
+                hashMap.put("ShopId", shopid + "");
+                hashMap.put("OrderId", talabats.get(position).getNum() + "");
                 hashMap.put("token", "bKPNOJrob8x");
                 return hashMap;
             }

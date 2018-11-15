@@ -6,9 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -39,8 +37,10 @@ import com.android.volley.toolbox.Volley;
 import com.talabaty.swever.admin.DetailsModel;
 import com.talabaty.swever.admin.LoginDatabae;
 import com.talabaty.swever.admin.Mabi3at.DoneTalabat.Talabat;
+import com.talabaty.swever.admin.Mabi3atPermission;
 import com.talabaty.swever.admin.Options.Details.DetailsAdapter;
 import com.talabaty.swever.admin.R;
+import com.talabaty.swever.admin.Mabi3atDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -77,6 +77,10 @@ public class NotificationTalabatAdapter extends RecyclerView.Adapter<Notificatio
     View view;
     int position;
 
+    Mabi3atDatabase systemDatabase;
+    Cursor sysCursor;
+    Mabi3atPermission permission;
+
     public NotificationTalabatAdapter(Context context, List<Talabat> talabats, int temp_first, int temp_last) {
         this.context = context;
         this.talabats = talabats;
@@ -95,14 +99,23 @@ public class NotificationTalabatAdapter extends RecyclerView.Adapter<Notificatio
             shopid = Integer.parseInt(cursor.getString(3));
 
         }
+        systemDatabase = new Mabi3atDatabase(context);
+        sysCursor = systemDatabase.ShowData();
+
+        permission = new Mabi3atPermission();
+        while (sysCursor.moveToNext()) {
+            if (sysCursor.getString(12).equals("2")) {
+                permission.setDetalis(Boolean.valueOf(sysCursor.getString(2)));
+                permission.setSends(Boolean.valueOf(sysCursor.getString(3)));
+                permission.setTransportAccept(Boolean.valueOf(sysCursor.getString(11)));
+            }
+        }
         return new Vholder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull Vholder holder, final int positio) {
 
-
-        position = positio;
         holder.id.setText(talabats.get(positio).getId());
         holder.name.setText(talabats.get(positio).getName());
         holder.phone.setText(talabats.get(positio).getPhone());
@@ -120,10 +133,20 @@ public class NotificationTalabatAdapter extends RecyclerView.Adapter<Notificatio
         holder.num.setText(talabats.get(positio).getNum());
         holder.address.setText(talabats.get(positio).getAddress());
 
+        if (!permission.isDetalis()) {
+            holder.show.setVisibility(View.GONE);
+        }
+        if (!permission.isSends()) {
+            holder.start.setVisibility(View.GONE);
+        }
+        if (!permission.isTransportAccept()) {
+            holder.accept.setVisibility(View.GONE);
+        }
 
         holder.show.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                position = positio;
                 final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 details = inflater.inflate(R.layout.dialog_details_talabat, null);
                 submit = details.findViewById(R.id.done);
@@ -177,8 +200,10 @@ public class NotificationTalabatAdapter extends RecyclerView.Adapter<Notificatio
                 next.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (position < temp_last) {
+                        if (position < temp_last && position < talabats.size()-1) {
+                            //position = positio;
                             loadData(Integer.parseInt(talabats.get(++position).getNum()), "2", num_order, total, dialog);
+                            num_order.setText(talabats.get(position).getNum() + "");
                         } else {
                             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 //
@@ -200,8 +225,10 @@ public class NotificationTalabatAdapter extends RecyclerView.Adapter<Notificatio
                 prev.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (temp_first < position) {
+                        if (0 < position) {
+                            //position = positio;
                             loadData(Integer.parseInt(talabats.get(--position).getNum()), "1", num_order, total, dialog);
+                            num_order.setText(talabats.get(position).getNum() + "");
                         } else {
                             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -399,7 +426,7 @@ public class NotificationTalabatAdapter extends RecyclerView.Adapter<Notificatio
 //                Toast.makeText(context, "لا يتواجد اى بريد الكترونى هنا!", Toast.LENGTH_SHORT).show();
 //            }
 
-            submitMessage(message_content.getText().toString(),message_title.getText().toString(),message_template.getSelectedItem().toString(),1);
+            submitMessage(message_content.getText().toString(),message_title.getText().toString(),message_template.getSelectedItem().toString(),1,s);
 
         } else if (message_type.getSelectedItem().toString().equals("رساله نصيه")) {
 
@@ -422,10 +449,10 @@ public class NotificationTalabatAdapter extends RecyclerView.Adapter<Notificatio
 //            } catch (android.content.ActivityNotFoundException ex) {
 //                Toast.makeText(context, "لا يتواجد اى بريد الكترونى هنا!", Toast.LENGTH_SHORT).show();
 //            }
-            submitMessage(message_content.getText().toString(),message_title.getText().toString(),message_template.getSelectedItem().toString(),3);
+            submitMessage(message_content.getText().toString(),message_title.getText().toString(),message_template.getSelectedItem().toString(),3,s);
 
         }else if (message_type.getSelectedItem().toString().equals("رساله عبر الإيميل")){
-            submitMessage(message_content.getText().toString(),message_title.getText().toString(),message_template.getSelectedItem().toString(),2);
+            submitMessage(message_content.getText().toString(),message_title.getText().toString(),message_template.getSelectedItem().toString(),2,s);
         }
 
         clearMessageView();
@@ -433,7 +460,7 @@ public class NotificationTalabatAdapter extends RecyclerView.Adapter<Notificatio
 
     }
 
-    private void submitMessage(final String Mes, final String sub, final String Res, final int option) {
+    private void submitMessage(final String Mes, final String sub, final String Res, final int option, final int position) {
 
         final ProgressDialog progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("انتظر من فضلك ...");
@@ -509,7 +536,9 @@ public class NotificationTalabatAdapter extends RecyclerView.Adapter<Notificatio
                 hashMap.put("Res", Res + "");
                 hashMap.put("options", option + "");
                 hashMap.put("Sub", sub + "");
-                hashMap.put("UserId", userid+"");
+                hashMap.put("UserId", userid + "");
+                hashMap.put("ShopId", shopid + "");
+                hashMap.put("OrderId", talabats.get(position).getNum() + "");
                 hashMap.put("token", "bKPNOJrob8x");
                 return hashMap;
             }

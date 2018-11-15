@@ -451,7 +451,7 @@ public class SailedReports extends Fragment {
         }
 
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://www.sellsapi.rivile.com/order/SelectCustomers?token=bKPNOJrob8x", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://www.sellsapi.rivile.com/order/SelectCustomers?ShopId="+shopid+"&token=bKPNOJrob8x", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -460,10 +460,9 @@ public class SailedReports extends Fragment {
                     JSONArray jsonArray = jsonObject.getJSONArray("Customers");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                        String fname = jsonObject1.getString("FirstName");
-                        String lname = jsonObject1.getString("LastName");
-                        String id = jsonObject1.getString("Id");
-                        EmpoyeeList.add(fname + " " + lname);
+                        String fname = jsonObject1.getString("CustomerName");
+                        String id = jsonObject1.getString("CustomerId");
+                        EmpoyeeList.add(fname);
                         indexOfEmpoyeeList.add(id);
 
                     }

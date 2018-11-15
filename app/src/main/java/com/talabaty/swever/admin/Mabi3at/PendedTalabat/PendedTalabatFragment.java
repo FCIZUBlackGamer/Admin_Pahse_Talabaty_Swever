@@ -2,7 +2,6 @@ package com.talabaty.swever.admin.Mabi3at.PendedTalabat;
 
 import android.app.ProgressDialog;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -14,11 +13,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,14 +36,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.Collator;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
@@ -67,6 +57,8 @@ public class PendedTalabatFragment extends Fragment {
     LoginDatabae loginDatabae;
     Cursor cursor;
     int userid, shopid;
+
+
 
     @Nullable
     @Override
@@ -96,7 +88,7 @@ public class PendedTalabatFragment extends Fragment {
         super.onStart();
 
         ((Mabi3atNavigator) getActivity())
-                .setActionBarTitle("مهامى");
+                .setActionBarTitle("المهام المعلقه");
 
         temp_first = 0;
         temp_last = 10;
@@ -319,7 +311,7 @@ public class PendedTalabatFragment extends Fragment {
         progressDialog.setMessage("جارى تحميل البيانات ...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/order/AcceptedOrderList",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.sellsapi.rivile.com/order/MyOrderList",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -331,13 +323,15 @@ public class PendedTalabatFragment extends Fragment {
                             JSONObject object = new JSONObject(response);
                             JSONArray array = object.getJSONArray("AcceptedOrder");
                             if (array.length() > 0) {
-                                final int size = talabats.size();
-                                if (size > 0) {
-                                    for (int i = 0; i < size; i++) {
-                                        talabats.remove(0);
-                                    }
-                                    adapter.notifyItemRangeRemoved(0, size);
-                                }
+//                                final int size = talabats.size();
+//                                if (size > 0) {
+//                                    for (int i = 0; i < size; i++) {
+//                                        talabats.remove(0);
+//                                    }
+//                                    adapter.notifyItemRangeRemoved(0, size);
+//                                }
+
+                                talabats = new ArrayList<>();
                                 for (int x = 0; x < array.length(); x++) {
                                     JSONObject object1 = array.getJSONObject(x);
                                     if (x == 0) {

@@ -11,14 +11,14 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -58,7 +58,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 import com.talabaty.swever.admin.Home;
 import com.talabaty.swever.admin.LoginDatabae;
 import com.talabaty.swever.admin.Montagat.ControlMontag.ControlMontagModel;
@@ -71,6 +70,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -82,8 +84,8 @@ import static android.app.Activity.RESULT_OK;
 public class AddReturanteMontage extends Fragment {
 
     // For Image
-    RecyclerView image_rec;
-    RecyclerView.Adapter image_adap;
+    RecyclerView image_rec , old_image_rec;
+    RecyclerView.Adapter image_adap, old_image_adap;
     List<Bitmap> imageSources;
     List<Bitmap> imageTemp;
 
@@ -108,9 +110,9 @@ public class AddReturanteMontage extends Fragment {
     FragmentManager fragmentManager;
     Button save, empty;
     // First CardView
-    EditText sanf_name, initialamount, additions;
+    EditText sanf_name, additions;
     // Second CardView
-    EditText buy_price, critical_amount;
+    EditText buy_price;
     // Third CardView
     Spinner department;
     List<String> DepatmentList;
@@ -142,6 +144,8 @@ public class AddReturanteMontage extends Fragment {
     ImageView close, minimize, cam, gal;
     FloatingActionButton appear;
     int close_type;
+    boolean reload = false;
+//    ImageView imageView2;
 
     public static AddReturanteMontage setData(ControlMontagModel x) {
         AddReturanteMontage c = new AddReturanteMontage();
@@ -157,9 +161,7 @@ public class AddReturanteMontage extends Fragment {
         Gson gson = new Gson();
         Log.e("MontageModel", gson.toJson(montagModel));
         sanf_name = view.findViewById(R.id.sanf_name);
-        initialamount = view.findViewById(R.id.initialamount);
         additions = view.findViewById(R.id.additions);
-        critical_amount = view.findViewById(R.id.critical_amount);
         department = view.findViewById(R.id.department);
         appear = view.findViewById(R.id.appear);
         loginDatabae = new LoginDatabae(getActivity());
@@ -167,6 +169,8 @@ public class AddReturanteMontage extends Fragment {
 
         image_rec = (RecyclerView) view.findViewById(R.id.image_rec);
         image_rec.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        old_image_rec = (RecyclerView) view.findViewById(R.id.old_image_rec);
+        old_image_rec.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         imageSources = new ArrayList<>();
         imageTemp = new ArrayList<>();
 
@@ -191,6 +195,9 @@ public class AddReturanteMontage extends Fragment {
 //        bytes = new ArrayList<>();
         Gallary = new ArrayList<>();
         sizeModels = new ArrayList<>();
+        ((Home) getActivity())
+                .setActionBarTitle("إضافه وجبه");
+//        imageView2 = view.findViewById(R.id.img);
         return view;
     }
 
@@ -198,8 +205,7 @@ public class AddReturanteMontage extends Fragment {
     public void onStart() {
         super.onStart();
 //        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        ((Home) getActivity())
-                .setActionBarTitle("إضافه وجبه");
+
         fragmentManager = getFragmentManager();
 
         while (cursor.moveToNext()) {
@@ -212,9 +218,9 @@ public class AddReturanteMontage extends Fragment {
         DepatmentList = new ArrayList<>();
         loadDepartment();
         if (montagModel != null) {
+            ((Home) getActivity())
+                    .setActionBarTitle("تعديل وجبه");
             sanf_name.setText(montagModel.getName());
-            initialamount.setText(montagModel.getAmount() + "");
-            critical_amount.setText(montagModel.getCriticalQuantity() + "");
             UPLOAD_LINK = "http://sellsapi.rivile.com/sampleproduct2/EditProducts";
             save.setText("تعديل");
             if (!TextUtils.isEmpty(montagModel.getDescription())) {
@@ -236,38 +242,78 @@ public class AddReturanteMontage extends Fragment {
                 size_rec.setAdapter(size_adap);
             }
 
-            if (montagModel.getGallary().size() > 0) {
+            if (reload) {
+                if (montagModel.getGallary().size() > 0) {
+                    Log.e("Gallary Size", montagModel.getGallary().size() + "");
+//                Log.e("Gallary Item", montagModel.getGallary().get(0).getPhoto());
+                    imageSources = new ArrayList<>();
+                    imageUri = new ArrayList<>();
 
-                imageSources = new ArrayList<>();
-                imageUri = null;
-                for (int x = 0; x < montagModel.getGallary().size(); x++) {
-                    Picasso.with(getActivity())
-                            .load(montagModel.getGallary().get(x).getPhoto())
-                            .into(new Target() {
-                                @Override
-                                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                                    imageSources.add(bitmap);
-                                }
 
-                                @Override
-                                public void onBitmapFailed(Drawable errorDrawable) {
+                    for (int x = 0; x < montagModel.getGallary().size(); x++) {
+                        Gallary.add(new ImageSource(montagModel.getGallary().get(x).getPhoto()));
+                    }
 
-                                }
+                    old_image_adap = new OldImageAdapter(getActivity(), Gallary);
+                    old_image_rec.setAdapter(old_image_adap);
 
-                                @Override
-                                public void onPrepareLoad(Drawable placeHolderDrawable) {
+                    //img_ed_index = Gallary.size();
 
-                                }
-                            });
+//                imageView2.setVisibility(View.VISIBLE);
+//                delete_image.setVisibility(View.VISIBLE);
+
+//                        try{
+//                            Thread.sleep(5000);
+//                            bitmap = ((BitmapDrawable)imageView2.getDrawable()).getBitmap();
+//                            imageSources.add(bitmap);
+//                            imageStrings.add(getStringImage(bitmap));
+//                            image_adap.notifyDataSetChanged();
+//                        }catch (Exception e){
+//
+//                        }
+
+//                delete_image.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Log.e("GALLERY SIZE", Gallary.size() + "");
+//                        Gallary.remove(img_ed_index - 1);
+////                            for (Object a : Gallary) {
+////                                if (a == new ImageSource(montagModel.getGallary().get(0).getPhoto())) {
+////                                    Gallary.remove(a);
+////                                }
+////                            }
+////                            for (ImageSource a : new ArrayList<>(Gallary)) {
+////                                if (a == new ImageSource(montagModel.getGallary().get(0).getPhoto())) {
+////                                    Gallary.remove(a);
+////                                }
+////                            }
+//
+////                            for (Iterator<ImageSource> iter = Gallary.listIterator(); iter.hasNext(); ) {
+////                                ImageSource a = iter.next();
+////                                if (a == new ImageSource(montagModel.getGallary().get(0).getPhoto())) {
+////                                    Gallary.remove(a);
+////                                }
+////                            }
+//
+////                            Gallary.remove(new ImageSource(montagModel.getGallary().get(0).getPhoto()));
+//                        Log.e("GALLERY SIZE", Gallary.size() + "");
+//                        imageView2.setVisibility(View.GONE);
+//                        delete_image.setVisibility(View.GONE);
+//                    }
+//                });
+
+//                    image_adap = new ImageAdapter(getActivity(), imageSources, imageUri);
+//                    image_rec.setAdapter(image_adap);
+
                 }
-                image_adap = new ImageAdapter(getActivity(), imageSources, imageUri);
-                image_rec.setAdapter(image_adap);
-
             }
 
             //Todo: Forgot To Get Data For Spinner From WebService As so Create it's Own Value into Model
             // Here To Set Item To Spinner
         }
+
+        image_adap = new ImageAdapter(getActivity(), imageSources, imageUri);
+        image_rec.setAdapter(image_adap);
 
         sanf = new Sanf();
 
@@ -334,69 +380,72 @@ public class AddReturanteMontage extends Fragment {
             @Override
             public void onClick(View v) {
 
-                final LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                if (montagModel == null) {
+                    final LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-                Camera_view = inflater.inflate(R.layout.camera_view, null);
+                    Camera_view = inflater.inflate(R.layout.camera_view, null);
 
-                close = Camera_view.findViewById(R.id.close);
-                minimize = Camera_view.findViewById(R.id.minimize);
-                cam = Camera_view.findViewById(R.id.cam);
-                gal = Camera_view.findViewById(R.id.gal);
+                    close = Camera_view.findViewById(R.id.close);
+                    minimize = Camera_view.findViewById(R.id.minimize);
+                    cam = Camera_view.findViewById(R.id.cam);
+                    gal = Camera_view.findViewById(R.id.gal);
 
-                final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setCancelable(false)
-                        .setView(Camera_view);
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setCancelable(false)
+                            .setView(Camera_view);
 
-                final AlertDialog dialog = builder.create();
-                dialog.show();
+                    final AlertDialog dialog = builder.create();
+                    dialog.show();
 
-                gal.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        openGalary();
-                        dialog.dismiss();
-                    }
-                });
+                    gal.setOnClickListener(new View.OnClickListener() {
+                        @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
+                        @Override
+                        public void onClick(View v) {
+                            openGalary();
+                            dialog.dismiss();
+                        }
+                    });
 
-                cam.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        openCamera();
-                        dialog.dismiss();
-                    }
-                });
+                    cam.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            openCamera();
+                            dialog.dismiss();
+                        }
+                    });
 
-                close.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        close_type =0;
-                        dialog.dismiss();
-                        getActivity().runOnUiThread(new Runnable() {
+                    close.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            close_type = 0;
+                            dialog.dismiss();
+                            getActivity().runOnUiThread(new Runnable() {
 
-                            @Override
-                            public void run() {
-                                appear.setVisibility(View.GONE);
-                            }
-                        });
+                                @Override
+                                public void run() {
+                                    appear.setVisibility(View.GONE);
+                                }
+                            });
 
-                    }
-                });
+                        }
+                    });
 
-                minimize.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        close_type =1;
-                        dialog.dismiss();
-                        getActivity().runOnUiThread(new Runnable() {
+                    minimize.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            close_type = 1;
+                            dialog.dismiss();
+                            getActivity().runOnUiThread(new Runnable() {
 
-                            @Override
-                            public void run() {
-                                appear.setVisibility(View.VISIBLE);
-                            }
-                        });
+                                @Override
+                                public void run() {
+                                    appear.setVisibility(View.VISIBLE);
+                                }
+                            });
 
-                    }
-                });
+                        }
+                    });
+                }
             }
         });
 
@@ -422,6 +471,7 @@ public class AddReturanteMontage extends Fragment {
                 dialog.show();
 
                 gal.setOnClickListener(new View.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
                     @Override
                     public void onClick(View v) {
                         openGalary();
@@ -472,7 +522,6 @@ public class AddReturanteMontage extends Fragment {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Todo: Validate Inputs
                 if (montagModel == null) {
                     sanf.setId(0);
                     sanf.setShop_Id(shopid);
@@ -482,14 +531,11 @@ public class AddReturanteMontage extends Fragment {
                     sanf.setId(montagModel.getId());
                     sanf.setShop_Id(montagModel.getShop_Id());
                     sanf.setUserId(montagModel.getUserId());
-                    //Todo: User Id From Sqlite
                     sanf.setEditUserId(userid);
                     sanf.setSampleCatogoriesId(montagModel.getSampleCatogoriesId());
                 }
                 if (sanf_name.getText().toString().isEmpty()){
                     sanf_name.setError("ادخل اسم المنتج");
-                }else if (initialamount.getText().toString().isEmpty()){
-                    initialamount.setError("اضف عدد افتراضى");
                 }else if (sizeDimention.size() < 1){
                     LayoutInflater inflater = getLayoutInflater();
                     View layout = inflater.inflate(R.layout.toast_error,
@@ -513,8 +559,6 @@ public class AddReturanteMontage extends Fragment {
                         }
                     }
                     sanf.setDescription(additions.getText().toString());
-                    sanf.setCriticalQuantity(Integer.parseInt(critical_amount.getText().toString()));
-                    sanf.setAmount(Integer.parseInt(initialamount.getText().toString()));
 //                sanf.setInsertDate("3");
                     sanf.setSize(sizeDimention);
                     uploadImage();
@@ -527,9 +571,7 @@ public class AddReturanteMontage extends Fragment {
             @Override
             public void onClick(View v) {
                 sanf_name.setText("");
-                initialamount.setText("");
                 buy_price.setText("");
-                critical_amount.setText("");
 
                 // Empty Images
                 final int sizeImages = imageSources.size();
@@ -710,10 +752,12 @@ public class AddReturanteMontage extends Fragment {
         Volley.newRequestQueue(getActivity()).add(stringRequest);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     private void openGalary() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
     }
 
@@ -974,6 +1018,7 @@ public class AddReturanteMontage extends Fragment {
             try {
                 //Getting the Bitmap from Gallery
                 bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
+                bitmap = getResizedBitmap(bitmap, 100);
                 displayImage(bitmap, filePath);
 
             } catch (Exception e) {
@@ -981,6 +1026,7 @@ public class AddReturanteMontage extends Fragment {
             }
         } else if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             bitmap = (Bitmap) data.getExtras().get("data");
+            bitmap = getResizedBitmap(bitmap, 100);
             filePath = null;
             displayImage(bitmap, filePath);
 //            imageView.setImageBitmap(photo);
@@ -993,6 +1039,22 @@ public class AddReturanteMontage extends Fragment {
         byte[] imageBytes = baos.toByteArray();
         String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
         return encodedImage;
+    }
+
+    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        float bitmapRatio = (float) width / (float) height;
+        if (bitmapRatio > 1) {
+            width = maxSize;
+            height = (int) (width / bitmapRatio);
+        } else {
+            height = maxSize;
+            width = (int) (height * bitmapRatio);
+        }
+
+        return Bitmap.createScaledBitmap(image, width, height, true);
     }
 
 

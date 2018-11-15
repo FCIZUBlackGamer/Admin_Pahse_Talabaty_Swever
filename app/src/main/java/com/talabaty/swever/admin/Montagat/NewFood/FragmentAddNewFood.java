@@ -48,6 +48,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
+import com.talabaty.swever.admin.Home;
 import com.talabaty.swever.admin.LoginDatabae;
 import com.talabaty.swever.admin.Montagat.AddMontag.ImageAdapter;
 import com.talabaty.swever.admin.Montagat.AddMontag.ImageSource;
@@ -94,7 +95,7 @@ public class FragmentAddNewFood extends Fragment {
     // To Get Data
     Basefood userModel = null;
     private static final int CAMERA_REQUEST = 1888;
-    Bitmap bitmaP;
+    Bitmap bitmaP = null;
     List<String> imageStrings;
 
     ImageView imageView;
@@ -103,6 +104,7 @@ public class FragmentAddNewFood extends Fragment {
     ImageView close, minimize, cam, gal;
     FloatingActionButton appear;
     int close_type;
+    String final_image = "";
 
 
     ControlMontagModel montagModel;
@@ -129,7 +131,6 @@ public class FragmentAddNewFood extends Fragment {
         cursor = loginDatabae.ShowData();
         fragmentManager = getFragmentManager();
 
-
         Gallary = new ArrayList<>();
 
         return view;
@@ -142,7 +143,11 @@ public class FragmentAddNewFood extends Fragment {
         requestStoragePermission();
         appear.setVisibility(View.GONE);
         imageStrings = new ArrayList<>();
+        ((Home) getActivity())
+                .setActionBarTitle("إضافه وجبه");
         if (montagModel != null){
+            ((Home) getActivity())
+                    .setActionBarTitle("تعديل وجبه");
             name.setText(montagModel.getName());
             price.setText(montagModel.getSellPrice() + "");
             UPLOAD_LINK = "http://sellsapi.rivile.com/BaseFood/Edit";
@@ -150,27 +155,14 @@ public class FragmentAddNewFood extends Fragment {
 
             if (montagModel.getGallary().size() > 0) {
 
-                for (int x=0; x<montagModel.getGallary().size(); x++){
-                    Picasso.with(getActivity())
-                            .load(montagModel.getGallary().get(x).getPhoto())
-                            .into(new Target() {
-                                @Override
-                                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                                    bitmaP = bitmap;
-                                }
+                    Log.e("Image Link",montagModel.getGallary().get(0).getPhoto());
 
-                                @Override
-                                public void onBitmapFailed(Drawable errorDrawable) {
-
-                                }
-
-                                @Override
-                                public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-                                }
-                            });
-                }
-                imageView.setImageBitmap(bitmaP);
+                    if (final_image.isEmpty()) {
+                        Picasso.with(getActivity())
+                                .load("http://www.selltlbaty.rivile.com" + montagModel.getGallary().get(0).getPhoto())
+                                .into(imageView);
+                        final_image = montagModel.getGallary().get(0).getPhoto();
+                    }
 
             }
 
@@ -480,90 +472,98 @@ public class FragmentAddNewFood extends Fragment {
 
     private void uploadImage() {
         final Gson gson = new Gson();
-        imageStrings.add(getStringImage(bitmaP));
-        Log.e("Connection UploadImage", gson.toJson(imageStrings));
-        final String allImages = gson.toJson(imageStrings);
+        if (bitmaP != null) {
+            imageStrings.add(getStringImage(bitmaP));
+            Log.e("Connection UploadImage", gson.toJson(imageStrings));
+            final String allImages = gson.toJson(imageStrings);
 //        Log.e("Start: ", allImages);
-        //Showing the progress dialog
-        final ProgressDialog loading = ProgressDialog.show(getActivity(), "Uploading...", "Please wait...", false, false);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String s) {
-                        //Disimissing the progress dialog
-                        loading.dismiss();
-                        Log.e("Path: ", s);
-                        try {
+            //Showing the progress dialog
+            final ProgressDialog loading = ProgressDialog.show(getActivity(), "Uploading...", "Please wait...", false, false);
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String s) {
+                            //Disimissing the progress dialog
+                            loading.dismiss();
+                            Log.e("Path: ", s);
+                            try {
 
-                            JSONObject object = new JSONObject(s);
-                            JSONArray array = object.getJSONArray("Images");
-                            for (int x = 0; x < array.length(); x++) {
-                                String object1 = array.getString(x);
-                                Gallary.add(new ImageSource(object1));
+                                JSONObject object = new JSONObject(s);
+                                JSONArray array = object.getJSONArray("Images");
+                                for (int x = 0; x < array.length(); x++) {
+                                    String object1 = array.getString(x);
+                                    Gallary.add(new ImageSource(object1));
+                                }
+                                userModel.setPhoto(Gallary.get(0).getPhoto());
+
+//                                final String jsonInString = gson.toJson(userModel);
+//                                Log.e("Data", jsonInString);
+                                Log.e("Gallary", gson.toJson(Gallary));
+                                uploadMontage();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                            userModel.setPhoto(Gallary.get(0).getPhoto());
 
-                            final String jsonInString = gson.toJson(userModel);
-                            Log.e("Data", jsonInString);
-                            Log.e("Gallary", gson.toJson(Gallary));
-                            uploadMontage();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError volleyError) {
+                            //Dismissing the progress dialog
+                            loading.dismiss();
 
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        //Dismissing the progress dialog
-                        loading.dismiss();
+                            LayoutInflater inflater = getLayoutInflater();
+                            View layout = inflater.inflate(R.layout.toast_warning,
+                                    (ViewGroup) getActivity().findViewById(R.id.lay));
 
-                        LayoutInflater inflater = getLayoutInflater();
-                        View layout = inflater.inflate(R.layout.toast_warning,
-                                (ViewGroup) getActivity().findViewById(R.id.lay));
+                            TextView text = (TextView) layout.findViewById(R.id.txt);
 
-                        TextView text = (TextView) layout.findViewById(R.id.txt);
+                            if (volleyError instanceof ServerError)
+                                text.setText("خطأ فى الاتصال بالخادم");
+                            else if (volleyError instanceof TimeoutError)
+                                text.setText("خطأ فى مدة الاتصال");
+                            else if (volleyError instanceof NetworkError)
+                                text.setText("شبكه الانترنت ضعيفه حاليا");
 
-                        if (volleyError instanceof ServerError)
-                            text.setText("خطأ فى الاتصال بالخادم");
-                        else if (volleyError instanceof TimeoutError)
-                            text.setText("خطأ فى مدة الاتصال");
-                        else if (volleyError instanceof NetworkError)
-                            text.setText("شبكه الانترنت ضعيفه حاليا");
-
-                        Toast toast = new Toast(getActivity());
-                        toast.setGravity(Gravity.BOTTOM, 0, 0);
-                        toast.setDuration(Toast.LENGTH_LONG);
-                        toast.setView(layout);
-                        toast.show();
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                //Converting Bitmap to String
+                            Toast toast = new Toast(getActivity());
+                            toast.setGravity(Gravity.BOTTOM, 0, 0);
+                            toast.setDuration(Toast.LENGTH_LONG);
+                            toast.setView(layout);
+                            toast.show();
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    //Converting Bitmap to String
 //                for (int x= 0; x<imageSources.size(); x++) {
 //                    String image = getStringImage(bitmap);
 //                }
 
-                //Creating parameters
-                Map<String, String> params = new Hashtable<String, String>();
+                    //Creating parameters
+                    Map<String, String> params = new Hashtable<String, String>();
 
-                //Adding parameters
-                params.put(KEY_IMAGE, allImages);
+                    //Adding parameters
+                    params.put(KEY_IMAGE, allImages);
 
-                params.put(KEY_NAME, "Mohamed");
+                    params.put(KEY_NAME, "Mohamed");
 
-                //returning parameters
-                return params;
-            }
-        };
+                    //returning parameters
+                    return params;
+                }
+            };
 
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
-                2,  // maxNumRetries = 2 means no retry
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        Volley.newRequestQueue(getActivity()).add(stringRequest);
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                    DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                    2,  // maxNumRetries = 2 means no retry
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            Volley.newRequestQueue(getActivity()).add(stringRequest);
+        }else {
+            userModel.setPhoto(final_image);
+            final String jsonInString = gson.toJson(userModel);
+            Log.e("Data", jsonInString);
+            Log.e("Gallary", gson.toJson(Gallary));
+            uploadMontage();
+        }
     }
 
     @Override
@@ -595,15 +595,18 @@ public class FragmentAddNewFood extends Fragment {
             filePath = data.getData();
             try {
                 //Getting the Bitmap from Gallery
+                //imageView.setImageDrawable(null);
                 bitmaP = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
+                bitmaP = getResizedBitmap(bitmaP, 100);
                 imageView.setImageBitmap(bitmaP);
-
+//                Log.e("Bitmap1",getStringImage(bitmaP));
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
+            Log.e("Bitmap2","Exist");
             bitmaP = (Bitmap) data.getExtras().get("data");
-
+            bitmaP = getResizedBitmap(bitmaP, 100);
             imageView.setImageBitmap(bitmaP);
         }
     }
@@ -614,5 +617,21 @@ public class FragmentAddNewFood extends Fragment {
         byte[] imageBytes = baos.toByteArray();
         String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
         return encodedImage;
+    }
+
+    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        float bitmapRatio = (float) width / (float) height;
+        if (bitmapRatio > 1) {
+            width = maxSize;
+            height = (int) (width / bitmapRatio);
+        } else {
+            height = maxSize;
+            width = (int) (height * bitmapRatio);
+        }
+
+        return Bitmap.createScaledBitmap(image, width, height, true);
     }
 }

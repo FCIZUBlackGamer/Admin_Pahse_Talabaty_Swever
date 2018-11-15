@@ -1,21 +1,32 @@
 package com.talabaty.swever.admin.Montagat;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.talabaty.swever.admin.Home;
+import com.talabaty.swever.admin.LoginDatabae;
 import com.talabaty.swever.admin.Montagat.ControlUnitAndDepartment.FragmentControlUnitAndDepartment;
 import com.talabaty.swever.admin.Montagat.UnitAndDepartment.Department.FragmentDepartment;
 import com.talabaty.swever.admin.Montagat.UnitAndDepartment.Unit.FragmentUnit;
 import com.talabaty.swever.admin.R;
+import com.talabaty.swever.admin.SystemDatabase;
+import com.talabaty.swever.admin.SystemPermission;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FragmentMontag extends Fragment {
 
@@ -23,8 +34,16 @@ public class FragmentMontag extends Fragment {
     Button add_unit, control_unit;
     Button add_dep, control_dep;
     FragmentManager fragmentManager;
+    LinearLayout unit, dep;
 
     int type;
+    LoginDatabae loginDatabae;
+    Cursor cursor;
+    String permession = "";
+
+    SystemDatabase systemDatabase;
+    Cursor sysCursor;
+    List<SystemPermission> permissions;
 
     @Nullable
     @Override
@@ -36,6 +55,10 @@ public class FragmentMontag extends Fragment {
         control_dep = view.findViewById(R.id.control_dep);
         control_montage = view.findViewById(R.id.control_montag);
         control_unit = view.findViewById(R.id.control_unit);
+        unit = view.findViewById(R.id.unit);
+        dep = view.findViewById(R.id.dep);
+        loginDatabae = new LoginDatabae(getActivity());
+        cursor = loginDatabae.ShowData();
         return view;
     }
 
@@ -46,6 +69,30 @@ public class FragmentMontag extends Fragment {
         ((Home) getActivity())
                 .setActionBarTitle("المنتجات");
         fragmentManager = getFragmentManager();
+
+        systemDatabase = new SystemDatabase(getActivity());
+        sysCursor = systemDatabase.ShowData();
+        permissions = new ArrayList<>();
+        while (sysCursor.moveToNext()) {
+            SystemPermission systemPermission = new SystemPermission();
+            systemPermission.setCreate(Boolean.valueOf(sysCursor.getString(1)));
+            systemPermission.setDelete(Boolean.valueOf(sysCursor.getString(2)));
+            systemPermission.setView(Boolean.valueOf(sysCursor.getString(3)));
+            systemPermission.setUpdate(Boolean.valueOf(sysCursor.getString(4)));
+            systemPermission.setScreensId(Integer.parseInt(sysCursor.getString(5)));
+            permissions.add(systemPermission);
+        }
+
+        while (cursor.moveToNext()) {
+            permession = cursor.getString(6);
+        }
+
+        if (!permession.equals("1")) {
+            unit.setVisibility(View.GONE);
+            dep.setVisibility(View.GONE);
+
+        }
+
 //        fragmentManager.beginTransaction().replace(R.id.home_montag_frame,new FragmentHomeMontag()).commit();
         add_montage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,132 +101,82 @@ public class FragmentMontag extends Fragment {
 
                 type = 1;
 
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
-                transaction.replace(R.id.frame_mabi3at, new FragmentChooseAdd().setType(1));
-                transaction.addToBackStack("FragmentChooseAdd");
-                transaction.commit();
+                if (permissions.get(1).isCreate()) {
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
+                    transaction.replace(R.id.frame_mabi3at, new FragmentChooseAdd().setType(1));
+                    transaction.addToBackStack("FragmentChooseAdd");
+                    transaction.commit();
+                } else {
+                    LayoutInflater inflater = getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.toast_warning,
+                            (ViewGroup) getActivity().findViewById(R.id.lay));
 
+                    TextView text = (TextView) layout.findViewById(R.id.txt);
 
-//                fragmentManager.beginTransaction().replace(R.id.frame_mabi3at, new FragmentChooseAdd().setType(1)).addToBackStack("FragmentChooseAdd").commit();
+                    text.setText("لا يمكن عرض الصفحه");
 
-//                // Prepare the View for the animation
-//                restaurant.setVisibility(View.VISIBLE);
-//                restaurant.setAlpha(0.0f);
-//
-//                // Start the animation
-//                restaurant.animate()
-////                        .translationY(restaurant.getHeight())
-//                        .translationX(restaurant.getWidth())
-//                        .alpha(1.0f)
-//                        .setListener(null);
-//
-//                s = restaurant.getWidth();
-//                Handler handler = new Handler();
-//                handler.postDelayed(new Runnable() {
-//                    public void run() {
-//                        // Start the animation
-//                        restaurant.animate()
-////                        .translationY(restaurant.getHeight())
-////                                .translationX(-s)
-//                                .translationXBy(-s)
-//                                .alpha(1.0f)
-//                                .setListener(null);
-//
-//                    }
-//                }, 1000);
-//
-//
-//                // Prepare the View for the animation
-//                market.setVisibility(View.VISIBLE);
-//                market.setAlpha(0.0f);
-//
-//                // Start the animation
-//                market.animate()
-////                        .translationY(restaurant.getHeight())
-//                        .translationX(-market.getWidth())
-//                        .alpha(1.0f)
-//                        .setListener(null);
-//
-//                s = market.getWidth();
-//                handler.postDelayed(new Runnable() {
-//                    public void run() {
-//                        // Start the animation
-//                        market.animate()
-////                        .translationY(restaurant.getHeight())
-////                                .translationX(-s)
-//                                .translationXBy(s)
-//                                .alpha(1.0f)
-//                                .setListener(null);
-//
-//                    }
-//                }, 1000);
-//
-//
-//                // Prepare the View for the animation
-//                other.setVisibility(View.VISIBLE);
-//                other.setAlpha(0.0f);
-//
-//                // Start the animation
-//                other.animate()
-////                        .translationY(restaurant.getHeight())
-//                        .translationX(other.getWidth())
-//                        .alpha(1.0f)
-//                        .setListener(null);
-//
-//                s = other.getWidth();
-//                handler.postDelayed(new Runnable() {
-//                    public void run() {
-//                        // Start the animation
-//                        other.animate()
-////                        .translationY(restaurant.getHeight())
-////                                .translationX(-s)
-//                                .translationXBy(-s)
-//                                .alpha(1.0f)
-//                                .setListener(null);
-//
-//
-//                        // Prepare the View for the animation
-//                        base_food.setVisibility(View.VISIBLE);
-//                        base_food.setAlpha(0.0f);
-//
-//                        // Start the animation
-//                        base_food.animate()
-//                                .rotationX(360)
-//                                .alpha(1.0f)
-//                                .setListener(null);
-//
-//
-//                    }
-//                }, 1000);
-//
-//
-//                // Prepare the View for the animation
-//                additions.setVisibility(View.VISIBLE);
-//                additions.setAlpha(0.0f);
-//
-//                // Start the animation
-//                additions.animate()
-////                        .translationY(restaurant.getHeight())
-//                        .translationX(-additions.getWidth())
-//                        .alpha(1.0f)
-//                        .setListener(null);
-//
-//                s = additions.getWidth();
-//                handler.postDelayed(new Runnable() {
-//                    public void run() {
-//                        // Start the animation
-//                        additions.animate()
-////                        .translationY(restaurant.getHeight())
-////                                .translationX(-s)
-//                                .translationXBy(s)
-//                                .alpha(1.0f)
-//                                .setListener(null);
-//
-//                    }
-//                }, 1000);
+                    Toast toast = new Toast(getActivity());
+                    toast.setGravity(Gravity.BOTTOM, 0, 0);
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.setView(layout);
+                    toast.show();
+                }
 
-//                Toast.makeText(getActivity(),"Done",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        add_unit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (permissions.get(1).isCreate()) {
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
+                    transaction.replace(R.id.frame_mabi3at, new FragmentUnit());
+                    transaction.addToBackStack("FragmentUnit");
+                    transaction.commit();
+                } else {
+                    LayoutInflater inflater = getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.toast_warning,
+                            (ViewGroup) getActivity().findViewById(R.id.lay));
+
+                    TextView text = (TextView) layout.findViewById(R.id.txt);
+
+                    text.setText("لا يمكن عرض الصفحه");
+
+                    Toast toast = new Toast(getActivity());
+                    toast.setGravity(Gravity.BOTTOM, 0, 0);
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.setView(layout);
+                    toast.show();
+                }
+            }
+        });
+
+        add_dep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (permissions.get(1).isCreate()) {
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
+                    transaction.replace(R.id.frame_mabi3at, new FragmentDepartment());
+                    transaction.addToBackStack("FragmentDepartment");
+                    transaction.commit();
+                } else {
+                    LayoutInflater inflater = getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.toast_warning,
+                            (ViewGroup) getActivity().findViewById(R.id.lay));
+
+                    TextView text = (TextView) layout.findViewById(R.id.txt);
+
+                    text.setText("لا يمكن عرض الصفحه");
+
+                    Toast toast = new Toast(getActivity());
+                    toast.setGravity(Gravity.BOTTOM, 0, 0);
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.setView(layout);
+                    toast.show();
+                }
             }
         });
 
@@ -189,175 +186,82 @@ public class FragmentMontag extends Fragment {
 //                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
                 type = 0;
+                if (permissions.get(1).isUpdate()) {
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
+                    transaction.replace(R.id.frame_mabi3at, new FragmentChooseAdd().setType(0));
+                    transaction.addToBackStack("FragmentChooseAdd");
+                    transaction.commit();
+                } else {
+                    LayoutInflater inflater = getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.toast_warning,
+                            (ViewGroup) getActivity().findViewById(R.id.lay));
 
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
-                transaction.replace(R.id.frame_mabi3at, new FragmentChooseAdd().setType(0));
-                transaction.addToBackStack("FragmentChooseAdd");
-                transaction.commit();
+                    TextView text = (TextView) layout.findViewById(R.id.txt);
 
-//                fragmentManager.beginTransaction().replace(R.id.frame_mabi3at, new FragmentChooseAdd().setType(0)).addToBackStack("FragmentChooseAdd").commit();
-//                // Prepare the View for the animation
-//                restaurant.setVisibility(View.VISIBLE);
-//                restaurant.setAlpha(0.0f);
-//
-//                // Start the animation
-//                restaurant.animate()
-////                        .translationY(restaurant.getHeight())
-//                        .translationX(restaurant.getWidth())
-//                        .alpha(1.0f)
-//                        .setListener(null);
-//
-//                s = restaurant.getWidth();
-//                Handler handler = new Handler();
-//                handler.postDelayed(new Runnable() {
-//                    public void run() {
-//                        // Start the animation
-//                        restaurant.animate()
-////                        .translationY(restaurant.getHeight())
-////                                .translationX(-s)
-//                                .translationXBy(-s)
-//                                .alpha(1.0f)
-//                                .setListener(null);
-//
-//                    }
-//                }, 1000);
-//
-//
-//                // Prepare the View for the animation
-//                market.setVisibility(View.VISIBLE);
-//                market.setAlpha(0.0f);
-//
-//                // Start the animation
-//                market.animate()
-////                        .translationY(restaurant.getHeight())
-//                        .translationX(-market.getWidth())
-//                        .alpha(1.0f)
-//                        .setListener(null);
-//
-//                s = market.getWidth();
-//                handler.postDelayed(new Runnable() {
-//                    public void run() {
-//                        // Start the animation
-//                        market.animate()
-////                        .translationY(restaurant.getHeight())
-////                                .translationX(-s)
-//                                .translationXBy(s)
-//                                .alpha(1.0f)
-//                                .setListener(null);
-//
-//                    }
-//                }, 1000);
-//
-//
-//                // Prepare the View for the animation
-//                other.setVisibility(View.VISIBLE);
-//                other.setAlpha(0.0f);
-//
-//                // Start the animation
-//                other.animate()
-////                        .translationY(restaurant.getHeight())
-//                        .translationX(other.getWidth())
-//                        .alpha(1.0f)
-//                        .setListener(null);
-//
-//                s = other.getWidth();
-//                handler.postDelayed(new Runnable() {
-//                    public void run() {
-//                        // Start the animation
-//                        other.animate()
-////                        .translationY(restaurant.getHeight())
-////                                .translationX(-s)
-//                                .translationXBy(-s)
-//                                .alpha(1.0f)
-//                                .setListener(null);
-//
-//
-//                        // Prepare the View for the animation
-//                        base_food.setVisibility(View.VISIBLE);
-//                        base_food.setAlpha(0.0f);
-//
-//                        // Start the animation
-//                        base_food.animate()
-//                                .rotationX(360)
-//                                .alpha(1.0f)
-//                                .setListener(null);
-//
-//
-//                    }
-//                }, 1000);
-//
-//
-//                // Prepare the View for the animation
-//                additions.setVisibility(View.VISIBLE);
-//                additions.setAlpha(0.0f);
-//
-//                // Start the animation
-//                additions.animate()
-////                        .translationY(restaurant.getHeight())
-//                        .translationX(-additions.getWidth())
-//                        .alpha(1.0f)
-//                        .setListener(null);
-//
-//                s = additions.getWidth();
-//                handler.postDelayed(new Runnable() {
-//                    public void run() {
-//                        // Start the animation
-//                        additions.animate()
-////                        .translationY(restaurant.getHeight())
-////                                .translationX(-s)
-//                                .translationXBy(s)
-//                                .alpha(1.0f)
-//                                .setListener(null);
-//
-//                    }
-//                }, 1000);
+                    text.setText("لا يمكن عرض الصفحه");
 
-//                Toast.makeText(getActivity(),"Done",Toast.LENGTH_SHORT).show();
-            }
-        });
+                    Toast toast = new Toast(getActivity());
+                    toast.setGravity(Gravity.BOTTOM, 0, 0);
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.setView(layout);
+                    toast.show();
+                }
 
-        add_unit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
-                transaction.replace(R.id.frame_mabi3at, new FragmentUnit());
-                transaction.addToBackStack("FragmentUnit");
-                transaction.commit();
-            }
-        });
-
-        add_dep.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
-                transaction.replace(R.id.frame_mabi3at, new FragmentDepartment());
-                transaction.addToBackStack("FragmentDepartment");
-                transaction.commit();
             }
         });
 
         control_unit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
-                transaction.replace(R.id.frame_mabi3at, new FragmentControlUnitAndDepartment().setType("5"));
-                transaction.addToBackStack("FragmentControlUnit");
-                transaction.commit();
+                if (permissions.get(1).isUpdate()) {
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
+                    transaction.replace(R.id.frame_mabi3at, new FragmentControlUnitAndDepartment().setType("5"));
+                    transaction.addToBackStack("FragmentControlUnit");
+                    transaction.commit();
+                } else {
+                    LayoutInflater inflater = getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.toast_warning,
+                            (ViewGroup) getActivity().findViewById(R.id.lay));
+
+                    TextView text = (TextView) layout.findViewById(R.id.txt);
+
+                    text.setText("لا يمكن عرض الصفحه");
+
+                    Toast toast = new Toast(getActivity());
+                    toast.setGravity(Gravity.BOTTOM, 0, 0);
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.setView(layout);
+                    toast.show();
+                }
             }
         });
 
         control_dep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
-                transaction.replace(R.id.frame_mabi3at, new FragmentControlUnitAndDepartment().setType("6"));
-                transaction.addToBackStack("FragmentControlDepartment");
-                transaction.commit();
+                if (permissions.get(1).isUpdate()) {
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
+                    transaction.replace(R.id.frame_mabi3at, new FragmentControlUnitAndDepartment().setType("6"));
+                    transaction.addToBackStack("FragmentControlDepartment");
+                    transaction.commit();
+                } else {
+                    LayoutInflater inflater = getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.toast_warning,
+                            (ViewGroup) getActivity().findViewById(R.id.lay));
+
+                    TextView text = (TextView) layout.findViewById(R.id.txt);
+
+                    text.setText("لا يمكن عرض الصفحه");
+
+                    Toast toast = new Toast(getActivity());
+                    toast.setGravity(Gravity.BOTTOM, 0, 0);
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.setView(layout);
+                    toast.show();
+                }
             }
         });
 

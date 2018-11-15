@@ -26,12 +26,16 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.talabaty.swever.admin.Home;
 import com.talabaty.swever.admin.LoginDatabae;
+import com.talabaty.swever.admin.Mabi3atDatabase;
+import com.talabaty.swever.admin.Mabi3atPermission;
 import com.talabaty.swever.admin.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MainHome extends Fragment {
@@ -46,6 +50,12 @@ public class MainHome extends Fragment {
     Cursor cursor;
     int userid, shopid;
     ProgressDialog progressDialog;
+
+
+    Mabi3atDatabase systemDatabase;
+    Cursor sysCursor;
+    List<Mabi3atPermission> systemPermissions;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -69,8 +79,8 @@ public class MainHome extends Fragment {
         num_notification = view.findViewById(R.id.num_notification);
         num_my_tasks = view.findViewById(R.id.num_my_tasks);
 
-        loginDatabae = new LoginDatabae(getActivity());
-        cursor = loginDatabae.ShowData();
+
+
         return view;
     }
 
@@ -88,32 +98,61 @@ public class MainHome extends Fragment {
         ((Home) getActivity())
                 .setActionBarTitle("المبيعات");
 
+        loginDatabae = new LoginDatabae(getActivity());
+        cursor = loginDatabae.ShowData();
+
+        systemDatabase = new Mabi3atDatabase(getActivity());
+        sysCursor = systemDatabase.ShowData();
+
         while (cursor.moveToNext()) {
             userid = Integer.parseInt(cursor.getString(2));
             shopid = Integer.parseInt(cursor.getString(3));
 
         }
 
-        Log.e("S","Main Home");
-//        ExecutorService threadPoolExecutor = Executors.newSingleThreadExecutor();
-//        Runnable longRunningTask = new Runnable() {
-//            double time = System.currentTimeMillis() / 1000;
-//
-//            @Override
-//            public void run() {
-//                try {
-//                    MainHome.this.wait(1000*7);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//                do {
-        loadData();
-//                } while (System.currentTimeMillis() / 1000 - time == 7);
+        systemPermissions = new ArrayList<>();
+        while (sysCursor.moveToNext()) {
+            Mabi3atPermission permission = new Mabi3atPermission();
+            permission.setView(Boolean.valueOf(sysCursor.getString(1)));
+            permission.setDetalis(Boolean.valueOf(sysCursor.getString(2)));
+            permission.setSends(Boolean.valueOf(sysCursor.getString(3)));
+            permission.setRefuse(Boolean.valueOf(sysCursor.getString(4)));
+            permission.setPreAndDirect(Boolean.valueOf(sysCursor.getString(5)));
+            permission.setPreCancel(Boolean.valueOf(sysCursor.getString(6)));
+            permission.setAccept(Boolean.valueOf(sysCursor.getString(7)));
+            permission.setPreCancelToNewOrder(Boolean.valueOf(sysCursor.getString(8)));
+            permission.setReceived(Boolean.valueOf(sysCursor.getString(9)));
+            permission.setTransport(Boolean.valueOf(sysCursor.getString(10)));
+            permission.setTransportAccept(Boolean.valueOf(sysCursor.getString(11)));
+            permission.setScreans2Id(Integer.parseInt(sysCursor.getString(12)));
+            systemPermissions.add(permission);
+        }
 
-//            }
-//        };
+//        sysCursor = systemDatabase.ShowData();
+        Log.e("S","Main Home");
+        Log.e("Length", systemPermissions.size() + "");
+
+//        while (sysCursor.moveToNext()) {
+//            Log.e("0", sysCursor.getString(0));
+//            Log.e("1", Boolean.valueOf(sysCursor.getString(1))+"");
+//            Log.e("2", sysCursor.getString(2));
+//            Log.e("3", sysCursor.getString(3));
+//            Log.e("4", sysCursor.getString(4));
+//            Log.e("5", sysCursor.getString(5));
+//            Log.e("6", sysCursor.getString(6));
+//            Log.e("7", sysCursor.getString(7));
+//            Log.e("8", sysCursor.getString(8));
+//            Log.e("9", sysCursor.getString(9));
+//            Log.e("10", sysCursor.getString(10));
+//            Log.e("11", sysCursor.getString(11));
+//            Log.e("12", sysCursor.getString(12));
+//        }
 //
-//        final Future longRunningTaskFuture = threadPoolExecutor.submit(longRunningTask);
+//        for (int x=0; x<systemPermissions.size(); x++){
+//            Log.e(""+x, systemPermissions.get(x).isView()+"");
+//        }
+
+        loadData();
 
 
         final Intent intent = new Intent(getActivity(), Mabi3atNavigator.class);
@@ -121,26 +160,77 @@ public class MainHome extends Fragment {
             @Override
             public void onClick(View v) {
                 intent.putExtra("fragment", "new");
+                Log.e("Value", systemPermissions.get(0).isView() + "");
 //                longRunningTaskFuture.cancel(true);
-                startActivity(intent);
+                if (systemPermissions.get(0).isView()) {
+                    startActivity(intent);
+                } else {
+                    LayoutInflater inflater = getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.toast_warning,
+                            (ViewGroup) getActivity().findViewById(R.id.lay));
+
+                    TextView text = (TextView) layout.findViewById(R.id.txt);
+
+                    text.setText("لا يمكن عرض الصفحه");
+
+                    Toast toast = new Toast(getActivity());
+                    toast.setGravity(Gravity.BOTTOM, 0, 0);
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.setView(layout);
+                    toast.show();
+                }
             }
         });
 
         ready_talabat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.e("Value", systemPermissions.get(1).isView() + "");
                 intent.putExtra("fragment", "ready");
 //                longRunningTaskFuture.cancel(true);
-                startActivity(intent);
+                if (systemPermissions.get(1).isView()) {
+                    startActivity(intent);
+                } else {
+                    LayoutInflater inflater = getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.toast_warning,
+                            (ViewGroup) getActivity().findViewById(R.id.lay));
+
+                    TextView text = (TextView) layout.findViewById(R.id.txt);
+
+                    text.setText("لا يمكن عرض الصفحه");
+
+                    Toast toast = new Toast(getActivity());
+                    toast.setGravity(Gravity.BOTTOM, 0, 0);
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.setView(layout);
+                    toast.show();
+                }
             }
         });
 
         pended_tasks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.putExtra("fragment", "pend");
+                intent.putExtra("fragment", "my_tasks");
+                Log.e("Value", systemPermissions.get(4).isView() + "");
 //                longRunningTaskFuture.cancel(true);
-                startActivity(intent);
+                if (systemPermissions.get(4).isView()) {
+                    startActivity(intent);
+                } else {
+                    LayoutInflater inflater = getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.toast_warning,
+                            (ViewGroup) getActivity().findViewById(R.id.lay));
+
+                    TextView text = (TextView) layout.findViewById(R.id.txt);
+
+                    text.setText("لا يمكن عرض الصفحه");
+
+                    Toast toast = new Toast(getActivity());
+                    toast.setGravity(Gravity.BOTTOM, 0, 0);
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.setView(layout);
+                    toast.show();
+                }
             }
         });
 
@@ -148,8 +238,25 @@ public class MainHome extends Fragment {
             @Override
             public void onClick(View v) {
                 intent.putExtra("fragment", "returned");
+                Log.e("Value", systemPermissions.get(2).isView() + "");
 //                longRunningTaskFuture.cancel(true);
-                startActivity(intent);
+                if (systemPermissions.get(2).isView()) {
+                    startActivity(intent);
+                } else {
+                    LayoutInflater inflater = getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.toast_warning,
+                            (ViewGroup) getActivity().findViewById(R.id.lay));
+
+                    TextView text = (TextView) layout.findViewById(R.id.txt);
+
+                    text.setText("لا يمكن عرض الصفحه");
+
+                    Toast toast = new Toast(getActivity());
+                    toast.setGravity(Gravity.BOTTOM, 0, 0);
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.setView(layout);
+                    toast.show();
+                }
             }
         });
 
@@ -159,7 +266,23 @@ public class MainHome extends Fragment {
             public void onClick(View v) {
                 intent.putExtra("fragment", "notification");
 //                longRunningTaskFuture.cancel(true);
-                startActivity(intent);
+                if (systemPermissions.get(5).isView()) {
+                    startActivity(intent);
+                } else {
+                    LayoutInflater inflater = getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.toast_warning,
+                            (ViewGroup) getActivity().findViewById(R.id.lay));
+
+                    TextView text = (TextView) layout.findViewById(R.id.txt);
+
+                    text.setText("لا يمكن عرض الصفحه");
+
+                    Toast toast = new Toast(getActivity());
+                    toast.setGravity(Gravity.BOTTOM, 0, 0);
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.setView(layout);
+                    toast.show();
+                }
             }
         });
 
@@ -168,7 +291,23 @@ public class MainHome extends Fragment {
             public void onClick(View v) {
                 intent.putExtra("fragment", "done");
 //                longRunningTaskFuture.cancel(true);
-                startActivity(intent);
+                if (systemPermissions.get(6).isView()) {
+                    startActivity(intent);
+                } else {
+                    LayoutInflater inflater = getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.toast_warning,
+                            (ViewGroup) getActivity().findViewById(R.id.lay));
+
+                    TextView text = (TextView) layout.findViewById(R.id.txt);
+
+                    text.setText("لا يمكن عرض الصفحه");
+
+                    Toast toast = new Toast(getActivity());
+                    toast.setGravity(Gravity.BOTTOM, 0, 0);
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.setView(layout);
+                    toast.show();
+                }
             }
         });
 
@@ -177,25 +316,74 @@ public class MainHome extends Fragment {
             public void onClick(View v) {
                 intent.putExtra("fragment", "rejected");
 //                longRunningTaskFuture.cancel(true);
-                startActivity(intent);
+                if (systemPermissions.get(8).isView()) {
+                    startActivity(intent);
+                } else {
+                    LayoutInflater inflater = getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.toast_warning,
+                            (ViewGroup) getActivity().findViewById(R.id.lay));
+
+                    TextView text = (TextView) layout.findViewById(R.id.txt);
+
+                    text.setText("لا يمكن عرض الصفحه");
+
+                    Toast toast = new Toast(getActivity());
+                    toast.setGravity(Gravity.BOTTOM, 0, 0);
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.setView(layout);
+                    toast.show();
+                }
             }
         });
 
         my_tasks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.putExtra("fragment", "my_tasks");
+                intent.putExtra("fragment", "pend");
 //                longRunningTaskFuture.cancel(true);
-                startActivity(intent);
+                if (systemPermissions.get(3).isView()) {
+                    startActivity(intent);
+                } else {
+                    LayoutInflater inflater = getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.toast_warning,
+                            (ViewGroup) getActivity().findViewById(R.id.lay));
+
+                    TextView text = (TextView) layout.findViewById(R.id.txt);
+
+                    text.setText("لا يمكن عرض الصفحه");
+
+                    Toast toast = new Toast(getActivity());
+                    toast.setGravity(Gravity.BOTTOM, 0, 0);
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.setView(layout);
+                    toast.show();
+                }
             }
         });
 
         delvery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /** Move To Navigator */
                 intent.putExtra("fragment", "delivery");
 //                longRunningTaskFuture.cancel(true);
-                startActivity(intent);
+                if (systemPermissions.get(0).isView()) {
+                    startActivity(intent);
+                } else {
+                    LayoutInflater inflater = getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.toast_warning,
+                            (ViewGroup) getActivity().findViewById(R.id.lay));
+
+                    TextView text = (TextView) layout.findViewById(R.id.txt);
+
+                    text.setText("لا يمكن عرض الصفحه");
+
+                    Toast toast = new Toast(getActivity());
+                    toast.setGravity(Gravity.BOTTOM, 0, 0);
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.setView(layout);
+                    toast.show();
+                }
             }
         });
 
@@ -204,19 +392,28 @@ public class MainHome extends Fragment {
             public void onClick(View v) {
                 intent.putExtra("fragment", "sailed");
 //                longRunningTaskFuture.cancel(true);
-                startActivity(intent);
+                if (systemPermissions.get(7).isView()) {
+                    startActivity(intent);
+                } else {
+                    LayoutInflater inflater = getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.toast_warning,
+                            (ViewGroup) getActivity().findViewById(R.id.lay));
+
+                    TextView text = (TextView) layout.findViewById(R.id.txt);
+
+                    text.setText("لا يمكن عرض الصفحه");
+
+                    Toast toast = new Toast(getActivity());
+                    toast.setGravity(Gravity.BOTTOM, 0, 0);
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.setView(layout);
+                    toast.show();
+                }
             }
         });
     }
 
     private void loadData() {
-//        final int size = homeItems.size();
-//        if (size > 0) {
-//            for (int i = 0; i < size; i++) {
-//                homeItems.remove(0);
-//            }
-//            adapter.notifyItemRangeRemoved(0, size);
-//        }
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("جارى تحميل البيانات ...");
         progressDialog.setCancelable(false);

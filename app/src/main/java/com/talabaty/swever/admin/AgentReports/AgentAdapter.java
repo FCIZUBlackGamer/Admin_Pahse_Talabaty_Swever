@@ -92,7 +92,7 @@ public class AgentAdapter extends RecyclerView.Adapter<AgentAdapter.Vholder> {
         holder.id.setText(agents.get(position).getId());
         holder.name.setText(agents.get(position).getName());
         holder.num.setText(agents.get(position).getNum());
-        
+
         holder.start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

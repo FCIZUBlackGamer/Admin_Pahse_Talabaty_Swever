@@ -11,6 +11,7 @@
         <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:isScrollContainer="false"
             android:stretchColumns="0,1,2">
 
             <TableRow

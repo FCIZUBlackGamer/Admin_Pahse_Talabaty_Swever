@@ -6,9 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -40,8 +38,10 @@ import com.android.volley.toolbox.Volley;
 import com.talabaty.swever.admin.DetailsModel;
 import com.talabaty.swever.admin.LoginDatabae;
 import com.talabaty.swever.admin.Mabi3at.DoneTalabat.Talabat;
+import com.talabaty.swever.admin.Mabi3atPermission;
 import com.talabaty.swever.admin.Options.Details.DetailsAdapter;
 import com.talabaty.swever.admin.R;
+import com.talabaty.swever.admin.Mabi3atDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -79,6 +79,10 @@ public class MyTasksAdapter extends RecyclerView.Adapter<MyTasksAdapter.Vholder>
 
     int position;
 
+    Mabi3atDatabase systemDatabase;
+    Cursor sysCursor;
+    Mabi3atPermission permission;
+
     public MyTasksAdapter(Context context, List<Talabat> talabats, int temp_first, int temp_last) {
         this.context = context;
         this.talabats = talabats;
@@ -97,6 +101,16 @@ public class MyTasksAdapter extends RecyclerView.Adapter<MyTasksAdapter.Vholder>
             shopid = Integer.parseInt(cursor.getString(3));
 
         }
+        systemDatabase = new Mabi3atDatabase(context);
+        sysCursor = systemDatabase.ShowData();
+
+        permission = new Mabi3atPermission();
+        while (sysCursor.moveToNext()) {
+            if (sysCursor.getString(12).equals("4")) {
+                permission.setDetalis(Boolean.valueOf(sysCursor.getString(2)));
+                permission.setSends(Boolean.valueOf(sysCursor.getString(3)));
+            }
+        }
         return new Vholder(view);
     }
 
@@ -114,6 +128,13 @@ public class MyTasksAdapter extends RecyclerView.Adapter<MyTasksAdapter.Vholder>
         holder.num.setText(talabats.get(positio).getNum());
         holder.address.setText(talabats.get(positio).getAddress());
 
+
+        if (!permission.isDetalis()) {
+            holder.show.setVisibility(View.GONE);
+        }
+        if (!permission.isSends()) {
+            holder.start.setVisibility(View.GONE);
+        }
 
         holder.show.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,12 +192,10 @@ public class MyTasksAdapter extends RecyclerView.Adapter<MyTasksAdapter.Vholder>
                 next.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Log.e("L",temp_last+"");
-                        Log.e("F",temp_first+"");
-                        Log.e("P",position+"");
-                        Log.e("I",talabats.get(position).getNum()+"");
-                        if (position < temp_last) {
+                        if (position < temp_last && position < talabats.size()-1) {
+                            //position = positio;
                             loadData(Integer.parseInt(talabats.get(++position).getNum()), "2", num_order, total, dialog);
+                            num_order.setText(talabats.get(position).getNum() + "");
                         } else {
                             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 //
@@ -198,8 +217,9 @@ public class MyTasksAdapter extends RecyclerView.Adapter<MyTasksAdapter.Vholder>
                 prev.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (temp_first < position) {
+                        if (0 < position) {
                             loadData(Integer.parseInt(talabats.get(--position).getNum()), "1", num_order, total, dialog);
+                            num_order.setText(talabats.get(position).getNum());
                         } else {
                             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -347,7 +367,7 @@ public class MyTasksAdapter extends RecyclerView.Adapter<MyTasksAdapter.Vholder>
 //                Toast.makeText(context, "لا يتواجد اى بريد الكترونى هنا!", Toast.LENGTH_SHORT).show();
 //            }
 //Todo: Bug
-            submitMessage(message_content.getText().toString(), message_title.getText().toString(), message_template.getSelectedItem().toString(), 1);
+            submitMessage(message_content.getText().toString(), message_title.getText().toString(), message_template.getSelectedItem().toString(), 1,s);
 
         } else if (message_type.getSelectedItem().toString().equals("رساله نصيه")) {
 
@@ -370,10 +390,10 @@ public class MyTasksAdapter extends RecyclerView.Adapter<MyTasksAdapter.Vholder>
 //            } catch (android.content.ActivityNotFoundException ex) {
 //                Toast.makeText(context, "لا يتواجد اى بريد الكترونى هنا!", Toast.LENGTH_SHORT).show();
 //            }
-            submitMessage(message_content.getText().toString(), message_title.getText().toString(), message_template.getSelectedItem().toString(), 3);
+            submitMessage(message_content.getText().toString(), message_title.getText().toString(), message_template.getSelectedItem().toString(), 3,s);
 
         } else if (message_type.getSelectedItem().toString().equals("رساله عبر الإيميل")) {
-            submitMessage(message_content.getText().toString(), message_title.getText().toString(), message_template.getSelectedItem().toString(), 2);
+            submitMessage(message_content.getText().toString(), message_title.getText().toString(), message_template.getSelectedItem().toString(), 2,s);
         }
 
         clearMessageView();
@@ -772,7 +792,7 @@ public class MyTasksAdapter extends RecyclerView.Adapter<MyTasksAdapter.Vholder>
         requestQueue.add(stringRequest);
     }
 
-    private void submitMessage(final String Mes, final String sub, final String Res, final int option) {
+    private void submitMessage(final String Mes, final String sub, final String Res, final int option, final int position) {
 
         final ProgressDialog progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("انتظر من فضلك ...");
@@ -848,8 +868,10 @@ public class MyTasksAdapter extends RecyclerView.Adapter<MyTasksAdapter.Vholder>
                 hashMap.put("Res", Res + "");
                 hashMap.put("options", option + "");
                 hashMap.put("Sub", sub + "");
-                hashMap.put("UserId", userid+"");
-                hashMap.put("token","bKPNOJrob8x");
+                hashMap.put("UserId", userid + "");
+                hashMap.put("ShopId", shopid + "");
+                hashMap.put("OrderId", talabats.get(position).getNum() + "");
+                hashMap.put("token", "bKPNOJrob8x");
                 return hashMap;
             }
         };

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -29,6 +30,8 @@ import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
 import com.talabaty.swever.admin.Mabi3at.Mabi3atNavigator;
 import com.talabaty.swever.admin.R;
+import com.talabaty.swever.admin.SystemDatabase;
+import com.talabaty.swever.admin.SystemPermission;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,6 +53,9 @@ public class OfferListAdapter extends RecyclerView.Adapter<OfferListAdapter.Vhol
 
     ImageView close, delete, edit;
     String Delete_Link, Edit_Link;
+    SystemDatabase systemDatabase;
+    Cursor sysCursor;
+    List<SystemPermission> permissions;
 
     public OfferListAdapter(Context context, List<ListOfferModel> agents, int type) {
         this.context = context;
@@ -61,6 +67,17 @@ public class OfferListAdapter extends RecyclerView.Adapter<OfferListAdapter.Vhol
     @Override
     public Vholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_offer_list, parent, false);
+        systemDatabase = new SystemDatabase(context);
+        sysCursor = systemDatabase.ShowData();
+        permissions = new ArrayList<>();
+        while (sysCursor.moveToNext()) {
+            SystemPermission systemPermission = new SystemPermission();
+            systemPermission.setCreate(Boolean.valueOf(sysCursor.getString(1)));
+            systemPermission.setDelete(Boolean.valueOf(sysCursor.getString(2)));
+            systemPermission.setUpdate(Boolean.valueOf(sysCursor.getString(4)));
+            systemPermission.setScreensId(Integer.parseInt(sysCursor.getString(5)));
+            permissions.add(systemPermission);
+        }
         return new Vholder(view);
     }
 
@@ -84,7 +101,7 @@ public class OfferListAdapter extends RecyclerView.Adapter<OfferListAdapter.Vhol
         holder.name.setText(agents.get(position).getName());
         holder.price.setText(agents.get(position).getPrice() + " LE");
         if (agents.get(position).getPhoto() != null || !agents.get(position).getPhoto().isEmpty()) {
-            Picasso.with(context).load(agents.get(position).getPhoto()).into(holder.image);
+            Picasso.with(context).load("http://www.selltlbaty.rivile.com/"+agents.get(position).getPhoto()).into(holder.image);
         }
 
         holder.action.setOnClickListener(new View.OnClickListener() {
@@ -98,6 +115,16 @@ public class OfferListAdapter extends RecyclerView.Adapter<OfferListAdapter.Vhol
                 close = Control_view.findViewById(R.id.close);
                 delete = Control_view.findViewById(R.id.delete);
                 edit = Control_view.findViewById(R.id.edit);
+
+                if (!permissions.get(1).isUpdate()){
+                    edit.setVisibility(View.GONE);
+                }
+
+                if (!permissions.get(1).isDelete()){
+                    delete.setVisibility(View.GONE);
+                }
+
+
                 final AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setCancelable(false)
                         .setView(Control_view);
@@ -152,7 +179,7 @@ public class OfferListAdapter extends RecyclerView.Adapter<OfferListAdapter.Vhol
                                 totalOffer.setId(offer.getInt("Id"));
                                 totalOffer.setName(offer.getString("Name"));
                                 totalOffer.setPrice(offer.getDouble("Price"));
-                                totalOffer.setPhoto("http://www.selltlbaty.rivile.com"+offer.getString("Photo"));
+                                totalOffer.setPhoto(offer.getString("Photo"));
                                 totalOffer.setBlock(offer.getBoolean("Block"));
                                 totalOffer.setDescription(offer.getString("Description"));
 

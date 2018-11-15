@@ -11,14 +11,13 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -56,7 +55,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 import com.talabaty.swever.admin.Home;
 import com.talabaty.swever.admin.LoginDatabae;
 import com.talabaty.swever.admin.Montagat.ControlMontag.ControlMontagModel;
@@ -86,8 +84,8 @@ public class AddMontag extends Fragment {
     List<ColorCode> temp;
 
     // For Image
-    RecyclerView image_rec;
-    RecyclerView.Adapter image_adap;
+    RecyclerView image_rec , old_image_rec;
+    RecyclerView.Adapter image_adap, old_image_adap;
     List<Bitmap> imageSources;
     List<Bitmap> imageTemp;
 
@@ -113,9 +111,9 @@ public class AddMontag extends Fragment {
     FragmentManager fragmentManager;
     Button save, empty;
     // First CardView
-    EditText sanf_name, initialamount, desc;
+    EditText sanf_name, desc;
     // Second CardView
-    EditText buy_price, critical_amount, summary;
+    EditText buy_price, summary;
     // Third CardView
     EditText notes;
     Spinner department;
@@ -147,6 +145,10 @@ public class AddMontag extends Fragment {
     FloatingActionButton appear;
     int close_type;
 
+//    ImageView imageView2, delete_image;
+    int rel = 0;
+//    int img_ed_index = 0;
+
     public static AddMontag setData(ControlMontagModel x) {
         AddMontag c = new AddMontag();
         c.montagModel = x;
@@ -161,10 +163,8 @@ public class AddMontag extends Fragment {
         Gson gson = new Gson();
         Log.e("MontageModel", gson.toJson(montagModel));
         sanf_name = view.findViewById(R.id.sanf_name);
-        initialamount = view.findViewById(R.id.initialamount);
         desc = view.findViewById(R.id.desc);
-        buy_price = view.findViewById(R.id.buy_price);
-        critical_amount = view.findViewById(R.id.critical_amount);
+        buy_price = view.findViewById(R.id.buyex_price);
         summary = view.findViewById(R.id.summary);
         notes = view.findViewById(R.id.notes);
         department = view.findViewById(R.id.department);
@@ -181,6 +181,8 @@ public class AddMontag extends Fragment {
 
         image_rec = (RecyclerView) view.findViewById(R.id.image_rec);
         image_rec.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        old_image_rec = (RecyclerView) view.findViewById(R.id.old_image_rec);
+        old_image_rec.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         imageSources = new ArrayList<>();
         imageTemp = new ArrayList<>();
 
@@ -206,14 +208,17 @@ public class AddMontag extends Fragment {
         tempimageUri = new ArrayList<>();
 //        bytes = new ArrayList<>();
         Gallary = new ArrayList<>();
+        ((Home) getActivity())
+                .setActionBarTitle("إضافه منتج");
+//        imageView2 = view.findViewById(R.id.img);
+//        delete_image = view.findViewById(R.id.delete_image);
         return view;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        ((Home) getActivity())
-                .setActionBarTitle("إضافه منتج");
+
 //        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         fragmentManager = getFragmentManager();
         temp = colorCodes;
@@ -221,103 +226,155 @@ public class AddMontag extends Fragment {
         while (cursor.moveToNext()) {
             userid = Integer.parseInt(cursor.getString(2));
             shopid = Integer.parseInt(cursor.getString(3));
-
         }
+
         appear.setVisibility(View.GONE);
         requestStoragePermission();
         DepatmentList = new ArrayList<>();
         indexOfDepatmentList = new ArrayList<>();
         loadDepartment();
-        if (montagModel != null) {
-                sanf_name.setText(montagModel.getName());
-                initialamount.setText(montagModel.getAmount() + "");
-                if (!TextUtils.isEmpty(montagModel.getDescription())) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        desc.setText(Html.fromHtml(montagModel.getDescription(), Html.FROM_HTML_MODE_COMPACT));
+
+        if (montagModel != null){
+            save.setText("تعديل");
+        }
+
+        if (montagModel != null && rel == 0) {
+            ((Home) getActivity())
+                    .setActionBarTitle("تعديل منتج");
+            rel = 1;
+            sanf_name.setText(montagModel.getName());
+            if (!TextUtils.isEmpty(montagModel.getDescription())) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    desc.setText(Html.fromHtml(montagModel.getDescription(), Html.FROM_HTML_MODE_COMPACT));
+                } else {
+                    desc.setText(Html.fromHtml(montagModel.getDescription()));
+                }
+            }
+            desc.setEnabled(false);
+            buy_price.setText(montagModel.getSellPrice() + "");
+            if (!TextUtils.isEmpty(montagModel.getDescription())) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    summary.setText(Html.fromHtml(montagModel.getSummary(), Html.FROM_HTML_MODE_COMPACT));
+                } else {
+                    summary.setText(Html.fromHtml(montagModel.getSummary()));
+                }
+            }
+            summary.setEnabled(false);
+            if (!TextUtils.isEmpty(montagModel.getDescription())) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    notes.setText(Html.fromHtml(montagModel.getNotes(), Html.FROM_HTML_MODE_COMPACT));
+                } else {
+                    notes.setText(Html.fromHtml(montagModel.getNotes()));
+                }
+            }
+            notes.setEnabled(false);
+            UPLOAD_LINK = "http://sellsapi.rivile.com/sampleproduct/EditProducts";
+            save.setText("تعديل");
+
+            if (montagModel.getColor().size() > 0) {
+                colorCodes = new ArrayList<>();
+                for (int x = 0; x < montagModel.getColor().size(); x++) {
+                    if (montagModel.getColor().get(x).getColor().startsWith("#")) {
+                        colorCodes.add(new ColorCode(montagModel.getColor().get(x).getColor()));
                     } else {
-                        desc.setText(Html.fromHtml(montagModel.getDescription()));
+                        colorCodes.add(new ColorCode(String.format("#%06X", 0xFFFFFF & Integer.parseInt(montagModel.getColor().get(x).getColor()))));
                     }
                 }
-//                desc.setText(montagModel.getDescription());
-                desc.setEnabled(false);
-                buy_price.setText(montagModel.getSellPrice() + "");
-                critical_amount.setText(montagModel.getCriticalQuantity() + "");
-                if (!TextUtils.isEmpty(montagModel.getDescription())) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        summary.setText(Html.fromHtml(montagModel.getSummary(), Html.FROM_HTML_MODE_COMPACT));
-                    } else {
-                        summary.setText(Html.fromHtml(montagModel.getSummary()));
-                    }
-                }
-//                summary.setText(montagModel.getSummary() + "");
-                summary.setEnabled(false);
-                if (!TextUtils.isEmpty(montagModel.getDescription())) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        notes.setText(Html.fromHtml(montagModel.getNotes(), Html.FROM_HTML_MODE_COMPACT));
-                    } else {
-                        notes.setText(Html.fromHtml(montagModel.getNotes()));
-                    }
-                }
-//                notes.setText(montagModel.getNotes() + "");
-                notes.setEnabled(false);
-                UPLOAD_LINK = "http://sellsapi.rivile.com/sampleproduct/EditProducts";
-                save.setText("تعديل");
+                colorStrings = colorCodes;
+                Log.e("Color Size", colorCodes.size() + "");
+                adapter = new ColorAdapter(getActivity(), colorCodes);
+                recyclerView.setAdapter(adapter);
+            }
 
-                if (montagModel.getColor().size() > 0) {
-                    colorCodes = new ArrayList<>();
-                    for (int x = 0; x < montagModel.getColor().size(); x++) {
-                        try {
-                            colorCodes.add(new ColorCode(Color.parseColor(montagModel.getColor().get(x).getColor()) + ""));
-                        }catch (Exception e){
+            if (montagModel.getSizew().size() > 0) {
+                sizeDimention = new ArrayList<>();
+                for (int x = 0; x < montagModel.getSizew().size(); x++) {
+                    sizeDimention.add(new Size(montagModel.getSizew().get(x).getSize()));
+                }
+                size_adap = new SizeAdapter(getActivity(), sizeDimention);
+                size_rec.setAdapter(size_adap);
+            }
 
-                        }
-                    }
-                    colorStrings = colorCodes;
-                    adapter = new ColorAdapter(getActivity(), colorCodes);
-                    recyclerView.setAdapter(adapter);
+            if (montagModel.getGallary().size() > 0) {
+                Log.e("Gallary Size", montagModel.getGallary().size() + "");
+//                Log.e("Gallary Item", montagModel.getGallary().get(0).getPhoto());
+                imageSources = new ArrayList<>();
+                imageUri = new ArrayList<>();
+
+
+                for (int x=0; x<montagModel.getGallary().size(); x++){
+                    Gallary.add(new ImageSource(montagModel.getGallary().get(x).getPhoto()));
                 }
 
-                if (montagModel.getSizew().size() > 0) {
-                    sizeDimention = new ArrayList<>();
-                    for (int x = 0; x < montagModel.getSizew().size(); x++) {
-                        sizeDimention.add(new Size(montagModel.getSizew().get(x).getSize()));
-                    }
-                    size_adap = new SizeAdapter(getActivity(), sizeDimention);
-                    size_rec.setAdapter(size_adap);
-                }
+                old_image_adap = new OldImageAdapter(getActivity(), Gallary);
+                old_image_rec.setAdapter(old_image_adap);
 
-                if (montagModel.getGallary().size() > 0) {
-                    imageSources = new ArrayList<>();
-                    imageUri = null;
-                    for (int x = 0; x < montagModel.getGallary().size(); x++) {
-                        Picasso.with(getActivity())
-                                .load(montagModel.getGallary().get(x).getPhoto())
-                                .into(new Target() {
-                                    @Override
-                                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                                        imageSources.add(bitmap);
-                                    }
+                //img_ed_index = Gallary.size();
 
-                                    @Override
-                                    public void onBitmapFailed(Drawable errorDrawable) {
+//                imageView2.setVisibility(View.VISIBLE);
+//                delete_image.setVisibility(View.VISIBLE);
 
-                                    }
+//                        try{
+//                            Thread.sleep(5000);
+//                            bitmap = ((BitmapDrawable)imageView2.getDrawable()).getBitmap();
+//                            imageSources.add(bitmap);
+//                            imageStrings.add(getStringImage(bitmap));
+//                            image_adap.notifyDataSetChanged();
+//                        }catch (Exception e){
+//
+//                        }
 
-                                    @Override
-                                    public void onPrepareLoad(Drawable placeHolderDrawable) {
+//                delete_image.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Log.e("GALLERY SIZE", Gallary.size() + "");
+//                        Gallary.remove(img_ed_index - 1);
+////                            for (Object a : Gallary) {
+////                                if (a == new ImageSource(montagModel.getGallary().get(0).getPhoto())) {
+////                                    Gallary.remove(a);
+////                                }
+////                            }
+////                            for (ImageSource a : new ArrayList<>(Gallary)) {
+////                                if (a == new ImageSource(montagModel.getGallary().get(0).getPhoto())) {
+////                                    Gallary.remove(a);
+////                                }
+////                            }
+//
+////                            for (Iterator<ImageSource> iter = Gallary.listIterator(); iter.hasNext(); ) {
+////                                ImageSource a = iter.next();
+////                                if (a == new ImageSource(montagModel.getGallary().get(0).getPhoto())) {
+////                                    Gallary.remove(a);
+////                                }
+////                            }
+//
+////                            Gallary.remove(new ImageSource(montagModel.getGallary().get(0).getPhoto()));
+//                        Log.e("GALLERY SIZE", Gallary.size() + "");
+//                        imageView2.setVisibility(View.GONE);
+//                        delete_image.setVisibility(View.GONE);
+//                    }
+//                });
 
-                                    }
-                                });
-                    }
-                    image_adap = new ImageAdapter(getActivity(), imageSources, imageUri);
-                    image_rec.setAdapter(image_adap);
+//                    image_adap = new ImageAdapter(getActivity(), imageSources, imageUri);
+//                    image_rec.setAdapter(image_adap);
 
-                }
+            }
 
-                //Todo: Forgot To Get Data For Spinner From WebService As so Create it's Own Value into Model
-                // Here To Set Item To Spinner
+//            if (montagModel.getGallary().size() == 0){
+//                imageView2.setVisibility(View.GONE);
+//                delete_image.setVisibility(View.GONE);
+//            }
+
+            //Todo: Forgot To Get Data For Spinner From WebService As so Create it's Own Value into Model
+            // Here To Set Item To Spinner
 
         }
+//        else {
+//            imageView2.setVisibility(View.GONE);
+//            delete_image.setVisibility(View.GONE);
+//        }
+
+        image_adap = new ImageAdapter(getActivity(), imageSources, imageUri);
+        image_rec.setAdapter(image_adap);
 
         sanf = new Sanf();
         choose_color.setOnClickListener(new View.OnClickListener() {
@@ -377,6 +434,7 @@ public class AddMontag extends Fragment {
             @Override
             public void onClick(View v) {
 
+//                if (montagModel == null) {
                 final LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
                 Camera_view = inflater.inflate(R.layout.camera_view, null);
@@ -394,6 +452,7 @@ public class AddMontag extends Fragment {
                 dialog.show();
 
                 gal.setOnClickListener(new View.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
                     @Override
                     public void onClick(View v) {
                         openGalary();
@@ -440,6 +499,7 @@ public class AddMontag extends Fragment {
 
                     }
                 });
+//                }
             }
         });
 
@@ -465,6 +525,7 @@ public class AddMontag extends Fragment {
                 dialog.show();
 
                 gal.setOnClickListener(new View.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
                     @Override
                     public void onClick(View v) {
                         openGalary();
@@ -540,8 +601,19 @@ public class AddMontag extends Fragment {
                     sanf_name.setError("ادخل اسم المنتج");
                 }else if (buy_price.getText().toString().isEmpty()){
                     buy_price.setError("اضف سعر للبيع");
-                }else if (initialamount.getText().toString().isEmpty()){
-                    initialamount.setError("اضف عدد افتراضى");
+                } else if (imageStrings.size() < 1 && Gallary.size() == 0) {
+                    LayoutInflater inflater = getLayoutInflater();
+                    View layout = inflater.inflate(R.layout.toast_error,
+                            (ViewGroup) getActivity().findViewById(R.id.lay));
+
+                    TextView text = (TextView) layout.findViewById(R.id.txt);
+                    text.setText("برجاء ادخال صور للمنتجات");
+
+                    Toast toast = new Toast(getActivity());
+                    toast.setGravity(Gravity.BOTTOM, 0, 0);
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.setView(layout);
+                    toast.show();
                 }else if (sizeDimention.size() < 1){
                     LayoutInflater inflater = getLayoutInflater();
                     View layout = inflater.inflate(R.layout.toast_error,
@@ -574,11 +646,10 @@ public class AddMontag extends Fragment {
                     sanf.setSummary(summary.getText().toString());
                     sanf.setDescription(desc.getText().toString());
                     sanf.setNotes(notes.getText().toString());
-                    sanf.setCriticalQuantity(Integer.parseInt(critical_amount.getText().toString()));
-                    sanf.setAmount(Integer.parseInt(initialamount.getText().toString()));
 //                sanf.setInsertDate("3");
                     sanf.setSize(sizeDimention);
                     sanf.setColor(colorCodes);
+//                    sanf.setGallary(montagModel.getGallary());
                     uploadImage();
                 }
 
@@ -590,10 +661,8 @@ public class AddMontag extends Fragment {
             @Override
             public void onClick(View v) {
                 sanf_name.setText("");
-                initialamount.setText("");
                 desc.setText("");
                 buy_price.setText("");
-                critical_amount.setText("");
                 summary.setText("");
                 notes.setText("");
 
@@ -738,10 +807,12 @@ public class AddMontag extends Fragment {
         Volley.newRequestQueue(getActivity()).add(stringRequest);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     private void openGalary() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
     }
 
@@ -768,6 +839,7 @@ public class AddMontag extends Fragment {
     }
 
     private void uploadImage() {
+
         final Gson gson = new Gson();
         Log.e("Connection UploadImage", "Here");
         final String allImages = gson.toJson(imageStrings);
@@ -854,21 +926,13 @@ public class AddMontag extends Fragment {
         Volley.newRequestQueue(getActivity()).add(stringRequest);
     }
 
-
     private void loadDepartment() {
 
         DepatmentList = new ArrayList<>();
         indexOfDepatmentList = new ArrayList<>();
 
-//        if (DepatmentList.size() > 0) {
-//            for (int x = 0; x < DepatmentList.size(); x++) {
-//                DepatmentList.remove(x);
-//                indexOfDepatmentList.remove(x);
-//            }
-//        }
-
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://www.sellsapi.rivile.com/SampleProduct/SelectSampleCatogories?ShopId="+shopid+"token=bKPNOJrob8x", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://www.sellsapi.rivile.com/SampleProduct/SelectSampleCatogories?ShopId=" + shopid + "&token=bKPNOJrob8x", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -962,7 +1026,6 @@ public class AddMontag extends Fragment {
         } else {
             sizeDimention.add(new Size(sizetype));
         }
-//        Toast.makeText(getActivity(),String.format("Current color: 0x%08x", color),Toast.LENGTH_SHORT).show();
 
         size_adap = new SizeAdapter(getActivity(), sizeDimention);
         size_rec.setAdapter(size_adap);
@@ -970,9 +1033,7 @@ public class AddMontag extends Fragment {
 
     void displayColor(int color) {
         final int size = colorCodes.size();
-//        ContactItem []x = new ContactItem[size];
         if (size > 0) {
-//            temp.add(colorCodes);
             for (int i = 0; i < size; i++) {
                 temp.add(colorCodes.get(0));
                 colorCodes.remove(0);
@@ -985,41 +1046,40 @@ public class AddMontag extends Fragment {
         } else {
             colorCodes.add(new ColorCode(String.valueOf(color)));
         }
-//        Toast.makeText(getActivity(),String.format("Current color: 0x%08x", color),Toast.LENGTH_SHORT).show();
 
         adapter = new ColorAdapter(getActivity(), colorCodes);
         recyclerView.setAdapter(adapter);
     }
 
     void displayImage(Bitmap path, Uri uri) {
-        final int size = imageSources.size();
+//        final int size = imageSources.size();
 //        ContactItem []x = new ContactItem[size];
-        if (size > 0) {
+//        if (size > 0) {
 //            temp.add(colorCodes);
-            for (int i = 0; i < size; i++) {
-                imageTemp.add(imageSources.get(0));
-                imageSources.remove(0);
-                tempimageUri.add(imageUri.get(0));
-                imageUri.remove(0);
-            }
+//            for (int i = 0; i < size; i++) {
+//                imageTemp.add(imageSources.get(0));
+//                imageSources.remove(0);
+//                tempimageUri.add(imageUri.get(0));
+//                imageUri.remove(0);
+//            }
 
-            imageSources = imageTemp;
-            imageUri = tempimageUri;
+//            imageSources = imageTemp;
+//            imageUri = tempimageUri;
             imageSources.add(path);
             imageUri.add(uri);
 //            Log.e("Path",path);
             imageStrings.add(getStringImage(path));
+        image_adap.notifyDataSetChanged();
 
-            image_adap.notifyItemRangeRemoved(0, size);
-        } else {
-            imageSources.add(path);
-            imageStrings.add(getStringImage(path));
-            imageUri.add(uri);
-        }
+//            image_adap.notifyItemRangeRemoved(0, size);
+//        } else {
+//            imageSources.add(path);
+//            imageStrings.add(getStringImage(path));
+//            imageUri.add(uri);
+//        }
 //        Toast.makeText(getActivity(),String.format("Current color: 0x%08x", color),Toast.LENGTH_SHORT).show();
 
-        image_adap = new ImageAdapter(getActivity(), imageSources, imageUri);
-        image_rec.setAdapter(image_adap);
+
     }
 
     @Override
@@ -1047,18 +1107,61 @@ public class AddMontag extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Uri filePath;
+        List<String> imagesEncodedList;
+        String imageEncoded;
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             filePath= data.getData();
             try {
                 //Getting the Bitmap from Gallery
                 bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
+                bitmap = getResizedBitmap(bitmap, 100);
                 displayImage(bitmap, filePath);
 
+//                String[] filePathColumn = {MediaStore.Images.Media.DATA};
+//                imagesEncodedList = new ArrayList<String>();
+//                if (data.getData() != null) {
+//
+//                    Uri mImageUri = data.getData();
+//
+//                    // Get the cursor
+//                    Cursor cursor = getActivity().getContentResolver().query(mImageUri,
+//                            filePathColumn, null, null, null);
+//                    // Move to first row
+//                    cursor.moveToFirst();
+//
+//                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+//                    imageEncoded = cursor.getString(columnIndex);
+//                    cursor.close();
+//
+//                } else {
+//                    if (data.getClipData() != null) {
+//                        ClipData mClipData = data.getClipData();
+//                        ArrayList<Uri> mArrayUri = new ArrayList<Uri>();
+//                        for (int i = 0; i < mClipData.getItemCount(); i++) {
+//
+//                            ClipData.Item item = mClipData.getItemAt(i);
+//                            Uri uri = item.getUri();
+//                            mArrayUri.add(uri);
+//                            // Get the cursor
+//                            Cursor cursor = getActivity().getContentResolver().query(uri, filePathColumn, null, null, null);
+//                            // Move to first row
+//                            cursor.moveToFirst();
+//
+//                            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+//                            imageEncoded = cursor.getString(columnIndex);
+//                            imagesEncodedList.add(imageEncoded);
+//                            cursor.close();
+//
+//                        }
+//                        Log.v("LOG_TAG", "Selected Images" + mArrayUri.size());
+//                    }
+//                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }else if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             bitmap = (Bitmap) data.getExtras().get("data");
+            bitmap = getResizedBitmap(bitmap, 100);
             filePath = null;
             displayImage(bitmap, filePath);
 //            imageView.setImageBitmap(photo);
@@ -1073,5 +1176,20 @@ public class AddMontag extends Fragment {
         return encodedImage;
     }
 
+    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        float bitmapRatio = (float) width / (float) height;
+        if (bitmapRatio > 1) {
+            width = maxSize;
+            height = (int) (width / bitmapRatio);
+        } else {
+            height = maxSize;
+            width = (int) (height * bitmapRatio);
+        }
+
+        return Bitmap.createScaledBitmap(image, width, height, true);
+    }
 
 }

@@ -232,14 +232,7 @@ public class WithCapital extends Fragment {
                 toast.setView(layout);
                 toast.show();
             }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap hashMap = new HashMap();
-                hashMap.put("token", "bKPNOJrob8x");
-                return hashMap;
-            }
-        };
+        });
         int socketTimeout = 30000;
         RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, 2, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         stringRequest.setRetryPolicy(policy);
@@ -291,13 +284,14 @@ public class WithCapital extends Fragment {
                             JSONObject object = new JSONObject(response);
                             JSONArray array = object.getJSONArray("DeliveryValueList");
 
-                            final int size = models.size();
-                            if (size > 0) {
-                                for (int i = 0; i < size; i++) {
-                                    models.remove(0);
-                                }
-                                adapter.notifyItemRangeRemoved(0, size);
-                            }
+//                            final int size = models.size();
+//                            if (size > 0) {
+//                                for (int i = 0; i < size; i++) {
+//                                    models.remove(0);
+//                                }
+//                                adapter.notifyItemRangeRemoved(0, size);
+//                            }
+                            models = new ArrayList<>();
 
                             for (int x = 0; x < array.length(); x++) {
                                 JSONObject object1 = array.getJSONObject(x);
@@ -342,14 +336,7 @@ public class WithCapital extends Fragment {
                 toast.setView(layout);
                 toast.show();
             }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap hashMap = new HashMap();
-                hashMap.put("token", "bKPNOJrob8x");
-                return hashMap;
-            }
-        };
+        });
 //        Volley.newRequestQueue(getActivity()).add(stringRequest);
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(
                 DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,

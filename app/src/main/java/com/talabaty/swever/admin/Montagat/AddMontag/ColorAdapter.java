@@ -1,6 +1,7 @@
 package com.talabaty.swever.admin.Montagat.AddMontag;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -33,7 +34,16 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.Vholder> {
     @Override
     public void onBindViewHolder(@NonNull Vholder holder, final int position) {
 
-        holder.color.setBackgroundColor(Integer.parseInt(colorCodes.get(position).getColor()));
+        if (colorCodes.get(position).getColor().startsWith("#")){
+            holder.color.setBackgroundColor(Color.parseColor(colorCodes.get(position).getColor()));
+        }else {
+            try {
+                holder.color.setBackgroundColor(Integer.parseInt(colorCodes.get(position).getColor()));
+            }catch (Exception e){
+
+            }
+        }
+
         holder.delete_color.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

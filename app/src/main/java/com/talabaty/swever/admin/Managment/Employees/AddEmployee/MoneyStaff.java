@@ -37,6 +37,7 @@ public class MoneyStaff extends Fragment {
         Type = type;
         return staff;
     }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

@@ -28,6 +28,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 import com.talabaty.swever.admin.LoginDatabae;
 import com.talabaty.swever.admin.Mabi3at.Mabi3atNavigator;
 import com.talabaty.swever.admin.Montagat.AddMontag.ColorCode;
@@ -98,13 +99,6 @@ public class ControlMontag extends Fragment {
     }
 
     private void loadMontages(){
-//        final int size = models.size();
-//        if (size > 0) {
-//            for (int i = 0; i < size; i++) {
-//                models.remove(0);
-//            }
-//            adapter.notifyItemRangeRemoved(0, size);
-//        }
 
         models = new ArrayList<>();
         final ProgressDialog loading = ProgressDialog.show(getActivity(), "Downloading...", "Please wait...", false, false);
@@ -146,9 +140,8 @@ public class ControlMontag extends Fragment {
                                     item.setAmount(object1.getInt("Amount"));
                                     item.setSampleCatogoriesId(object1.getInt("SampleCatogoriesId"));
 
-                                    JSONArray color = object1.getString("Color")!= null ?new JSONArray():new JSONArray(object1.getString("Color"));
+                                    JSONArray color = object1.getString("Color").equals("null") ?new JSONArray():new JSONArray(object1.getString("Color"));
 //                                JSONArray colorarray = color.getJSONArray("Color");
-                                    if (color.isNull(0))
                                     if (color.length() > 0) {
                                         for (int i = 0; i < color.length(); i++) {
                                             JSONObject object2 = color.getJSONObject(i);
@@ -164,7 +157,7 @@ public class ControlMontag extends Fragment {
 
                                     item.setColor(codeList);
 
-                                    JSONArray size = object1.getString("Size") != null ?new JSONArray():new JSONArray(object1.getString("Size"));
+                                    JSONArray size = object1.getString("Size").equals("null") ?new JSONArray():new JSONArray(object1.getString("Size"));
 //                                JSONArray sizearray = size.getJSONArray("Size");
                                     if (size.length() > 0) {
                                         for (int i = 0; i < size.length(); i++) {
@@ -180,14 +173,14 @@ public class ControlMontag extends Fragment {
 
                                     item.setSizew(sizeList);
 
-                                    JSONArray image = object1.getString("Gallary")!= null ?new JSONArray():new JSONArray(object1.getString("Gallary"));
+                                    JSONArray image = object1.getString("Gallary").equals("null") ? new JSONArray():new JSONArray(object1.getString("Gallary"));
 //                                JSONArray imagearray = image.getJSONArray("Gallary");
                                     if (image.length() > 0) {
                                         for (int i = 0; i < image.length(); i++) {
                                             JSONObject object2 = image.getJSONObject(i);
                                             ImageSource code = new ImageSource(
                                                     object2.getInt("Id"),
-                                                    "http://selltlbaty.rivile.com"+object2.getString("Photo"),
+                                                    object2.getString("Photo"),
                                                     object2.getInt("SampleProductId")
                                             );
                                             sourceList.add(code);
@@ -282,8 +275,16 @@ public class ControlMontag extends Fragment {
                                     ControlMontagModel item = new ControlMontagModel(x + 1);
                                     item.setId(object1.getInt("Id"));
                                     item.setName(object1.getString("Name"));
-                                    item.setBuyPrice(object1.getInt("BuyPrice"));
-                                    item.setSellPrice(object1.getInt("SellPrice"));
+                                    try {
+                                        item.setBuyPrice(object1.getInt("BuyPrice"));
+                                    }catch (Exception c){
+
+                                    }
+                                    try {
+                                        item.setBuyPrice(object1.getInt("SellPrice"));
+                                    }catch (Exception c){
+
+                                    }
                                     item.setSummary(object1.getString("Summary"));
                                     item.setDescription(object1.getString("Description"));
                                     item.setNotes(object1.getString("Notes"));
@@ -296,39 +297,48 @@ public class ControlMontag extends Fragment {
                                     item.setAmount(object1.getInt("Amount"));
                                     item.setSampleCatogoriesId(object1.getInt("SampleCatogoriesId"));
 
-                                    JSONArray size = object1.getString("Size") != null ?new JSONArray():new JSONArray(object1.getString("Size"));
+                                    try {
+                                        JSONArray size = new JSONArray(object1.getString("Size"));
 //                                JSONArray sizearray = size.getJSONArray("Size");
-                                    if (size.length() > 0) {
-                                        for (int i = 0; i < size.length(); i++) {
-                                            JSONObject object2 = size.getJSONObject(i);
-                                            com.talabaty.swever.admin.Montagat.AddReturanteMontage.Size code = new com.talabaty.swever.admin.Montagat.AddReturanteMontage.Size(
-                                                    object2.getInt("Id"),
-                                                    object2.getString("Size"),
-                                                    object2.getInt("SampleProductId")
-                                            );
-                                            code.setPrice(object2.getDouble("Price")+"");
-                                            sizeList.add(code);
+                                        if (size.length() > 0) {
+                                            for (int i = 0; i < size.length(); i++) {
+                                                JSONObject object2 = size.getJSONObject(i);
+                                                com.talabaty.swever.admin.Montagat.AddReturanteMontage.Size code = new com.talabaty.swever.admin.Montagat.AddReturanteMontage.Size(
+                                                        object2.getInt("Id"),
+                                                        object2.getString("Size"),
+                                                        object2.getInt("SampleProductId")
+                                                );
+                                                code.setPrice(object2.getDouble("Price") + "");
+                                                sizeList.add(code);
+                                            }
                                         }
+
+                                        item.setSize(sizeList);
+                                    }catch (Exception e){
+
                                     }
+//                                    Gson gson = new Gson();
+//                                    Log.e("Size in List",gson.toJson(item.getSize()));
 
-                                    item.setSize(sizeList);
-
-                                    JSONArray image = object1.getString("Gallary")!= null ?new JSONArray():new JSONArray(object1.getString("Gallary"));
+                                    try {
+                                        JSONArray image = new JSONArray(object1.getString("Gallary"));
 //                                JSONArray imagearray = image.getJSONArray("Gallary");
-                                    if (image.length() > 0) {
-                                        for (int i = 0; i < image.length(); i++) {
-                                            JSONObject object2 = image.getJSONObject(i);
-                                            ImageSource code = new ImageSource(
-                                                    object2.getInt("Id"),
-                                                    "http://selltlbaty.rivile.com"+object2.getString("Photo"),
-                                                    object2.getInt("SampleProductId")
-                                            );
-                                            sourceList.add(code);
+                                        if (image.length() > 0) {
+                                            for (int i = 0; i < image.length(); i++) {
+                                                JSONObject object2 = image.getJSONObject(i);
+                                                ImageSource code = new ImageSource(
+                                                        object2.getInt("Id"),
+                                                        object2.getString("Photo"),
+                                                        object2.getInt("SampleProductId")
+                                                );
+                                                sourceList.add(code);
+                                            }
                                         }
+
+                                        item.setGallary(sourceList);
+                                    }catch (Exception e){
+
                                     }
-
-                                    item.setGallary(sourceList);
-
                                     models.add(item);
                                 }
                             } catch (JSONException e) {

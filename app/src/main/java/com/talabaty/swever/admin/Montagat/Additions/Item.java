@@ -4,9 +4,14 @@ public class Item {
     String id, Name;
     float Price;
     int ShopId, num;
+    int Shop_Id;
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public void setShop_Id(int shop_Id) {
+        Shop_Id = shop_Id;
     }
 
     public void setShopId(int shopId) {
@@ -21,11 +26,13 @@ public class Item {
         this.Name = Name;
         this.Price = Price;
         this.ShopId = ShopId;
+        this.Shop_Id = ShopId;
     }
 
     public Item(String Name, int ShopId) {
         this.Name = Name;
         this.ShopId = ShopId;
+        this.Shop_Id = ShopId;
     }
 
     public void setPrice(float Price) {
@@ -44,7 +51,11 @@ public class Item {
         return Name;
     }
 
-    public float getNum() {
+    public int getNum() {
+        return num;
+    }
+
+    public float getPrice() {
         return Price;
     }
 }
